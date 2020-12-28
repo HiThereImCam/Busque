@@ -30,7 +30,7 @@ venues: {
     type: Schema.Types.ObjectId,
     ref: "venues"
 },
-comments: {
+comments: { //todo check if comments/ratings need to be seperate for venues/users
     type: Schema.Types.ObjectId,
     ref: "comments"
 },
