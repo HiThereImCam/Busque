@@ -3,5 +3,3 @@ const validText = str => {
 }
 
 module.exports = validText;
-
-// askdjf;alskdjfa;sjdklf
