@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
- const keys = require("../../config/keys");
+const keys = require("../../config/keys");
 const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
@@ -20,25 +20,24 @@ router.get(
   }
 );
 
-router.post("/register", (req, res) => {
+router.post("/signup", (req, res) => {
+  console.log(`Body: ${JSON.stringify(req.body)}`);
+  const { errors, isValid } = validateRegisterInput(req.body);
 
-     const { errors, isValid } = validateRegisterInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
-     if (!isValid) {
-       return res.status(400).json(errors);
-     }
-     
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       return res
         .status(400)
         .json({ email: "A user has already registered with this address" });
     } else {
-        
       const newUser = new User({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -52,7 +51,7 @@ router.post("/register", (req, res) => {
         });
       });
     }
-  })
+  });
 }); //end register
 
 router.post("/login", (req, res) => {
@@ -95,9 +94,8 @@ router.post("/login", (req, res) => {
   });
 }); //end login
 
-
-router.get("/test", (req, res) => res.json({ msg: "This is the users route ya bish" }));
-
-
+router.get("/test", (req, res) =>
+  res.json({ msg: "This is the users route ya bish" })
+);
 
 module.exports = router;
