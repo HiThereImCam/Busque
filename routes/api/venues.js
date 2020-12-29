@@ -18,7 +18,7 @@ router.get("/:id", (req, res) => { //find venue by ID
 
 router.post( //create venue
   "/",
-  // passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const newVenue = new Venue({
       name: req.body.name,

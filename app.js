@@ -1,4 +1,5 @@
 const path = require("path");
+const passport = require("passport");
 
 const mongoose = require("mongoose");
 const express = require("express");
@@ -7,6 +8,7 @@ const db = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
 const venues = require("./routes/api/venues");
+require("./config/passport")(passport);
 
 
 mongoose
