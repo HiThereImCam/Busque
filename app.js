@@ -10,6 +10,7 @@ app.use(bodyParser.json());
 const users = require("./routes/api/users");
 const venues = require("./routes/api/venues")
 
+
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
