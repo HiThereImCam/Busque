@@ -2,6 +2,10 @@
 const Schema = mongoose.Schema;
 
 const VenueSchema = new Schema({
+  name: {
+    type: String, 
+    required: true
+  },
   latitude: {
     type: Number,
     required: true,
