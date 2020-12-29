@@ -19,6 +19,10 @@ class SignupForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
+    componentDidMount() {
+        this.props.clearErrors(); 
+    }
+
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value 
@@ -96,8 +100,9 @@ class SignupForm extends React.Component {
                         <select value={this.state.performerType} onChange={this.update('performerType')}>
                             <option value="">Select your Performer Type</option>
                             <option value="Musician">Musician</option>
-                            <option value=""></option> //TODO what other performer types? 
-
+                            <option value="Dancers">Dancers</option> 
+                            <option value="Artists">Artists</option> 
+                            <option value="Other">Other</option>  
                         </select>
                         <input type="text"
                             value={this.state.bio}
