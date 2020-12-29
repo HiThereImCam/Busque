@@ -6,7 +6,7 @@ const User = require("../../models/User");
 //  const keys = require("../../config/keys");
 // const passport = require("passport");
 
-router.post("/register", (req, res) => {
+router.post("/signup", (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       return res
