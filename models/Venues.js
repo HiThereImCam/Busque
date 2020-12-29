@@ -29,3 +29,6 @@ const VenueSchema = new Schema({
     ref: "ratings",
   },
 });
+
+
+module.exports = Venue = mongoose.model("Venue", VenueSchema);
