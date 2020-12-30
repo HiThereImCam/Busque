@@ -4,19 +4,9 @@ import { MapboxStyleSwitcherControl } from "mapbox-gl-style-switcher";
 import "mapbox-gl-style-switcher/styles.css";
 import "../../css/main_page.css";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYnVzcXVlIiwiYSI6ImNraXV1bnVsbTMwZ3Myc3BkN3Y1dzA5cDYifQ.YjWFqdAWPOmKH7oLwBDKWA";
+const { REACT_APP_MAPBOX_KEY } = process.env;
 
-// const styles: MapboxStyleDefinition[] = [
-//   {
-//     title: "Dark",
-//     uri: "mapbox://styles/mapbox/dark-v9",
-//   },
-//   {
-//     title: "Light",
-//     uri: "mapbox://styles/mapbox/light-v9",
-//   },
-// ];
+mapboxgl.accessToken = REACT_APP_MAPBOX_KEY;
 
 class MainPage extends React.Component {
   constructor(props) {
