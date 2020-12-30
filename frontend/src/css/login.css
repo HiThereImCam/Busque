@@ -1,0 +1,64 @@
+@media only screen and (max-width: 600px) {
+    
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    top: 200px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: grey;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px 2px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Verdana;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 10px 10px;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+button {
+    margin: 10px 10px 10px 10px;
+    color: lightgrey;
+    background-color: blue;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: Verdana;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+
+input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
