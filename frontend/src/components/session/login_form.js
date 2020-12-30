@@ -75,11 +75,11 @@ class LoginForm extends Component {
             value={password}
             onChange={this.handleInputChange}
           />
+          <div>
+            <button>Login</button>
+            <button onClick={() => this.demoUser()}>Demo User</button>
+          </div>
         </form>
-        <div>
-          <button>Login</button>
-          <button onClick={() => this.demoUser()}>Demo User</button>
-        </div>
       </div>
     );
   }
