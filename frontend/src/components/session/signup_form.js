@@ -44,27 +44,9 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append('user[username]', this.state.username)
-    // formData.append('user[email]', this.state.email)
-    // formData.append('user[password]', this.state.password) //take out?
-
-    // if (this.state.performerType) {
-    //     formData.append('user[performerType]', this.state.performerType)
-    // }
-
-    // if (this.state.bio) {
-    //     formData.append('user[bio]', this.state.bio)
-    // }
-
-    // if (this.state.photoFile) {
-    //     formData.append('user[imageURL]', this.state.photoFile)
-    // }
-
     const user = Object.assign({}, this.state);
 
-    this.props.signup(user).then(this.props.history.push('/')) //! works?
+    this.props.signup(user).then(this.props.history.push("/")); //! works?
   }
 
   renderErrors() {
