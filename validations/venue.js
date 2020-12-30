@@ -6,7 +6,7 @@ module.exports = function validateVenueInput(data) {
 
     data.name = validText(data.name) ? data.name : '';
     data.type = validText(data.type) ? data.type : '';
-    data.latitude = validText(data.latitude) ? data.latitude : '';cd 
+    data.latitude = validText(data.latitude) ? data.latitude : '';
     data.longitude = validText(data.longitude) ? data.longitude : '';
     data.available = validText(data.available) ? data.available : '';
 
