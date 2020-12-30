@@ -1,3 +1,5 @@
+//! Would suggest placeholders for front end update/delete components
+
 const express = require("express");
 const router = express.Router();
 
@@ -50,7 +52,7 @@ router.put(
     const { errors, isValid } = validateVenueInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json(errors); 
+      return res.status(400).json(errors);
     }
     Venue.findByIdAndUpdate(
       req.params.id,
@@ -59,12 +61,11 @@ router.put(
         longitude: req.body.longitude,
         latitude: req.body.latitude,
         type: req.body.type,
-        available: req.body.available
+        available: req.body.available,
       },
       { new: true },
       //error handling
       function (err, response) {
-        
         if (err) {
           console.log("we hit an error" + err);
           res.json({
@@ -72,13 +73,30 @@ router.put(
           });
         }
         console.log("This is the Response: " + response);
-              return res.send(response);
-
+        return res.send(response);
       }
     );
   }
-);
+); //end update
 
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Venue.findByIdAndDelete(req.params.id, function(err, response) {
+      if (err) {
+        console.log(err)
+      res.json({
+        message: "Database Update Failure",
+      })
+      } 
+      console.log(`this is the response: ${response}`)
+      return res.send(response);
+    }
+    );
+  
+  }
 
+); //end delete
 
 module.exports = router;
