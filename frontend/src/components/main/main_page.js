@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import Mapbox from "../mapbox/mapbox";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "../../css/header.css";
+import mapboxgl from 'mapbox-gl'; 
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 
 class MainPage extends Component {
@@ -25,7 +28,7 @@ class MainPage extends Component {
   closeSearchModal() {
     this.setState({ open: false })
   }
-
+  
   render() {
     return (
       <div>
@@ -34,15 +37,12 @@ class MainPage extends Component {
             <div className="hamburger">
               <FontAwesomeIcon onClick={this.openSearchModal} className="fas faBars fa-2x" icon={faBars} />
             </div>
-            <div className="search-bar">
-              <input type="text" placeholder="Search" />
-              <FontAwesomeIcon className="search-icon" icon={faSearch} />
-            </div>
+            <div ref={(el) => (this.geocoder = el)} className="geocoder"></div>
           </div>
-          <div className="header-right">
+          {/* <div className="header-right">
             <Link className="login-button" to={"/login"}>Login</Link>
-          </div>
-        </header>
+          </div> */}
+        </header>  
         <Mapbox />
       </div>
     );

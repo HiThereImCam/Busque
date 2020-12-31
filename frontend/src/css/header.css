@@ -4,9 +4,11 @@
     justify-content: space-between;
     margin-top: 10px;
     margin-left: 10px;
+     
 }
 
 .header-left {
+    /* position: absolute;  */
     display: flex; 
     flex-direction: row;
     /* justify-content: space-around; */
@@ -14,7 +16,8 @@
     padding: 10px;
     border-radius: 5px;
     height: 38px; 
-    width: 400px; 
+    width: 30vw; 
+    z-index: -1;
 }
 
 .hamburger {
@@ -25,6 +28,7 @@
 .hamburger:hover {
     cursor: pointer;
 }
+
 
 .search-bar {
     display: flex; 
