@@ -1,19 +1,18 @@
-  const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+//const Comment = require("../../models/Comment");
+
 
 const VenueSchema = new Schema({
   name: {
-    type: String, 
-    required: true
-  },
-  latitude: {
-    type: Number,
+    type: String,
     required: true,
   },
-  longitude: {
-    type: Number,
+  coordinate: {
+    type: Array,
     required: true,
   },
+  
   type: {
     type: String,
     required: true,
@@ -23,8 +22,6 @@ const VenueSchema = new Schema({
     default: true,
   },
   comments: {
-    //todo check if comments/ratings need to be seperate for venues/users
-
     type: Schema.Types.ObjectId,
     ref: "comments",
   },
@@ -33,6 +30,5 @@ const VenueSchema = new Schema({
     ref: "ratings",
   },
 });
-
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
