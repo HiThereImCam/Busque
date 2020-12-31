@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import { MapboxStyleSwitcherControl } from "mapbox-gl-style-switcher";
 import "mapbox-gl-style-switcher/styles.css";
+// import ReactMapGL from "react-map-gl";
 import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 // import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
@@ -15,19 +16,29 @@ class MapBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lng: -122.4194,
-      lat: 37.7788,
+      lng: -122.4363143,
+      lat: 37.7461108,
       zoom: 12,
     };
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleClickorMove = this.handleClickorMove.bind(this);
   }
 
   componentDidMount() {
-    const map = new mapboxgl.Map({
+    if (window.matchMedia("(max-width: 420px)")) {
+      this.setState({
+        lng: -122.428,
+        lat: 37.5713,
+      });
+    }
+
+    this.map = new mapboxgl.Map({
       container: this.mapContainer,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/mapbox/dark-v10",
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
+
 
     map.addControl(new MapboxStyleSwitcherControl());
     
@@ -42,20 +53,47 @@ class MapBox extends Component {
     map.addControl(geocoder, 'top-left')
     document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
 
-    map.on("move", () => {
+    this.map.addControl(new MapboxStyleSwitcherControl());
+
+
+    this.map.on("move", () => {
       this.setState({
-        lng: map.getCenter().lng.toFixed(4),
-        lat: map.getCenter().lat.toFixed(4),
-        zoom: map.getZoom().toFixed(2),
+        lng: this.map.getCenter().lng.toFixed(4),
+        lat: this.map.getCenter().lat.toFixed(4),
+        zoom: this.map.getZoom().toFixed(2),
       });
+    });
+  }
+
+  handleMouseDown(e) {
+    window.checkForDrag = e.clientX;
+  }
+
+  handleClickorMove() {
+    const marker = new mapboxgl.Marker();
+    marker.remove();
+    this.map.on("click", (e) => {
+      e.preventDefault();
+
+      let { lng, lat } = e.lngLat;
+      console.log([lng, lat]);
+      marker.setLngLat([lng, lat]).addTo(this.map);
     });
   }
 
   render() {
     return (
       <div>
+
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
         {/* <div ref={(el) => (this.geocoder = el)} className="geocoder" placeholder="THIS IS THE PLACEHOLDER"></div> */}
+
+
+        <div
+          onClick={() => this.handleClickorMove()}
+          ref={(el) => (this.mapContainer = el)}
+          className="mapContainer"
+        />
 
       </div>
     );
