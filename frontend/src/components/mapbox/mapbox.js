@@ -41,7 +41,6 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
-
     this.map.addControl(new MapboxStyleSwitcherControl());
     
     // const nav = new mapboxgl.NavigationControl(); 
@@ -52,8 +51,8 @@ class MapBox extends Component {
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl
     })
-    // map.addControl(geocoder, 'top-left')
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map))
+    this.map.addControl(geocoder, 'top-left')
+    // document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map))
 
 
     this.map.on("move", () => {
@@ -87,7 +86,7 @@ class MapBox extends Component {
 
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
         {/* <div ref={(el) => (this.geocoder = el)} className="geocoder" placeholder="THIS IS THE PLACEHOLDER"></div> */}
-        <div id='geocoder' class='header-left geocoder'></div>
+        {/* <div id='geocoder' className='header-left geocoder'></div> */}
 
 
         <div
