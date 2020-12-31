@@ -4,6 +4,9 @@ import { MapboxStyleSwitcherControl } from "mapbox-gl-style-switcher";
 import "mapbox-gl-style-switcher/styles.css";
 // import ReactMapGL from "react-map-gl";
 import "../../css/mapbox.css";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+// import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
 
 const { REACT_APP_MAPBOX_KEY } = process.env;
 
@@ -36,7 +39,22 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
+
+    map.addControl(new MapboxStyleSwitcherControl());
+    
+    // const nav = new mapboxgl.NavigationControl(); 
+    // map.addControl(nav, 'top-left')
+
+    const geocoder = new MapboxGeocoder({
+      container: this.geocoder,
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl
+    })
+    map.addControl(geocoder, 'top-left')
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+
     this.map.addControl(new MapboxStyleSwitcherControl());
+
 
     this.map.on("move", () => {
       this.setState({
@@ -66,11 +84,17 @@ class MapBox extends Component {
   render() {
     return (
       <div>
+
+        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
+        {/* <div ref={(el) => (this.geocoder = el)} className="geocoder" placeholder="THIS IS THE PLACEHOLDER"></div> */}
+
+
         <div
           onClick={() => this.handleClickorMove()}
           ref={(el) => (this.mapContainer = el)}
           className="mapContainer"
         />
+
       </div>
     );
   }
