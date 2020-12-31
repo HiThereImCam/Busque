@@ -26,3 +26,5 @@ yarn-error.log*
 /frontend/node_modules
 /config/keys_dev
 config/keys_dev
+
+.eslintcache
