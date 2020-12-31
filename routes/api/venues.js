@@ -2,11 +2,12 @@
 
 const express = require("express");
 const router = express.Router();
-
 const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
+const comments = require("./venueComments")
+const Comment = require("../../models/Comment")
 
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the venue route ya bish" })
@@ -99,4 +100,19 @@ router.delete(
 
 ); //end delete
 
+router.post("/:venue_id/comments", (req, res) => {
+  const newComment = new Comment({
+    comment: req.body.comment,
+  });
+  
+  newComment.save()
+      .then((comment) =>
+        Venue.findByIdAndUpdate(req.params.venue_id, { comments: comment },
+          { new: true }
+          ).then(venue => res.json(venue)) // response to front end
+      );
+});
+
+
 module.exports = router;
+//.then((comment) => res.json(comment));

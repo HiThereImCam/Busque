@@ -1,10 +1,10 @@
-  const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const VenueSchema = new Schema({
   name: {
-    type: String, 
-    required: true
+    type: String,
+    required: true,
   },
   latitude: {
     type: Number,
@@ -23,8 +23,6 @@ const VenueSchema = new Schema({
     default: true,
   },
   comments: {
-    //todo check if comments/ratings need to be seperate for venues/users
-
     type: Schema.Types.ObjectId,
     ref: "comments",
   },
@@ -33,6 +31,5 @@ const VenueSchema = new Schema({
     ref: "ratings",
   },
 });
-
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
