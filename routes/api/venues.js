@@ -93,7 +93,7 @@ router.delete(
   }
 ); //end delete
 
-router.post("/:venue_id/comments", (req, res) => {
+router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
     comment: req.body.comment,
   });
@@ -101,11 +101,11 @@ router.post("/:venue_id/comments", (req, res) => {
     (comment) =>
       Venue.findByIdAndUpdate(
         req.params.venue_id,
-        { comments: comment },
+        { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue)) // response to front end
+      ).then((venue) => res.json(venue))
+    // response to front end
   );
 });
 
 module.exports = router;
-//.then((comment) => res.json(comment));

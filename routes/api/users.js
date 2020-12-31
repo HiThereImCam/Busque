@@ -94,8 +94,39 @@ router.post("/login", (req, res) => {
   });
 }); //end login
 
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+  
+    Venue.findByIdAndUpdate(
+      req.params.id,
+      {
+        username: req.body.username,
+        email: req.body.email,
+        performerType: req.body.performerType,
+        bio: req.body.bio,
+        imageURL: req.body.imageURL,
+      },
+      { new: true },
+      //error handling
+      function (err, response) {
+        if (err) {
+          console.log("we hit an error" + err);
+          res.json({
+            message: "Database Update Failure",
+          });
+        }
+        console.log("This is the Response: " + response);
+        return res.send(response);
+      }
+    );
+  }
+); //end update
+
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
+
 
 module.exports = router;
