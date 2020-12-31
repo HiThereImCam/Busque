@@ -63,21 +63,23 @@ class LoginForm extends Component {
         <div className='login-page'>
             {this.renderErrors()}
             <form className='login-form' onSubmit={this.handleSubmit}>
-            <div className='login-title'>Busque</div>
-            <input
-                type="text"
-                name="email"
-                value={email}
-                placeholder="enter email"
-                onChange={this.handleInputChange}
-            />
-            <input
-                type="password"
-                name="password"
-                value={password}
-                placeholder="enter password"
-                onChange={this.handleInputChange}
-            />
+                <div className='login-title'>Busque</div>
+                <div className='login-desc'>Sign In</div>
+                <div className='login-description'>to continue to Busque</div>
+                <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    placeholder="enter email"
+                    onChange={this.handleInputChange}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    placeholder="enter password"
+                    onChange={this.handleInputChange}
+                />
             </form>
             <div className='login-buttons'>
                 <button>Login</button>
