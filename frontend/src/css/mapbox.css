@@ -8,17 +8,16 @@
 }
 
 .geocoder {
-  position: relative; 
-  width: 30vw; 
-  top: -47px; 
-  left: 78px; 
+  position: relative;
+  width: 30vw;
+  top: -47px;
+  left: 78px;
 }
 
-@media screen and (max-width: 420px) {
+/* @media screen and (max-width: 420px) {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-}
-
+} */
