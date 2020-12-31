@@ -21,6 +21,14 @@ module.exports = function validateVenueInput(data) {
     // if (!Validator.isDecimal(data.longitude)) {
     //     errors.longitude = "Coordinates for longitude is required"
     // }
+
+    const isCoords = (data) => {
+        return Array.isArray(data) && data.length === 2;
+    }
+
+    if (isCoords(data.coordinate)) {
+        errors.type = "Coordinates are required";
+    }
     
     if (Validator.isEmpty(data.type)) {
         errors.type = "Text field is required";
