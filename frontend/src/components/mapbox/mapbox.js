@@ -42,7 +42,7 @@ class MapBox extends Component {
     });
 
 
-    map.addControl(new MapboxStyleSwitcherControl());
+    this.map.addControl(new MapboxStyleSwitcherControl());
     
     // const nav = new mapboxgl.NavigationControl(); 
     // map.addControl(nav, 'top-left')
@@ -53,9 +53,7 @@ class MapBox extends Component {
       mapboxgl: mapboxgl
     })
     // map.addControl(geocoder, 'top-left')
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
-
-    this.map.addControl(new MapboxStyleSwitcherControl());
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map))
 
 
     this.map.on("move", () => {
