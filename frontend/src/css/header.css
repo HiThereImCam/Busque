@@ -1,5 +1,4 @@
 .header {
-    /* position: fixed;  */
     display: flex; 
     justify-content: space-between;
     margin-top: 10px;
@@ -8,7 +7,7 @@
 }
 
 .header-left {
-    /* position: absolute;  */
+    position: absolute; 
     display: flex; 
     flex-direction: row;
     /* justify-content: space-around; */
@@ -17,34 +16,32 @@
     border-radius: 5px;
     height: 38px; 
     width: 30vw; 
-    z-index: -1;
+    z-index: -1; 
 }
+
+.header-left.geocoder {
+    position: relative; 
+    display: flex;
+    width: 30vw; 
+    top: 0px; 
+    left: 10px;
+
+}
+/* .mapboxgl-ctrl-geocoder--input {
+    display: flex; 
+    width: 25vw; 
+} */
 
 .hamburger {
     display: flex; 
     align-items: center;
     padding: 10px;
 }
+
 .hamburger:hover {
     cursor: pointer;
 }
 
-
-.search-bar {
-    display: flex; 
-    align-items: center;
-    /* flex-basis: 80%; */
-    padding: 5px; 
-    /* padding-left: 10px; */
-    /* padding-right: 10px;  */
-}
-
-.search-icon {
-    /* display: flex;  */
-    padding-left: 10px;
-    justify-content: flex-end;
-    /* align-items: center; */
-}
 
 .header-right {
     display: flex; 
@@ -63,4 +60,10 @@
     border-radius: 5px;
     /* margin-top: 5px; */
 
+}
+
+@media screen and (max-width: 420px) {
+    .header-left.geocoder {
+        width: 90vw; 
+    }
 }

@@ -33,12 +33,11 @@ class MainPage extends Component {
     return (
       <div>
         <header className="header">
-          <div className="header-left">
+          {/* <div className="header-left">
             <div className="hamburger">
               <FontAwesomeIcon onClick={this.openSearchModal} className="fas faBars fa-2x" icon={faBars} />
             </div>
-            <div ref={(el) => (this.geocoder = el)} className="geocoder"></div>
-          </div>
+          </div> */}
           {/* <div className="header-right">
             <Link className="login-button" to={"/login"}>Login</Link>
           </div> */}
