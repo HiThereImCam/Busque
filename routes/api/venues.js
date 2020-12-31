@@ -32,7 +32,7 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: JSON.parse(req.body.coordinate),  //!fuck yeah it works!
+      coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
 
       type: req.body.type,
       available: req.body.available,
@@ -97,7 +97,6 @@ router.post("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
     comment: req.body.comment,
   });
-
   newComment.save().then(
     (comment) =>
       Venue.findByIdAndUpdate(
