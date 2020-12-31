@@ -14,13 +14,13 @@ module.exports = function validateVenueInput(data) {
         errors.name = "Name field is required";
     }
 
-    if (!Validator.isDecimal(data.latitude)) {
-        errors.latitude = "Coordinates for latitude is required"
-    }
-
-    if (!Validator.isDecimal(data.longitude)) {
-        errors.longitude = "Coordinates for longitude is required"
-    }
+    // if (!Validator.isDecimal(data.latitude)) {
+    //     errors.latitude = "Coordinates for latitude is required"
+    // }
+    
+    // if (!Validator.isDecimal(data.longitude)) {
+    //     errors.longitude = "Coordinates for longitude is required"
+    // }
     
     if (Validator.isEmpty(data.type)) {
         errors.type = "Text field is required";

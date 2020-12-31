@@ -10,10 +10,12 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-  comment: {
-    type: String,
-    required: true,
-  },
+  comment: 
+        [],
+  // {
+  //   type: String,
+  //   required: true,
+  // },
   date: {
       type: Date,
       default: Date.now
