@@ -1,0 +1,107 @@
+.signup-page {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 50px;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgrey;
+    border-radius: 10px;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: Verdana;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.signup-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 10px 10px;
+}
+
+.signup-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.signup-desc {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signup-description {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signup-button {
+    margin: 10px 10px 10px 10px;
+    color: white;
+    background-color:#4267B2;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: Verdana;
+    font-weight: 600;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.signup-form input {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    width: 35vw;
+}
+
+.signup-form select {
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 20px;
+    width: 36vw;
+}
+
+#signup-profile {
+    width: 36vw;
+}
+
+@media screen and (max-width: 600px) {
+    .signup-page {
+        width: 80vw;
+        border-style: none;
+    }
+
+    .signup-form input {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        margin-bottom: 20px;
+        display: inline-block;
+        width: 67vw;
+    }
+
+    .signup-form select {
+        width: 70vw;
+    }
+
+    #signup-profile {
+        width: 70vw;
+    }
+}

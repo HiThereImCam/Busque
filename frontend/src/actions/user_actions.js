@@ -8,9 +8,12 @@ const receiveUsers = users => ({
     users 
 });
 
-const receiveUser = email => ({
+const receiveUser = ({userId, username, email, bio}) => ({
     type: RECEIVE_USER, 
-    email 
+    userId,
+    username,
+    email,
+    bio 
 });
 
 export const fetchUsers = () => dispatch => (
@@ -19,8 +22,8 @@ export const fetchUsers = () => dispatch => (
         .then(err => console.log(err))
 );
 
-export const fetchUser = (email) => dispatch => (
-    UserAPIUtil.getUser(email)
-        .then(email => dispatch(receiveUser(email)))
+export const fetchUser = (userId) => dispatch => (
+    UserAPIUtil.getUser(userId)
+        .then(payload => dispatch(receiveUser(payload)))
         .then(err => console.log(err))
 );

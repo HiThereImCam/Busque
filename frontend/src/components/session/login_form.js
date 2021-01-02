@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../css/login.css";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -59,28 +60,33 @@ class LoginForm extends Component {
     let { email, password } = this.state;
 
     return (
-      <div>
-        {this.renderErrors()}
-        <form onSubmit={this.handleSubmit}>
-          <label>Email</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleInputChange}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleInputChange}
-          />
-          <div>
-            <button>Login</button>
-            <button onClick={() => this.demoUser()}>Demo User</button>
-          </div>
-        </form>
+      <div className='login-page-container'>
+        <div className='login-page'>
+            {this.renderErrors()}
+            <form className='login-form' onSubmit={this.handleSubmit}>
+                <div className='login-title'>Busque</div>
+                <div className='login-desc'>Sign In</div>
+                <div className='login-description'>to continue to Busque</div>
+                <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    placeholder="enter email"
+                    onChange={this.handleInputChange}
+                />
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    placeholder="enter password"
+                    onChange={this.handleInputChange}
+                />
+            </form>
+            <div className='login-buttons'>
+                <button>Login</button>
+                <button onClick={() => this.demoUser()}>Demo User</button>
+            </div>
+        </div>
       </div>
     );
   }

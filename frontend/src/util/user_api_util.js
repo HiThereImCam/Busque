@@ -4,6 +4,6 @@ export const getUsers = () => {
     return axios.get(`/api/users`)
 }
 
-export const getUser = (email) => {
+export const getUser = (id) => {
     return axios.get(`api/users/current`)
 }
