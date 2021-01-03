@@ -98,12 +98,13 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-  
-    Venue.findByIdAndUpdate(
+        
+    User.findByIdAndUpdate(
       req.params.id,
       {
         username: req.body.username,
         email: req.body.email,
+        password: req.body.password,
         performerType: req.body.performerType,
         bio: req.body.bio,
         imageURL: req.body.imageURL,
