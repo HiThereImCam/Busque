@@ -8,66 +8,66 @@ class MainPage extends Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   open: false,
-    // };
+    this.state = {
+      open: false,
+    };
 
-    // this.openNavModal = this.openNavModal.bind(this);
-    // this.closeNavModal = this.closeNavModal.bind(this);
-    // this.modalChild = createRef();
+    this.openNavModal = this.openNavModal.bind(this);
+    this.closeNavModal = this.closeNavModal.bind(this);
+    this.modalChild = createRef();
   }
 
-  // componentDidMount() {
-  //   document.addEventListener("mousedown", this.handleClick, false);
-  // }
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClick, false);
+  }
 
-  // componentWillUnmount() {
-  //   document.removeEventListener("mousedown", this.handleClick, false);
-  // }
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClick, false);
+  }
 
-  // handleClick(e) {
-  //   try {
-  //     if (this.modalChild.current.contains(e.target)) {
-  //       return;
-  //     }
-  //   } catch (e) {
-  //     return e;
-  //   }
+  handleClick(e) {
+    try {
+      if (this.modalChild.current.contains(e.target)) {
+        return;
+      }
+    } catch (e) {
+      return e;
+    }
 
-  //   this.closeNavModal();
-  // }
+    this.closeNavModal();
+  }
 
-  // closeNavModal() {
-  //   this.setState({
-  //     open: false,
-  //   });
-  // }
+  closeNavModal() {
+    this.setState({
+      open: false,
+    });
+  }
 
-  // openNavModal() {
-  //   this.setState({
-  //     open: true,
-  //   });
-  //   return (
-  //     <div className="modal-background modal-container">
-  //       <div
-  //         className="modal-child"
-  //         ref={this.modalChild}
-  //         onClick={(e) => e.stopPropagation()}
-  //       >
-  //         <NavModal />
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  openNavModal() {
+    this.setState({
+      open: true,
+    });
+    return (
+      <div className="modal-background modal-container">
+        <div
+          className="modal-child"
+          ref={this.modalChild}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <NavModal />
+        </div>
+      </div>
+    );
+  }
 
   render() {
     return (
       <Fragment>
         <div className="menu-container">
           <div className="nav-container">
-            {/* <button onClick={() => this.openNavModal()}>
+            <button onClick={() => this.openNavModal()}>
               <GiHamburgerMenu size={17} className="nav-icon" />
-            </button> */}
+            </button>
             <GiHamburgerMenu size={17} className="nav-icon" />
           </div>
         </div>
