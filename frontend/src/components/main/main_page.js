@@ -1,53 +1,80 @@
-import React, { Component } from "react";
+import React, { Component, Fragment, createRef } from "react";
 import Mapbox from "../mapbox/mapbox";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import "../../css/header.css";
-import mapboxgl from 'mapbox-gl'; 
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-
+import { GiHamburgerMenu } from "react-icons/gi";
+import NavModal from "../navigation/nav_modal";
+import "../../css/main_page.css";
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      open: false
-    }
 
-    this.openSearchModal = this.openSearchModal.bind(this);
-    this.closeSearchModal = this.closeSearchModal.bind(this); 
+    // this.state = {
+    //   open: false,
+    // };
+
+    // this.openNavModal = this.openNavModal.bind(this);
+    // this.closeNavModal = this.closeNavModal.bind(this);
+    // this.modalChild = createRef();
   }
 
-  openSearchModal() {
-    this.setState({ open: true })
-    console.log("hello")
-  }
+  // componentDidMount() {
+  //   document.addEventListener("mousedown", this.handleClick, false);
+  // }
 
-  closeSearchModal() {
-    this.setState({ open: false })
-  }
-  
+  // componentWillUnmount() {
+  //   document.removeEventListener("mousedown", this.handleClick, false);
+  // }
+
+  // handleClick(e) {
+  //   try {
+  //     if (this.modalChild.current.contains(e.target)) {
+  //       return;
+  //     }
+  //   } catch (e) {
+  //     return e;
+  //   }
+
+  //   this.closeNavModal();
+  // }
+
+  // closeNavModal() {
+  //   this.setState({
+  //     open: false,
+  //   });
+  // }
+
+  // openNavModal() {
+  //   this.setState({
+  //     open: true,
+  //   });
+  //   return (
+  //     <div className="modal-background modal-container">
+  //       <div
+  //         className="modal-child"
+  //         ref={this.modalChild}
+  //         onClick={(e) => e.stopPropagation()}
+  //       >
+  //         <NavModal />
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   render() {
     return (
-      <div>
-        <header className="header">
-          <div className="header-left">
-            <div className="hamburger">
-              <FontAwesomeIcon onClick={this.openSearchModal} className="fas faBars fa-2x" icon={faBars} />
-            </div>
-            <div ref={(el) => (this.geocoder = el)} className="geocoder"></div>
+      <Fragment>
+        <div className="menu-container">
+          <div className="nav-container">
+            {/* <button onClick={() => this.openNavModal()}>
+              <GiHamburgerMenu size={17} className="nav-icon" />
+            </button> */}
+            <GiHamburgerMenu size={17} className="nav-icon" />
           </div>
-          {/* <div className="header-right">
-            <Link className="login-button" to={"/login"}>Login</Link>
-          </div> */}
-        </header>  
+        </div>
         <Mapbox />
-      </div>
+      </Fragment>
     );
   }
 }
 
 export default MainPage;
-
