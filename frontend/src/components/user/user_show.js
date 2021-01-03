@@ -13,13 +13,16 @@ class UserShow extends React.Component {
         if (this.props.user === undefined) {
             return null;
         } else {
-            const { user } = this.props.user;
+            const user  = this.props.user;
+
             return (
                 <div>
-                    <div>{user.username}</div>
-                    <div>{user.performerType}</div>
-                    <div>{user.bio}</div>
-                    <img src={user.imageURL} />
+                    <h1>hello</h1>
+                    {console.log(user)}
+                    <div>{user.data.username}</div>
+                    <div>{user.data.performerType}</div>
+                    <div>{user.data.bio}</div>
+                    <img src={user.data.imageURL} />
                 </div>
             )
         }
