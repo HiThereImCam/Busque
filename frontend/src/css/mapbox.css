@@ -7,12 +7,7 @@
   z-index: -2;
 }
 
-.geocoder {
-  position: relative;
-  width: 30vw;
-  top: -47px;
-  left: 78px;
-}
+
 
 /* @media screen and (max-width: 420px) {
   position: absolute;
@@ -21,3 +16,6 @@
   left: 0;
   bottom: 0;
 } */
+
+
+
