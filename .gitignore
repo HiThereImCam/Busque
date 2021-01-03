@@ -1,8 +1,4 @@
 /node_modules
-<<<<<<< HEAD
-/frontend/node_modules
-=======
->>>>>>> ad34e9cab5ab9d6932c98ba215935a04c899a4ff
 /config/keys_dev.js
 .env
 
