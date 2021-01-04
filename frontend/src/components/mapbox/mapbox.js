@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
-import { MapboxStyleSwitcherControl } from "mapbox-gl-style-switcher";
-import "mapbox-gl-style-switcher/styles.css";
-// import ReactMapGL from "react-map-gl";
 import "../../css/mapbox.css";
 import "../../css/header.css";
 
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-
-const { REACT_APP_MAPBOX_KEY } = process.env;
+const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
 mapboxgl.accessToken = REACT_APP_MAPBOX_KEY;
 
@@ -21,10 +17,14 @@ class MapBox extends Component {
       lng: -122.4363143,
       lat: 37.7461108,
       zoom: 12,
+
     };
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleClickorMove = this.handleClickorMove.bind(this);
+    this.marker = new mapboxgl.Marker();
   }
+
+  /**
+   * Possibly create util
+   */
 
   componentDidMount() {
     if (window.matchMedia("(max-width: 420px)")) {
@@ -41,19 +41,22 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
-    this.map.addControl(new MapboxStyleSwitcherControl());
-    
-    // const nav = new mapboxgl.NavigationControl(); 
-    // map.addControl(nav, 'top-left')
 
     const geocoder = new MapboxGeocoder({
       container: this.geocoder,
       accessToken: mapboxgl.accessToken,
-      mapboxgl: mapboxgl
-    })
-    this.map.addControl(geocoder, 'top-left')
-    // document.getElementById('geocoder').appendChild(geocoder.onAdd(this.map))
+      mapboxgl: mapboxgl,
+    });
+    this.map.addControl(geocoder, "top-left");
 
+
+    this.map.on("click", (e) => {
+      this.marker.remove();
+      e.preventDefault();
+      let { lng, lat } = e.lngLat;
+      console.log([lng, lat]);
+      this.marker.setLngLat([lng, lat]).addTo(this.map);
+    });
 
     this.map.on("move", () => {
       this.setState({
@@ -64,38 +67,9 @@ class MapBox extends Component {
     });
   }
 
-  handleMouseDown(e) {
-    window.checkForDrag = e.clientX;
-  }
-
-  handleClickorMove() {
-    const marker = new mapboxgl.Marker();
-    marker.remove();
-    this.map.on("click", (e) => {
-      e.preventDefault();
-
-      let { lng, lat } = e.lngLat;
-      console.log([lng, lat]);
-      marker.setLngLat([lng, lat]).addTo(this.map);
-    });
-  }
-
   render() {
     return (
-      <div>
-
-        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
-        {/* <div ref={(el) => (this.geocoder = el)} className="geocoder" placeholder="THIS IS THE PLACEHOLDER"></div> */}
-        {/* <div id='geocoder' className='header-left geocoder'></div> */}
-
-
-        <div
-          onClick={() => this.handleClickorMove()}
-          ref={(el) => (this.mapContainer = el)}
-          className="mapContainer"
-        />
-
-      </div>
+      <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
     );
   }
 }
