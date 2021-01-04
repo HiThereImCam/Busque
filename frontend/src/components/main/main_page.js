@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, createRef} from "react";
 import Mapbox from "../mapbox/mapbox";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "../../css/main_page.css";
 
 class MainPage extends Component {
-<<<<<<< HEAD
   constructor(props) {
     super(props);
 
@@ -60,30 +59,17 @@ class MainPage extends Component {
     );
   }
 
-=======
->>>>>>> efd5fb9276319601d4549536bc83bfcaa06b0a99
   render() {
     let { openNavModal } = this.props;
 
     return (
       <Fragment>
         <div className="menu-container">
-<<<<<<< HEAD
           <div className="nav-container">
             <button onClick={() => this.openNavModal()}>
               <GiHamburgerMenu size={17} className="nav-icon" />
             </button>
             <GiHamburgerMenu size={17} className="nav-icon" />
-=======
-          <div>
-            <GiHamburgerMenu
-              size={17}
-              onClick={() => {
-                openNavModal();
-              }}
-              className="nav-icon"
-            />
->>>>>>> efd5fb9276319601d4549536bc83bfcaa06b0a99
           </div>
         </div>
         <Mapbox />
