@@ -15,10 +15,9 @@ class MapBox extends Component {
       lng: -122.4363143,
       lat: 37.7461108,
       zoom: 12,
-      //marker: "",
+
     };
-    this.marker = new mapboxgl.Marker();
-    // this.dropPin = this.dropPin.bind(this);
+
   }
 
   /**

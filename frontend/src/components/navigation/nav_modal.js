@@ -1,4 +1,5 @@
 import React, { Component, Fragment, createRef } from "react";
+import { CgChevronDoubleLeft } from "react-icons/cg";
 import "../../css/nav_modal.css";
 class NavModal extends Component {
   constructor(props) {
@@ -43,7 +44,12 @@ class NavModal extends Component {
               ref={this.modalChild}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="nav-container">BUSQUE</div>
+              <div className="nav-container">
+                <div className="nav-header">
+                  <h2>Busque</h2>
+                  <CgChevronDoubleLeft className="nav-icon" size={30} />
+                </div>
+              </div>
             </div>
           </div>
         ) : (
