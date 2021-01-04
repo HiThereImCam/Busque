@@ -1,6 +1,8 @@
 import React, { Component, Fragment, createRef } from "react";
+import { Link } from "react-router-dom";
 import { CgChevronDoubleLeft } from "react-icons/cg";
 import "../../css/nav_modal.css";
+
 class NavModal extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class NavModal extends Component {
   }
 
   render() {
-    let { openNavModal } = this.props;
+    let { openNavModal, closeNavModal } = this.props;
     return (
       <Fragment>
         {openNavModal ? (
@@ -47,7 +49,33 @@ class NavModal extends Component {
               <div className="nav-container">
                 <div className="nav-header">
                   <h2>Busque</h2>
-                  <CgChevronDoubleLeft className="nav-icon" size={30} />
+                  <CgChevronDoubleLeft
+                    className="navback-icon"
+                    onClick={() => closeNavModal()}
+                    size={30}
+                  />
+                </div>
+                <div className="nav-section">
+                  <Link
+                    to="/artists"
+                    className="nav-link nav-users"
+                    to="/users"
+                  >
+                    Meet our Artists
+                  </Link>
+                  <Link
+                    to="/venues"
+                    className="nav-link nav-venues"
+                    to="/venues"
+                  >
+                    Best Venues
+                  </Link>
+                  <Link to="login" className="nav-link nav-login">
+                    Login
+                  </Link>
+                  <Link to="/signup" className="nav-link nav-signup">
+                    Signup
+                  </Link>
                 </div>
               </div>
             </div>
