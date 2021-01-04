@@ -1,11 +1,26 @@
 .nav-container {
   position: absolute;
-  width: 350px;
+  width: 320px;
   height: 100%;
   background-color: white;
   flex-direction: column;
-  transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  transition: opacity 0.3s ease 0s, transform 0.6s ease-in 0s;
   float: left;
+}
+
+.nav-header {
+  display: flex;
+  padding: 12px;
+  border: 3px solid red;
+  align-items: center;
+}
+
+.nav-header h2 {
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+  font-size: 25px;
+  border: 3px solid blue;
 }
 
 .modal-background {
