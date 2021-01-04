@@ -4,7 +4,7 @@ import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-const { REACT_APP_MAPBOX_KEY } = process.env;
+const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
 mapboxgl.accessToken = REACT_APP_MAPBOX_KEY;
 
