@@ -10,7 +10,7 @@ import UserShowContainer from './user/user_show_container';
 import "../css/app.css";
 
 const App = () => (
-  <div>
+  <div className="app-container">
     <NavModalContainer />
     <Switch>
       <Route exact path="/" component={MainPage} />

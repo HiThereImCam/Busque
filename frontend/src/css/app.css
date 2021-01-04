@@ -90,4 +90,5 @@ video {
 .app-container {
   max-width: 1920px;
   margin: 0 auto;
+  font-family: "Nunito Sans", sans-serif;
 }
