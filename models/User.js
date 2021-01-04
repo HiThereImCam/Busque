@@ -26,21 +26,19 @@ const UserSchema = new Schema({
     type: String,
     required: false,
   },
-  // venues: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "venues",
-  // },
-  // comments: {
-  //   //todo check if comments/ratings need to be seperate for venues/users
-  //   type: Schema.Types.ObjectId,
-  //   ref: "comments",
-  // },
-  // ratings: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "ratings",
-  // }
+  venues: {
+    type: Schema.Types.ObjectId,
+    ref: "venues",
+  },
+  comments: {
+    type: Schema.Types.ObjectId,
+    ref: "comments",
+  },
+  ratings: {
+    type: Schema.Types.ObjectId,
+    ref: "ratings",
+  }
   
 });
 
-
-module.exports = User = mongoose.model("User", UserSchema);
+module.exports = User = mongoose.model("User", UserSchema); 

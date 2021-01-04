@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 // import './index.css';
 // import App from './App';
@@ -8,6 +8,10 @@ import configureStore from './store/store';
 import jwt_decode from 'jwt-decode'; 
 import { setAuthToken } from './util/session_api_util'; 
 import { logout } from './actions/session_actions'; 
+
+//TESTING
+import { getUsers, getUser } from './util/user_api_util';
+import {fetchUser} from './actions/user_actions'; 
 
 document.addEventListener('DOMContentLoaded', () => {
   let store; 
@@ -30,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   window.getState = store.getState; 
+  window.dispatch = store.dispatch; 
+  window.getUser = getUser; 
+  window.fetchUser = fetchUser; 
 
   const root = document.getElementById('root'); 
   ReactDOM.render(<Root store={store} />, root);
