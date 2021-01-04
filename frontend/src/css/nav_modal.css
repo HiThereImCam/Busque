@@ -1,7 +1,33 @@
 .nav-container {
-  width: 385px;
+  position: absolute;
+  width: 350px;
   height: 100%;
   background-color: white;
   flex-direction: column;
   transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  float: left;
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+/* .modal-child {
+  margin-left: auto;
+  transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
