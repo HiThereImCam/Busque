@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import "../../css/signup.css";
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -44,27 +45,9 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
-    // const formData = new FormData();
-    // formData.append('user[username]', this.state.username)
-    // formData.append('user[email]', this.state.email)
-    // formData.append('user[password]', this.state.password) //take out?
-
-    // if (this.state.performerType) {
-    //     formData.append('user[performerType]', this.state.performerType)
-    // }
-
-    // if (this.state.bio) {
-    //     formData.append('user[bio]', this.state.bio)
-    // }
-
-    // if (this.state.photoFile) {
-    //     formData.append('user[imageURL]', this.state.photoFile)
-    // }
-
     const user = Object.assign({}, this.state);
 
-    this.props.signup(user).then(this.props.history.push('/')) //! works?
+    this.props.signup(user).then(this.props.history.push("/")); //! works?
   }
 
   renderErrors() {
@@ -79,48 +62,53 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="signup-form">
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.update("username")}
-              placeholder="Username"
-            />
-            <input
-              type="text"
-              value={this.state.email}
-              onChange={this.update("email")}
-              placeholder="Email"
-            />
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.update("password")}
-              placeholder="Password"
-            />
-            <select
-              value={this.state.performerType}
-              onChange={this.update("performerType")}
-            >
-              <option value="">Select your Performer Type</option>
-              <option value="Musician">Musician</option>
-              <option value="Dancers">Dancers</option>
-              <option value="Artists">Artists</option>
-              <option value="Other">Other</option>
-            </select>
-            <input
-              type="text"
-              value={this.state.bio}
-              onChange={this.update("bio")}
-              placeholder="Bio"
-            />
-            <input type="file" onChange={this.handleFile.bind(this)} />
-            <input type="submit" value="Sign up" />
-            {this.renderErrors()}
+      <div className='signup-page-container'>
+          <div className='signup-page'>
+            <form onSubmit={this.handleSubmit}>
+            <div className="signup-form">
+                <div className='signup-title'>Busque</div>
+                <div className='signup-desc'>Sign Up</div>
+                <div className='signup-description'>to continue to Busque</div>
+                <input
+                type="text"
+                value={this.state.username}
+                onChange={this.update("username")}
+                placeholder="Username"
+                />
+                <input
+                type="text"
+                value={this.state.email}
+                onChange={this.update("email")}
+                placeholder="Email"
+                />
+                <input
+                type="password"
+                value={this.state.password}
+                onChange={this.update("password")}
+                placeholder="Password"
+                />
+                <select
+                value={this.state.performerType}
+                onChange={this.update("performerType")}
+                >
+                    <option value="" disabled>Performer Type</option>
+                    <option value="Musician">Musician</option>
+                    <option value="Dancers">Dancers</option>
+                    <option value="Artists">Artists</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input
+                type="text"
+                value={this.state.bio}
+                onChange={this.update("bio")}
+                placeholder="Bio"
+                />
+                <input id='signup-profile' type="button" value="Upload a profile picture" onClick={this.handleFile.bind(this)} />
+                <input className='signup-button' type="submit" value="Sign up" />
+                {this.renderErrors()}
+            </div>
+            </form>
           </div>
-        </form>
       </div>
     );
   }

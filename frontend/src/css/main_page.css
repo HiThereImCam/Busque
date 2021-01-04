@@ -1,7 +1,92 @@
-.mapContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
+/* .header {
+  position: fixed; 
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-left: 10px;
 }
+
+.header-left {
+  position: absolute; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: whitesmoke;
+  padding: 10px;
+  border-radius: 5px;
+  height: 38px;
+  width: 30vw;
+  z-index: -1;
+} */
+
+.nav-container {
+  /* display: flex;
+  align-items: center;
+  margin-top: 9px;
+  height: 30px;
+  width: 30px;
+  margin-left: 300px; */
+}
+
+/*
+  Natural breakppoint for search bar at max width of 640px
+*/
+
+@media screen and (max-width: 1445px) {
+  .nav-icon {
+    margin-left: 245px;
+  }
+}
+
+.mapboxgl-ctrl-geocoder {
+  border-radius: 4px 0 0 4px;
+}
+
+.nav-icon {
+  margin-left: 247px;
+  border-radius: 4px;
+  background-color: white;
+  padding: 9px 8px 10px 8px;
+  margin-top: 10px;
+  color: light-grey;
+  fill: #757575;
+  position: absolute;
+}
+
+.nav-icon:hover {
+  cursor: pointer;
+}
+
+
+/* .search-bar {
+  display: flex;
+  align-items: center;
+  flex-basis: 80%;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.search-icon {
+  display: flex;
+  padding-left: 10px;
+  justify-content: flex-end;
+  align-items: center;
+} */
+
+/* .header-right {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  height: 30px;
+  background-color: red;
+  margin-top: 5px;
+}
+
+.login-button {
+  background-color: whitesmoke;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 5px;
+} */
