@@ -4,14 +4,7 @@
   right: 0;
   left: 0;
   bottom: 0;
-  z-index: -2;
-}
-
-.geocoder {
-  position: relative;
-  width: 30vw;
-  top: -47px;
-  left: 78px;
+  z-index: -9999999999;
 }
 
 /* @media screen and (max-width: 420px) {
