@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
 import "../../css/mapbox.css";
+import "../../css/header.css";
+
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
@@ -17,7 +19,7 @@ class MapBox extends Component {
       zoom: 12,
 
     };
-
+    this.marker = new mapboxgl.Marker();
   }
 
   /**
@@ -39,12 +41,14 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
+
     const geocoder = new MapboxGeocoder({
       container: this.geocoder,
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
     });
     this.map.addControl(geocoder, "top-left");
+
 
     this.map.on("click", (e) => {
       this.marker.remove();
