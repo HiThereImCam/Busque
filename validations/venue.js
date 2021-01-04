@@ -4,23 +4,39 @@ const validText = require("./valid-text");
 module.exports = function validateVenueInput(data) {
     let errors = {};
 
+    data.name = validText(data.name) ? data.name : '';
     data.type = validText(data.type) ? data.type : '';
+    data.latitude = validText(data.latitude) ? data.latitude : '';
+    data.longitude = validText(data.longitude) ? data.longitude : '';
+    data.available = validText(data.available) ? data.available : '';
 
-    if (!Validator.isDecimal(data.latitude)) {
-        errors.latitude = "Coordinates for latitude is required"
+    if (Validator.isEmpty(data.name)) {
+        errors.name = "Name field is required";
     }
 
-    if (!Validator.isDecimal(data.longitude)) {
-        errors.longitude = "Coordinates for longitude is required"
+    // if (!Validator.isDecimal(data.latitude)) {
+    //     errors.latitude = "Coordinates for latitude is required"
+    // }
+    
+    // if (!Validator.isDecimal(data.longitude)) {
+    //     errors.longitude = "Coordinates for longitude is required"
+    // }
+
+    const isCoords = (data) => {
+        return Array.isArray(data) && data.length === 2;
+    }
+
+    if (isCoords(data.coordinate)) {
+        errors.type = "Coordinates are required";
     }
     
     if (Validator.isEmpty(data.type)) {
         errors.type = "Text field is required";
     }
 
-    if (!Validator.isBoolean(data.available)) {
-        errors.available = "A venue must be either available or not available"
-    }
+    // if (!Validator.isBoolean(data.available)) {
+    //     errors.available = "A venue must be either available or not available"
+    // }
 
     return {
         errors,
