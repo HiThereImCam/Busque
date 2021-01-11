@@ -16,7 +16,7 @@ class MainPage extends Component {
               onClick={() => {
                 openNavModal();
               }}
-              className="nav-icon"
+              className="menu-icon"
             />
           </div>
         </div>
