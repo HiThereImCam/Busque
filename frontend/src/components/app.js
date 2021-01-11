@@ -13,7 +13,6 @@ const App = () => (
   <div className="app-container">
     <NavModalContainer />
     <Switch>
-      <Route exact path="/" component={MainPageContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
       <ProtectedRoute
