@@ -8,10 +8,10 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
-router.get("/", (req, res) => {
+router.get("/", 
+(req, res) => {
   User.find()
   .then((user) => res.json(user))
-
   .catch((err) => res.status(404).json({nousers: "No users found"}))
 });
 
