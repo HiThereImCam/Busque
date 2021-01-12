@@ -8,6 +8,7 @@
     "frontend": "npm start --prefix frontend",
     "frontend-install": "npm install --prefix frontend",
     "start": "node app.js",
+    "seed": "node seed.js",
     "server": "nodemon app.js",
     "server:debug": "nodemon --inspect app.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
@@ -32,6 +33,7 @@
     "mapbox-gl": "^2.0.1",
     "mapbox-gl-style-switcher": "^1.0.9",
     "mongoose": "^5.11.8",
+    "mongoose-seed": "^0.6.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "react-icons": "^4.1.0",
