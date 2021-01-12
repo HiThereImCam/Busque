@@ -14,7 +14,9 @@ class UserIndexItem extends React.Component {
         return (
             <div>
                 <h1>User Index Item</h1>
-                {this.props.user.username}
+                <Link to={`/profile/${this.props.user._id}`}>
+                    {this.props.user.username}
+                </Link>
             </div>
         )
     }
