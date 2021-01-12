@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-//const Comment = require("../../models/Comment");
 
 
 const VenueSchema = new Schema({
@@ -21,14 +20,14 @@ const VenueSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  comments: {
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: "comments",
-  },
-  ratings: {
+  }],
+  ratings: [{
     type: Schema.Types.ObjectId,
     ref: "ratings",
-  },
+  }],
 });
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

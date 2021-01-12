@@ -20,10 +20,6 @@ class MapBox extends Component {
     this.marker = new mapboxgl.Marker();
   }
 
-  /**
-   * Possibly create util
-   */
-
   componentDidMount() {
     if (window.matchMedia("(max-width: 420px)")) {
       this.setState({
@@ -31,7 +27,6 @@ class MapBox extends Component {
         lat: 37.5713,
       });
     }
-
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: "mapbox://styles/mapbox/dark-v10",
@@ -39,13 +34,15 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
+    const popup = new mapboxgl.Popup()
+    
+
     const geocoder = new MapboxGeocoder({
       container: this.geocoder,
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
     });
     this.map.addControl(geocoder, "top-left");
-
     this.map.on("click", (e) => {
       this.marker.remove();
       e.preventDefault();
@@ -53,7 +50,6 @@ class MapBox extends Component {
       console.log([lng, lat]);
       this.marker.setLngLat([lng, lat]).addTo(this.map);
     });
-
     this.map.on("move", () => {
       this.setState({
         lng: this.map.getCenter().lng.toFixed(4),
@@ -62,7 +58,6 @@ class MapBox extends Component {
       });
     });
   }
-
   render() {
     return (
       <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />

@@ -32,7 +32,7 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: JSON.parse(req.body.coordinate),  //!fuck yeah it works!
+      coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
 
       type: req.body.type,
       available: req.body.available,
@@ -93,20 +93,19 @@ router.delete(
   }
 ); //end delete
 
-router.post("/:venue_id/comments", (req, res) => {
+router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
     comment: req.body.comment,
   });
-
   newComment.save().then(
     (comment) =>
       Venue.findByIdAndUpdate(
         req.params.venue_id,
-        { comments: comment },
+        { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue)) // response to front end
+      ).then((venue) => res.json(venue))
+    // response to front end
   );
 });
 
 module.exports = router;
-//.then((comment) => res.json(comment));
