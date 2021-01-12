@@ -14,7 +14,7 @@ class UserIndexItem extends React.Component {
         return (
             <div>
                 <h1>User Index Item</h1>
-                
+                {this.props.user.username}
             </div>
         )
     }

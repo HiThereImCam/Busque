@@ -3,6 +3,7 @@ import { fetchUsers } from '../../actions/user_actions';
 import UserIndex from './user_index';
 
 const mapStateToProps = (state) => ({
+    // user: Object.assign({}, state.entities.users.data)
     users: Object.values(state.entities.users)
 });
 
