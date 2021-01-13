@@ -2,9 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 class UserIndexItem extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         if (!this.props.user) {
@@ -14,7 +11,7 @@ class UserIndexItem extends React.Component {
         return (
             <div>
                 <Link to={`/profile/${this.props.user._id}`}>
-                    <img src={this.props.user.imageURL} alt="photo" />
+                    <img src={this.props.user.imageURL} alt="profile" />
                 </Link>
                 <br/>
                 <Link to={`/profile/${this.props.user._id}`}>
