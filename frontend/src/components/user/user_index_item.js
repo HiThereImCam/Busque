@@ -13,10 +13,19 @@ class UserIndexItem extends React.Component {
 
         return (
             <div>
-                <h1>User Index Item</h1>
+                <Link to={`/profile/${this.props.user._id}`}>
+                    <img src={this.props.user.imageURL} alt="photo" />
+                </Link>
+                <br/>
                 <Link to={`/profile/${this.props.user._id}`}>
                     {this.props.user.username}
                 </Link>
+                <div>
+                    {this.props.user.performerType}
+                </div>
+                <div>
+                    {this.props.user.bio}
+                </div>
             </div>
         )
     }
