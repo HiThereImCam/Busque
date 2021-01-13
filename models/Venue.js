@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const VenueSchema = new Schema({
   name: {
     type: String,
@@ -11,7 +10,7 @@ const VenueSchema = new Schema({
     type: Array,
     required: true,
   },
-  
+
   type: {
     type: String,
     required: true,
@@ -20,14 +19,25 @@ const VenueSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: "comments",
-  }],
-  ratings: [{
-    type: Schema.Types.ObjectId,
-    ref: "ratings",
-  }],
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
+  ratings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ratings",
+    },
+  ],
 });
+
+VenueSchema.methods.toJSON = function () {
+  var obj = this.toObject();
+  delete obj._id;
+  return obj;
+
+};
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

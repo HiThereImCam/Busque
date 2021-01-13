@@ -8,6 +8,13 @@ const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
 
+router.get("/", (req, res) => { //venue index
+  Venue.find()
+    .then((venue) => res.json(venue))
+    .catch((err) => res.status(404).json({ novenues: "No venues found" }));
+});
+
+
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the venue route ya bish" })
 );
