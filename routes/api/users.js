@@ -5,17 +5,17 @@ const User = require("../../models/User");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+var _ = require("lodash");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
-router.get("/", 
-(req, res) => {
+
+router.get("/", (req, res) => {
   User.find()
-  .then((user) => res.json(user))
-  .catch((err) => res.status(404).json({nousers: "No users found"}))
+    .then((user) => res.json(user))
+    .catch((err) => res.status(404).json({ nousers: "No users found" }));
+
 });
-
-
 
 router.get(
   "/current",
@@ -25,7 +25,7 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-    })
+    });
   }
 );
 
@@ -107,7 +107,6 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-        
     User.findByIdAndUpdate(
       req.params.id,
       {
@@ -137,6 +136,5 @@ router.put(
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
-
 
 module.exports = router;
