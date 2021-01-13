@@ -10,8 +10,8 @@ import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions'; 
 
 //TESTING
-import { getUsers, getUser } from './util/user_api_util';
-import {fetchUser} from './actions/user_actions'; 
+// import { getUsers, getUser } from './util/user_api_util';
+import { fetchUser, fetchUsers } from './actions/user_actions'; 
 
 document.addEventListener('DOMContentLoaded', () => {
   let store; 
@@ -35,8 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.getState = store.getState; 
   window.dispatch = store.dispatch; 
-  window.getUser = getUser; 
+  // window.getUser = getUser; 
   window.fetchUser = fetchUser; 
+  window.fetchUsers = fetchUsers; 
 
   const root = document.getElementById('root'); 
   ReactDOM.render(<Root store={store} />, root);
