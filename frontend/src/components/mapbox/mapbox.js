@@ -42,13 +42,15 @@ class MapBox extends Component {
       zoom: this.state.zoom,
     });
 
+    const popup = new mapboxgl.Popup()
+    
+
     const geocoder = new MapboxGeocoder({
       container: this.geocoder,
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
     });
     this.map.addControl(geocoder, "top-left");
-
     this.map.on("move", () => {
       this.setState({
         lng: this.map.getCenter().lng.toFixed(4),
