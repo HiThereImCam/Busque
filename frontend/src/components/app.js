@@ -24,7 +24,7 @@ const App = () => (
         component={UserShowContainer}
       />
       <Route exact path="/users" component={UserIndexContainer}/>
-      <Route exact path="/" component={MainPageContainer} />
+      <Route exact path="/" component={MapBoxContainer} />
     </Switch>
   </div>
 );
