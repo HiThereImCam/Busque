@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import mapboxgl from "mapbox-gl";
 import "../../css/mapbox.css";
 
@@ -87,12 +88,26 @@ class MapBox extends Component {
     }
   }
 
-  handleClick = () => {};
+  // handleClick(){
+  //   if
+  // }
 
   render() {
+    let { openNavModal } = this.props;
     return (
       <Fragment>
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
+        <div className="menu-container">
+          <div>
+            <GiHamburgerMenu
+              size={17}
+              onClick={() => {
+                openNavModal();
+              }}
+              className="menu-icon"
+            />
+          </div>
+        </div>
       </Fragment>
     );
   }
