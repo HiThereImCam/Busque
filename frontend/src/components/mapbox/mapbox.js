@@ -19,7 +19,7 @@ class MapBox extends Component {
       zoom: 12,
       markerColor: "#4CBB17",
     };
-    this.marker = new mapboxgl.Marker();
+
     this.mapBoxRef = React.createRef();
     this.buttonRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
@@ -27,6 +27,8 @@ class MapBox extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchVenues();
+
     if (window.matchMedia("(max-width: 420px)")) {
       this.setState({
         lng: -122.428,
@@ -34,6 +36,7 @@ class MapBox extends Component {
       });
     }
 
+    new mapboxgl.Popup();
 
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -41,9 +44,6 @@ class MapBox extends Component {
       center: [this.state.lng, this.state.lat],
       zoom: this.state.zoom,
     });
-
-    const popup = new mapboxgl.Popup()
-    
 
     const geocoder = new MapboxGeocoder({
       container: this.geocoder,
@@ -58,28 +58,36 @@ class MapBox extends Component {
         zoom: this.map.getZoom().toFixed(2),
       });
     });
-
-    defaultMarkers.coordinates.forEach((coordinate) => {
-      this.marker = new mapboxgl.Marker({
-        color: this.state.markerColor,
-      })
-        .setLngLat(coordinate)
-        .addTo(this.map);
-      this.marker
-        .setPopup(
-          new mapboxgl.Popup().setLngLat(coordinate).setHTML(
-            `
-              <button id="checkIn" onclick="handleClick()" ref=${this.buttonRef.current}>Check in</button>
-            `
-          )
-        )
-        .addTo(this.map);
-    });
   }
 
-  handleClick = () => {
-    let svg = document.getElementsByTagName("svg");
-  };
+  componentDidUpdate(prevProps) {
+    if (this.props.venues !== prevProps.venues) {
+      defaultMarkers.coordinates.forEach((coordinate) => {
+        this.props.venues.forEach((venue) => {
+          if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
+            this.marker = new mapboxgl.Marker({
+              color: this.state.markerColor,
+            })
+              .setLngLat(coordinate)
+              .addTo(this.map);
+
+            this.marker
+              .setPopup(
+                new mapboxgl.Popup().setLngLat(coordinate).setHTML(
+                  `
+                  <h1>${venue.name}</h1>
+                  <button id="checkIn" onclick="handleClick()" ref=${this.buttonRef.current}>Check in</button>
+                `
+                )
+              )
+              .addTo(this.map);
+          }
+        });
+      });
+    }
+  }
+
+  handleClick = () => {};
 
   render() {
     return (
