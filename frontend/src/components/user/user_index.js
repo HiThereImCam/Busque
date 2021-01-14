@@ -1,7 +1,7 @@
 import React from 'react'; 
 import UserIndexItem from './user_index_item';
 
-class ProjectIndex extends React.Component {
+class UserIndex extends React.Component {
 
     componentDidMount() {
         this.props.fetchUsers(); 
@@ -19,4 +19,4 @@ class ProjectIndex extends React.Component {
     }
 }
 
-export default ProjectIndex; 
+export default UserIndex; 

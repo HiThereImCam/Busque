@@ -10,11 +10,11 @@ class UserIndexItem extends React.Component {
 
         return (
             <div>
-                <Link to={`/profile/${this.props.user._id}`}>
+                <Link to={`/profile/${this.props.user.id}`}>
                     <img src={this.props.user.imageURL} alt="profile" />
                 </Link>
                 <br/>
-                <Link to={`/profile/${this.props.user._id}`}>
+                <Link to={`/profile/${this.props.user.id}`}>
                     {this.props.user.username}
                 </Link>
                 <div>
