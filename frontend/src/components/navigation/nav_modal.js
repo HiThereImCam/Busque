@@ -57,7 +57,6 @@ class NavModal extends Component {
                 </div>
                 <div className="nav-section">
                   <Link
-                    to="/artists"
                     className="nav-link nav-users"
                     to="/users"
                   >
@@ -66,7 +65,6 @@ class NavModal extends Component {
                   <Link
                     to="/venues"
                     className="nav-link nav-venues"
-                    to="/venues"
                   >
                     Best Venues
                   </Link>
