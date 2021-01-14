@@ -1,11 +1,42 @@
-let defaultMarkers = {
-  coordinates: [
-    [-122.40952975158433, 37.808518560682714],
-    [-122.40609841469205, 37.78535401067015],
-    [-122.42254607921029, 37.8059424385151],
-    [-122.39388015344244, 37.79495721982492],
-    [-122.407666, 37.784795],
-  ],
+import markerLocations from "./markerLocations";
+import mapboxgl from "mapbox-gl";
+
+let defaultMarkers = (venues, map, buttonRef) => {
+  return markerLocations.coordinates.forEach((coordinate) => {
+    venues.forEach((venue) => {
+      if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
+        let marker = new mapboxgl.Marker({
+          color: "#4CBB17",
+        })
+          .setLngLat(coordinate)
+          .addTo(map);
+
+        if (venue.available) {
+          marker
+            .setPopup(
+              new mapboxgl.Popup().setLngLat(coordinate).setHTML(
+                `
+                    <h1>${venue.name}</h1>
+                    <p>Available!</p>
+                `
+              )
+            )
+            .addTo(map);
+        } else {
+          marker
+            .setPopup(
+              new mapboxgl.Popup().setLngLat(coordinate).setHTML(
+                `
+                    <h1>${venue.name}</h1>
+                    <p>Not Available!</p>
+                `
+              )
+            )
+            .addTo(map);
+        }
+      }
+    });
+  });
 };
 
 export default defaultMarkers;
