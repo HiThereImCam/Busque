@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Mapbox from "../mapbox/mapbox";
+// import Mapbox from "../mapbox/mapbox";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "../../css/main_page.css";
 
@@ -20,7 +20,7 @@ class MainPage extends Component {
             />
           </div>
         </div>
-        <Mapbox />
+        {/* <Mapbox /> */}
       </Fragment>
     );
   }
