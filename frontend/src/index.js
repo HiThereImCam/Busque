@@ -10,10 +10,12 @@ import { setAuthToken } from "./util/session_api_util";
 import { logout } from "./actions/session_actions";
 
 //TESTING
+
 import { getVenues } from "./util/venue_api_util";
 import { fetchVenues } from "./actions/venue_actions";
 import { getUsers, getUser } from "./util/user_api_util";
 import { fetchUser } from "./actions/user_actions";
+
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -37,12 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
     store = configureStore({});
   }
 
+
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   window.getUser = getUser;
   window.fetchUser = fetchUser;
   window.fetchVenues = fetchVenues;
   window.getVenues = getVenues;
+
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);

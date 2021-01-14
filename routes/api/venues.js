@@ -15,9 +15,7 @@ router.get("/", (req, res) => { //venue index
 });
 
 
-router.get("/test", (req, res) =>
-  res.json({ msg: "This is the venue route ya bish" })
-);
+
 
 router.get("/:id", (req, res) => {
   //find venue by ID
@@ -83,7 +81,7 @@ router.put(
   }
 ); //end update
 
-router.delete(
+router.delete(  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -114,5 +112,9 @@ router.patch("/:venue_id/comments", (req, res) => {
     // response to front end
   );
 });
+
+router.get("/test", (req, res) => //test route
+  res.json({ msg: "This is the venue route ya bish" })
+);
 
 module.exports = router;
