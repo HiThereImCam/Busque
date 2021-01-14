@@ -3,12 +3,10 @@ import { fetchVenues } from "../../actions/venue_actions";
 import { openNavModal } from "../../actions/nav_actions";
 import MapBox from "./mapbox";
 
-const mapStateToProps = (state) => (
-  console.log("state", state),
-  {
-    venues: state.venues,
-  }
-);
+const mapStateToProps = (state) => ({
+  venues: state.venues,
+  isAuthenticated: state.session.isAuthenticated,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchVenues: () => dispatch(fetchVenues()),

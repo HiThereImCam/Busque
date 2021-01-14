@@ -6,6 +6,7 @@ import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import defaultMarkers from "../../config/defaultMarkers";
+import loggedInMarkers from "../../config/loggedInMarkers";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -18,7 +19,7 @@ class MapBox extends Component {
       lng: -122.4363143,
       lat: 37.7461108,
       zoom: 12,
-      markerColor: "#4CBB17",
+      // markerColor: "#4CBB17",
     };
 
     this.mapBoxRef = React.createRef();
@@ -62,35 +63,18 @@ class MapBox extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.venues !== prevProps.venues) {
-      defaultMarkers.coordinates.forEach((coordinate) => {
-        this.props.venues.forEach((venue) => {
-          if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
-            this.marker = new mapboxgl.Marker({
-              color: this.state.markerColor,
-            })
-              .setLngLat(coordinate)
-              .addTo(this.map);
-
-            this.marker
-              .setPopup(
-                new mapboxgl.Popup().setLngLat(coordinate).setHTML(
-                  `
-                  <h1>${venue.name}</h1>
-                  <button id="checkIn" onclick="handleClick()" ref=${this.buttonRef.current}>Check in</button>
-                `
-                )
-              )
-              .addTo(this.map);
-          }
-        });
-      });
+    let { venues, isAuthenticated } = this.props;
+    if (venues !== prevProps.venues) {
+      loggedInMarkers(venues, this.map, this.buttonRef);
     }
+    // } else {
+    //   defaultMarkers(venues, this.map);
+    // }
   }
 
-  // handleClick(){
-  //   if
-  // }
+  handleClick() {
+    console.log("hello");
+  }
 
   render() {
     let { openNavModal } = this.props;
