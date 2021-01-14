@@ -1,5 +1,7 @@
 import React from 'react'; 
 import UserIndexItem from './user_index_item';
+import "../../css/user_index.css";
+
 
 class UserIndex extends React.Component {
 
@@ -10,7 +12,9 @@ class UserIndex extends React.Component {
     render() {
         return (
             <div>
-                <h1>Our Artists</h1>
+                <div className="user-index-header">
+                    <h1>Our Artists</h1>
+                </div>
                 {this.props.users.map((user, i) => {
                     return <UserIndexItem user={user} key={i}/>
                 })}
