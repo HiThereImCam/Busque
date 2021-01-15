@@ -12,6 +12,7 @@ class SignupForm extends React.Component {
       password: "",
       performerType: "",
       bio: "",
+      photoFile: null,
       imageURL: "",
       errors: {},
     };
@@ -102,7 +103,8 @@ class SignupForm extends React.Component {
                 onChange={this.update("bio")}
                 placeholder="Bio"
                 />
-                <input id='signup-profile' type="button" value="Upload a profile picture" onClick={this.handleFile.bind(this)} />
+                <div>Upload a Profile Picture:</div>
+                <input id='signup-profile' type="file" onChange={this.handleFile.bind(this)} />
                 <input className='signup-button' type="submit" value="Sign up" />
                 {this.renderErrors()}
             </div>
