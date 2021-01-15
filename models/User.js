@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// var imgPath = '/path/to/some/img.png';
+
+// mongoose.connect('localhost', 'testing_storeImg');
+
 const UserSchema = new Schema({
   username: {
     type: String,

@@ -1,5 +1,6 @@
 import markerLocations from "./markerLocations";
 import mapboxgl from "mapbox-gl";
+import unavailableLocation from "./unavailableLocation";
 
 let loggedInMarkers = (venues, map, buttonRef, users) => {
   return markerLocations.coordinates.forEach((coordinate) => {
@@ -25,6 +26,7 @@ let loggedInMarkers = (venues, map, buttonRef, users) => {
             )
             .addTo(map);
         } else {
+          unavailableLocation(users);
         }
       }
     });

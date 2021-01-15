@@ -31,6 +31,7 @@ class MapBox extends Component {
 
   componentDidMount() {
     this.props.fetchVenues();
+    this.props.fetchUsers();
 
     if (window.matchMedia("(max-width: 420px)")) {
       this.setState({
@@ -64,9 +65,9 @@ class MapBox extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    let { venues, isAuthenticated } = this.props;
-    if (venues !== prevProps.venues) {
-      loggedInMarkers(venues, this.map, this.buttonRef);
+    let { venues, users, isAuthenticated } = this.props;
+    if (venues !== prevProps.venues && users !== prevProps.users) {
+      loggedInMarkers(venues, this.map, this.buttonRef, users);
     }
     // } else {
     //   defaultMarkers(venues, this.map);
