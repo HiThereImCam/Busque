@@ -1,5 +1,14 @@
+const express = require('express');
+const fs = require("fs");
+const http = require("http");
+const AWS = require("aws-sdk");
+const uuid = require("uuid");
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
+
+// var imgPath = '/path/to/some/img.png';
+
+// mongoose.connect('localhost', 'testing_storeImg');
 
 const UserSchema = new Schema({
   username: {
@@ -45,7 +54,7 @@ UserSchema.methods.toJSON = function () {
   var obj = this.toObject();
   delete obj.password;
   delete obj._id;
-  delete obj.email  ;
+  delete obj.email;
   return obj;
 };
 

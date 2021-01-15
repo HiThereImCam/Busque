@@ -25,13 +25,19 @@ const VenueSchema = new Schema({
       ref: "comments",
     },
   ],
+  currentUser: {
+  type: Array,
+  },
+
   ratings: [
     {
       type: Schema.Types.ObjectId,
       ref: "ratings",
     },
   ],
+  
 });
+
 
 VenueSchema.methods.toJSON = function () {
   var obj = this.toObject();
