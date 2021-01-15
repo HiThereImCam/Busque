@@ -20,7 +20,7 @@ const VenueSchema = new Schema({
     default: true,
   },
   comments: [
-    {
+    { 
       type: Schema.Types.ObjectId,
       ref: "comments",
     },

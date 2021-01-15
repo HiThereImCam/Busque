@@ -47,7 +47,6 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "ratings",
   },
-  timestamps: true,
 });
 
 UserSchema.methods.toJSON = function () {
