@@ -1,5 +1,14 @@
+const express = require('express');
+const fs = require("fs");
+const http = require("http");
+const AWS = require("aws-sdk");
+const uuid = require("uuid");
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
+
+// var imgPath = '/path/to/some/img.png';
+
+// mongoose.connect('localhost', 'testing_storeImg');
 
 const UserSchema = new Schema({
   username: {
