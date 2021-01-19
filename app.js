@@ -26,7 +26,7 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => re                                                                                                                                                                                                                                                                                                                                                                 s.send("Busque"));
+app.get("/", (req, res) => res.send("Busque"));
 app.use("/api/users", users);
 app.use("/api/venues", venues);
 app.use("/api/upload", upload);
