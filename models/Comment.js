@@ -10,16 +10,14 @@ const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-  comment: 
-        [],
-  // {
-  //   type: String,
-  //   required: true,
-  // },
+  comment: {
+    type: String,
+    required: true,
+  },
   date: {
-      type: Date,
-      default: Date.now
-  }
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = Comment = mongoose.model("comment", CommentSchema);

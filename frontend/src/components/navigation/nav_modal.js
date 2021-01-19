@@ -1,5 +1,8 @@
 import React, { Component, Fragment, createRef } from "react";
+import { Link } from "react-router-dom";
+import { CgChevronDoubleLeft } from "react-icons/cg";
 import "../../css/nav_modal.css";
+
 class NavModal extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +36,7 @@ class NavModal extends Component {
   }
 
   render() {
-    let { openNavModal } = this.props;
+    let { openNavModal, closeNavModal } = this.props;
     return (
       <Fragment>
         {openNavModal ? (
@@ -43,7 +46,43 @@ class NavModal extends Component {
               ref={this.modalChild}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="nav-container">BUSQUE</div>
+              <div className="nav-container">
+                <div className="nav-header">
+                  <Link 
+                    className="h2"
+                    to="/"
+                    onClick={() => closeNavModal()} >
+                    Busque
+                  </Link>
+                  <CgChevronDoubleLeft
+                    className="navback-icon"
+                    onClick={() => closeNavModal()}
+                    size={30}
+                  />
+                </div>
+                <div className="nav-section">
+                  <Link
+                    className="nav-link nav-users"
+                    to="/users"
+                    onClick={() => closeNavModal()}
+                  >
+                    Meet our Artists
+                  </Link>
+                  <Link
+                    to="/venues"
+                    className="nav-link nav-venues"
+                    onClick={() => closeNavModal()}
+                  >
+                    Best Venues
+                  </Link>
+                  <Link to="login" className="nav-link nav-login" onClick={() => closeNavModal()}>
+                    Login
+                  </Link>
+                  <Link to="/signup" className="nav-link nav-signup" onClick={() => closeNavModal()}>
+                    Signup
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         ) : (

@@ -1,41 +1,54 @@
-  import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 // import './index.css';
 // import App from './App';
-import Root from './components/root'; 
+import Root from "./components/root";
 
-import configureStore from './store/store'; 
-import jwt_decode from 'jwt-decode'; 
-import { setAuthToken } from './util/session_api_util'; 
-import { logout } from './actions/session_actions'; 
+import configureStore from "./store/store";
+import jwt_decode from "jwt-decode";
+import { setAuthToken } from "./util/session_api_util";
+import { logout } from "./actions/session_actions";
 
-document.addEventListener('DOMContentLoaded', () => {
-  let store; 
+//TESTING
+
+import { getVenues } from "./util/venue_api_util";
+import { fetchVenues } from "./actions/venue_actions";
+import { getUsers, getUser } from "./util/user_api_util";
+import { fetchUser, fetchUsers } from "./actions/user_actions";
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  let store;
 
   // if a returning user has a session token stored in localstorage
   if (localStorage.jwtToken) {
-    setAuthToken(localStorage.jwtToken); 
-    const decodedUser = jwt_decode(localStorage.jwtToken); 
-    const preloadedState = { session: { isAuthenticated: true, user: decodedUser }};
-    store = configureStore(preloadedState); 
+    setAuthToken(localStorage.jwtToken);
+    const decodedUser = jwt_decode(localStorage.jwtToken);
+    const preloadedState = {
+      session: { isAuthenticated: true, user: decodedUser },
+    };
+    store = configureStore(preloadedState);
 
-    const currentTime = Date.now() / 1000; 
+    const currentTime = Date.now() / 1000;
     // if user's token has expired:
     if (decodedUser.exp < currentTime) {
-      store.dispatch(logout()); 
-      window.location.href = '/login'; 
+      store.dispatch(logout());
+      window.location.href = "/login";
     }
   } else {
-    store = configureStore({}); 
+    store = configureStore({});
   }
 
-  window.getState = store.getState; 
 
-  const root = document.getElementById('root'); 
+  window.getState = store.getState;
+  window.dispatch = store.dispatch;
+  window.getUser = getUser;
+  window.fetchUser = fetchUser;
+  window.fetchUsers = fetchUsers; 
+  window.fetchVenues = fetchVenues;
+  window.getVenues = getVenues;
+
+
+  const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
 });
-
-
-
-
-

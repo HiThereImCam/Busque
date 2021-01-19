@@ -11,11 +11,6 @@ export const setAuthToken = (token) => {
 
 export const signup = (userData) => {
   return axios.post("/api/users/signup", userData);
-  //   try {
-  //     axios.post("/api/users/signup", userData);
-  //   } catch (e) {
-  //     console.log(`Error: ${e}`);
-  //   }
 };
 
 export const login = (userData) => {

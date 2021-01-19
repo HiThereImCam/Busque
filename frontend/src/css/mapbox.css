@@ -7,10 +7,31 @@
   z-index: -9999999999;
 }
 
-/* @media screen and (max-width: 420px) {
+/*
+  Natural breakpoint for search bar at max width of 640px
+*/
+
+@media screen and (max-width: 1445px) {
+  .menu-icon {
+    margin-left: 245px;
+  }
+}
+
+.mapboxgl-ctrl-geocoder {
+  border-radius: 4px 0 0 4px;
+}
+
+.menu-icon {
+  margin-left: 247px;
+  border-radius: 4px;
+  background-color: white;
+  padding: 9px 8px 10px 8px;
+  margin-top: 10px;
+  color: light-grey;
+  fill: #757575;
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-} */
+}
+
+.menu-icon:hover {
+  cursor: pointer;
+}

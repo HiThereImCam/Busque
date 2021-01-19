@@ -1,0 +1,60 @@
+
+.user-header-h1 {
+    text-decoration: none;
+    color: black;
+}
+
+/* .user-header {
+    margin-bottom: 30px;
+} */
+
+.user-show-info-list {
+    display: flex; 
+    border-bottom: 1px solid lightgray;
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.user-show-photo-outer {
+    display: block; 
+    flex-basis: 50%;
+    border: 1px solid lightgray;
+    margin-top: 50px; 
+    margin-bottom: 50px;
+    margin-right: 50px;
+    height: 300px; 
+    
+}
+.user-show-photo img {
+    width: 200px; 
+
+}
+
+.user-show-info {
+    display: block; 
+    flex-basis: 50%;
+    /* margin: 50px;  */
+    padding-left: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    /* border-left: 1px solid lightgray; */
+}
+
+.user-show-username {
+    font-size: xx-large;
+    padding-bottom: 20px;
+}
+
+.user-show-performer-type {
+    padding-bottom: 10px;
+}
+
+.user-reviews {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding-top: 50px; 
+}
+
+.user-reviews h2 {
+    font-size: larger; 
+}

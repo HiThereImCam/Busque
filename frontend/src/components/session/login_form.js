@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../../css/login.css";
 
+import { withRouter } from 'react-router-dom';
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -8,10 +10,12 @@ class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
+      errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.demoUser = this.demoUser.bind(this); 
   }
 
   componentDidMount() {
@@ -24,35 +28,38 @@ class LoginForm extends Component {
     }
   }
 
-  handleInputChange(e) {
-    const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
+  handleInputChange(field) {
+    return e => this.setState({
+      [field]: e.currentTarget.value 
+    })
   }
+
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.login(user);
+    this.props.login(user)
+      .then(this.props.history.push("/"));
   }
 
   renderErrors() {
-    let { errors } = this.props;
-
     return (
       <ul className="HeroPane-session-errors">
-        {errors.map((error, i) => (
-          <li key={`error-${i}`}>{error}</li>
+        {Object.keys(this.state.errors).map((error, i) => (
+          <li key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
         ))}
       </ul>
-    );
+    )
   }
 
-  demoUser() {
-    this.setState({
-      email: "demo@example.com",
-      password: "password",
-    });
+  demoUser(e) {
+    e.preventDefault(); 
+    let demoUser = {
+      email: "test@user.com", 
+      password: "testuser"
+    }; 
+    this.props.login(demoUser)
   }
 
   render() {
@@ -61,7 +68,6 @@ class LoginForm extends Component {
     return (
       <div className='login-page-container'>
         <div className='login-page'>
-            {this.renderErrors()}
             <form className='login-form' onSubmit={this.handleSubmit}>
                 <div className='login-title'>Busque</div>
                 <div className='login-desc'>Sign In</div>
@@ -71,24 +77,25 @@ class LoginForm extends Component {
                     name="email"
                     value={email}
                     placeholder="enter email"
-                    onChange={this.handleInputChange}
-                />
+                    onChange={this.handleInputChange('email')}
+                    />
                 <input
                     type="password"
                     name="password"
                     value={password}
                     placeholder="enter password"
-                    onChange={this.handleInputChange}
-                />
+                    onChange={this.handleInputChange('password')}
+                    />
+                {this.renderErrors()}
+              <div className='login-buttons'>
+                  <button>Login</button>
+                  <button onClick={this.demoUser}>Demo User</button>
+              </div>
             </form>
-            <div className='login-buttons'>
-                <button>Login</button>
-                <button onClick={() => this.demoUser()}>Demo User</button>
-            </div>
-        </div>
-      </div>
+         </div>
+       </div>
     );
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm); 

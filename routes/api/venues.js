@@ -8,9 +8,14 @@ const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
 
-router.get("/test", (req, res) =>
-  res.json({ msg: "This is the venue route ya bish" })
-);
+router.get("/", (req, res) => { //venue index
+  Venue.find()
+    .then((venue) => res.json(venue))
+    .catch((err) => res.status(404).json({ novenues: "No venues found" }));
+});
+
+
+
 
 router.get("/:id", (req, res) => {
   //find venue by ID
@@ -32,7 +37,7 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: JSON.parse(req.body.coordinate),  //!fuck yeah it works!
+      coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
 
       type: req.body.type,
       available: req.body.available,
@@ -76,7 +81,7 @@ router.put(
   }
 ); //end update
 
-router.delete(
+router.delete(  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -93,20 +98,23 @@ router.delete(
   }
 ); //end delete
 
-router.post("/:venue_id/comments", (req, res) => {
+router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
     comment: req.body.comment,
   });
-
   newComment.save().then(
     (comment) =>
       Venue.findByIdAndUpdate(
         req.params.venue_id,
-        { comments: comment },
+        { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue)) // response to front end
+      ).then((venue) => res.json(venue))
+    // response to front end
   );
 });
 
+router.get("/test", (req, res) => //test route
+  res.json({ msg: "This is the venue route ya bish" })
+);
+
 module.exports = router;
-//.then((comment) => res.json(comment));

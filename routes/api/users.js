@@ -1,4 +1,7 @@
 const express = require("express");
+const fs = require("fs");
+const http = require("http");
+const aws = require("aws-sdk");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
@@ -8,6 +11,16 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
+
+
+
+router.get("/", (req, res) => {
+  User.find()
+    .then((user) => res.json(user))
+    .catch((err) => res.status(404).json({ nousers: "No users found" }));
+
+});
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
@@ -16,6 +29,7 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
+      
     });
   }
 );
@@ -38,6 +52,9 @@ router.post("/signup", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        performerType: req.body.performerType,
+        bio: req.body.bio,
+        imageURL: req.body.imageURL,
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -93,6 +110,29 @@ router.post("/login", (req, res) => {
     });
   });
 }); //end login
+
+router.put(
+  "/edit/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    User.findByIdAndUpdate(
+      req.params.id, req.body,
+     
+      { new: true },
+      //error handling
+      function (err, response) {
+        if (err) {
+          console.log("we hit an error" + err);
+          res.json({
+            message: "Database Update Failure",
+          });
+        }
+        console.log("This is the Response: " + response);
+        return res.send(response);
+      }
+    );
+  }
+); //end update
 
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
