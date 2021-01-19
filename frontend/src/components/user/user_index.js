@@ -1,8 +1,6 @@
 import React from 'react'; 
 import UserIndexItem from './user_index_item';
-import NavModalContainer from '../navigation/nav_modal_container';
 import "../../css/user_index.css";
-import { openNavModal } from '../../actions/nav_actions';
 import { GiHamburgerMenu } from "react-icons/gi";
 
 
