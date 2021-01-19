@@ -26,7 +26,7 @@ const VenueSchema = new Schema({
     },
   ],
   currentUser: {
-  type: Array,
+    type: Array,
   },
 
   ratings: [
@@ -35,14 +35,6 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
-  
 });
-
-
-VenueSchema.methods.toJSON = function () {
-  var obj = this.toObject();
-  delete obj._id;
-  return obj;
-};
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

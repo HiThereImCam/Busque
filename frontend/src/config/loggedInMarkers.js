@@ -18,7 +18,7 @@ let loggedInMarkers = (venues, map, buttonRef, users) => {
               new mapboxgl.Popup().setLngLat(coordinate).setHTML(
                 `
                 <h1>${venue.name}</h1>
-                <button id="${venue.name}"
+                <button id="${venue._id}"
                         onclick="handleClick(this.id)"
                         ref=${buttonRef.current}>Check in</button>
               `
@@ -26,7 +26,11 @@ let loggedInMarkers = (venues, map, buttonRef, users) => {
             )
             .addTo(map);
         } else {
-          unavailableLocation(users);
+          try {
+            unavailableLocation(users);
+          } catch (e) {
+            console.log("errors: ", e);
+          }
         }
       }
     });

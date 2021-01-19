@@ -19,18 +19,6 @@ export const fetchUsers = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// export const fetchQuestions = () => (dispatch) => {
-//   return QuestionsAPIUtil.fetchQuestions()
-//     .then((res) => {
-//       dispatch(receiveQuestions(res.data));
-//     })
-//     .catch((err) => dispatch(receiveQuestionErrors(err)));
-// };
-
-// export const fetchUsers = () => {
-//   UserAPIUtil.getUsers().then((users) => console.log(users));
-// };
-
 export const fetchUser = (userId) => (dispatch) =>
   UserAPIUtil.getUser(userId)
     .then((user) => dispatch(receiveUser(user)))

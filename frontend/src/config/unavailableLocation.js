@@ -1,8 +1,7 @@
 import mapboxgl from "mapbox-gl";
 
 let unavailableLocation = (users) => {
-  // if location == user.location
-  // display user information
+  console.log(users);
 };
 
 export default unavailableLocation;

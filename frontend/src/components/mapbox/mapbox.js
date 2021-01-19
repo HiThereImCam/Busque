@@ -64,17 +64,21 @@ class MapBox extends Component {
     });
   }
 
+  // needs to be authenticated
+
   componentDidUpdate(prevProps) {
-    let { venues, users, isAuthenticated } = this.props;
-    if (venues !== prevProps.venues && users !== prevProps.users) {
+    let { venues, users } = this.props;
+    if (venues !== undefined && users !== undefined) {
       loggedInMarkers(venues, this.map, this.buttonRef, users);
+    } else {
+      defaultMarkers(venues, this.map);
     }
-    // } else {
-    //   defaultMarkers(venues, this.map);
-    // }
   }
 
-  handleClick(id) {}
+  handleClick(id) {
+    // id is the venue name
+    this.props.checkIn(id);
+  }
 
   render() {
     let { openNavModal } = this.props;

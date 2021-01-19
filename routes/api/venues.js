@@ -8,14 +8,12 @@ const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
 
-router.get("/", (req, res) => { //venue index
+router.get("/", (req, res) => {
+  //venue index
   Venue.find()
     .then((venue) => res.json(venue))
     .catch((err) => res.status(404).json({ novenues: "No venues found" }));
 });
-
-
-
 
 router.get("/:id", (req, res) => {
   //find venue by ID
@@ -59,12 +57,7 @@ router.put(
     }
     Venue.findByIdAndUpdate(
       req.params.id,
-      {
-        name: req.body.name,
-        coordinate: JSON.parse(req.body.coordinate),
-        type: req.body.type,
-        available: req.body.available,
-      },
+      req.body,
       { new: true },
       //error handling
       function (err, response) {
@@ -81,7 +74,8 @@ router.put(
   }
 ); //end update
 
-router.delete(  //delete route
+router.delete(
+  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -113,8 +107,9 @@ router.patch("/:venue_id/comments", (req, res) => {
   );
 });
 
-router.get("/test", (req, res) => //test route
-  res.json({ msg: "This is the venue route ya bish" })
-);
+router.get("/test", (
+  req,
+  res //test route
+) => res.json({ msg: "This is the venue route ya bish" }));
 
 module.exports = router;
