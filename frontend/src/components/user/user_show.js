@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import "../../css/user_show.css";
+import { GiHamburgerMenu } from "react-icons/gi";
+
 
 class UserShow extends React.Component {
 
@@ -18,6 +20,13 @@ class UserShow extends React.Component {
             return (
                 <div>
                     <div className="user-header">
+                        <GiHamburgerMenu
+                            size={25}
+                            onClick={() => {
+                                this.props.openNavModal();
+                            }}
+                            className="menu-icon-other"
+                        />
                         <Link className="user-header-h1" to={"/"}>
                             <h1>Busque</h1>
                         </Link>
