@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
+import "../../css/user_show.css";
 
 class UserShow extends React.Component {
 
@@ -15,11 +17,32 @@ class UserShow extends React.Component {
 
             return (
                 <div>
-                    <h1>hello</h1>
-                    <img src={user.imageURL} alt="profile" />
-                    <div>{user.username}</div>
-                    <div>{user.performerType}</div>
-                    <div>{user.bio}</div>
+                    <div className="user-header">
+                        <Link className="user-header-h1" to={"/"}>
+                            <h1>Busque</h1>
+                        </Link>
+                    </div>
+                    <div className="user-show-info-list">
+                        <div className="user-show-photo-outer">
+                            <div className="user-show-photo">
+                                <img src={user.imageURL} alt="profile" />
+                            </div>
+                        </div>
+                        <div className="user-show-info">
+                            <div className="user-show-username">
+                                {user.username}
+                            </div>
+                            <div className="user-show-performer-type">
+                                Performer Type: {user.performerType}
+                            </div>
+                            <div className="user-show-bio">
+                                Bio: {user.bio}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="user-reviews">
+                        <h2>Reviews</h2>
+                    </div>
                 </div>
             )
         }
