@@ -14,7 +14,7 @@ import { logout } from "./actions/session_actions";
 import { getVenues } from "./util/venue_api_util";
 import { fetchVenues } from "./actions/venue_actions";
 import { getUsers, getUser } from "./util/user_api_util";
-import { fetchUser } from "./actions/user_actions";
+import { fetchUser, fetchUsers } from "./actions/user_actions";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.dispatch = store.dispatch;
   window.getUser = getUser;
   window.fetchUser = fetchUser;
+  window.fetchUsers = fetchUsers; 
   window.fetchVenues = fetchVenues;
   window.getVenues = getVenues;
 
