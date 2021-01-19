@@ -29,6 +29,7 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
+      
     });
   }
 );
@@ -51,6 +52,9 @@ router.post("/signup", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        performerType: req.body.performerType,
+        bio: req.body.bio,
+        imageURL: req.body.imageURL,
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -108,19 +112,12 @@ router.post("/login", (req, res) => {
 }); //end login
 
 router.put(
-  "/:id",
+  "/edit/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     User.findByIdAndUpdate(
-      req.params.id,
-      {
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        performerType: req.body.performerType,
-        bio: req.body.bio,
-        imageURL: req.body.imageURL,
-      },
+      req.params.id, req.body,
+     
       { new: true },
       //error handling
       function (err, response) {
