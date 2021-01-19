@@ -16,6 +16,7 @@ class SignupForm extends React.Component {
       imageURL: "",
       errors: {},
     };
+    
 
     this.handleFile = this.handleFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
