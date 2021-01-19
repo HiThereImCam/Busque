@@ -10,6 +10,7 @@ const db = require("./config/keys").mongoURI;
 const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
 const venues = require("./routes/api/venues");
+const upload = require("./routes/api/upload");
 require("./config/passport")(passport);
 
 if (process.env.NODE_ENV === 'production') {
@@ -60,6 +61,7 @@ app.use(bodyParser.json());
 app.get("/", (req, res) => res.send("Busque"));
 app.use("/api/users", users);
 app.use("/api/venues", venues);
+app.use("/api/upload", upload);
 
 
 const port = process.env.PORT || 5000;
