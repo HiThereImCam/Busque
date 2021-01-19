@@ -12,9 +12,11 @@ class SignupForm extends React.Component {
       password: "",
       performerType: "",
       bio: "",
+      photoFile: null,
       imageURL: "",
       errors: {},
     };
+    
 
     this.handleFile = this.handleFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,7 +55,9 @@ class SignupForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          <li>{this.state.errors[error]}</li>
+          <li key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -102,7 +106,8 @@ class SignupForm extends React.Component {
                 onChange={this.update("bio")}
                 placeholder="Bio"
                 />
-                <input id='signup-profile' type="button" value="Upload a profile picture" onClick={this.handleFile.bind(this)} />
+                <div>Upload a Profile Picture:</div>
+                <input id='signup-profile' type="file" onChange={this.handleFile.bind(this)} />
                 <input className='signup-button' type="submit" value="Sign up" />
                 {this.renderErrors()}
             </div>

@@ -25,9 +25,6 @@ const VenueSchema = new Schema({
       ref: "comments",
     },
   ],
-  currentUser: {
-    type: Array,
-  },
 
   ratings: [
     {
@@ -35,6 +32,7 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
+  currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

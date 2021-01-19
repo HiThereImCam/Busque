@@ -48,7 +48,12 @@ class NavModal extends Component {
             >
               <div className="nav-container">
                 <div className="nav-header">
-                  <h2>Busque</h2>
+                  <Link 
+                    className="h2"
+                    to="/"
+                    onClick={() => closeNavModal()} >
+                    Busque
+                  </Link>
                   <CgChevronDoubleLeft
                     className="navback-icon"
                     onClick={() => closeNavModal()}
@@ -59,19 +64,21 @@ class NavModal extends Component {
                   <Link
                     className="nav-link nav-users"
                     to="/users"
+                    onClick={() => closeNavModal()}
                   >
                     Meet our Artists
                   </Link>
                   <Link
                     to="/venues"
                     className="nav-link nav-venues"
+                    onClick={() => closeNavModal()}
                   >
                     Best Venues
                   </Link>
-                  <Link to="login" className="nav-link nav-login">
+                  <Link to="login" className="nav-link nav-login" onClick={() => closeNavModal()}>
                     Login
                   </Link>
-                  <Link to="/signup" className="nav-link nav-signup">
+                  <Link to="/signup" className="nav-link nav-signup" onClick={() => closeNavModal()}>
                     Signup
                   </Link>
                 </div>

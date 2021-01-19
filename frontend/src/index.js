@@ -13,7 +13,6 @@ import { logout } from "./actions/session_actions";
 
 import { getVenues } from "./util/venue_api_util";
 import { fetchVenues } from "./actions/venue_actions";
-import { getUsers, getUser } from "./util/user_api_util";
 import { fetchUsers } from "./actions/user_actions";
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -68,7 +68,6 @@ class LoginForm extends Component {
     return (
       <div className='login-page-container'>
         <div className='login-page'>
-            {this.renderErrors()}
             <form className='login-form' onSubmit={this.handleSubmit}>
                 <div className='login-title'>Busque</div>
                 <div className='login-desc'>Sign In</div>
@@ -79,14 +78,15 @@ class LoginForm extends Component {
                     value={email}
                     placeholder="enter email"
                     onChange={this.handleInputChange('email')}
-                />
+                    />
                 <input
                     type="password"
                     name="password"
                     value={password}
                     placeholder="enter password"
                     onChange={this.handleInputChange('password')}
-                />
+                    />
+                {this.renderErrors()}
               <div className='login-buttons'>
                   <button>Login</button>
                   <button onClick={this.demoUser}>Demo User</button>

@@ -15,11 +15,13 @@
   border-bottom: 1px solid lightgrey;
 }
 
-.nav-header h2 {
+.nav-header .h2 {
   display: flex;
   justify-content: center;
   margin-left: 10px;
   font-size: 25px;
+  text-decoration: none;
+  color: black; 
 }
 
 .nav-section {

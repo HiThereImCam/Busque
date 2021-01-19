@@ -47,8 +47,13 @@ const UserSchema = new Schema({
 UserSchema.methods.toJSON = function () {
   var obj = this.toObject();
   delete obj.password;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 10c0c386c0e7e02f3d6d5cfdb3f105390c474007
   delete obj.email;
   return obj;
+  
 };
 
 module.exports = User = mongoose.model("User", UserSchema);
