@@ -20,7 +20,7 @@ const VenueSchema = new Schema({
     default: true,
   },
   comments: [
-    { 
+    {
       type: Schema.Types.ObjectId,
       ref: "comments",
     },
@@ -32,14 +32,7 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
-  currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }]
+  currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
-
-VenueSchema.methods.toJSON = function () {
-  var obj = this.toObject();
-  delete obj._id;
-  return obj;
-
-};
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
