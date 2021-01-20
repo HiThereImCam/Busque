@@ -24,7 +24,6 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@mapbox/mapbox-gl-geocoder": "^4.7.0",
     "aws-sdk": "^2.828.0",
-    "aws-sdk": "^2.827.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
