@@ -21,8 +21,8 @@ export const fetchVenues = () => (dispatch) =>
 export const checkIn = (venueID, currentUser) => (dispatch) =>
   VenueApiUtil.checkIn(venueID, currentUser).then((updatedVenue) => {
     try {
-      console.log("updated venue:", updatedVenue);
-      // dispatch(checkedIn(updatedVenue));
+      // console.log("updated venue:", updatedVenue);
+      dispatch(checkedIn(updatedVenue));
     } catch (e) {
       console.log(`error: `, e);
     }

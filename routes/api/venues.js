@@ -67,21 +67,24 @@ router.patch(
       }
     ).then((venue) => res.json(venue));
   }
-); //end update
+);
 
-// router.patch("/edit/:id", (req, res) => {
-//   mongoose.set("useFindAndModify", false);
-//   // const { errors, isValid } = validateVenueInput(req.body);
-//   // if (!isValid) {
-//   //   return res.status(400).json(errors);
-//   // }
-//   Venue.findByIdAndUpdate(req.params.id, req.body, {
-//     new: true,
-//   }).then((venue) => res.json(venue));
-// });
+router.patch(
+  "/checkout/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    try {
+      Venue.findById(req.params.id).then((venue) => {
+        venue.currentUser.pop();
+        res.send(venue);
+      });
+    } catch (e) {
+      console.log("error: ", e);
+    }
+  }
+);
 
 router.delete(
-  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {

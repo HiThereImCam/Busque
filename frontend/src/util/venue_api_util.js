@@ -11,9 +11,9 @@ export const checkIn = (venueID, currentUser) => {
   });
 };
 
-export const checkOut = (venueID) => {
+export const checkOut = (venueID, currentUser) => {
   return axios.patch(`/api/venues/edit/${venueID}`, {
     available: true,
-    currentUser: [],
+    currentUser: currentUser.pop(),
   });
 };
