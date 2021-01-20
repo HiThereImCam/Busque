@@ -1,6 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { GiHamburgerMenu } from "react-icons/gi";
+import "../../css/user_show.css"; 
+
 
 class UserShow extends React.Component {
   componentDidMount() {
@@ -16,13 +19,20 @@ class UserShow extends React.Component {
       return (
         <div>
           <div className="user-header">
-            <Link to="/" >
-              <h1 className="user-header-h1">Busque</h1>
+            <GiHamburgerMenu
+              size={25}
+              onClick={() => {
+                this.props.openNavModal();
+              }}
+              className="menu-icon-other"
+            />
+            <Link className="user-header-h1" to={"/"}>
+              <h1>Busque</h1>
             </Link>
           </div>
           <div className="user-show-info-list">
             <div className="user-show-photo-outer">
-              <div className="user-show-photo-inner">
+              <div className="user-show-photo">
                 <img src={user.imageURL} alt="profile" />
               </div>
             </div>
