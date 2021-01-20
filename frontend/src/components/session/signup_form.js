@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import { uploadPhoto } from '../../util/photo_api_util'; 
 import "../../css/signup.css";
 
 class SignupForm extends React.Component {
@@ -12,11 +13,11 @@ class SignupForm extends React.Component {
       password: "",
       performerType: "",
       bio: "",
+      photoId: "", 
       photoFile: null,
       imageURL: "",
       errors: {},
     };
-    
 
     this.handleFile = this.handleFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,22 +34,61 @@ class SignupForm extends React.Component {
       });
   }
 
-  handleFile(e) {
-    const file = e.currentTarget.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      this.setState({ imageURL: reader.result, photoFile: file });
-    };
+  // handleFile(e) {
+  //   const file = e.currentTarget.files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     this.setState({ imageURL: reader.result, photoFile: file });
+  //   };
 
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
+
+  handleFile(e) {
+    e.preventDefault(); 
+    this.setState({
+      photoFile: e.target.files[0]
+    })
   }
 
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   const user = Object.assign({}, this.state);
+  //   this.props.signup(user).then(this.props.history.push("/login")); //! works?
+  // }
+
   handleSubmit(e) {
-    e.preventDefault();
-    const user = Object.assign({}, this.state);
-    this.props.signup(user).then(this.props.history.push("/login")); //! works?
+    e.preventDefault(); 
+
+    if (this.state.photoFile) {
+      const data = new FormData(e.target); 
+      data.append("file", this.state.photoFile); 
+      uploadPhoto(data).then(res => {
+        let user = {
+          username: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+          performerType: this.state.performerType,
+          bio: this.state.bio,
+          photoId: res.data.newData.photoId,
+          imageURL: res.data.newData.Location
+        }; 
+        this.props.signup(user, this.props.history)
+      })
+    } else {
+      let user = {
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password,
+        performerType: this.state.performerType,
+        bio: this.state.bio,
+        photoId: this.state.photoId,
+        imageURL: this.state.imageURL
+      }; 
+      this.props.signup(user, this.props.history)
+    }
   }
 
   renderErrors() {
