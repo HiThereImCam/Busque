@@ -7,6 +7,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import defaultMarkers from "../../config/defaultMarkers";
 import loggedInMarkers from "../../config/loggedInMarkers";
+import markerLocations from "../../config/markerLocations";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -30,6 +31,7 @@ class MapBox extends Component {
 
   componentDidMount() {
     this.props.fetchVenues();
+    this.props.fetchUsers();
 
     if (window.matchMedia("(max-width: 420px)")) {
       this.setState({
@@ -62,18 +64,21 @@ class MapBox extends Component {
     });
   }
 
+  // needs to be authenticated
+
   componentDidUpdate(prevProps) {
-    let { venues, isAuthenticated } = this.props;
-    if (venues !== prevProps.venues) {
-      loggedInMarkers(venues, this.map, this.buttonRef);
+    let { venues, users } = this.props;
+    if (venues !== undefined && users !== undefined) {
+      loggedInMarkers(venues, this.map, this.buttonRef, users);
+    } else {
+      defaultMarkers(venues, this.map);
     }
-    // } else {
-    //   defaultMarkers(venues, this.map);
-    // }
   }
 
-  handleClick() {
-    console.log("hello");
+  handleClick(venueID) {
+    // id is the venue name
+    let { currentUser, checkIn } = this.props;
+    checkIn(venueID, currentUser);
   }
 
   render() {
