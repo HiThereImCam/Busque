@@ -38,8 +38,6 @@
     "multer": "^1.4.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "react-icons": "^4.1.0",
-    "react-map-gl": "^6.0.2",
     "uuid": "^8.3.2",
     "validator": "^13.5.2"
   }
