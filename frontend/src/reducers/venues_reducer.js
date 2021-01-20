@@ -1,4 +1,4 @@
-import { RECEIVE_VENUES } from "../actions/venue_actions";
+import { CHECK_IN, RECEIVE_VENUES } from "../actions/venue_actions";
 
 const VenuesReducer = (initialState = [], action) => {
   Object.freeze(initialState);
@@ -6,6 +6,8 @@ const VenuesReducer = (initialState = [], action) => {
   switch (action.type) {
     case RECEIVE_VENUES:
       return action.venues;
+    case CHECK_IN:
+      return {};
     default:
       return initialState;
   }

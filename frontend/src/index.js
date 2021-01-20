@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  window.getUsers = getUsers;
+  // window.getUsers = getUsers;
   window.fetchUsers = fetchUsers();
   window.fetchVenues = fetchVenues;
   window.getVenues = getVenues;

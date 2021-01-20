@@ -75,9 +75,10 @@ class MapBox extends Component {
     }
   }
 
-  handleClick(id) {
+  handleClick(venueID) {
     // id is the venue name
-    this.props.checkIn(id);
+    let { currentUser, checkIn } = this.props;
+    checkIn(venueID, currentUser);
   }
 
   render() {

@@ -11,5 +11,3 @@ export const getUser = (id) => {
     },
   });
 };
-
-// export const checkInUser = (id)

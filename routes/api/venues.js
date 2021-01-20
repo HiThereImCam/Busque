@@ -46,15 +46,10 @@ router.post(
 ); //end post
 
 //update venue
-router.put(
-  "/:id",
+router.patch(
+  "/edit/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateVenueInput(req.body);
-
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
     Venue.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -70,9 +65,20 @@ router.put(
         console.log("This is the Response: " + response);
         return res.send(response);
       }
-    );
+    ).then((venue) => res.json(venue));
   }
 ); //end update
+
+// router.patch("/edit/:id", (req, res) => {
+//   mongoose.set("useFindAndModify", false);
+//   // const { errors, isValid } = validateVenueInput(req.body);
+//   // if (!isValid) {
+//   //   return res.status(400).json(errors);
+//   // }
+//   Venue.findByIdAndUpdate(req.params.id, req.body, {
+//     new: true,
+//   }).then((venue) => res.json(venue));
+// });
 
 router.delete(
   //delete route
