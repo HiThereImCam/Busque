@@ -6,7 +6,7 @@ const photosReducer = (state = {}, action) => {
 
     switch(action.type) {
         case RECEIVE_PHOTOS: 
-            for (let i = 0; i< action.photos.data.length; i++) {
+            for (let i = 0; i < action.photos.data.length; i++) {
                 nextState[action.photos.data[i]._id] = action.photos.data[i]
             }
             return nextState; 
