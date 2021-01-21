@@ -7,20 +7,69 @@ const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
+const Schedule = require("../../models/Schedule");
 
 router.get("/", (req, res) => {
   //venue index
   Venue.find()
-    .then((venue) => res.json(venue))
+    .then((venue) => {
+      //res.json(venue)
+      Schedule.find()
+        .then((schedule) => {
+          // res.json(schedule);
+          // traverse through each venue and check if its in the schedule
+          // if it is add the schedule data into the venue data
+          // if not then current user == empty && availibility == true
+          let mergedData = [];
+
+          for (let i = 0; i < venue.length; i++) {
+            let venueSchedule = schedule.find((el) => {
+              return el.venueID.toString() === venue[i]._id.toString();
+            });
+            console.log(venueSchedule);
+
+            mergedData.push({
+              ...venue[i]._doc,
+              available: venueSchedule ? false : true,
+              currentUser: venueSchedule ? venueSchedule.currentUser : "",
+              expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
+            });
+          }
+          res.json(mergedData);
+        })
+        .catch((err) => {
+          console.log("schedule error:", err);
+          res.status(404).json({ err: err });
+        });
+    })
     .catch((err) => res.status(404).json({ novenues: "No venues found" }));
 });
 
+/**
+ *
+ * {
+ *  currentUser: whatever
+ * availability:
+ * }
+ */
 router.get("/:id", (req, res) => {
   //find venue by ID
   Venue.findById(req.params.id)
 
     .then((venue) => res.json(venue))
     .catch((err) => res.status(404).json({ novenue: "Venue not found" }));
+});
+
+router.get("/schedule/collection", (req, res) => {
+  //schedule index
+  Schedule.find()
+    .then((schedule) => {
+      res.json(schedule);
+    })
+    .catch((err) => {
+      console.log("schedule error:", err);
+      res.status(404).json({ schedule: "No schedules found" });
+    });
 });
 
 router.post(
@@ -38,8 +87,6 @@ router.post(
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
 
       type: req.body.type,
-      available: req.body.available,
-      user: req.user.id,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
@@ -47,25 +94,39 @@ router.post(
 
 //update venue
 router.patch(
-  "/edit/:id",
+  "/checkin/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Venue.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true },
-      //error handling
-      function (err, response) {
-        if (err) {
-          console.log("we hit an error" + err);
-          res.json({
-            message: "Database Update Failure",
-          });
-        }
-        console.log("This is the Response: " + response);
-        return res.send(response);
+    //Schedule.find({ venueID: 'req.params', function (err, docs) {});
+    // docs is the actual document returned
+    Schedule.find({ venueID: req.params.id }, (err, schedule) => {
+      if (err) {
+        console.log("Error: ", err);
+        res.json({
+          message: err,
+        });
       }
-    ).then((venue) => res.json(venue));
+
+      if (schedule.length === 0) {
+        const newSchedule = new Schedule({
+          venueID: req.params.id,
+          currentUser: req.body.currentUser,
+        });
+        newSchedule.save().then((schedule, err) => {
+          if (err) {
+            console.log("err: ", err);
+            res.json({
+              message: err,
+            });
+          }
+          res.json({
+            newSchedule: schedule,
+          });
+        });
+      } else {
+        res.json({ schedule: schedule });
+      }
+    });
   }
 );
 
@@ -116,9 +177,21 @@ router.patch("/:venue_id/comments", (req, res) => {
   );
 });
 
-router.get("/test", (
-  req,
-  res //test route
-) => res.json({ msg: "This is the venue route ya bish" }));
-
 module.exports = router;
+
+// Venue.findByIdAndUpdate(
+//   req.params.id,
+//   req.body,
+//   { new: true },
+//   //error handling
+//   function (err, response) {
+//     if (err) {
+//       console.log("we hit an error" + err);
+//       res.json({
+//         message: "Database Update Failure",
+//       });
+//     }
+//     console.log("This is the Response: " + response);
+//     return res.send(response);
+//   }
+// ).then((venue) => res.json(venue));

@@ -15,10 +15,10 @@ const VenueSchema = new Schema({
     type: String,
     required: true,
   },
-  available: {
-    type: Boolean,
-    default: true,
-  },
+  // available: {
+  //   type: Boolean,
+  //   default: true,
+  // },
   comments: [
     {
       type: Schema.Types.ObjectId,
@@ -32,7 +32,7 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
-  currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
+  // currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
