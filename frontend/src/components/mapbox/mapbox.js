@@ -67,8 +67,8 @@ class MapBox extends Component {
   // needs to be authenticated
 
   componentDidUpdate(prevProps) {
-    let { venues, users } = this.props;
-    if (venues !== undefined && users !== undefined) {
+    let { venues, users, isAuthenticated } = this.props;
+    if (isAuthenticated) {
       loggedInMarkers(venues, this.map, this.buttonRef, users);
     } else {
       defaultMarkers(venues, this.map);
