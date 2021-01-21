@@ -85,7 +85,10 @@ router.patch(
 );
 
 
-router.delete(
+
+
+
+router.delete(  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
