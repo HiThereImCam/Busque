@@ -1,4 +1,5 @@
 import markerLocations from "./markerLocations";
+
 import mapboxgl from "mapbox-gl";
 
 let defaultMarkers = (venues, map, buttonRef) => {
