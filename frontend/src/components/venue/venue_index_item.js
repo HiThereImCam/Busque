@@ -24,26 +24,28 @@ class VenueIndexItem extends React.Component {
 
         return (
             <div className="venue-list-items">
-                <div>
+                <div className="venue-name">
                     {this.props.venue.name}
                 </div>
                 {/* <div>
                     {this.props.venue.coordinate}
                 </div> */}
-                <div>
-                    Type: {this.props.venue.type}
-                </div>
-                <div>
-                    Rating: {this.props.venue.ratings}
-                </div>
-                <div>
-                    Available? {isAvailable()}
-                </div>
-                <div>
-                    {showCurrentUser()}
-                </div>
-                <div>
-                    Reviews: {this.props.venue.comments}
+                <div className="venue-list-info">
+                    <div className="venue-type">
+                        Type: {this.props.venue.type}
+                    </div>
+                    <div className="venue-rating">
+                        Rating: {this.props.venue.ratings}
+                    </div>
+                    <div className="venue-availabilty">
+                        Available? {isAvailable()}
+                    </div>
+                    <div className="venue-current-user">
+                        {showCurrentUser()}
+                    </div>
+                    <div className="venue-reviews">
+                        Reviews: {this.props.venue.comments}
+                    </div>
                 </div>
                 {/* <br /> */}
             </div>
