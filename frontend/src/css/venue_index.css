@@ -1,0 +1,38 @@
+.venue-list-items {
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 20px;
+    padding-bottom: 20px; 
+}
+
+.venue-name {
+    font-size: larger;
+    font-weight: bold;
+    padding-bottom: 10px;
+
+}
+
+.venue-list-info {
+    padding-left: 30px; 
+}
+
+.venue-type {
+    padding-bottom: 5px;
+}
+
+.venue-rating {
+    padding-bottom: 5px;
+}
+
+.venue-availabilty {
+    padding-bottom: 5px;
+}
+
+.venue-current-user {
+    padding-bottom: 5px;
+}
