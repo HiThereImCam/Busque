@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
       //res.json(venue)
       Schedule.find()
         .then((schedule) => {
-          // res.json(schedule);
           // traverse through each venue and check if its in the schedule
           // if it is add the schedule data into the venue data
           // if not then current user == empty && availibility == true
@@ -45,13 +44,6 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(404).json({ novenues: "No venues found" }));
 });
 
-/**
- *
- * {
- *  currentUser: whatever
- * availability:
- * }
- */
 router.get("/:id", (req, res) => {
   //find venue by ID
   Venue.findById(req.params.id)
@@ -178,20 +170,3 @@ router.patch("/:venue_id/comments", (req, res) => {
 });
 
 module.exports = router;
-
-// Venue.findByIdAndUpdate(
-//   req.params.id,
-//   req.body,
-//   { new: true },
-//   //error handling
-//   function (err, response) {
-//     if (err) {
-//       console.log("we hit an error" + err);
-//       res.json({
-//         message: "Database Update Failure",
-//       });
-//     }
-//     console.log("This is the Response: " + response);
-//     return res.send(response);
-//   }
-// ).then((venue) => res.json(venue));
