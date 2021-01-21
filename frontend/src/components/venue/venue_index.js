@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 class VenueIndex extends React.Component {
     componentDidMount() {
+        this.props.fetchUsers(); 
         this.props.fetchVenues(); 
     }
 
@@ -22,7 +23,7 @@ class VenueIndex extends React.Component {
                     <h1>Our Top Venues</h1>
                 </div>
                 {this.props.venues.map((venue, i) => {
-                    return <VenueIndexItem venue={venue} key={i} />
+                    return <VenueIndexItem venue={venue} users={this.props.users} key={i} />
                 })}
             </div>
         )

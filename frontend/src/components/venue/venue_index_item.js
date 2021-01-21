@@ -1,8 +1,9 @@
 import React from 'react'; 
-import { Link } from 'react-router-dom'; 
+// import { Link } from 'react-router-dom'; 
 import "../../css/venue_index.css"
 
 class VenueIndexItem extends React.Component {
+
     render() {
         let isAvailable = () => {
             if (this.props.venue.available === true) {
@@ -14,8 +15,11 @@ class VenueIndexItem extends React.Component {
 
         let showCurrentUser = () => {
             if (this.props.venue.available !== true) {
-                return this.props.venue.currentUser + " is here"
-            } 
+                const currentUserId = this.props.venue.currentUser[0]
+                return this.props.users[currentUserId].username + " is here"
+            } else { //! Edit later?
+                return null
+            }
         }
 
         return (
