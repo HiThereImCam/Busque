@@ -16,3 +16,7 @@ export const signup = (userData) => {
 export const login = (userData) => {
   return axios.post("/api/users/login", userData);
 };
+
+export const logout = (userData) => {
+  return axios.delete('api/users/logout', userData)
+}

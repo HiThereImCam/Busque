@@ -2,7 +2,7 @@ import markerLocations from "./markerLocations";
 import mapboxgl from "mapbox-gl";
 
 let defaultMarkers = (venues, map, buttonRef) => {
-  return markerLocations.coordinates.forEach((coordinate) => {
+  return Object.values(markerLocations.coordinates).forEach((coordinate) => {
     venues.forEach((venue) => {
       if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
         let marker = new mapboxgl.Marker({
@@ -10,14 +10,13 @@ let defaultMarkers = (venues, map, buttonRef) => {
         })
           .setLngLat(coordinate)
           .addTo(map);
-
         if (venue.available) {
           marker
             .setPopup(
               new mapboxgl.Popup().setLngLat(coordinate).setHTML(
                 `
                     <h1>${venue.name}</h1>
-                    <p>Available!</p>
+                    <p>Please log in to check into this location</p>
                 `
               )
             )
