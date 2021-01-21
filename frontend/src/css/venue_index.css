@@ -1,0 +1,11 @@
+.venue-list-items {
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 20px;
+    padding-bottom: 20px; 
+}
