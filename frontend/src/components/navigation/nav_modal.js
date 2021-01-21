@@ -37,6 +37,34 @@ class NavModal extends Component {
 
   render() {
     let { openNavModal, closeNavModal } = this.props;
+    let buttons;
+
+    if (!this.props.currentUser) {
+      buttons = (
+        <div className="login-buttons">
+          <Link
+            to="login"
+            className="nav-link nav-login"
+            onClick={() => closeNavModal()}
+          >
+            Login
+          </Link>
+          <Link
+            to="/signup"
+            className="nav-link nav-signup"
+            onClick={() => closeNavModal()}
+          >
+            Signup
+          </Link>
+        </div>
+      );
+    } else {
+      buttons = (
+        <button className="logout-button" onClick={() => this.props.logout()}>
+          Logout
+        </button>
+      );
+    }
     return (
       <Fragment>
         {openNavModal ? (
@@ -48,10 +76,7 @@ class NavModal extends Component {
             >
               <div className="nav-container">
                 <div className="nav-header">
-                  <Link 
-                    className="h2"
-                    to="/"
-                    onClick={() => closeNavModal()} >
+                  <Link className="h2" to="/" onClick={() => closeNavModal()}>
                     Busque
                   </Link>
                   <CgChevronDoubleLeft
@@ -75,12 +100,7 @@ class NavModal extends Component {
                   >
                     Best Venues
                   </Link>
-                  <Link to="login" className="nav-link nav-login" onClick={() => closeNavModal()}>
-                    Login
-                  </Link>
-                  <Link to="/signup" className="nav-link nav-signup" onClick={() => closeNavModal()}>
-                    Signup
-                  </Link>
+                  <div className="buttons"> {buttons} </div>
                 </div>
               </div>
             </div>
