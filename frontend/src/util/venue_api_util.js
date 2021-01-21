@@ -5,7 +5,7 @@ export const getVenues = () => {
 };
 
 export const checkIn = (venueID, currentUser) => {
-  return axios.patch(`/api/venues/edit/${venueID}`, {
+  return axios.patch(`/api/venues/checkin/${venueID}`, {
     available: false,
     currentUser: currentUser,
   });
@@ -14,6 +14,5 @@ export const checkIn = (venueID, currentUser) => {
 export const checkOut = (venueID, currentUser) => {
   return axios.patch(`/api/venues/edit/${venueID}`, {
     available: true,
-    currentUser: currentUser.pop(),
   });
 };
