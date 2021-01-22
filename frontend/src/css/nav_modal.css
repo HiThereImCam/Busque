@@ -21,14 +21,14 @@
   margin-left: 10px;
   font-size: 25px;
   text-decoration: none;
-  color: black; 
+  color: black;
 }
 
 .nav-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 25px;
+  padding-right: 17px;
 }
 
 .nav-link {
@@ -47,11 +47,30 @@
 
 .nav-venues {
 }
+.login-buttons {
+  width: -webkit-fill-available;
+  padding: 10px 0px 10px 10px
+
+}
 
 .nav-login {
+  padding-right: inherit;
+    padding-left: 0px
+
 }
 
 .nav-signup {
+  padding-right: inherit;
+  padding-left: 0px
+}
+
+.logout-button {
+  background: transparent;
+  width: -webkit-fill-available;
+  margin-top: 15px;
+  border: transparent;
+  font-size: 18px;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .navback-icon {

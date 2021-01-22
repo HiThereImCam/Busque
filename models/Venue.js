@@ -32,6 +32,11 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
+  imageURL: {
+    type: String,
+    required: false,
+  },
+  
   // currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
 

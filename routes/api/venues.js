@@ -77,8 +77,9 @@ router.post(
     const newVenue = new Venue({
       name: req.body.name,
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
-
+      imageURL: req.body.imageURL,
       type: req.body.type,
+
     });
     newVenue.save().then((venue) => res.json(venue));
   }
