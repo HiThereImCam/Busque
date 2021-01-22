@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
             let venueSchedule = schedule.find((el) => {
               return el.venueID.toString() === venue[i]._id.toString();
             });
-            console.log(venueSchedule);
 
             mergedData.push({
               ...venue[i]._doc,

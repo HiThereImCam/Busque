@@ -2,7 +2,7 @@ import markerLocations from "./markerLocations";
 
 import mapboxgl from "mapbox-gl";
 
-let defaultMarkers = (venues, map, buttonRef) => {
+let defaultMarkers = (venues, users, map, buttonRef) => {
   return Object.values(markerLocations.coordinates).forEach((coordinate) => {
     venues.forEach((venue) => {
       if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
@@ -28,7 +28,7 @@ let defaultMarkers = (venues, map, buttonRef) => {
               new mapboxgl.Popup().setLngLat(coordinate).setHTML(
                 `
                     <h1>${venue.name}</h1>
-                    <p>Not Available!</p>
+                    <p></p>
                 `
               )
             )

@@ -73,14 +73,44 @@ class MapBox extends Component {
     } else {
       defaultMarkers(venues, this.map);
     }
-  }
+  
 
   handleClick(venueID) {
     // id is the venue name
-    let { currentUser, checkIn } = this.props;
+    let { currentUser, checkIn  } = this.props;
     checkIn(venueID, currentUser);
+    let venue = findVenue(venueID)
+    let coordinate = venue.coordinate;
+
+
+    let marker = new mapboxgl.Marker({
+      color: "red",
+    }).setLngLat(coordinate)
+      .addTo(map);
+
+    marker.setPopup(
+      new mapboxgl.Popup().setLngLat(coordinate).setHTML(
+        `
+            <h1 class="venueName">${venue.name}</h1>
+            <div class="popup-container">
+              <img src="${currentUser.picture} height="100" width="100"></img>
+              <h2>${currentUser.username}</h2>
+            </div>
+          `
+      )
+    )
   }
 
+  findCoordinate(venueID){
+    let { venue } = this.props;
+
+    return venues.map(venue => {
+      if(venue._id === venueID){
+        return venue.coordinate
+      }
+    })
+  }
+  
   render() {
     let { openNavModal } = this.props;
     return (

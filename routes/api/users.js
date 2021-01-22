@@ -11,14 +11,10 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
-
-
-
 router.get("/", (req, res) => {
   User.find()
     .then((user) => res.json(user))
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
-
 });
 
 router.get(
@@ -29,7 +25,7 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      
+      picture: req.user.imageURL,
     });
   }
 );
@@ -116,8 +112,9 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     User.findByIdAndUpdate(
-      req.params.id, req.body,
-     
+      req.params.id,
+      req.body,
+
       { new: true },
       //error handling
       function (err, response) {
