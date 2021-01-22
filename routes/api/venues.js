@@ -126,9 +126,9 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Venue.findById(req.params.id).then((venue) => {
-        venue.currentUser.pop();
-        res.send(venue);
+      Schedule.findById(req.params.id).then((venue) => {
+        // venue.currentUser.pop();
+        // res.send(venue);
       });
     } catch (e) {
       console.log("error: ", e);

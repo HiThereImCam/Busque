@@ -57,6 +57,11 @@
     width: 150px; 
 }
 
+.user-photo img {
+    height: 150px; 
+    width: 150px; 
+}
+
 .user-info {
     display: block;
     flex-direction: column;
