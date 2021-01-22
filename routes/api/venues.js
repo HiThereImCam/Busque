@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
             let venueSchedule = schedule.find((el) => {
               return el.venueID.toString() === venue[i]._id.toString();
             });
-            console.log(venueSchedule);
 
             mergedData.push({
               ...venue[i]._doc,
@@ -127,9 +126,9 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Venue.findById(req.params.id).then((venue) => {
-        venue.currentUser.pop();
-        res.send(venue);
+      Schedule.findById(req.params.id).then((venue) => {
+        // venue.currentUser.pop();
+        // res.send(venue);
       });
     } catch (e) {
       console.log("error: ", e);
@@ -137,11 +136,7 @@ router.patch(
   }
 );
 
-
-
-
-
-router.delete(  //delete route
+router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
