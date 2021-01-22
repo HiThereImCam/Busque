@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { fetchVenues } from "../../actions/venue_actions";
 import { openNavModal } from "../../actions/nav_actions";
 import { fetchUsers } from "../../actions/user_actions";
-import { checkIn } from "../../actions/venue_actions";
+import { checkIn, checkOut } from "../../actions/venue_actions";
 
 import MapBox from "./mapbox";
 
@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   openNavModal: () => dispatch(openNavModal(true)),
   fetchUsers: () => dispatch(fetchUsers()),
   checkIn: (venueID, currentUser) => dispatch(checkIn(venueID, currentUser)),
+  checkOut: () => dispatch(checkOut()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapBox);

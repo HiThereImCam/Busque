@@ -27,3 +27,7 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
       console.log(`error: `, e);
     }
   });
+
+export const checkOut = (venueID) => (dispatch) => {
+  // VenueApiUtil.checkout(venueID);
+};

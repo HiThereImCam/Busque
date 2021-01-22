@@ -88,8 +88,6 @@ router.patch(
   "/checkin/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    //Schedule.find({ venueID: 'req.params', function (err, docs) {});
-    // docs is the actual document returned
     Schedule.find({ venueID: req.params.id }, (err, schedule) => {
       if (err) {
         console.log("Error: ", err);
@@ -126,10 +124,16 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Schedule.findById(req.params.id).then((venue) => {
-        // venue.currentUser.pop();
-        // res.send(venue);
-      });
+      Schedule.findByIdAndRemove(
+        { venueID: req.params.id },
+        (err, schedule) => {
+          if (err) {
+            console.log("Error: ", err);
+          } else {
+            console.log("Removed schedule: ", schedule);
+          }
+        }
+      );
     } catch (e) {
       console.log("error: ", e);
     }

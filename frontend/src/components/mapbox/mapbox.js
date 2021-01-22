@@ -26,7 +26,9 @@ class MapBox extends Component {
     this.mapBoxRef = React.createRef();
     this.buttonRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
+    this.findVenue = this.findVenue.bind(this);
     window.handleClick = this.handleClick;
+    window.checkout = this.props.checkOut();
   }
 
   componentDidMount() {
@@ -73,20 +75,20 @@ class MapBox extends Component {
     } else {
       defaultMarkers(venues, this.map);
     }
-  
+  }
 
   handleClick(venueID) {
     // id is the venue name
-    let { currentUser, checkIn  } = this.props;
+    let { currentUser, checkIn } = this.props;
     checkIn(venueID, currentUser);
-    let venue = findVenue(venueID)
+    let venue = this.findVenue(venueID);
     let coordinate = venue.coordinate;
-
 
     let marker = new mapboxgl.Marker({
       color: "red",
-    }).setLngLat(coordinate)
-      .addTo(map);
+    })
+      .setLngLat(coordinate)
+      .addTo(this.map);
 
     marker.setPopup(
       new mapboxgl.Popup().setLngLat(coordinate).setHTML(
@@ -95,22 +97,23 @@ class MapBox extends Component {
             <div class="popup-container">
               <img src="${currentUser.picture} height="100" width="100"></img>
               <h2>${currentUser.username}</h2>
+              <button onclick
             </div>
           `
       )
-    )
+    );
   }
 
-  findCoordinate(venueID){
-    let { venue } = this.props;
+  findVenue(venueID) {
+    let { venues } = this.props;
 
-    return venues.map(venue => {
-      if(venue._id === venueID){
-        return venue.coordinate
+    return venues.map((venue) => {
+      if (venue._id === venueID) {
+        return venue.coordinate;
       }
-    })
+    });
   }
-  
+
   render() {
     let { openNavModal } = this.props;
     return (
