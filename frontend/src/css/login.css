@@ -1,90 +1,95 @@
 .login-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    top: 150px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: lightgrey;
-    border-radius: 10px;
-    width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: Verdana;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  top: 150px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgrey;
+  border-radius: 10px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Verdana;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
 }
 
 .login-buttons {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 10px 10px;
 }
 
 .login-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .login-desc {
-    font-size: 18px;
-    text-align: center;
-    margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .login-description {
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .login-buttons button {
-    margin: 10px 10px 10px 10px;
-    color: white;
-    background-color:#4267B2;
-    border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 18px;
-    font-family: Verdana;
-    font-weight: 600;
+  margin: 10px 10px 10px 10px;
+  color: white;
+  background-color: #4267b2;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 18px;
+  font-family: Verdana;
+  font-weight: 600;
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .login-form input {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 35vw;
+}
+
+.session-errors {
+  list-style-type: none;
+  color: red;
+}
+
+@media screen and (max-width: 600px) {
+  .login-page {
+    width: 80vw;
+    top: 100px;
+    border-style: none;
+  }
+
+  .login-form input {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     margin-bottom: 20px;
     display: inline-block;
-    width: 35vw;
-}
-
-@media screen and (max-width: 600px) {
-    .login-page {
-        width: 80vw;
-        top: 100px;
-        border-style: none;
-    }
-
-    .login-form input {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 10px;
-        margin-bottom: 20px;
-        display: inline-block;
-        width: 67vw;
-    }
+    width: 67vw;
+  }
 }

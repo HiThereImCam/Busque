@@ -14,27 +14,6 @@ let loggedInMarkers = (venues, map, buttonRef, users) => {
           .setLngLat(coordinate)
           .addTo(map);
 
-        // if (venue.available) {
-        //   marker
-        //     .setPopup(
-        //       new mapboxgl.Popup().setLngLat(coordinate).setHTML(
-        //         `
-        //           <h1>${venue.name}</h1>
-        //           <button id="${venue._id}"
-        //                   onclick="handleClick(this.id)"
-        //                   ref=${buttonRef.current}>Check in</button>
-        //         `
-        //       )
-        //     )
-        //     .addTo(map);
-        // } else {
-        //   try {
-        //     unavailableLocation(users);
-        //   } catch (e) {
-        //     console.log("errors: ", e);
-        //   }
-        // }
-
         if (venue.available) {
           marker
             .setPopup(

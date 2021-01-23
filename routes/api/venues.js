@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
             let venueSchedule = schedule.find((el) => {
               return el.venueID.toString() === venue[i]._id.toString();
             });
-            console.log(venueSchedule);
 
             mergedData.push({
               ...venue[i]._doc,
@@ -127,9 +126,9 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Venue.findById(req.params.id).then((venue) => {
-        venue.currentUser.pop();
-        res.send(venue);
+      Schedule.findById(req.params.id).then((venue) => {
+        // venue.currentUser.pop();
+        // res.send(venue);
       });
     } catch (e) {
       console.log("error: ", e);
@@ -137,11 +136,7 @@ router.patch(
   }
 );
 
-
-
-
-
-router.delete(  //delete route
+router.delete(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -158,17 +153,22 @@ router.delete(  //delete route
   }
 ); //end delete
 
+// maybe post route?
 router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
+    //needs user
+    venue: req.params.venue_id,
     comment: req.body.comment,
   });
   newComment.save().then(
-    (comment) =>
+    (comment) => {
+      console.log("Comments: ", comment);
       Venue.findByIdAndUpdate(
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue))
+      ).then((venue) => res.json(venue));
+    }
     // response to front end
   );
 });
