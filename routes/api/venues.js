@@ -153,17 +153,22 @@ router.delete(
   }
 ); //end delete
 
+// maybe post route?
 router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
+    //needs user
+    venue: req.params.venue_id,
     comment: req.body.comment,
   });
   newComment.save().then(
-    (comment) =>
+    (comment) => {
+      console.log("Comments: ", comment);
       Venue.findByIdAndUpdate(
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue))
+      ).then((venue) => res.json(venue));
+    }
     // response to front end
   );
 });
