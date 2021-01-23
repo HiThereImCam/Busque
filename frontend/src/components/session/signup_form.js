@@ -34,30 +34,12 @@ class SignupForm extends React.Component {
       });
   }
 
-  // handleFile(e) {
-  //   const file = e.currentTarget.files[0];
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     this.setState({ imageURL: reader.result, photoFile: file });
-  //   };
-
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
-
   handleFile(e) {
     e.preventDefault(); 
     this.setState({
       photoFile: e.target.files[0]
     })
   }
-
-  // handleSubmit(e) {
-  //   e.preventDefault();
-  //   const user = Object.assign({}, this.state);
-  //   this.props.signup(user).then(this.props.history.push("/login")); //! works?
-  // }
 
   handleSubmit(e) {
     e.preventDefault(); 
@@ -76,6 +58,7 @@ class SignupForm extends React.Component {
           imageURL: res.data.newData.Location
         }; 
         this.props.signup(user, this.props.history)
+          .then(this.props.history.push("/login"))
       })
     } else {
       let user = {
