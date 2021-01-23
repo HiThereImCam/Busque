@@ -16,3 +16,9 @@ export const checkOut = (venueID, currentUser) => {
     available: true,
   });
 };
+
+export const createComment = (venueId, comment) => {
+  return axios.patch(`/api/venues/${venueId}/comments`, {
+    comment: comment
+  })
+};

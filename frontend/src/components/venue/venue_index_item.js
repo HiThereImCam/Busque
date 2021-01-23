@@ -1,20 +1,55 @@
 import React from 'react'; 
 // import { Link } from 'react-router-dom'; 
 import "../../css/venue_index.css"
+import { IoIosArrowDown } from "react-icons/io"
+import { TiArrowSortedDown } from 'react-icons/ti';
 
 class VenueIndexItem extends React.Component {
+    constructor(props) {
+        super(props); 
+        this.state = {
+            comment: "", 
+            showReviews: false
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.update = this.update.bind(this); 
+    }
+
+    update() {
+        return e => this.setState({
+            comment: e.currentTarget.value
+        })
+    }
+
+    handleReviewShow(e) {
+        e.preventDefault(); 
+        this.setState({
+            showReviews: !this.state.showReviews
+        })
+        console.log("clicked")
+    }
+
+    handleSubmit(e) {
+        e.preventDefault(); 
+        console.log("commented")
+        this.props.createComment(this.props.venue._id, this.state.comment)
+        this.setState({
+            comment: ""
+        })
+    }
 
     render() {
         let isAvailable = () => {
             if (this.props.venue.available === true) {
-                return "Yes"
+                return " Yes"
             } else {
-                return "No"
+                return " No"
             }
         }
 
         let showCurrentUser = () => {
-            if (this.props.venue.available !== true) {
+            if ((this.props.venue.available !== true) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser[0]
                 return this.props.users[currentUserId].username + " is here"
             } else { //! Edit later?
@@ -43,11 +78,32 @@ class VenueIndexItem extends React.Component {
                     <div className="venue-current-user">
                         {showCurrentUser()}
                     </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <textarea type="textarea" 
+                            className="review-input"
+                            cols="50" rows="5"
+                            value={this.state.comment} 
+                            onChange={this.update()} 
+                            placeholder="What did you think of this location?" 
+                        />
+                        <br />
+                        <input className="submit" type="submit" value="Submit" />
+                    </form>
                     <div className="venue-reviews">
-                        Reviews: {this.props.venue.comments}
+                        <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)}>
+                            Reviews <TiArrowSortedDown size={20} className="review-arrow" />
+                        </div>
+                        <div className="venue-reviews-inner">
+                            {this.state.showReviews &&
+                            this.props.venue.comments.map((comment, i) => {
+                                return <div className="review-each" key={i}>
+                                    <div className="reviewer-name">Username says:</div> 
+                                    {comment}
+                                </div>
+                            })}
+                        </div>
                     </div>
                 </div>
-                {/* <br /> */}
             </div>
         )
     }
