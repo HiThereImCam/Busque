@@ -2,6 +2,7 @@ import * as VenueApiUtil from "../util/venue_api_util";
 
 export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
+export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -12,6 +13,11 @@ const checkedIn = (updatedVenue) => ({
   type: CHECK_IN,
   updatedVenue,
 });
+
+const receiveComment = (comment) => ({
+  type: RECEIVE_COMMENT, 
+  comment
+})
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -27,3 +33,9 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
       console.log(`error: `, e);
     }
   });
+
+export const createComment = (venueId, comment) => dispatch => {
+  VenueApiUtil.createComment(venueId, comment)
+    .then((comment) => dispatch(receiveComment(comment)))
+    .catch((err) => console.log(err))
+}

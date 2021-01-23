@@ -15,6 +15,7 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.demoUser = this.demoUser.bind(this);
+
   }
 
   componentDidMount() {
