@@ -95,6 +95,14 @@
     font-size: large;
 }
 
+.review-arrow-up {
+    display: inline-block; 
+}
+
+.review-arrow-down {
+    display: inline-block; 
+}
+
 .reviews-dropdown:hover {
     cursor: pointer;
     background-color: rgb(231, 231, 231);

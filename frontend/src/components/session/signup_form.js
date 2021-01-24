@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { uploadPhoto } from '../../util/photo_api_util'; 
+import { uploadPhoto } from "../../util/photo_api_util";
 import "../../css/signup.css";
 
 class SignupForm extends React.Component {
@@ -13,7 +13,7 @@ class SignupForm extends React.Component {
       password: "",
       performerType: "",
       bio: "",
-      photoId: "", 
+      photoId: "",
       photoFile: null,
       imageURL: "",
       errors: {},
@@ -35,19 +35,19 @@ class SignupForm extends React.Component {
   }
 
   handleFile(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     this.setState({
-      photoFile: e.target.files[0]
-    })
+      photoFile: e.target.files[0],
+    });
   }
-
   handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (this.state.photoFile) {
-      const data = new FormData(e.target); 
-      data.append("file", this.state.photoFile); 
-      uploadPhoto(data).then(res => {
+      const data = new FormData(e.target);
+      data.append("signup-profile", this.state.photoFile);
+
+      uploadPhoto(data).then((res) => {
         let user = {
           username: this.state.username,
           email: this.state.email,
@@ -68,19 +68,19 @@ class SignupForm extends React.Component {
         performerType: this.state.performerType,
         bio: this.state.bio,
         photoId: this.state.photoId,
-        imageURL: this.state.imageURL
-      }; 
+        imageURL: this.state.imageURL,
+      };
       this.props.signup(user, this.props.history)
+        .then(this.props.history.push("/login"))
     }
   }
 
   renderErrors() {
+    let { errors } = this.props;
     return (
       <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
+        {Object.keys(errors).map((error, i) => (
+          <li key={`error-${i}`}>{errors[error]}</li>
         ))}
       </ul>
     );
@@ -88,54 +88,60 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className='signup-page-container'>
-          <div className='signup-page'>
-            <form onSubmit={this.handleSubmit}>
+      <div className="signup-page-container">
+        <div className="signup-page">
+          <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
-                <div className='signup-title'>Busque</div>
-                <div className='signup-desc'>Sign Up</div>
-                <div className='signup-description'>to continue to Busque</div>
-                <input
+              <div className="signup-title">Busque</div>
+              <div className="signup-desc">Sign Up</div>
+              <div className="signup-description">to continue to Busque</div>
+              <input
                 type="text"
                 value={this.state.username}
                 onChange={this.update("username")}
                 placeholder="Username"
-                />
-                <input
+              />
+              <input
                 type="text"
                 value={this.state.email}
                 onChange={this.update("email")}
                 placeholder="Email"
-                />
-                <input
+              />
+              <input
                 type="password"
                 value={this.state.password}
                 onChange={this.update("password")}
                 placeholder="Password"
-                />
-                <select
+              />
+              <select
                 value={this.state.performerType}
                 onChange={this.update("performerType")}
-                >
-                    <option value="" disabled>Performer Type</option>
-                    <option value="Musician">Musician</option>
-                    <option value="Dancers">Dancers</option>
-                    <option value="Artists">Artists</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input
+              >
+                <option value="" disabled>
+                  Performer Type
+                </option>
+                <option value="Musician">Musician</option>
+                <option value="Dancers">Dancers</option>
+                <option value="Artists">Artists</option>
+                <option value="Other">Other</option>
+              </select>
+              <input
                 type="text"
                 value={this.state.bio}
                 onChange={this.update("bio")}
                 placeholder="Bio"
-                />
-                <div>Upload a Profile Picture:</div>
-                <input id='signup-profile' type="file" onChange={this.handleFile.bind(this)} />
-                <input className='signup-button' type="submit" value="Sign up" />
-                {this.renderErrors()}
+              />
+              <div>Upload a Profile Picture:</div>
+              <input
+                id="signup-profile"
+                type="file"
+                onChange={this.handleFile.bind(this)}
+              />
+              <input className="signup-button" type="submit" value="Sign up" />
+              {this.renderErrors()}
             </div>
-            </form>
-          </div>
+          </form>
+        </div>
       </div>
     );
   }

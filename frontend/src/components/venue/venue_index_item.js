@@ -1,15 +1,16 @@
 import React from 'react'; 
 // import { Link } from 'react-router-dom'; 
-import "../../css/venue_index.css"
-import { IoIosArrowDown } from "react-icons/io"
-import { TiArrowSortedDown } from 'react-icons/ti';
+import "../../css/venue_index.css";
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
             comment: "", 
-            showReviews: false
+            showReviews: false,
+            arrowUp: false,
+            arrowDown: true
         }
 
         this.handleSubmit = this.handleSubmit.bind(this); 
@@ -25,9 +26,17 @@ class VenueIndexItem extends React.Component {
     handleReviewShow(e) {
         e.preventDefault(); 
         this.setState({
-            showReviews: !this.state.showReviews
+            showReviews: !this.state.showReviews, 
+            arrowUp: !this.state.arrowUp,
+            arrowDown: !this.state.arrowDown 
         })
         console.log("clicked")
+    }
+    
+    handleArrow(e) {
+        e.preventDefault(); 
+        this.setState({
+        })
     }
 
     handleSubmit(e) {
@@ -90,14 +99,15 @@ class VenueIndexItem extends React.Component {
                         <input className="submit" type="submit" value="Submit" />
                     </form>
                     <div className="venue-reviews">
-                        <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)}>
-                            Reviews <TiArrowSortedDown size={20} className="review-arrow" />
+                        <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)} >
+                            Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
                             this.props.venue.comments.map((comment, i) => {
                                 return <div className="review-each" key={i}>
                                     <div className="reviewer-name">Username says:</div> 
+                                    {/* {console.log(comment)} */}
                                     {comment}
                                 </div>
                             })}

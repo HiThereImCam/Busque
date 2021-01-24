@@ -35,7 +35,6 @@ router.get(
 );
 
 router.post("/signup", (req, res) => {
-  console.log(`Body: ${JSON.stringify(req.body)}`);
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {

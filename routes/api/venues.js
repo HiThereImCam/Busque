@@ -25,7 +25,6 @@ router.get("/", (req, res) => {
             let venueSchedule = schedule.find((el) => {
               return el.venueID.toString() === venue[i]._id.toString();
             });
-            console.log(venueSchedule);
 
             mergedData.push({
               ...venue[i]._doc,
@@ -77,7 +76,7 @@ router.post(
     const newVenue = new Venue({
       name: req.body.name,
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
-
+      imageURL: req.body.imageURL,
       type: req.body.type,
     });
     newVenue.save().then((venue) => res.json(venue));
@@ -127,9 +126,9 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Venue.findById(req.params.id).then((venue) => {
-        venue.currentUser.pop();
-        res.send(venue);
+      Schedule.findById(req.params.id).then((venue) => {
+        // venue.currentUser.pop();
+        // res.send(venue);
       });
     } catch (e) {
       console.log("error: ", e);
@@ -137,11 +136,8 @@ router.patch(
   }
 );
 
+router.delete(
 
-
-
-
-router.delete(  //delete route
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -158,19 +154,40 @@ router.delete(  //delete route
   }
 ); //end delete
 
+// maybe post route?
 router.patch("/:venue_id/comments", (req, res) => {
   const newComment = new Comment({
+    //needs user
+    venue: req.params.venue_id,
     comment: req.body.comment,
+    user: req.params.user_id,
   });
   newComment.save().then(
-    (comment) =>
+    (comment) => {
+      console.log("Comments: ", comment);
       Venue.findByIdAndUpdate(
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue))
+      ).then((venue) => res.json(venue));
+    }
     // response to front end
   );
 });
 
+// router.get("/:venue_id/comments", (req, res) => {
+//   Venue.findOne({id: req.params.comment}).then((venue) =>
+
+//   res.json(venue.comments))
+// })
+
+
+//pulls comments left on a venue
+router.get("/:venue_id/comments", (req, res) => {
+  Venue.findOne({ id: req.params.comment })
+    .populate("comments")
+    .then((comment) => res.json(comment.comments));
+  });
+
+  
 module.exports = router;
