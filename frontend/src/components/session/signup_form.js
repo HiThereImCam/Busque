@@ -1,7 +1,9 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { uploadPhoto } from "../../util/photo_api_util";
 import "../../css/signup.css";
+import { GiHamburgerMenu } from "react-icons/gi";
+
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -45,7 +47,7 @@ class SignupForm extends React.Component {
 
     if (this.state.photoFile) {
       const data = new FormData(e.target);
-      data.append("signup-profile", this.state.photoFile);
+      data.append("file", this.state.photoFile);
 
       uploadPhoto(data).then((res) => {
         let user = {
@@ -55,10 +57,11 @@ class SignupForm extends React.Component {
           performerType: this.state.performerType,
           bio: this.state.bio,
           photoId: res.data.newData.photoId,
-          imageURL: res.data.newData.Location,
-        };
-        this.props.signup(user, this.props.history);
-      });
+          imageURL: res.data.newData.Location
+        }; 
+        this.props.signup(user, this.props.history)
+          .then(this.props.history.push("/login"))
+      })
     } else {
       let user = {
         username: this.state.username,
@@ -69,7 +72,8 @@ class SignupForm extends React.Component {
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
       };
-      this.props.signup(user, this.props.history);
+      this.props.signup(user, this.props.history)
+        .then(this.props.history.push("/login"))
     }
   }
 
@@ -87,6 +91,18 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="signup-page-container">
+        <div className="user-header">
+          <GiHamburgerMenu
+            size={25}
+            onClick={() => {
+              this.props.openNavModal();
+            }}
+            className="menu-icon-other"
+          />
+          <Link className="user-header-h1" to={"/"}>
+            <h1>Busque</h1>
+          </Link>
+        </div>
         <div className="signup-page">
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
@@ -137,6 +153,9 @@ class SignupForm extends React.Component {
               />
               <input className="signup-button" type="submit" value="Sign up" />
               {this.renderErrors()}
+              <div className="form-footer">
+                Have an account?&nbsp;<Link className="footer-link" to="/login"> Log in</Link>
+              </div>
             </div>
           </form>
         </div>

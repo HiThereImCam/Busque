@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  top: 150px;
+  top: 100px;
   border-style: solid;
   border-width: 1px;
   border-color: lightgrey;
@@ -92,4 +92,21 @@ button:hover {
     display: inline-block;
     width: 67vw;
   }
+}
+
+.form-footer {
+  display: flex; 
+  justify-content: center;
+  text-decoration: none;
+  padding-bottom: 20px;
+  /* font-size: 14px; */
+
+}
+.footer-link {
+  text-decoration: none;
+  color: #4267b2;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
 }

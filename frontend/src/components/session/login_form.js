@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../../css/login.css";
-
-import { withRouter } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { withRouter, Link } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -68,6 +68,18 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
+        <div className="user-header">
+          <GiHamburgerMenu
+            size={25}
+            onClick={() => {
+              this.props.openNavModal();
+            }}
+            className="menu-icon-other"
+          />
+          <Link className="user-header-h1" to={"/"}>
+            <h1>Busque</h1>
+          </Link>
+        </div>
         <div className="login-page">
           <form className="login-form" onSubmit={this.handleSubmit}>
             <div className="login-title">Busque</div>
@@ -93,6 +105,9 @@ class LoginForm extends Component {
               <button onClick={this.demoUser}>Demo User</button>
             </div>
           </form>
+          <div className="form-footer">
+            Need an account?&nbsp;<Link className="footer-link" to="/signup"> Sign up</Link>
+          </div>
         </div>
       </div>
     );
