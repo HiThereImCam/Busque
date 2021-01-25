@@ -186,7 +186,14 @@ router.patch("/:venue_id/comments", (req, res) => {
 router.get("/:venue_id/comments", (req, res) => {
   Venue.findOne({ id: req.params.comment })
     .populate("comments")
-    .then((comment) => res.json(comment.comments));
+    .populate('users')
+    .then((venue) => res.json(venue.comments))
+    .catch((err) => {
+      console.log('comment error:', err);
+      res.status(500).json({ comment: "we've encountered and error"})
+    })
+      
+    
   });
 
   

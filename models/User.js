@@ -42,6 +42,12 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "ratings",
   },
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 UserSchema.methods.toJSON = function () {
