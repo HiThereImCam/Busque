@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // var imgPath = '/path/to/some/img.png';
 
-// mongoose.connect('localhost', 'testing_storeImg');
+// mon  goose.connect('localhost', 'testing_storeImg');
 
 const UserSchema = new Schema({
   username: {
@@ -42,6 +42,12 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "ratings",
   },
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 });
 
 UserSchema.methods.toJSON = function () {

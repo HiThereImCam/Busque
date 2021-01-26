@@ -18,7 +18,7 @@ const VenueSchema = new Schema({
   // available: {
   //   type: Boolean,
   //   default: true,
-  // },
+  // }, 
   comments: [
     {
       type: Schema.Types.ObjectId,
@@ -26,7 +26,7 @@ const VenueSchema = new Schema({
     },
   ],
 
-  ratings: [
+  ratings: [    
     {
       type: Schema.Types.ObjectId,
       ref: "ratings",
@@ -34,5 +34,7 @@ const VenueSchema = new Schema({
   ],
   // currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
+
+//  VenueSchema.pre("findOne", Populate("comments"));
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

@@ -77,7 +77,7 @@ router.post(
     const newVenue = new Venue({
       name: req.body.name,
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
-
+      imageURL: req.body.imageURL,
       type: req.body.type,
     });
     newVenue.save().then((venue) => res.json(venue));
@@ -154,25 +154,66 @@ router.delete(
   }
 ); //end delete
 
-router.patch("/:venue_id/comments", (req, res) => {
+// maybe post route?
+router.post("/:venue_id/comments", (req, res) => {
+  // console.log(req.params)
   const newComment = new Comment({
+    //needs user
+    venue: req.params.venue_id,
     comment: req.body.comment,
+    user: req.body.user,
   });
+  console.log(newComment);
   newComment.save().then(
-    (comment) =>
+    (comment) => {
+      console.log("Comments: ", comment);
       Venue.findByIdAndUpdate(
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue))
+      )
+        .populate("comments")
+
+        .sort({ date: -1 })
+        .then((venue) => res.json(venue.comments));
+    }
     // response to front end
   );
 });
+
+// router.get("/:venue_id/comments", (req, res) => {
+//   Venue.findOne({id: req.params.comment}).then((venue) =>
+
+//   res.json(venue.comments))
+// })
+
+//pulls comments left on a venue
+router.get("/:venue_id/comments", (req, res) => {
+    console.log(req);
+    Venue.findOne({ _id: req.params.venue_id })
+      .populate({path: "comments",
+      populate: {path: 'user', options: { sort: { 'date': -1 } },
+      select: {username: 1}}
+      
+    })
+      .then((venue) => res.json(venue.comments))
+      .catch((err) => {
+        console.log("comment error:", err);
+        res.status(500).json({ comment: "we've encountered and error" });
+      });
+  });
 
 
 //! rating routes
 
 // test for pulling a singular rating, not for production
+router.get("/:rating_id", (req, res) => {
+    Rating.findbyId(req.params.rating_id)
+        .then((rating) => {
+            .populate()
+        })
+        .catch()
+})
 
 // creates a rating, same format as new comment creation
 router.patch("/:venue_id/ratings", (req, res) => {
@@ -208,6 +249,5 @@ router.get("/:venue_id/ratings", (req, res) => {
     })
     // .catch((err) => res.status(404).json({ novenues: "no venue found by that id" })
 // )}
-
 
 module.exports = router;
