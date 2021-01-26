@@ -169,7 +169,8 @@ router.patch("/:venue_id/comments", (req, res) => {
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue));
+      ).populate("comments")
+      .then((venue) => res.json(venue.comments));
     }
     // response to front end
   );
