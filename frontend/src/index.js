@@ -13,7 +13,7 @@ import { logout } from "./actions/session_actions";
 
 import { getVenues } from "./util/venue_api_util";
 import { fetchVenues, fetchVenueComments } from "./actions/venue_actions";
-
+import { getVenueComments } from './util/venue_api_util';
 // import { getUser } from "./util/user_api_util";
 // import { fetchUser, fetchUsers } from "./actions/user_actions";
 import { getPhotos } from './actions/photo_actions'; 
@@ -48,10 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // window.fetchUser = fetchUser;
   // window.fetchUsers = fetchUsers; 
   window.fetchVenueComments = fetchVenueComments; 
+  window.getVenueComments = getVenueComments; 
   window.fetchVenues = fetchVenues;
   window.getVenues = getVenues;
   window.getPhotos = getPhotos; 
-  window.createComment = createComment; 
+  // window.createComment = createComment; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);

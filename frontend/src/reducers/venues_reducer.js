@@ -10,18 +10,14 @@ const VenuesReducer = (state = [], action) => {
     case CHECK_IN:
       // return Object.assign({}, state, { [action.data.id]: action.data });
       console.log(state.venues);
-
-    // case RECEIVE_VENUE_COMMENTS:
-      // return action.venueId.data
+    case RECEIVE_VENUE_COMMENTS:
+      console.log(action.venueId)
+      // return action.venueId.config.venueId
       // for (let i = 0; i < action.venueId.data.length; i++) {
-      //   return Object.assign({}, state, { [action.venueId]: action.venueId.data.comment })
+        // return Object.assign({}, state, { [action.venueId.config.venueId]: action.venueId.data })
       // }
-
-    // case RECEIVE_COMMENT: 
-    //   return action.comment.data.comments
-      // for (let i = 0; i < action.comment.data.comments.length; i++) {
-      //   return Object.assign({}, state, { [action.comment.data.comments[i]]: action.comment.data.comments[i].comment })
-      // }
+    // case RECEIVE_COMMENT:
+    //   return action.comment
     default:
       return state;
   }

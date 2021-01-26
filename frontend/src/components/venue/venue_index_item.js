@@ -2,6 +2,8 @@ import React from 'react';
 // import { Link } from 'react-router-dom'; 
 import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import { getVenueComments } from '../../util/venue_api_util'; 
+import { fetchVenueComments } from '../../actions/venue_actions';
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
@@ -16,6 +18,15 @@ class VenueIndexItem extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.update = this.update.bind(this); 
     }
+
+
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.props.venue.comments !== prevProps.venue.comments) {
+    //         console.log(this.props.venue.comments); 
+    //         console.log(prevProps.venue.comments)
+    //         this.props.fetchVenueComments(this.props.venue._id); 
+    //     }
+    // }
 
     update() {
         return e => this.setState({
@@ -32,17 +43,14 @@ class VenueIndexItem extends React.Component {
         })
         console.log("clicked")
     }
-    
-    handleArrow(e) {
-        e.preventDefault(); 
-        this.setState({
-        })
-    }
 
     handleSubmit(e) {
         e.preventDefault(); 
         console.log("commented")
         this.props.createComment(this.props.venue._id, this.state.comment)
+        // this.props.fetchVenueComments(this.props.venue._id)
+        console.log(this.state.comment)
+
         this.setState({
             comment: ""
         })
@@ -64,6 +72,16 @@ class VenueIndexItem extends React.Component {
             } else { //! Edit later?
                 return null
             }
+        }
+
+        let showComments = () => {
+            let venueComments = this.props.fetchVenueComments(this.props.venue._id)
+            console.log(this.props.venue._id)
+            console.log(venueComments)
+            // return venueComments
+            // venueComments.data.map((comment, i) => {
+            //     return comment
+            // })
         }
 
         return (
@@ -105,12 +123,16 @@ class VenueIndexItem extends React.Component {
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
                             this.props.venue.comments.map((comment, i) => {
+                                // this.props.fetchVenueComments(this.props.venue._id)
                                 return <div className="review-each" key={i}>
                                     <div className="reviewer-name">Username says:</div> 
                                     {/* {console.log(comment)} */}
                                     {comment}
                                 </div>
-                            })}
+                            })} 
+                            {/* {this.state.showReviews && 
+                                showComments()
+                            } */}
                         </div>
                     </div>
                 </div>

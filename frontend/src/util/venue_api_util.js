@@ -18,7 +18,10 @@ export const checkOut = (venueID, currentUser) => {
 };
 
 export const getVenueComments = (venueId) => {
-  return axios.get(`/api/venues/${venueId}/comments`)
+  debugger
+  return axios.get(`/api/venues/${venueId}/comments`, 
+    venueId
+  )
 }
 
 export const createComment = (venueId, comment) => {
