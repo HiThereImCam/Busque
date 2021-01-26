@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
+const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
 
 router.get("/", (req, res) => {
@@ -167,5 +168,46 @@ router.patch("/:venue_id/comments", (req, res) => {
     // response to front end
   );
 });
+
+
+//! rating routes
+
+// test for pulling a singular rating, not for production
+
+// creates a rating, same format as new comment creation
+router.patch("/:venue_id/ratings", (req, res) => {
+    const newRating = new Rating({
+        rating: req.body.rating,
+    });
+    newRating.save().then(
+        (rating) => {
+            Venue.findByIdAndUpdate(
+                req.params.venue_id,
+                { $push: { ratings: rating } },
+                { new: true }
+              ).then((venue) => res.json(venue)
+            )
+        }
+    );
+});
+
+// pulls all the ratings from one specific venue
+router.get("/:venue_id/ratings", (req, res) => { 
+    Venue.findbyId(req.params.id)
+        .then((venue) => {
+            venue.find(ratings)
+                // .catch((err) => {
+                //     console.log("another catch statement", err);
+                //     res.status(404).json({ err: err});
+                // });
+        })
+        .catch((err) => {
+            console.log("ratings could not be found", err);
+            res.status(404).json({ err: err });
+        });
+    })
+    // .catch((err) => res.status(404).json({ novenues: "no venue found by that id" })
+// )}
+
 
 module.exports = router;
