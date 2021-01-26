@@ -18,7 +18,7 @@ const VenueSchema = new Schema({
   // available: {
   //   type: Boolean,
   //   default: true,
-  // },
+  // }, 
   comments: [
     {
       type: Schema.Types.ObjectId,

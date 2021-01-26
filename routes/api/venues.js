@@ -169,7 +169,8 @@ router.patch("/:venue_id/comments", (req, res) => {
         req.params.venue_id,
         { $push: { comments: comment } },
         { new: true }
-      ).then((venue) => res.json(venue));
+      ).populate("comments")
+      .then((venue) => res.json(venue.comments));
     }
     // response to front end
   );
@@ -186,7 +187,14 @@ router.patch("/:venue_id/comments", (req, res) => {
 router.get("/:venue_id/comments", (req, res) => {
   Venue.findOne({ id: req.params.comment })
     .populate("comments")
-    .then((comment) => res.json(comment.comments));
+    .populate('users')
+    .then((venue) => res.json(venue.comments))
+    .catch((err) => {
+      console.log('comment error:', err);
+      res.status(500).json({ comment: "we've encountered and error"})
+    })
+      
+    
   });
 
   

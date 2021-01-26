@@ -18,7 +18,7 @@ import { getVenueComments } from './util/venue_api_util';
 // import { fetchUser, fetchUsers } from "./actions/user_actions";
 import { getPhotos } from './actions/photo_actions'; 
 // import { createComment } from "./actions/venue_actions";
-import { createComment } from "./util/venue_api_util";
+// import { createComment } from "./util/venue_api_util";
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;

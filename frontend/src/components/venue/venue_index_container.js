@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchVenues: () => dispatch(fetchVenues()), 
     openNavModal: () => dispatch(openNavModal(true)),
     fetchUsers: () => dispatch(fetchUsers()),
-    fetchVenueComments: () => dispatch(fetchVenueComments()),
+    fetchVenueComments: (venueId) => dispatch(fetchVenueComments(venueId)),
     createComment: (venueId, comment) => dispatch(createComment(venueId, comment))
 });
 
