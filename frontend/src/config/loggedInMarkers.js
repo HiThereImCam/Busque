@@ -5,8 +5,8 @@ import unavailableLocation from "./unavailableLocation";
 
 let loggedInMarkers = (venues, map, buttonRef, users) => {
   // let unavailableVenues = checkedInVenues(venues);
-
-  return venues.forEach((venue) => {
+  let markers = [];
+  venues.forEach((venue) => {
     let { coordinate } = venue;
     let marker = new mapboxgl.Marker({
       color: "#4CBB17",
@@ -15,12 +15,8 @@ let loggedInMarkers = (venues, map, buttonRef, users) => {
       .addTo(map);
 
     marker._element.id = venue._id;
-    let venueId = venue._id;
-
-    marker._element.id === venueId
-      ? (window.venueId = marker)
-      : console.log("elements do not match ");
-
+    markers.push(marker);
+    window.markers = markers;
     if (venue.available) {
       marker
         .setPopup(

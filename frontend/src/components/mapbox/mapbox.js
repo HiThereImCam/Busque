@@ -28,6 +28,7 @@ class MapBox extends Component {
     this.mapBoxRef = React.createRef();
     this.buttonRef = React.createRef();
     this.handleCheckIn = this.handleCheckIn.bind(this);
+    this.observer = this.observer.bind(this);
     window.handleCheckIn = this.handleCheckIn;
   }
 
@@ -91,6 +92,7 @@ class MapBox extends Component {
                 <div class="popUp_Container">
                   <h1>${venue.name}</h1>
                   <p class="popUp_Username">${user.username}</p>
+                  <img id="profile_pic" src=${user.imageURL} height=75 width=75></img>
                 </div>
               `
             )
@@ -107,7 +109,6 @@ class MapBox extends Component {
     let { currentUser, checkIn, venues } = this.props;
     console.log("handle check in: ", venueName);
     let venue = venues.find((venue) => venue.name === venueName);
-    console.log(venue);
     // checkIn(venue._id, currentUser);
     this.setState({
       isCheckedIn: true,
@@ -115,8 +116,11 @@ class MapBox extends Component {
     });
 
     let venueId = venue._id;
-    console.log("venue id func: ", window.venueId);
-    window.venueId.togglePopup();
+    let marker = window.markers.find(
+      (marker) => marker._element.id === venueId
+    );
+    console.log("marker: ", marker);
+    marker.togglePopup();
   }
   render() {
     let { openNavModal } = this.props;
