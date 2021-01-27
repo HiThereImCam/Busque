@@ -7,7 +7,7 @@ import { fetchUsers } from '../../actions/user_actions';
 const mapStateToProps = (state) => ({
     venues: state.venues, 
     users: state.entities.users, 
-    
+    comments: Object.values(state.comments)
 });
 
 const mapDispatchToProps = (dispatch) => ({

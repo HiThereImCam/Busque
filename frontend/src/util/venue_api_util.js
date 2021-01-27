@@ -25,7 +25,7 @@ export const getVenueComments = (venueId) => {
 }
 
 export const createComment = (venueId, comment) => {
-  return axios.patch(`/api/venues/${venueId}/comments`, {
+  return axios.post(`/api/venues/${venueId}/comments`, {
     comment: comment
   })
 };

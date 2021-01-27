@@ -26,6 +26,9 @@ class VenueIndexItem extends React.Component {
     //         this.props.fetchVenueComments(this.props.venue._id); 
     //     }
     // }
+    componentDidMount() {
+        this.props.fetchVenueComments(this.props.venue._id)
+    }
 
     update() {
         return e => this.setState({
@@ -40,7 +43,6 @@ class VenueIndexItem extends React.Component {
             arrowUp: !this.state.arrowUp,
             arrowDown: !this.state.arrowDown 
         })
-        console.log("clicked")
     }
 
     handleSubmit(e) {
@@ -73,14 +75,30 @@ class VenueIndexItem extends React.Component {
             }
         }
 
-        let showComments = () => {
-            this.props.venue.comments.map((commentId, i) => {
-                let venueComments = this.props.fetchVenueComments(this.props.venue._id)
-                console.log(this.props.venue._id)
-                console.log(venueComments)
-                return commentId
-            })
-        }
+        // let showComments = () => {
+        //     this.props.venue.comments.map((commentId, i) => {
+        //         return(
+        //             <div>
+        //             {
+        //                 this.props.comments.map((comment) => {
+        //                     if (comment._id === commentId) {
+        //                         return (
+        //                             <div className="review-each" key={i}>
+        //                                 <div className="reviewer-name">
+        //                                     Username says:
+        //                                 </div>
+        //                                 {comment.comment}
+        //                                 {console.log(comment.comment)}
+        //                             </div>
+        //                         );
+        //                     }
+        //                 })
+        //             }
+        //             </div>
+        //         )
+        //     })
+        // }
+        
 
         return (
             <div className="venue-list-items">
@@ -116,19 +134,29 @@ class VenueIndexItem extends React.Component {
                             Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 
                         </div>
                         <div className="venue-reviews-inner">
-                            {/* {this.state.showReviews &&
-                            this.props.venue.comments.map((comment, i) => {
-                                this.props.fetchVenueComments(this.props.venue._id)
-                                return <div className="review-each" key={i}>
-                                    <div className="reviewer-name">Username says:</div> 
-                                    {comment}
-                                </div>
-                            })}  */}
-                            {this.state.showReviews && 
-                                <div className="review-each">
-                                    {showComments()}
-                                </div>
-                            } 
+                            {this.state.showReviews &&
+                                this.props.venue.comments.map((commentId, i) => {
+                                    return (
+                                        <div key={i}>
+                                            {
+                                                this.props.comments.map((comment) => {
+                                                    if (comment._id === commentId) {
+                                                        return (
+                                                            <div className="review-each" key={i}>
+                                                                <div className="reviewer-name">
+                                                                    Username says:
+                                                                </div>
+                                                                {comment.comment}
+                                                                {/* {console.log(comment.comment)} */}
+                                                            </div>
+                                                        );
+                                                    }
+                                                })
+                                            }
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>
