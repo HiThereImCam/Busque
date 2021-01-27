@@ -12,10 +12,10 @@ const RatingSchema = new Schema({
   },
   rating: {
     type: Number,
-    min: 0,
+    min: 1,
     max: 5,
     required: true,
   }
 });
 
-module.exports = Rating = mongoose.model("rating", RatingSchema);
+module.exports = Rating = mongoose.model("ratings", RatingSchema);

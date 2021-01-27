@@ -206,13 +206,15 @@ router.get("/:venue_id/comments", (req, res) => {
 
 //! rating routes
 
-// test for pulling a singular rating, not for production
-router.get("/:rating_id", (req, res) => {
-    Rating.findbyId(req.params.rating_id)
-        .then((rating) => {
-            .populate()
+// get all ratings for a venue
+router.get("/:venue_id/ratings", (req, res) => {
+    console.log(req)
+    Venue.findOne({ _id: req.params.venue_id })
+        .populate("ratings", "rating") // populate looks for the name of the schema exported
+        .then((venue) => res.json(venue.ratings))
+        .catch((err) => {
+            res.status(404).json({ratings: "ratings error"});
         })
-        .catch()
 })
 
 // creates a rating, same format as new comment creation
@@ -227,26 +229,26 @@ router.patch("/:venue_id/ratings", (req, res) => {
                 { $push: { ratings: rating } },
                 { new: true }
               ).then((venue) => res.json(venue)
-            )
+            ).catch((err) => res.json(err))
         }
     );
 });
 
 // pulls all the ratings from one specific venue
-router.get("/:venue_id/ratings", (req, res) => { 
-    Venue.findbyId(req.params.id)
-        .then((venue) => {
-            venue.find(ratings)
-                // .catch((err) => {
-                //     console.log("another catch statement", err);
-                //     res.status(404).json({ err: err});
-                // });
-        })
-        .catch((err) => {
-            console.log("ratings could not be found", err);
-            res.status(404).json({ err: err });
-        });
-    })
+// router.get("/:venue_id/ratings", (req, res) => { 
+//     Venue.findbyId(req.params.id)
+//         .then((venue) => {
+//             venue.find(ratings)
+//                 // .catch((err) => {
+//                 //     console.log("another catch statement", err);
+//                 //     res.status(404).json({ err: err});
+//                 // });
+//         })
+//         .catch((err) => {
+//             console.log("ratings could not be found", err);
+//             res.status(404).json({ err: err });
+//         });
+//     })
     // .catch((err) => res.status(404).json({ novenues: "no venue found by that id" })
 // )}
 
