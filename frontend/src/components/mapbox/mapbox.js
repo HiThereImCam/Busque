@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu, GiTriquetra } from "react-icons/gi";
 import mapboxgl from "mapbox-gl";
 import "../../css/mapbox.css";
 
@@ -20,13 +20,15 @@ class MapBox extends Component {
       lng: -122.4363143,
       lat: 37.7461108,
       zoom: 12,
+      isCheckedIn: false,
+      ///venue: this.props.venues
       // markerColor: "#4CBB17",
     };
 
     this.mapBoxRef = React.createRef();
     this.buttonRef = React.createRef();
-    this.handleClick = this.handleClick.bind(this);
-    window.handleClick = this.handleClick;
+    this.handleCheckIn = this.handleCheckIn.bind(this);
+    window.handleCheckIn = this.handleCheckIn;
   }
 
   componentDidMount() {
@@ -67,20 +69,55 @@ class MapBox extends Component {
   // needs to be authenticated
 
   componentDidUpdate(prevProps) {
-    let { venues, users, isAuthenticated } = this.props;
+    let { venues, users, isAuthenticated, currentUser } = this.props;
+    let { isCheckedIn, venueID } = this.state;
     if (isAuthenticated) {
+      // gives the user the ability to check in
       loggedInMarkers(venues, this.map, this.buttonRef, users);
+      if (isCheckedIn) {
+        let venue = venues.find((venue) => venue._id === venueID);
+        let user = users[currentUser];
+
+        let marker = new mapboxgl.Marker({
+          color: "red",
+        })
+          .setLngLat(venue.coordinate)
+          .addTo(this.map);
+
+        marker
+          .setPopup(
+            new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(
+              `
+                <div class="popUp_Container">
+                  <h1>${venue.name}</h1>
+                  <p class="popUp_Username">${user.username}</p>
+                </div>
+              `
+            )
+          )
+          .addTo(this.map);
+      }
     } else {
-      defaultMarkers(venues, this.map);
+      // otherwise display markers w/o that ability
+      defaultMarkers(venues, this.map, users);
     }
   }
 
-  handleClick(venueID) {
-    // id is the venue name
-    let { currentUser, checkIn } = this.props;
-    checkIn(venueID, currentUser);
-  }
+  handleCheckIn(venueName) {
+    let { currentUser, checkIn, venues } = this.props;
+    console.log("handle check in: ", venueName);
+    let venue = venues.find((venue) => venue.name === venueName);
+    console.log(venue);
+    // checkIn(venue._id, currentUser);
+    this.setState({
+      isCheckedIn: true,
+      venueID: venue._id,
+    });
 
+    let venueId = venue._id;
+    console.log("venue id func: ", window.venueId);
+    window.venueId.togglePopup();
+  }
   render() {
     let { openNavModal } = this.props;
     return (

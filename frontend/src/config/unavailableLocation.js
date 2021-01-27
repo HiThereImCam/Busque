@@ -15,9 +15,14 @@ let unavailableLocation = (users, unavailableVenues, map) => {
       .setPopup(
         new mapboxgl.Popup().setLngLat(unavailableVenue.coordinate).setHTML(
           `
-                <h1>${users[unavailableVenue.currentUser[0]].username}</h1>
-                
-              `
+            <div className="popUp">
+              <h1 className="popUp-venueName">${unavailableVenue.name}</h1>
+              <p className="popUp-userName">${
+                users[unavailableVenue.currentUser[0]].username
+              }</p>
+              <img src=${users[unavailableVenue.currentUser[0]].imageURL}></img>
+            </div>  
+          `
         )
       )
       .addTo(map);

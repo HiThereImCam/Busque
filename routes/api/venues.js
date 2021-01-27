@@ -111,7 +111,7 @@ router.patch(
             });
           }
           res.json({
-            newSchedule: schedule,
+            venueSchedule: schedule,
           });
         });
       } else {
@@ -137,7 +137,6 @@ router.patch(
 );
 
 router.delete(
-
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -181,13 +180,11 @@ router.patch("/:venue_id/comments", (req, res) => {
 //   res.json(venue.comments))
 // })
 
-
 //pulls comments left on a venue
 router.get("/:venue_id/comments", (req, res) => {
   Venue.findOne({ id: req.params.comment })
     .populate("comments")
     .then((comment) => res.json(comment.comments));
-  });
+});
 
-  
 module.exports = router;

@@ -4,38 +4,42 @@ import checkedInVenues from "./checkedInVenues";
 import unavailableLocation from "./unavailableLocation";
 
 let loggedInMarkers = (venues, map, buttonRef, users) => {
-  let unavailableVenues = checkedInVenues(venues);
-  Object.values(markerLocations.coordinates).forEach((coordinate) => {
-    return venues.forEach((venue) => {
-      if (JSON.stringify(coordinate) === JSON.stringify(venue.coordinate)) {
-        let marker = new mapboxgl.Marker({
-          color: "#4CBB17",
-        })
-          .setLngLat(coordinate)
-          .addTo(map);
+  // let unavailableVenues = checkedInVenues(venues);
 
-        if (venue.available) {
-          marker
-            .setPopup(
-              new mapboxgl.Popup().setLngLat(coordinate).setHTML(
-                `
+  return venues.forEach((venue) => {
+    let { coordinate } = venue;
+    let marker = new mapboxgl.Marker({
+      color: "#4CBB17",
+    })
+      .setLngLat(coordinate)
+      .addTo(map);
+
+    marker._element.id = venue._id;
+    let venueId = venue._id;
+
+    marker._element.id === venueId
+      ? (window.venueId = marker)
+      : console.log("elements do not match ");
+
+    if (venue.available) {
+      marker
+        .setPopup(
+          new mapboxgl.Popup().setLngLat(coordinate).setHTML(
+            `
                   <h1>${venue.name}</h1>
-                  <button id="${venue._id}"
-                          onclick="handleClick(this.id)"
+                  <button id = "${venue.name}"
+                          onclick="handleCheckIn(this.id)"
                           ref=${buttonRef.current}>Check in</button>
                 `
-              )
-            )
-            .addTo(map);
-        } else {
-          try {
-            unavailableLocation(users, unavailableVenues, map);
-          } catch (e) {
-            console.log("errors: ", e);
-          }
-        }
+          )
+        )
+        .addTo(map);
+    } else {
+      try {
+      } catch (e) {
+        console.log("errors: ", e);
       }
-    });
+    }
   });
 };
 

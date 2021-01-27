@@ -15,10 +15,9 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.demoUser = this.demoUser.bind(this);
-
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearErrors();
   }
 
@@ -106,7 +105,11 @@ class LoginForm extends Component {
             </div>
           </form>
           <div className="form-footer">
-            Need an account?&nbsp;<Link className="footer-link" to="/signup"> Sign up</Link>
+            Need an account?&nbsp;
+            <Link className="footer-link" to="/signup">
+              {" "}
+              Sign up
+            </Link>
           </div>
         </div>
       </div>

@@ -4,7 +4,6 @@ import { uploadPhoto } from "../../util/photo_api_util";
 import "../../css/signup.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ class SignupForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearErrors();
   }
 
@@ -47,9 +46,14 @@ class SignupForm extends React.Component {
 
     if (this.state.photoFile) {
       const data = new FormData(e.target);
+      let config = {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
       data.append("file", this.state.photoFile);
 
-      uploadPhoto(data).then((res) => {
+      uploadPhoto(config, data).then((res) => {
         let user = {
           username: this.state.username,
           email: this.state.email,
@@ -57,11 +61,12 @@ class SignupForm extends React.Component {
           performerType: this.state.performerType,
           bio: this.state.bio,
           photoId: res.data.newData.photoId,
-          imageURL: res.data.newData.Location
-        }; 
-        this.props.signup(user, this.props.history)
-          .then(this.props.history.push("/login"))
-      })
+          imageURL: res.data.newData.Location,
+        };
+        this.props
+          .signup(user, this.props.history)
+          .then(this.props.history.push("/login"));
+      });
     } else {
       let user = {
         username: this.state.username,
@@ -72,8 +77,9 @@ class SignupForm extends React.Component {
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
       };
-      this.props.signup(user, this.props.history)
-        .then(this.props.history.push("/login"))
+      this.props
+        .signup(user, this.props.history)
+        .then(this.props.history.push("/login"));
     }
   }
 
@@ -154,7 +160,11 @@ class SignupForm extends React.Component {
               <input className="signup-button" type="submit" value="Sign up" />
               {this.renderErrors()}
               <div className="form-footer">
-                Have an account?&nbsp;<Link className="footer-link" to="/login"> Log in</Link>
+                Have an account?&nbsp;
+                <Link className="footer-link" to="/login">
+                  {" "}
+                  Log in
+                </Link>
               </div>
             </div>
           </form>
