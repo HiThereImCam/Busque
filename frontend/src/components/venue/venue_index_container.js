@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import VenueIndex from './venue_index'; 
 import { openNavModal } from '../../actions/nav_actions'; 
-import { fetchVenues, createComment, fetchVenueComments, clearComments } from '../../actions/venue_actions';
+import { fetchVenues, createComment, fetchVenueComments } from '../../actions/venue_actions';
 import { fetchUsers } from '../../actions/user_actions'; 
 
 const mapStateToProps = (state) => ({
@@ -18,7 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
     fetchUsers: () => dispatch(fetchUsers()),
     fetchVenueComments: (venueId) => dispatch(fetchVenueComments(venueId)),
     createComment: (venueId, comment) => dispatch(createComment(venueId, comment)),
-    clearComments: () => dispatch(clearComments())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueIndex); 

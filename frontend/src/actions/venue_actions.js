@@ -4,7 +4,6 @@ export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
 export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
-export const CLEAR_COMMENTS = "CLEAR_COMMENTS";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -25,10 +24,6 @@ const receiveVenueComments = (venue, comments) => ({
 const receiveComment = (comment) => ({
   type: RECEIVE_COMMENT, 
   comment
-})
-
-export const clearComments = () => ({
-  type: CLEAR_COMMENTS
 })
 
 export const fetchVenues = () => (dispatch) =>

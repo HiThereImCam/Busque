@@ -75,7 +75,7 @@ class VenueIndexItem extends React.Component {
             if ((this.props.venue.available !== true) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser[0]
                 return this.props.users[currentUserId].username + " is here"
-            } else { //! Edit later?
+            } else { 
                 return null
             }
         }

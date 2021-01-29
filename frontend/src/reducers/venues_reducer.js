@@ -13,7 +13,6 @@ const VenuesReducer = (state = [], action) => {
       // return Object.assign({}, state, { [action.data.id]: action.data });
       console.log(state.venues); 
     case RECEIVE_COMMENT:
-      console.log(state)
       let wholeVenue = newState.find(venue => venue._id === action.comment.data.venue)
       wholeVenue.comments.push(action.comment.data._id)
       return newState 
