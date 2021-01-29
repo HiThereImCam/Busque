@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
+const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
 
 router.get("/", (req, res) => {
@@ -201,6 +202,7 @@ router.post(
 // })
 
 //pulls comments left on a venue
+
 router.get(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
@@ -220,6 +222,38 @@ router.get(
         console.log("comment error:", err);
         res.status(500).json({ comment: "we've encountered and error" });
       });
+  });
+
+
+//! rating routes
+
+// get all ratings for a venue
+router.get("/:venue_id/ratings", (req, res) => {
+    console.log(req)
+    Venue.findOne({ _id: req.params.venue_id })
+        .populate("ratings", "rating") // populate looks for the name of the schema exported
+        .then((venue) => res.json(venue.ratings))
+        .catch((err) => {
+            res.status(404).json({ratings: "ratings error"});
+        })
+})
+
+// creates a rating, same format as new comment creation
+router.patch("/:venue_id/ratings", (req, res) => {
+    const newRating = new Rating({
+        rating: req.body.rating,
+    });
+    newRating.save().then(
+        (rating) => {
+            Venue.findByIdAndUpdate(
+                req.params.venue_id,
+                { $push: { ratings: rating } },
+                { new: true }
+              ).then((venue) => res.json(venue)
+            ).catch((err) => res.json(err))
+        }
+    );
+});
   }
 );
 
