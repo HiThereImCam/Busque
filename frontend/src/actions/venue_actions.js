@@ -4,6 +4,7 @@ export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
 export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
+export const CLEAR_COMMENTS = "CLEAR_COMMENTS";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -15,14 +16,19 @@ const checkedIn = (updatedVenue) => ({
   updatedVenue,
 });
 
-const receiveVenueComments = (venueId) => ({
+const receiveVenueComments = (venue, comments) => ({
   type: RECEIVE_VENUE_COMMENTS, 
-  venueId 
+  venue, 
+  comments
 })
 
 const receiveComment = (comment) => ({
   type: RECEIVE_COMMENT, 
   comment
+})
+
+export const clearComments = () => ({
+  type: CLEAR_COMMENTS
 })
 
 export const fetchVenues = () => (dispatch) =>
@@ -42,12 +48,12 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
 
 export const fetchVenueComments = (venueId) => dispatch => {
   VenueApiUtil.getVenueComments(venueId)
-    .then((venueId) => dispatch(receiveVenueComments(venueId)))
+    .then((venueId, comments) => dispatch(receiveVenueComments(venueId, comments)))
     .catch((err) => console.log(err))
 }
 
-export const createComment = (venueId, comment) => dispatch => {
-  VenueApiUtil.createComment(venueId, comment)
+export const createComment = (venueId, comment, user) => dispatch => {
+  VenueApiUtil.createComment(venueId, comment, user)
     .then((comment) => dispatch(receiveComment(comment)))
     .catch((err) => console.log(err))
 }
