@@ -48,13 +48,6 @@ const UserSchema = new Schema({
       ref: "User",
     },
   ],
-  ratings: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "ratings",
-    },
-  ]
-  
 });
 
 UserSchema.methods.toJSON = function () {
@@ -64,3 +57,4 @@ UserSchema.methods.toJSON = function () {
   return obj;
 };
 
+module.exports = User = mongoose.model("User", UserSchema);

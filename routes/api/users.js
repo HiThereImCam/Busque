@@ -11,14 +11,10 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 
-
-
-
 router.get("/", (req, res) => {
   User.find()
     .then((user) => res.json(user))
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
-
 });
 
 router.get(
@@ -29,7 +25,6 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-      
     });
   }
 );
@@ -115,8 +110,9 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     User.findByIdAndUpdate(
-      req.params.id, req.body,
-     
+      req.params.id,
+      req.body,
+
       { new: true },
       //error handling
       function (err, response) {
@@ -132,6 +128,30 @@ router.put(
     );
   }
 ); //end update
+
+router.get(`/:user_id/ratings`, (req, res) => {
+  User.findOne({ _id: req.params.user_id })
+    .populate("ratings", "rating")
+    .then((user) => res.json(user.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "can't get ratings." });
+    });
+});
+
+router.post(`/:user_id/ratings`, (req, res) => {
+  const newRating = new Rating({
+    rating: req.body.rating,
+  });
+  newRating.save().then((rating) => {
+    User.findByIdAndUpdate(
+      req.params.user_id,
+      { $push: { ratings: rating } },
+      { new: true }
+    )
+      .then((user) => res.json(user))
+      .catch((err) => res.json(err));
+  });
+});
 
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
