@@ -1,34 +1,41 @@
 import React from 'react'; 
-// import { Link } from 'react-router-dom'; 
+import { Link, withRouter } from 'react-router-dom'; 
 import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
-// import { getVenueComments } from '../../util/venue_api_util'; 
-// import { fetchVenueComments } from '../../actions/venue_actions';
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
         super(props); 
         this.state = {
             comment: "", 
+            user: "",
             showReviews: false,
             arrowUp: false,
-            arrowDown: true
+            arrowDown: true,
+            newComment: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.update = this.update.bind(this); 
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.props.venue.comments !== prevProps.venue.comments) {
-    //         console.log(this.props.venue.comments); 
-    //         console.log(prevProps.venue.comments)
-    //         this.props.fetchVenueComments(this.props.venue._id); 
-    //     }
-    // }
     componentDidMount() {
         this.props.fetchVenueComments(this.props.venue._id)
+
+        if (this.props.currentUser !== undefined) {
+            this.setState({
+                ["user"]: this.props.currentUser
+            })
+        }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.newComment === true) {
+            this.state.newComment = false
+            this.state.showReviews = true
+        }
+    }
+
 
     update() {
         return e => this.setState({
@@ -47,13 +54,11 @@ class VenueIndexItem extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault(); 
-        // console.log("commented")
-        this.props.createComment(this.props.venue._id, this.state.comment)
-        // this.props.fetchVenueComments(this.props.venue._id)
-        console.log(this.state.comment)
+        this.props.createComment(this.props.venue._id, this.state.comment, this.state.user)
 
         this.setState({
-            comment: ""
+            comment: "",
+            newComment: true
         })
     }
 
@@ -75,30 +80,18 @@ class VenueIndexItem extends React.Component {
             }
         }
 
-        // let showComments = () => {
-        //     this.props.venue.comments.map((commentId, i) => {
-        //         return(
-        //             <div>
-        //             {
-        //                 this.props.comments.map((comment) => {
-        //                     if (comment._id === commentId) {
-        //                         return (
-        //                             <div className="review-each" key={i}>
-        //                                 <div className="reviewer-name">
-        //                                     Username says:
-        //                                 </div>
-        //                                 {comment.comment}
-        //                                 {console.log(comment.comment)}
-        //                             </div>
-        //                         );
-        //                     }
-        //                 })
-        //             }
-        //             </div>
-        //         )
-        //     })
-        // }
-        
+        const userCommentInput = (this.props.currentUser === undefined) ? <div><Link className="login-link" to="/login">Log in</Link> to leave a review</div> :
+            <form onSubmit={this.handleSubmit}>
+                <textarea type="textarea"
+                    className="review-input"
+                    cols="50" rows="5"
+                    value={this.state.comment}
+                    onChange={this.update()}
+                    placeholder="What did you think of this location?"
+                />
+                <br />
+                <input className="submit" type="submit" value="Submit" />
+            </form>
 
         return (
             <div className="venue-list-items">
@@ -118,41 +111,31 @@ class VenueIndexItem extends React.Component {
                     <div className="venue-current-user">
                         {showCurrentUser()}
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <textarea type="textarea" 
-                            className="review-input"
-                            cols="50" rows="5"
-                            value={this.state.comment} 
-                            onChange={this.update()} 
-                            placeholder="What did you think of this location?" 
-                        />
-                        <br />
-                        <input className="submit" type="submit" value="Submit" />
-                    </form>
+                    {userCommentInput}
                     <div className="venue-reviews">
                         <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)} >
                             Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
-                                this.props.venue.comments.map((commentId, i) => {
+                                this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>
-                                            {
-                                                this.props.comments.map((comment) => {
-                                                    if (comment._id === commentId) {
-                                                        return (
-                                                            <div className="review-each" key={i}>
-                                                                <div className="reviewer-name">
-                                                                    Username says:
-                                                                </div>
-                                                                {comment.comment}
-                                                                {/* {console.log(comment.comment)} */}
+                                            {this.props.comments.map((comment, j) => {
+                                                if (comment._id === commentId) {
+                                                    return (
+                                                        <div className="review-each" key={j}>
+                                                            <div className="reviewer-name">
+                                                                Username says:
                                                             </div>
-                                                        );
-                                                    }
-                                                })
-                                            }
+                                                            {comment.comment}
+                                                            <div className="review-date">
+                                                                {comment.date}
+                                                            </div>
+                                                        </div>
+                                                    );
+                                                }
+                                            })}
                                         </div>
                                     )
                                 })
@@ -165,4 +148,4 @@ class VenueIndexItem extends React.Component {
     }
 }
 
-export default VenueIndexItem;
+export default withRouter(VenueIndexItem);

@@ -24,8 +24,9 @@ export const getVenueComments = (venueId) => {
   })
 }
 
-export const createComment = (venueId, comment) => {
+export const createComment = (venueId, comment, user) => {
   return axios.post(`/api/venues/${venueId}/comments`, {
-    comment: comment
+    comment: comment,
+    user: user
   })
 };

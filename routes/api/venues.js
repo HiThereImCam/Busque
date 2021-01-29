@@ -171,10 +171,11 @@ router.post("/:venue_id/comments", (req, res) => {
         { $push: { comments: comment } },
         { new: true }
       )
-        .populate("comments")
+      .populate("comments")
 
-        .sort({ date: -1 })
-        .then((venue) => res.json(venue.comments));
+      .sort({ date: -1 })
+      .then(() => res.json(comment));
+      // return res.json(comment)
     }
     // response to front end
   );

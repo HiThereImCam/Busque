@@ -7,7 +7,6 @@ class VenueIndex extends React.Component {
     componentDidMount() {
         this.props.fetchUsers(); 
         this.props.fetchVenues(); 
-        // this.props.fetchVenueComments(); 
     }
 
     render() {
@@ -23,12 +22,15 @@ class VenueIndex extends React.Component {
                     />
                     <h1>Our Top Venues</h1>
                 </div>
-                {this.props.venues.map((venue, i) => {
+                {this.props.venues?.map((venue, i) => {
                     return <VenueIndexItem venue={venue} 
                         users={this.props.users}  
-                        comments = {this.props.comments}
+                        comments={this.props.comments}
+                        isAuthenticated={this.props.isAuthenticated}
+                        currentUser={this.props.currentUser}
                         createComment={this.props.createComment} 
                         fetchVenueComments={this.props.fetchVenueComments}
+                        clearComments={this.props.clearComments}
                         key={i} />
                 })}
             </div>
