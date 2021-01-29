@@ -234,22 +234,4 @@ router.patch("/:venue_id/ratings", (req, res) => {
     );
 });
 
-// pulls all the ratings from one specific venue
-// router.get("/:venue_id/ratings", (req, res) => { 
-//     Venue.findbyId(req.params.id)
-//         .then((venue) => {
-//             venue.find(ratings)
-//                 // .catch((err) => {
-//                 //     console.log("another catch statement", err);
-//                 //     res.status(404).json({ err: err});
-//                 // });
-//         })
-//         .catch((err) => {
-//             console.log("ratings could not be found", err);
-//             res.status(404).json({ err: err });
-//         });
-//     })
-    // .catch((err) => res.status(404).json({ novenues: "no venue found by that id" })
-// )}
-
 module.exports = router;
