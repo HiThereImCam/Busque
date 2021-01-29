@@ -168,7 +168,6 @@ router.post(
       venue: req.params.venue_id,
       comment: req.body.comment,
        user: req.body.user, //*this is the working one at the moment
-
     });
     console.log(newComment);
     newComment.save().then(
@@ -239,7 +238,7 @@ router.get("/:venue_id/ratings", (req, res) => {
 })
 
 // creates a rating, same format as new comment creation
-router.patch("/:venue_id/ratings", (req, res) => {
+router.post("/:venue_id/ratings", (req, res) => {
     const newRating = new Rating({
         rating: req.body.rating,
     });
@@ -254,7 +253,6 @@ router.patch("/:venue_id/ratings", (req, res) => {
         }
     );
 });
-  }
-);
+  
 
 module.exports = router;
