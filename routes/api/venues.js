@@ -154,6 +154,7 @@ router.delete(
 ); //end delete
 
 // maybe post route?
+
 router.post(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
@@ -165,8 +166,8 @@ router.post(
       //needs user
       venue: req.params.venue_id,
       comment: req.body.comment,
-      user: req.params.user.id
-      // user: req.body.user, //*this is the working one at the moment
+      //user: req.params.user.id
+      user: req.body.user, //*this is the working one at the moment
     });
     console.log(newComment);
     newComment.save().then(
@@ -185,12 +186,13 @@ router.post(
               select: { username: 1 },
             },
           })
-          .then((venue) => res.json(venue.comments));
+          .then(() => res.json(comment));
       }
       // response to front end
     );
   }
 );
+
 
 // router.get("/:venue_id/comments", (req, res) => {
 //   Venue.findOne({id: req.params.comment}).then((venue) =>
