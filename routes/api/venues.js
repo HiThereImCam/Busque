@@ -155,31 +155,45 @@ router.delete(
 ); //end delete
 
 // maybe post route?
-router.post("/:venue_id/comments", (req, res) => {
-  // console.log(req.params)
-  const newComment = new Comment({
-    //needs user
-    venue: req.params.venue_id,
-    comment: req.body.comment,
-    user: req.body.user,
-  });
-  console.log(newComment);
-  newComment.save().then(
-    (comment) => {
-      console.log("Comments: ", comment);
-      Venue.findByIdAndUpdate(
-        req.params.venue_id,
-        { $push: { comments: comment } },
-        { new: true }
-      )
-        .populate("comments")
 
-        .sort({ date: -1 })
-        .then((venue) => res.json(venue.comments));
-    }
-    // response to front end
-  );
-});
+router.post(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req)
+    console.log(res)
+
+    const newComment = new Comment({
+      //needs user
+      venue: req.params.venue_id,
+      comment: req.body.comment,
+       user: req.body.user, //*this is the working one at the moment
+
+    });
+    console.log(newComment);
+    newComment.save().then(
+      (comment) => {
+        console.log("Comments: ", comment);
+        Venue.findByIdAndUpdate(
+          req.params.venue_id,
+          { $push: { comments: comment } },
+          { new: true }
+        )
+          .populate({
+            path: "comments",
+            populate: {
+              path: "user",
+              options: { sort: { date: -1 } },
+              select: { username: 1 },
+            },
+          })
+          .then(() => res.json(comment));
+      }
+      // response to front end
+    );
+  }
+);
+
 
 // router.get("/:venue_id/comments", (req, res) => {
 //   Venue.findOne({id: req.params.comment}).then((venue) =>
@@ -188,14 +202,21 @@ router.post("/:venue_id/comments", (req, res) => {
 // })
 
 //pulls comments left on a venue
-router.get("/:venue_id/comments", (req, res) => {
-    console.log(req);
+
+router.get(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req)
     Venue.findOne({ _id: req.params.venue_id })
-      .populate({path: "comments",
-      populate: {path: 'user', options: { sort: { 'date': -1 } },
-      select: {username: 1}}
-      
-    })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          options: { sort: { date: -1 } },
+          select: { username: 1 },
+        },
+      })
       .then((venue) => res.json(venue.comments))
       .catch((err) => {
         console.log("comment error:", err);
@@ -233,5 +254,7 @@ router.patch("/:venue_id/ratings", (req, res) => {
         }
     );
 });
+  }
+);
 
 module.exports = router;

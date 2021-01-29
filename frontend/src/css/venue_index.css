@@ -37,6 +37,14 @@
     padding-bottom: 5px;
 }
 
+.login-link {
+    text-decoration: none;
+    color: rgb(34, 34, 175); 
+}
+.login-link:hover {
+    text-decoration: underline;
+}
+
 .review-input {
     border: 1px solid lightgray; 
     border-radius: 4px;
@@ -63,6 +71,9 @@
 .submit:hover {
     cursor: pointer;
     background: rgb(231, 231, 231);
+}
+.submit:focus {
+    outline: none; 
 }
 
 .venue-reviews-inner {
@@ -106,4 +117,9 @@
 .reviewer-name {
     font-size: small; 
     color: gray; 
+}
+
+.review-date {
+    font-size: small; 
+    color: gray;
 }
