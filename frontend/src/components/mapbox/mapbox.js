@@ -5,9 +5,7 @@ import "../../css/mapbox.css";
 
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import defaultMarkers from "../../config/defaultMarkers";
-import loggedInMarkers from "../../config/loggedInMarkers";
-import markerLocations from "../../config/markerLocations";
+import Pin from "../../config/Pin";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -26,10 +24,6 @@ class MapBox extends Component {
     };
 
     this.mapBoxRef = React.createRef();
-    this.buttonRef = React.createRef();
-    this.handleCheckIn = this.handleCheckIn.bind(this);
-    this.observer = this.observer.bind(this);
-    window.handleCheckIn = this.handleCheckIn;
   }
 
   componentDidMount() {
@@ -72,9 +66,59 @@ class MapBox extends Component {
   componentDidUpdate(prevProps) {
     let { venues, users, isAuthenticated, currentUser } = this.props;
     let { isCheckedIn, venueID } = this.state;
-    if (isAuthenticated) {
+  }
+
+  render() {
+    let {
+      openNavModal,
+      venues,
+      currentUser,
+      checkIn,
+      isAuthenticated,
+      users,
+    } = this.props;
+    return (
+      <Fragment>
+        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
+        <div className="menu-container">
+          <div>
+            <GiHamburgerMenu
+              size={17}
+              onClick={() => {
+                openNavModal();
+              }}
+              className="menu-icon"
+            />
+          </div>
+        </div>
+        {venues.length > 0
+          ? venues.map((venue) => (
+              <Pin
+                key={venue._id}
+                map={this.map}
+                venue={venue}
+                curLoggedInUser={currentUser}
+                checkIn={checkIn}
+                isAuthenticated={isAuthenticated}
+                users={users}
+              />
+            ))
+          : ""}
+      </Fragment>
+    );
+  }
+}
+
+export default MapBox;
+
+/**
+ * 
+ * 
+ * 
+
+if (isAuthenticated) {
       // gives the user the ability to check in
-      loggedInMarkers(venues, this.map, this.buttonRef, users);
+      loggedInMarkers(venues, this.map, this.buttonRef, users); 
       if (isCheckedIn) {
         let venue = venues.find((venue) => venue._id === venueID);
         let user = users[currentUser];
@@ -92,7 +136,8 @@ class MapBox extends Component {
                 <div class="popUp_Container">
                   <h1>${venue.name}</h1>
                   <p class="popUp_Username">${user.username}</p>
-                  <img id="profile_pic" src=${user.imageURL} height=75 width=75></img>
+                  <img id="profile_pic" src=${user.imageURL} height=50 width=50></img>
+                
                 </div>
               `
             )
@@ -103,44 +148,7 @@ class MapBox extends Component {
       // otherwise display markers w/o that ability
       defaultMarkers(venues, this.map, users);
     }
-  }
 
-  handleCheckIn(venueName) {
-    let { currentUser, checkIn, venues } = this.props;
-    console.log("handle check in: ", venueName);
-    let venue = venues.find((venue) => venue.name === venueName);
-    // checkIn(venue._id, currentUser);
-    this.setState({
-      isCheckedIn: true,
-      venueID: venue._id,
-    });
 
-    let venueId = venue._id;
-    let marker = window.markers.find(
-      (marker) => marker._element.id === venueId
-    );
-    console.log("marker: ", marker);
-    marker.togglePopup();
-  }
-  render() {
-    let { openNavModal } = this.props;
-    return (
-      <Fragment>
-        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
-        <div className="menu-container">
-          <div>
-            <GiHamburgerMenu
-              size={17}
-              onClick={() => {
-                openNavModal();
-              }}
-              className="menu-icon"
-            />
-          </div>
-        </div>
-      </Fragment>
-    );
-  }
-}
 
-export default MapBox;
+ */
