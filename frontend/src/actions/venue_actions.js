@@ -23,7 +23,7 @@ const receiveVenueComments = (venue, comments) => ({
 
 const receiveComment = (comment) => ({
   type: RECEIVE_COMMENT, 
-  comment
+  comment,
 })
 
 export const fetchVenues = () => (dispatch) =>
@@ -48,7 +48,12 @@ export const fetchVenueComments = (venueId) => dispatch => {
 }
 
 export const createComment = (venueId, comment, user) => dispatch => {
-  VenueApiUtil.createComment(venueId, comment, user)
-    .then((comment) => dispatch(receiveComment(comment)))
-    .catch((err) => console.log(err))
+  return (
+    // console.log(venueId),
+    // console.log(comment), 
+    // console.log(user), 
+    VenueApiUtil.createComment(venueId, comment, user)
+      .then((comment) => dispatch(receiveComment(comment)))
+      .catch((err) => console.log(err))
+  )
 }

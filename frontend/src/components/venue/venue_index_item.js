@@ -24,22 +24,26 @@ class VenueIndexItem extends React.Component {
 
         if (this.props.currentUser !== undefined) {
             this.setState({
-                ["user"]: this.props.currentUser
+                user: this.props.currentUser
             })
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentWillUpdate() {
         if (this.state.newComment === true) {
-            this.state.newComment = false
-            this.state.showReviews = true
+            this.setState({
+                user: this.props.currentUser,
+                newComment: false,
+                showReviews: true, 
+            })
         }
     }
 
 
     update() {
         return e => this.setState({
-            comment: e.currentTarget.value
+            comment: e.currentTarget.value, 
+            user: this.props.currentUser
         })
     }
 
@@ -54,6 +58,9 @@ class VenueIndexItem extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault(); 
+        console.log(this.props.venue._id)
+        console.log(this.state.comment)
+        console.log(this.state.user)
         this.props.createComment(this.props.venue._id, this.state.comment, this.state.user)
 
         this.setState({
@@ -93,6 +100,8 @@ class VenueIndexItem extends React.Component {
                 <input className="submit" type="submit" value="Submit" />
             </form>
 
+        
+
         return (
             <div className="venue-list-items">
                 <div className="venue-name">
@@ -118,6 +127,7 @@ class VenueIndexItem extends React.Component {
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
+                                // showUserReviews()
                                 this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>
@@ -126,7 +136,8 @@ class VenueIndexItem extends React.Component {
                                                     return (
                                                         <div className="review-each" key={j}>
                                                             <div className="reviewer-name">
-                                                                Username says:
+                                                                {comment.user === undefined ? "Username says:" : 
+                                                                    "from " + comment.user.username + ":" }
                                                             </div>
                                                             {comment.comment}
                                                             <div className="review-date">

@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
     openNavModal: () => dispatch(openNavModal(true)),
     fetchUsers: () => dispatch(fetchUsers()),
     fetchVenueComments: (venueId) => dispatch(fetchVenueComments(venueId)),
-    createComment: (venueId, comment) => dispatch(createComment(venueId, comment)),
+    createComment: (venueId, comment, user) => dispatch(createComment(venueId, comment, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueIndex); 
