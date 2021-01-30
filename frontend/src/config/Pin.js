@@ -7,12 +7,11 @@ class Pin extends Component {
     let { venue, map, curLoggedInUser, checkIn, isAuthenticated } = this.props;
     this.marker = new mapboxgl.Marker({
       color: "#4CBB17",
-    })
-      .setLngLat(venue.coordinate)
-      .addTo(map);
+    });
     this.state = {
-      isAvailable: venue.isAvailable,
-      id: venue._id,
+      available: venue.available,
+      marker: this.marker,
+      popup: new mapboxgl.Popup(),
     };
     this.buttonRef = React.createRef();
     this.handleCheckIn = this.handleCheckIn.bind(this);
@@ -20,7 +19,7 @@ class Pin extends Component {
   }
 
   componentDidMount() {
-    let { isAvailable } = this.state;
+    let { available } = this.state;
     let {
       venue,
       map,
@@ -30,14 +29,12 @@ class Pin extends Component {
       users,
     } = this.props;
 
-    let user = users.find((user) => user.id === venue.currentUser);
-
     let htmlContent;
-    if (isAvailable) {
+    if (available) {
       if (isAuthenticated) {
         htmlContent = `
                     <h1>${venue.name}</h1>
-                    <button id = "${venue.name}"
+                    <button id = "${venue._id}"
                             onclick="handleCheckIn(this.id)"
                             ref=${this.buttonRef.current}>Check in</button>
                   `;
@@ -48,31 +45,101 @@ class Pin extends Component {
                     `;
       }
     } else {
-      //   this.marker.color = "red";
+      this.marker._color = "red";
+      let usersArr = Object.keys(users);
+      let userID = usersArr.find((userEl) => userEl === venue.currentUser);
+      let user = users[userID];
       htmlContent = `
         <div class="popUp_Container">
                 <h1>${venue.name}</h1>
                 <p class="popUp_Username">${user.username}</p>
-                <img id="profile_pic" src=${user.imageURL} height=50 width=50></img>
+                <img id="profile_pic" src=${user.imageURL}height=50 width=50></img>
             
         </div>
       `;
     }
-    this.marker
-      .setPopUp(
-        new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(htmlContent)
+
+    this.state.marker
+      .setLngLat(venue.coordinate)
+      .setPopup(
+        this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
       )
       .addTo(map);
   }
 
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps) {
+    let { available } = this.state;
+    let {
+      venue,
+      map,
+      curLoggedInUser,
+      checkIn,
+      isAuthenticated,
+      users,
+    } = this.props;
 
-  handleCheckIn(venueName) {
+    console.log("I MADE IT TO THE COMPONENT DID UPDATE");
+
+    let htmlContent;
+    if (venue.available) {
+      if (isAuthenticated) {
+        htmlContent = `
+                    <h1>${venue.name}</h1>
+                    <button id = "${venue._id}"
+                            onclick="handleCheckIn(this.id)"
+                            ref=${this.buttonRef.current}>Check in</button>
+                  `;
+      } else {
+        htmlContent = `
+                        <h1>${venue.name}</h1>
+                        <p>Please log in </>
+                    `;
+      }
+
+      this.state.marker
+        .setLngLat(venue.coordinate)
+        .setPopup(
+          new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(htmlContent)
+        )
+        .addTo(map);
+    } else {
+      this.marker.remove();
+      this.marker = new mapboxgl.Marker({
+        color: "red",
+      });
+
+      console.log("these are the users: ", users);
+      let usersArr = Object.keys(users);
+      let userID = usersArr.find((userEl) => userEl === venue.currentUser);
+      let user = users[userID];
+      htmlContent = `
+        <div class="popUp_Container">
+                <h1>${venue.name}</h1>
+                <p class="popUp_Username">${user.username}</p>
+                <img id="profile_pic" src=${user.imageURL} height=75 width=75></img>
+        </div>
+      `;
+
+      this.marker
+        .setLngLat(venue.coordinate)
+        .setPopup(
+          this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
+        )
+        .addTo(map);
+    }
+
+    // this.state.marker
+    //   .setLngLat(venue.coordinate)
+    //   .setPopup(
+    //     new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(htmlContent)
+    //   )
+    //   .addTo(map);
+  }
+
+  handleCheckIn(venueID) {
     let { curLoggedInUser, checkIn } = this.props;
-    let { id } = this.state;
 
-    checkIn(id, curLoggedInUser);
-    this.marker.togglePopup();
+    checkIn(venueID, curLoggedInUser);
   }
 
   render() {
