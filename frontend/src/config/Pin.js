@@ -126,6 +126,8 @@ class Pin extends Component {
           this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
         )
         .addTo(map);
+
+      this.marker.togglePopup();
     }
 
     // this.state.marker
