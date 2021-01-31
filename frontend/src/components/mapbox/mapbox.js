@@ -5,7 +5,7 @@ import "../../css/mapbox.css";
 
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import Pin from "../../config/Pin";
+import Pin from "../../config/pin";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -61,13 +61,6 @@ class MapBox extends Component {
     });
   }
 
-  // needs to be authenticated
-
-  componentDidUpdate(prevProps) {
-    let { venues, users, isAuthenticated, currentUser } = this.props;
-    let { isCheckedIn, venueID } = this.state;
-  }
-
   render() {
     let {
       openNavModal,
@@ -110,45 +103,3 @@ class MapBox extends Component {
 }
 
 export default MapBox;
-
-/**
- * 
- * 
- * 
-
-if (isAuthenticated) {
-      // gives the user the ability to check in
-      loggedInMarkers(venues, this.map, this.buttonRef, users); 
-      if (isCheckedIn) {
-        let venue = venues.find((venue) => venue._id === venueID);
-        let user = users[currentUser];
-
-        let marker = new mapboxgl.Marker({
-          color: "red",
-        })
-          .setLngLat(venue.coordinate)
-          .addTo(this.map);
-
-        marker
-          .setPopup(
-            new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(
-              `
-                <div class="popUp_Container">
-                  <h1>${venue.name}</h1>
-                  <p class="popUp_Username">${user.username}</p>
-                  <img id="profile_pic" src=${user.imageURL} height=50 width=50></img>
-                
-                </div>
-              `
-            )
-          )
-          .addTo(this.map);
-      }
-    } else {
-      // otherwise display markers w/o that ability
-      defaultMarkers(venues, this.map, users);
-    }
-
-
-
- */

@@ -20,28 +20,26 @@ class Pin extends Component {
 
   componentDidMount() {
     let { available } = this.state;
-    let {
-      venue,
-      map,
-      curLoggedInUser,
-      checkIn,
-      isAuthenticated,
-      users,
-    } = this.props;
+    let { venue, map, isAuthenticated, users } = this.props;
 
     let htmlContent;
     if (available) {
       if (isAuthenticated) {
+        // style="padding: 5px 3px 3px 3px"
         htmlContent = `
-                    <h1>${venue.name}</h1>
-                    <button id = "${venue._id}"
-                            onclick="handleCheckIn(this.id)"
-                            ref=${this.buttonRef.current}>Check in</button>
+                    <div style="padding: 5px 3px 3px 3px;">
+                      <h1>${venue.name}</h1>
+                      <button id = "${venue._id}"
+                              onclick="handleCheckIn(this.id)"
+                              ref=${this.buttonRef.current}>Check in</button>
+                    </div> 
                   `;
       } else {
         htmlContent = `
-                        <h1>${venue.name}</h1>
-                        <p>Please log in </>
+                        <div style="padding: 5px 3px 3px 3px;">
+                          <h1>${venue.name}</h1>
+                          <p>Please log in </>
+                        </div>
                     `;
       }
     } else {
@@ -49,12 +47,14 @@ class Pin extends Component {
       let usersArr = Object.keys(users);
       let userID = usersArr.find((userEl) => userEl === venue.currentUser);
       let user = users[userID];
+      //style="padding: 3px"
       htmlContent = `
-        <div class="popUp_Container">
+        <div style="padding: 5px 3px 3px 3px; display: flex; justify-content: center;">
                 <h1>${venue.name}</h1>
-                <p class="popUp_Username">${user.username}</p>
-                <img id="profile_pic" src=${user.imageURL}height=50 width=50></img>
-            
+                <div style="display: flex; align-items: center; padding-top: 2px">
+                  <img id="profile_pic" src=${user.imageURL} height=30 width=30 style="border-radius: 50%"></img>
+                  <p style="padding-left: 3px">${user.username}</p>
+              </div>
         </div>
       `;
     }
@@ -68,31 +68,26 @@ class Pin extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    let { available } = this.state;
-    let {
-      venue,
-      map,
-      curLoggedInUser,
-      checkIn,
-      isAuthenticated,
-      users,
-    } = this.props;
-
-    console.log("I MADE IT TO THE COMPONENT DID UPDATE");
+    let { venue, map, isAuthenticated, users } = this.props;
 
     let htmlContent;
     if (venue.available) {
       if (isAuthenticated) {
         htmlContent = `
-                    <h1>${venue.name}</h1>
-                    <button id = "${venue._id}"
-                            onclick="handleCheckIn(this.id)"
-                            ref=${this.buttonRef.current}>Check in</button>
+                    <div style="padding: 5px 3px 3px 3px;">
+                      <h1>${venue.name}</h1>
+                      <button id = "${venue._id}"
+                              onclick="handleCheckIn(this.id)"
+                              ref=${this.buttonRef.current}>Check in</button>
+                    </div> 
                   `;
       } else {
+        //style="padding: 5px 3px 3px 3px;
         htmlContent = `
-                        <h1>${venue.name}</h1>
-                        <p>Please log in </>
+                        <div style="padding: 5px 3px 3px 3px;">
+                          <h1>${venue.name}</h1>
+                          <p>Please log in</>
+                        </div>
                     `;
       }
 
@@ -108,15 +103,16 @@ class Pin extends Component {
         color: "red",
       });
 
-      console.log("these are the users: ", users);
       let usersArr = Object.keys(users);
       let userID = usersArr.find((userEl) => userEl === venue.currentUser);
       let user = users[userID];
       htmlContent = `
-        <div class="popUp_Container">
+        <div style="padding: 5px 3px 3px 3px;">
                 <h1>${venue.name}</h1>
-                <p class="popUp_Username">${user.username}</p>
-                <img id="profile_pic" src=${user.imageURL} height=75 width=75></img>
+                <div style="display: flex; align-items: center;">
+                  <img id="profile_pic" src=${user.imageURL} height=30 width=30 style="border-radius: 50%;"></img>
+                  <p style="padding-left: 3px">${user.username}</p>
+                </div>
         </div>
       `;
 
@@ -129,13 +125,6 @@ class Pin extends Component {
 
       this.marker.togglePopup();
     }
-
-    // this.state.marker
-    //   .setLngLat(venue.coordinate)
-    //   .setPopup(
-    //     new mapboxgl.Popup().setLngLat(venue.coordinate).setHTML(htmlContent)
-    //   )
-    //   .addTo(map);
   }
 
   handleCheckIn(venueID) {
