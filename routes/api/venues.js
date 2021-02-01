@@ -197,11 +197,8 @@ router.post(
   }
 );
 
-<<<<<<< HEAD
-=======
 //pulls comments left on a venue
 
->>>>>>> testbranch-cameron
 router.get(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),

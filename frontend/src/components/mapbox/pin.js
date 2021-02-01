@@ -25,7 +25,6 @@ class Pin extends Component {
     let htmlContent;
     if (available) {
       if (isAuthenticated) {
-        // style="padding: 5px 3px 3px 3px"
         htmlContent = `
                     <div style="padding: 5px 3px 3px 3px;">
                       <h1>${venue.name}</h1>
