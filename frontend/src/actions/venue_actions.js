@@ -15,9 +15,10 @@ const checkedIn = (venueSchedule) => ({
   venueSchedule,
 });
 
-const receiveVenueComments = (venueId) => ({
+const receiveVenueComments = (venue, comments) => ({
   type: RECEIVE_VENUE_COMMENTS,
-  venueId,
+  venue,
+  comments,
 });
 
 const receiveComment = (comment) => ({
@@ -43,12 +44,14 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
 
 export const fetchVenueComments = (venueId) => (dispatch) => {
   VenueApiUtil.getVenueComments(venueId)
-    .then((venueId) => dispatch(receiveVenueComments(venueId)))
+    .then((venueId, comments) =>
+      dispatch(receiveVenueComments(venueId, comments))
+    )
     .catch((err) => console.log(err));
 };
 
-export const createComment = (venueId, comment) => (dispatch) => {
-  VenueApiUtil.createComment(venueId, comment)
+export const createComment = (venueId, comment, user) => (dispatch) => {
+  return VenueApiUtil.createComment(venueId, comment, user)
     .then((comment) => dispatch(receiveComment(comment)))
     .catch((err) => console.log(err));
 };

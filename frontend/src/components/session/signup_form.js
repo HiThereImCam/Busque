@@ -46,14 +46,8 @@ class SignupForm extends React.Component {
 
     if (this.state.photoFile) {
       const data = new FormData(e.target);
-      let config = {
-        headers: {
-          "content-type": "multipart/form-data",
-        },
-      };
       data.append("file", this.state.photoFile);
-
-      uploadPhoto(config, data).then((res) => {
+      uploadPhoto(data).then((res) => {
         let user = {
           username: this.state.username,
           email: this.state.email,

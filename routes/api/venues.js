@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
+const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
 
 router.get("/", (req, res) => {
@@ -154,37 +155,95 @@ router.delete(
 ); //end delete
 
 // maybe post route?
-router.patch("/:venue_id/comments", (req, res) => {
-  const newComment = new Comment({
-    //needs user
-    venue: req.params.venue_id,
-    comment: req.body.comment,
-    user: req.params.user_id,
-  });
-  newComment.save().then(
-    (comment) => {
-      console.log("Comments: ", comment);
-      Venue.findByIdAndUpdate(
-        req.params.venue_id,
-        { $push: { comments: comment } },
-        { new: true }
-      ).then((venue) => res.json(venue));
-    }
-    // response to front end
-  );
-});
 
-// router.get("/:venue_id/comments", (req, res) => {
-//   Venue.findOne({id: req.params.comment}).then((venue) =>
+router.post(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+    console.log(res);
 
-//   res.json(venue.comments))
-// })
+    const newComment = new Comment({
+      //needs user
+      venue: req.params.venue_id,
+      comment: req.body.comment,
+      user: req.body.user, //*this is the working one at the moment
+    });
+    console.log(newComment);
+    newComment.save().then(
+      (comment) => {
+        console.log("Comments: ", comment);
+        Venue.findByIdAndUpdate(
+          req.params.venue_id,
+          { $push: { comments: comment } },
+          { new: true }
+        )
+          .populate({
+            path: "comments",
+            populate: {
+              path: "user",
+              options: { sort: { date: -1 } },
+              select: { username: 1 },
+            },
+          })
+          .then(() => res.json(comment));
+      }
+      // response to front end
+    );
+  }
+);
 
 //pulls comments left on a venue
-router.get("/:venue_id/comments", (req, res) => {
-  Venue.findOne({ id: req.params.comment })
-    .populate("comments")
-    .then((comment) => res.json(comment.comments));
+
+router.get(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+    Venue.findOne({ _id: req.params.venue_id })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          options: { sort: { date: -1 } },
+          select: { username: 1 },
+        },
+      })
+      .then((venue) => res.json(venue.comments))
+      .catch((err) => {
+        console.log("comment error:", err);
+        res.status(500).json({ comment: "we've encountered and error" });
+      });
+  }
+);
+
+//! rating routes
+
+// get all ratings for a venue
+router.get("/:venue_id/ratings", (req, res) => {
+  console.log(req);
+  Venue.findOne({ _id: req.params.venue_id })
+    .populate("ratings", "rating") // populate looks for the name of the schema exported
+    .then((venue) => res.json(venue.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "ratings error" });
+    });
+});
+
+// creates a rating, same format as new comment creation
+router.post("/:venue_id/ratings", (req, res) => {
+  const newRating = new Rating({
+    rating: req.body.rating,
+  });
+  newRating.save().then((rating) => {
+    Venue.findByIdAndUpdate(
+      req.params.venue_id,
+      { $push: { ratings: rating } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => res.json(err));
+  });
 });
 
 module.exports = router;
