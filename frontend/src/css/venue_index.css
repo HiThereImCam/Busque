@@ -37,6 +37,27 @@
     padding-bottom: 5px;
 }
 
+.venue-current-user-inner {
+    display: flex; 
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.venue-index-currentUser {
+    height: 30px; 
+    width: 30px;  
+    border-radius: 50%;
+}
+.currentUser-link {
+    text-decoration: none;
+    color: black;
+}
+.currentUser-link:hover {
+    text-decoration: underline;
+    color: rgb(34, 34, 175);
+
+}
+
 .login-link {
     text-decoration: none;
     color: rgb(34, 34, 175); 
