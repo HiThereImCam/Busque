@@ -1,13 +1,11 @@
 import React, { Component, Fragment } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiHamburgerMenu, GiTriquetra } from "react-icons/gi";
 import mapboxgl from "mapbox-gl";
 import "../../css/mapbox.css";
 
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import defaultMarkers from "../../config/defaultMarkers";
-import loggedInMarkers from "../../config/loggedInMarkers";
-import markerLocations from "../../config/markerLocations";
+import Pin from "../../config/pin";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -20,13 +18,10 @@ class MapBox extends Component {
       lng: -122.4363143,
       lat: 37.7461108,
       zoom: 12,
-      // markerColor: "#4CBB17",
+      isCheckedIn: false,
     };
 
     this.mapBoxRef = React.createRef();
-    this.buttonRef = React.createRef();
-    this.handleClick = this.handleClick.bind(this);
-    window.handleClick = this.handleClick;
   }
 
   componentDidMount() {
@@ -64,25 +59,15 @@ class MapBox extends Component {
     });
   }
 
-  // needs to be authenticated
-
-  componentDidUpdate(prevProps) {
-    let { venues, users, isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      loggedInMarkers(venues, this.map, this.buttonRef, users);
-    } else {
-      defaultMarkers(venues, this.map);
-    }
-  }
-
-  handleClick(venueID) {
-    // id is the venue name
-    let { currentUser, checkIn } = this.props;
-    checkIn(venueID, currentUser);
-  }
-
   render() {
-    let { openNavModal } = this.props;
+    let {
+      openNavModal,
+      venues,
+      currentUser,
+      checkIn,
+      isAuthenticated,
+      users,
+    } = this.props;
     return (
       <Fragment>
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
@@ -97,6 +82,19 @@ class MapBox extends Component {
             />
           </div>
         </div>
+        {venues.length > 0
+          ? venues.map((venue) => (
+              <Pin
+                key={venue._id}
+                map={this.map}
+                venue={venue}
+                curLoggedInUser={currentUser}
+                checkIn={checkIn}
+                isAuthenticated={isAuthenticated}
+                users={users}
+              />
+            ))
+          : ""}
       </Fragment>
     );
   }
