@@ -5,17 +5,19 @@ import { fetchVenues, createComment, fetchVenueComments } from '../../actions/ve
 import { fetchUsers } from '../../actions/user_actions'; 
 
 const mapStateToProps = (state) => ({
-    venues: state.venues, 
-    users: state.entities.users, 
-    
+    venues: Object.values(state.venues), 
+    users: Object.values(state.entities.users), 
+    comments: Object.values(state.comments),
+    isAuthenticated: state.session.isAuthenticated,
+    currentUser: state.session.user.id 
 });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchVenues: () => dispatch(fetchVenues()), 
     openNavModal: () => dispatch(openNavModal(true)),
     fetchUsers: () => dispatch(fetchUsers()),
-    fetchVenueComments: () => dispatch(fetchVenueComments()),
-    createComment: (venueId, comment) => dispatch(createComment(venueId, comment))
+    fetchVenueComments: (venueId) => dispatch(fetchVenueComments(venueId)),
+    createComment: (venueId, comment, user) => dispatch(createComment(venueId, comment, user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueIndex); 

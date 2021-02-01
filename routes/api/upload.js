@@ -65,8 +65,8 @@ router.post("/upload", upload.single("file"), function(req, res) {
   
 
   s3bucket.upload(params, function(err, data) {
-    if (err) {
-      res.status(500).json({error: true, Message: err})
+    if (err || !file) {
+      res.status(500).json({error: true, Message: "we've encountered an error"})
     } else {
       // res.send({data});
       
@@ -121,7 +121,7 @@ router.delete("/delete/:id", (req, res, next) => {
 })
 
 router.get("/test", (req, res) =>
-  res.json({ msg: "This is the users route ya bish" })
+  res.json({ msg: "This is the upload route ya bish" })
 );
 
 module.exports = router;
