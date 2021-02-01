@@ -15,10 +15,10 @@ const receiveUser = (user) => ({
   user,
 });
 
-const  receiveRating = (rating) => ({
-  type: RECEIVE_RATING,
-  rating
-})
+// const  receiveRating = (rating) => ({
+//   type: RECEIVE_RATING,
+//   rating
+// })
 
 
 export const fetchUsers = () => (dispatch) => {
