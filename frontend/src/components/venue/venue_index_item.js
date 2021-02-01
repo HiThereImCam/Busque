@@ -58,9 +58,6 @@ class VenueIndexItem extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault(); 
-        console.log(this.props.venue._id)
-        console.log(this.state.comment)
-        console.log(this.state.user)
         this.props.createComment(this.props.venue._id, this.state.comment, this.state.user)
 
         this.setState({
@@ -127,7 +124,6 @@ class VenueIndexItem extends React.Component {
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
-                                // showUserReviews()
                                 this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>

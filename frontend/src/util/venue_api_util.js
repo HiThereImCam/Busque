@@ -24,11 +24,7 @@ export const getVenueComments = (venueId) => {
 }
 
 export const createComment = (venueId, comment, user) => {
-  return axios.post(`/api/venues/${venueId}/comments`, 
-    // console.log(venueId),
-    // console.log(comment),
-    // console.log(user),
-  {
+  return axios.post(`/api/venues/${venueId}/comments`, {
     comment: comment,
     user: user
   })
