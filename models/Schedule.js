@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 let date = new Date();
 // round time up to the nearest minute
+// 120020 = 3 min
 let expireTime = date.setTime(date.getTime() + 120020);
 
 const ScheduleSchema = new Schema({

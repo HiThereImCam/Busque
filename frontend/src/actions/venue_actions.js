@@ -10,21 +10,21 @@ const receiveVenues = (venues) => ({
   venues,
 });
 
-const checkedIn = (updatedVenue) => ({
+const checkedIn = (venueSchedule) => ({
   type: CHECK_IN,
-  updatedVenue,
+  venueSchedule,
 });
 
 const receiveVenueComments = (venue, comments) => ({
-  type: RECEIVE_VENUE_COMMENTS, 
-  venue, 
-  comments
-})
+  type: RECEIVE_VENUE_COMMENTS,
+  venue,
+  comments,
+});
 
 const receiveComment = (comment) => ({
-  type: RECEIVE_COMMENT, 
+  type: RECEIVE_COMMENT,
   comment,
-})
+});
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -34,23 +34,24 @@ export const fetchVenues = () => (dispatch) =>
 export const checkIn = (venueID, currentUser) => (dispatch) =>
   VenueApiUtil.checkIn(venueID, currentUser).then((updatedVenue) => {
     try {
-      // console.log("updated venue:", updatedVenue);
-      dispatch(checkedIn(updatedVenue));
+      let venueSchedule = updatedVenue.data.venueSchedule;
+      console.log("venue schedule: ", venueSchedule);
+      dispatch(checkedIn(venueSchedule));
     } catch (e) {
       console.log(`error: `, e);
     }
   });
 
-export const fetchVenueComments = (venueId) => dispatch => {
+export const fetchVenueComments = (venueId) => (dispatch) => {
   VenueApiUtil.getVenueComments(venueId)
-    .then((venueId, comments) => dispatch(receiveVenueComments(venueId, comments)))
-    .catch((err) => console.log(err))
-}
+    .then((venueId, comments) =>
+      dispatch(receiveVenueComments(venueId, comments))
+    )
+    .catch((err) => console.log(err));
+};
 
-export const createComment = (venueId, comment, user) => dispatch => {
-  return (
-    VenueApiUtil.createComment(venueId, comment, user)
-      .then((comment) => dispatch(receiveComment(comment)))
-      .catch((err) => console.log(err))
-  )
-}
+export const createComment = (venueId, comment, user) => (dispatch) => {
+  return VenueApiUtil.createComment(venueId, comment, user)
+    .then((comment) => dispatch(receiveComment(comment)))
+    .catch((err) => console.log(err));
+};
