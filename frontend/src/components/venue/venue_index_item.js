@@ -29,7 +29,7 @@ class VenueIndexItem extends React.Component {
         }
     }
 
-    componentWillUpdate() {
+    componentDidUpdate() {
         if (this.state.newComment === true) {
             this.setState({
                 user: this.props.currentUser,
@@ -133,8 +133,8 @@ class VenueIndexItem extends React.Component {
                                                         <div className="review-each" key={j}>
                                                             <div className="reviewer-name">
                                                                 {comment.user === undefined ? "Username says:" : 
-                                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "from You:" :
-                                                                    "from " + comment.user.username + ":" }
+                                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
+                                                                    "From " + comment.user.username + ":" }
                                                             </div>
                                                             {comment.comment}
                                                             <div className="review-date">
