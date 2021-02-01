@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
+    const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users",
+    ref: "User",
   },
   venue: {
     type: Schema.Types.ObjectId,
-    ref: "venues",
+    ref: "Venue",
   },
   comment: {
     type: String,
@@ -20,4 +20,6 @@ const CommentSchema = new Schema({
   },
 });
 
-module.exports = Comment = mongoose.model("comment", CommentSchema);
+
+
+module.exports = Comment = mongoose.model("comments", CommentSchema);

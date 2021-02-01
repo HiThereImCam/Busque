@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import "../../css/login.css";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class LoginForm extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {},
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +18,7 @@ class LoginForm extends Component {
     this.demoUser = this.demoUser.bind(this);
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearErrors();
   }
 
@@ -38,14 +38,17 @@ class LoginForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.login(user).then(this.props.history.push("/"));
+    this.props.login(user);
   }
 
   renderErrors() {
+    let { errors } = this.props;
     return (
       <ul className="HeroPane-session-errors">
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+        {Object.keys(errors).map((error, i) => (
+          <li key={`error-${i}`} className="session-errors">
+            {errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -65,8 +68,19 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
+        <div className="user-header">
+          <GiHamburgerMenu
+            size={25}
+            onClick={() => {
+              this.props.openNavModal();
+            }}
+            className="menu-icon-other"
+          />
+          <Link className="user-header-h1" to={"/"}>
+            <h1>Busque</h1>
+          </Link>
+        </div>
         <div className="login-page">
-          {this.renderErrors()}
           <form className="login-form" onSubmit={this.handleSubmit}>
             <div className="login-title">Busque</div>
             <div className="login-desc">Sign In</div>
@@ -85,12 +99,19 @@ class LoginForm extends Component {
               placeholder="enter password"
               onChange={this.handleInputChange("password")}
             />
-
+            {this.renderErrors()}
             <div className="login-buttons">
               <button>Login</button>
               <button onClick={this.demoUser}>Demo User</button>
             </div>
           </form>
+          <div className="form-footer">
+            Need an account?&nbsp;
+            <Link className="footer-link" to="/signup">
+              {" "}
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     );

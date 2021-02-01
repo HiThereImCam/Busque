@@ -12,12 +12,13 @@ import { logout } from "./actions/session_actions";
 //TESTING
 
 import { getVenues } from "./util/venue_api_util";
-import { fetchVenues } from "./actions/venue_actions";
+import { fetchVenues, fetchVenueComments } from "./actions/venue_actions";
 
 // import { getUser } from "./util/user_api_util";
 // import { fetchUser, fetchUsers } from "./actions/user_actions";
 import { getPhotos } from './actions/photo_actions'; 
-
+// import { createComment } from "./actions/venue_actions";
+import { createComment } from "./util/venue_api_util";
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -46,10 +47,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // window.getUser = getUser;
   // window.fetchUser = fetchUser;
   // window.fetchUsers = fetchUsers; 
-
+  window.fetchVenueComments = fetchVenueComments; 
   window.fetchVenues = fetchVenues;
   window.getVenues = getVenues;
   window.getPhotos = getPhotos; 
+  window.createComment = createComment; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);

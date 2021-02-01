@@ -54,7 +54,7 @@
     border: 1px solid lightgray; 
     margin-right: 30px;
     height: 150px; 
-    width: 150px; 
+    /* width: 150px;   */
 }
 
 .user-photo img {

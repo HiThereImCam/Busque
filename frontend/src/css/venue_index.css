@@ -7,7 +7,7 @@
     padding-left: 25px;
     padding-right: 25px;
     margin-top: 20px;
-    padding-bottom: 20px; 
+    padding-bottom: 10px; 
 }
 
 .venue-name {
@@ -35,4 +35,75 @@
 
 .venue-current-user {
     padding-bottom: 5px;
+}
+
+.review-input {
+    border: 1px solid lightgray; 
+    border-radius: 4px;
+    font-family: "Nunito Sans", sans-serif;
+    padding: 5px; 
+    box-shadow: lightgray 0px 0px 5px 0px;
+    margin-left: -30px;
+
+}
+
+.submit {
+    padding: 5px; 
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: "Nunito Sans", sans-serif;
+    background: whitesmoke; 
+    border: 1px solid lightgray; 
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-left: -30px;
+
+}
+
+.submit:hover {
+    cursor: pointer;
+    background: rgb(231, 231, 231);
+}
+
+.venue-reviews-inner {
+    /* display: none;  */
+    margin-top: 5px; 
+    margin-left: -30px;
+
+}
+
+.review-each {
+    border: 1px solid lightgray; 
+    border-radius: 4px;
+    margin: 5px; 
+    padding: 5px; 
+    padding-left: 8px;
+}
+
+.reviews-dropdown {
+    display: block; 
+    margin-left: -50px;
+    padding-left: 20px;
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    margin-right: -20px;
+    font-size: large;
+}
+
+.review-arrow-up {
+    display: inline-block; 
+}
+
+.review-arrow-down {
+    display: inline-block; 
+}
+
+.reviews-dropdown:hover {
+    cursor: pointer;
+    background-color: rgb(231, 231, 231);
+}
+
+.reviewer-name {
+    font-size: small; 
+    color: gray; 
 }
