@@ -24,22 +24,26 @@ class VenueIndexItem extends React.Component {
 
         if (this.props.currentUser !== undefined) {
             this.setState({
-                ["user"]: this.props.currentUser
+                user: this.props.currentUser
             })
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
         if (this.state.newComment === true) {
-            this.state.newComment = false
-            this.state.showReviews = true
+            this.setState({
+                user: this.props.currentUser,
+                newComment: false,
+                showReviews: true, 
+            })
         }
     }
 
 
     update() {
         return e => this.setState({
-            comment: e.currentTarget.value
+            comment: e.currentTarget.value, 
+            user: this.props.currentUser
         })
     }
 
@@ -75,7 +79,7 @@ class VenueIndexItem extends React.Component {
             if ((this.props.venue.available !== true) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser[0]
                 return this.props.users[currentUserId].username + " is here"
-            } else { //! Edit later?
+            } else { 
                 return null
             }
         }
@@ -92,6 +96,8 @@ class VenueIndexItem extends React.Component {
                 <br />
                 <input className="submit" type="submit" value="Submit" />
             </form>
+
+        
 
         return (
             <div className="venue-list-items">
@@ -126,7 +132,9 @@ class VenueIndexItem extends React.Component {
                                                     return (
                                                         <div className="review-each" key={j}>
                                                             <div className="reviewer-name">
-                                                                Username says:
+                                                                {comment.user === undefined ? "Username says:" : 
+                                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
+                                                                    "From " + comment.user.username + ":" }
                                                             </div>
                                                             {comment.comment}
                                                             <div className="review-date">

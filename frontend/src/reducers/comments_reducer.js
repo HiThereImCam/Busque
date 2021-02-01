@@ -1,4 +1,4 @@
-import { RECEIVE_COMMENT, RECEIVE_VENUE_COMMENTS, CLEAR_COMMENTS } from '../actions/venue_actions'; 
+import { RECEIVE_COMMENT, RECEIVE_VENUE_COMMENTS } from '../actions/venue_actions'; 
 
 const CommentsReducer = (state = {}, action) => {
     Object.freeze(state); 
@@ -12,8 +12,6 @@ const CommentsReducer = (state = {}, action) => {
             return newState;
         case RECEIVE_COMMENT:
             return Object.assign({}, newState, {[action.comment.data._id]: action.comment.data})
-        case CLEAR_COMMENTS:
-            return {}; 
         default: 
             return state
     }

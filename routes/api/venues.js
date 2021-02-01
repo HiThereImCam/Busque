@@ -167,7 +167,7 @@ router.post(
       //needs user
       venue: req.params.venue_id,
       comment: req.body.comment,
-       user: req.body.user, //*this is the working one at the moment
+      user: req.body.user, //*this is the working one at the moment
     });
     console.log(newComment);
     newComment.save().then(
@@ -192,7 +192,6 @@ router.post(
     );
   }
 );
-
 
 // router.get("/:venue_id/comments", (req, res) => {
 //   Venue.findOne({id: req.params.comment}).then((venue) =>
