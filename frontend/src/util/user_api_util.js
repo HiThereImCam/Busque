@@ -11,3 +11,17 @@ export const getUser = (id) => {
     },
   });
 };
+
+export const getUserRatings = (userId) => {
+  // debugger
+  return axios.get(`/api/venues/${userId}/ratings`, {
+    userId,
+  });
+};
+
+export const createRating = (userId, rating, user) => {
+  return axios.post(`/api/venues/${userId}/ratings`, {
+    rating: rating,
+    user: user,
+  });
+};
