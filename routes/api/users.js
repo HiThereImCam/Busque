@@ -25,10 +25,6 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
-<<<<<<< HEAD
-      picture: req.user.imageURL,
-=======
->>>>>>> 45f937281d383d16efbd644250befc23e8e116ae
     });
   }
 );

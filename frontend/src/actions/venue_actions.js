@@ -15,28 +15,16 @@ const checkedIn = (venueSchedule) => ({
   venueSchedule,
 });
 
-<<<<<<< HEAD
-const receiveVenueComments = (venueId) => ({
+const receiveVenueComments = (venue, comments) => ({
   type: RECEIVE_VENUE_COMMENTS,
-  venueId,
+  venue,
+  comments,
 });
 
 const receiveComment = (comment) => ({
   type: RECEIVE_COMMENT,
   comment,
 });
-=======
-const receiveVenueComments = (venue, comments) => ({
-  type: RECEIVE_VENUE_COMMENTS, 
-  venue, 
-  comments
-})
-
-const receiveComment = (comment) => ({
-  type: RECEIVE_COMMENT, 
-  comment,
-})
->>>>>>> 45f937281d383d16efbd644250befc23e8e116ae
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -54,33 +42,16 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
     }
   });
 
-<<<<<<< HEAD
-export const checkOut = (venueID) => (dispatch) => {
-  // VenueApiUtil.checkout(venueID);
-=======
 export const fetchVenueComments = (venueId) => (dispatch) => {
   VenueApiUtil.getVenueComments(venueId)
-<<<<<<< HEAD
     .then((venueId) => dispatch(receiveVenueComments(venueId)))
     .catch((err) => console.log(err));
 };
 
 export const createComment = (venueId, comment) => (dispatch) => {
   VenueApiUtil.createComment(venueId, comment)
-    .then((comment) => dispatch(receiveComment(comment)))
+    .then((venueId, comments) =>
+      dispatch(receiveVenueComments(venueId, comments))
+    )
     .catch((err) => console.log(err));
->>>>>>> testbranch-cameron
 };
-=======
-    .then((venueId, comments) => dispatch(receiveVenueComments(venueId, comments)))
-    .catch((err) => console.log(err))
-}
-
-export const createComment = (venueId, comment, user) => dispatch => {
-  return (
-    VenueApiUtil.createComment(venueId, comment, user)
-      .then((comment) => dispatch(receiveComment(comment)))
-      .catch((err) => console.log(err))
-  )
-}
->>>>>>> 45f937281d383d16efbd644250befc23e8e116ae

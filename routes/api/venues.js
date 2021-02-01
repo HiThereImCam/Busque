@@ -164,8 +164,8 @@ router.post(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req)
-    console.log(res)
+    console.log(req);
+    console.log(res);
 
     const newComment = new Comment({
       //needs user
@@ -197,27 +197,11 @@ router.post(
   }
 );
 
-// router.get("/:venue_id/comments", (req, res) => {
-//   Venue.findOne({id: req.params.comment}).then((venue) =>
-
-//   res.json(venue.comments))
-// })
-
-//pulls comments left on a venue
-<<<<<<< HEAD
-router.get("/:venue_id/comments", (req, res) => {
-  Venue.findOne({ id: req.params.comment })
-    .populate("comments")
-    .then((comment) => res.json(comment.comments));
-});
-
-=======
-
 router.get(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req)
+    console.log(req);
     Venue.findOne({ _id: req.params.venue_id })
       .populate({
         path: "comments",
@@ -232,39 +216,36 @@ router.get(
         console.log("comment error:", err);
         res.status(500).json({ comment: "we've encountered and error" });
       });
-  });
-
+  }
+);
 
 //! rating routes
 
 // get all ratings for a venue
 router.get("/:venue_id/ratings", (req, res) => {
-    console.log(req)
-    Venue.findOne({ _id: req.params.venue_id })
-        .populate("ratings", "rating") // populate looks for the name of the schema exported
-        .then((venue) => res.json(venue.ratings))
-        .catch((err) => {
-            res.status(404).json({ratings: "ratings error"});
-        })
-})
+  console.log(req);
+  Venue.findOne({ _id: req.params.venue_id })
+    .populate("ratings", "rating") // populate looks for the name of the schema exported
+    .then((venue) => res.json(venue.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "ratings error" });
+    });
+});
 
 // creates a rating, same format as new comment creation
 router.post("/:venue_id/ratings", (req, res) => {
-    const newRating = new Rating({
-        rating: req.body.rating,
-    });
-    newRating.save().then(
-        (rating) => {
-            Venue.findByIdAndUpdate(
-                req.params.venue_id,
-                { $push: { ratings: rating } },
-                { new: true }
-              ).then((venue) => res.json(venue)
-            ).catch((err) => res.json(err))
-        }
-    );
+  const newRating = new Rating({
+    rating: req.body.rating,
+  });
+  newRating.save().then((rating) => {
+    Venue.findByIdAndUpdate(
+      req.params.venue_id,
+      { $push: { ratings: rating } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => res.json(err));
+  });
 });
-  
 
->>>>>>> 45f937281d383d16efbd644250befc23e8e116ae
 module.exports = router;
