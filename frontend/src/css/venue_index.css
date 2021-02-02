@@ -10,10 +10,28 @@
     padding-bottom: 10px; 
 }
 
+.venue-info-outer {
+    display: flex; 
+}
+
+.venue-info {
+    display: block; 
+    flex-basis: 50%;
+
+}
+
+.venue-pic {
+    display: block; 
+    flex-basis: 50%;
+    border: 1px solid lightgray; 
+    height: 250px; 
+    /* width: 300px;  */
+}
+
 .venue-name {
     font-size: larger;
     font-weight: bold;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 
 }
 
@@ -23,6 +41,15 @@
 
 .venue-type {
     padding-bottom: 5px;
+}
+
+.rating-stars {
+    padding-bottom: 10px;
+    margin-left: -30px;
+}
+
+.rating-stars:focus {
+    outline: none;
 }
 
 .venue-rating {

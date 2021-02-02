@@ -2,13 +2,23 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
+import ReactStars from 'react-rating-stars-component'; 
 import "../../css/user_show.css"; 
 
 
 class UserShow extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleRating = this.handleRating.bind(this)
+  }
+
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId)
+  }
+
+  handleRating(nextValue) {
+    this.props.createUserRating(this.props.match.params.userId, nextValue)
   }
 
   render() {
@@ -19,24 +29,48 @@ class UserShow extends React.Component {
 
       let showRatingAvg = () => {
         const ratingNums = []
-        this.props.user.ratings.map((ratingId, i) => {
-          return (
-            <div key={i}>
-              {this.props.ratings.forEach((rating) => {
-                if (rating._id === ratingId) {
-                  ratingNums.push(rating.rating)
-                }
-              })}
-            </div>
-          )
+        this.props.user.ratings.forEach((ratingId, i) => {
+          {this.props.ratings.forEach((rating) => {
+            if (rating._id === ratingId) {
+              ratingNums.push(rating.rating)
+            }
+          })}
         })
         if (ratingNums.length > 0) {
           let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
           let avg = sum / ratingNums.length
-          return avg + "/5"
-        } else {
-          return "N/A"
-        }
+          return (
+            <ReactStars
+              className="rating-stars"
+              value={avg}
+              onChange={this.handleRating}
+              count={5}
+              size={19}
+              isHalf={true}
+              emptyIcon={<i className="far fa-star"></i>}
+              halfIcon={<i className="fa fa-star-half-alt"></i>}
+              fullIcon={<i className="fa fa-star"></i>}
+              activeColor="#ffd700"
+            />
+          )
+        } 
+        // else {
+        //     let avg = 0
+        //     return (
+        //         <ReactStars
+        //             className="rating-stars"
+        //             value={avg}
+        //             onChange={this.handleRating}
+        //             count={5}
+        //             size={19}
+        //             isHalf={true}
+        //             emptyIcon={<i className="far fa-star"></i>}
+        //             halfIcon={<i className="fa fa-star-half-alt"></i>}
+        //             fullIcon={<i className="fa fa-star"></i>}
+        //             activeColor="#ffd700"
+        //         />
+        //     )
+        // }
       }
 
       // const userCommentInput = (this.props.currentUser === undefined) ? <div><Link className="login-link" to="/login">Log in</Link> to leave a review</div> :
@@ -76,11 +110,11 @@ class UserShow extends React.Component {
               <div className="user-show-username">
                 {user.username}
               </div>
+              <div className="user-rating">
+                {showRatingAvg()}
+              </div>
               <div className="user-show-performer-type">
                 Performer Type: {user.performerType}
-              </div>
-              <div className="user-rating">
-                Rating: {showRatingAvg()}
               </div>
               <div className="user-show-bio">
                 Bio: {user.bio}
