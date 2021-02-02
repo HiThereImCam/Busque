@@ -2,8 +2,8 @@ import * as UserAPIUtil from "../util/user_api_util";
 
 export const RECEIVE_USERS = "RECEIVE_USERS";
 export const RECEIVE_USER = "RECEIVE_USER";
-export const RECEIVE_RATING = "GET_USER_RATING";
-export const RECEIVE_RATINGS = "GET_USER_RATINGS";
+export const RECEIVE_USER_RATING = "GET_USER_RATING";
+export const RECEIVE_USER_RATINGS = "GET_USER_RATINGS";
 
 const receiveUsers = (users) => ({
   type: RECEIVE_USERS,
@@ -16,12 +16,12 @@ const receiveUser = (user) => ({
 });
 
 const receiveRating = (rating) => ({
-  type: RECEIVE_RATING,
+  type: RECEIVE_USER_RATING,
   rating
 });
 
 const receiveRatings = (ratings) => ({
-  type: RECEIVE_RATINGS,
+  type: RECEIVE_USER_RATINGS,
   ratings
 });
 
@@ -36,7 +36,7 @@ export const fetchUser = (userId) => (dispatch) =>
   UserAPIUtil.getUser(userId)
     .then((user) => dispatch(receiveUser(user)))
     .catch((err) => console.log(err));
-    
+
 
 export const fetchUserRating = (userId, rating, user) => (dispatch) => {
   return UserAPIUtil.createRating(userId, rating, user)
