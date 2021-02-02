@@ -121,7 +121,7 @@ class Pin extends Component {
                 <h1>${venue.name}</h1>
                 <div style="display: flex; align-items: center;">
                   <img id="profile_pic" src=${user.imageURL} height=30 width=30 style="border-radius: 50%;"></img>
-                  <p style="padding-left: 3px">${user.username}</p>
+                  <p style="padding-left: 3px; font-size: 14px;">${user.username}</p>
                 </div>
         </div>
       `;

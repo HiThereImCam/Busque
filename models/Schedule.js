@@ -13,7 +13,7 @@ const ScheduleSchema = new Schema({
     required: true,
   },
   currentUser: { type: Schema.Types.ObjectId, ref: "users", required: true },
-  createdAt: { type: Date, expires: "2m", default: Date.now() },
+  createdAt: { type: Date, expires: "5m", default: Date.now() },
   expiresAt: {
     type: Date,
     expires: "0",
