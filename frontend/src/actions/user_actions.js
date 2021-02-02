@@ -38,7 +38,7 @@ export const fetchUser = (userId) => (dispatch) =>
     .catch((err) => console.log(err));
 
 
-export const fetchUserRating = (userId, rating, user) => (dispatch) => {
+export const createUserRating = (userId, rating, user) => (dispatch) => {
   return UserAPIUtil.createRating(userId, rating, user)
     .then((rating) => dispatch(receiveRating(rating)))
     .catch((err) => console.log(err))
