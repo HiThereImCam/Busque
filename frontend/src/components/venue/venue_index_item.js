@@ -21,6 +21,7 @@ class VenueIndexItem extends React.Component {
 
     componentDidMount() {
         this.props.fetchVenueComments(this.props.venue._id)
+        this.props.fetchVenueRatings(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -108,7 +109,27 @@ class VenueIndexItem extends React.Component {
                 <input className="submit" type="submit" value="Submit" />
             </form>
 
-        
+        let showRatingAvg = () => {
+            const ratingNums = []
+            this.props.venue.ratings.map((ratingId, i) => {
+                return (
+                    <div key={i}>
+                        {this.props.ratings.forEach((rating) => {
+                            if (rating._id === ratingId) {
+                                ratingNums.push(rating.rating)
+                            }
+                        })}
+                    </div>
+                )
+            })
+            if (ratingNums.length > 0) {
+                let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+                let avg = sum / ratingNums.length
+                return avg.toFixed(1) + "/5"
+            } else {
+                return "N/A"
+            }
+        }
 
         return (
             <div className="venue-list-items">
@@ -120,7 +141,7 @@ class VenueIndexItem extends React.Component {
                         Type: {this.props.venue.type}
                     </div>
                     <div className="venue-rating">
-                        Rating: {this.props.venue.ratings}
+                        Rating: {showRatingAvg()}
                     </div>
                     <div className="venue-availabilty">
                         Available? {isAvailable()}

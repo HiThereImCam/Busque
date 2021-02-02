@@ -30,7 +30,7 @@ class UserIndexItem extends React.Component {
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
                 let avg = sum / ratingNums.length 
-                return avg + "/5"
+                return avg.toFixed(1) + "/5"
             } else {
                 return "N/A"
             }
