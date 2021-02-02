@@ -21,6 +21,7 @@ class VenueIndexItem extends React.Component {
 
     componentDidMount() {
         this.props.fetchVenueComments(this.props.venue._id)
+        this.props.fetchVenueRatings(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -76,9 +77,20 @@ class VenueIndexItem extends React.Component {
         }
 
         let showCurrentUser = () => {
-            if ((this.props.venue.available !== true) && (this.props.venue.currentUser !== undefined)) {
-                const currentUserId = this.props.venue.currentUser[0]
-                return this.props.users[currentUserId].username + " is here"
+            if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
+                const currentUserId = this.props.venue.currentUser
+                return (
+                    this.props.users.map((user) => {
+                        if (user._id === currentUserId) {
+                            return (
+                                <div className="venue-current-user-inner">
+                                    <img src={user.imageURL} alt="profile" className="venue-index-currentUser" />&nbsp;&nbsp;
+                                    <Link to={`/profile/${currentUserId}`} className="currentUser-link">{user.username}</Link>&nbsp;is here
+                                </div>
+                            )
+                        }
+                    })
+                )
             } else { 
                 return null
             }
@@ -97,7 +109,27 @@ class VenueIndexItem extends React.Component {
                 <input className="submit" type="submit" value="Submit" />
             </form>
 
-        
+        let showRatingAvg = () => {
+            const ratingNums = []
+            this.props.venue.ratings.map((ratingId, i) => {
+                return (
+                    <div key={i}>
+                        {this.props.ratings.forEach((rating) => {
+                            if (rating._id === ratingId) {
+                                ratingNums.push(rating.rating)
+                            }
+                        })}
+                    </div>
+                )
+            })
+            if (ratingNums.length > 0) {
+                let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+                let avg = sum / ratingNums.length
+                return avg.toFixed(1) + "/5"
+            } else {
+                return "none"
+            }
+        }
 
         return (
             <div className="venue-list-items">
@@ -109,7 +141,7 @@ class VenueIndexItem extends React.Component {
                         Type: {this.props.venue.type}
                     </div>
                     <div className="venue-rating">
-                        Rating: {this.props.venue.ratings}
+                        Rating: {showRatingAvg()}
                     </div>
                     <div className="venue-availabilty">
                         Available? {isAvailable()}
