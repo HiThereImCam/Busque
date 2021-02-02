@@ -34,10 +34,12 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-  comments: {
-    type: Schema.Types.ObjectId,
-    ref: "comments",
-  },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
   ratings: [
     {
       type: Schema.Types.ObjectId,

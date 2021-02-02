@@ -39,6 +39,19 @@ class UserShow extends React.Component {
         }
       }
 
+      // const userCommentInput = (this.props.currentUser === undefined) ? <div><Link className="login-link" to="/login">Log in</Link> to leave a review</div> :
+      //   <form onSubmit={this.handleSubmit}>
+      //     <textarea type="textarea"
+      //       className="review-input"
+      //       cols="50" rows="5"
+      //       value={this.state.comment}
+      //       onChange={this.update()}
+      //       placeholder="What did you think of this location?"
+      //     />
+      //     <br />
+      //     <input className="submit" type="submit" value="Submit" />
+      //   </form>
+
       return (
         <div>
           <div className="user-header">
@@ -76,6 +89,7 @@ class UserShow extends React.Component {
           </div>
           <div className="user-reviews">
             <h2>Reviews</h2>
+            {/* {userCommentInput} */}
           </div>
         </div>
       );

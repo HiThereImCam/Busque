@@ -127,7 +127,7 @@ class VenueIndexItem extends React.Component {
                 let avg = sum / ratingNums.length
                 return avg.toFixed(1) + "/5"
             } else {
-                return "N/A"
+                return "none"
             }
         }
 
