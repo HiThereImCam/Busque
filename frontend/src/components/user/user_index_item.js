@@ -19,7 +19,7 @@ class UserIndexItem extends React.Component {
             this.props.user.ratings.map((ratingId, i) => {
                 return (
                     <div key={i}>
-                        {this.props.ratings.map((rating, j) => {
+                        {this.props.ratings.forEach((rating) => {
                             if (rating._id === ratingId) {
                                 ratingNums.push(rating.rating)
                             }
@@ -38,7 +38,6 @@ class UserIndexItem extends React.Component {
 
         return (
             <div className="user-list-items-outer">
-                {/* <div className="user-list-items-inner"> */}
                     <div className="user-list-items">
                         <Link className="user-photo" to={`/profile/${this.props.user._id}`}>
                             <img src={this.props.user.imageURL} alt="profile" />
@@ -61,7 +60,6 @@ class UserIndexItem extends React.Component {
                             </div>
                         </div>
                     </div>
-                {/* </div> */}
             </div>
         )
     }

@@ -8,6 +8,7 @@ import "../../css/user_show.css";
 class UserShow extends React.Component {
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
+    this.props.fetchUserRatings(this.props.match.params.userId)
   }
 
   render() {
@@ -15,6 +16,28 @@ class UserShow extends React.Component {
       return null;
     } else {
       const user = this.props.user;
+
+      let showRatingAvg = () => {
+        const ratingNums = []
+        this.props.user.ratings.map((ratingId, i) => {
+          return (
+            <div key={i}>
+              {this.props.ratings.forEach((rating) => {
+                if (rating._id === ratingId) {
+                  ratingNums.push(rating.rating)
+                }
+              })}
+            </div>
+          )
+        })
+        if (ratingNums.length > 0) {
+          let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+          let avg = sum / ratingNums.length
+          return avg + "/5"
+        } else {
+          return "N/A"
+        }
+      }
 
       return (
         <div>
@@ -42,6 +65,9 @@ class UserShow extends React.Component {
               </div>
               <div className="user-show-performer-type">
                 Performer Type: {user.performerType}
+              </div>
+              <div className="user-rating">
+                Rating: {showRatingAvg()}
               </div>
               <div className="user-show-bio">
                 Bio: {user.bio}
