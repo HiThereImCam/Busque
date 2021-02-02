@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import Searchbar from "./Searchbar";
+import Searchbar from "../searchbar/searchbar";
 import "../../css/user_show.css";
 
 class UserShow extends React.Component {
@@ -26,11 +26,12 @@ class UserShow extends React.Component {
               }}
               className="menu-icon-other"
             />
-            <Searchbar users={this.props.users} />
+            <Searchbar />
             <Link className="user-header-h1" to={"/"}>
               <h1>Busque</h1>
             </Link>
           </div>
+
           <div className="user-show-info-list">
             <div className="user-show-photo-outer">
               <div className="user-show-photo">

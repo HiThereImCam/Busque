@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
-import formatTime from "../../config/formatTime";
+// import formatTime from "../../../config/formatTime";
 
 class Pin extends Component {
   constructor(props) {
