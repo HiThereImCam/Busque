@@ -3,7 +3,6 @@ import { login, clearErrors } from "../../actions/session_actions";
 import LoginForm from "./login_form";
 import { openNavModal } from "../../actions/nav_actions";
 
-
 const mapStateToProps = (state) => ({
   errors: state.errors.session,
 });

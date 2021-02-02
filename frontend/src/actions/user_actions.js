@@ -15,6 +15,7 @@ const receiveUser = (user) => ({
   user,
 });
 
+
 const receiveRating = (rating) => ({
   type: RECEIVE_USER_RATING,
   rating
@@ -24,7 +25,6 @@ const receiveRatings = (ratings) => ({
   type: RECEIVE_USER_RATINGS,
   ratings
 });
-
 
 export const fetchUsers = () => (dispatch) => {
   return UserAPIUtil.getUsers()

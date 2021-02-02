@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import "../../css/login.css";
 
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -24,7 +24,8 @@ class LoginForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.signedIn === true) {
-      this.props.push("/");
+      console.log("Inside login form update");
+      <Redirect to="/" />;
     }
   }
 
