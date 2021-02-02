@@ -79,10 +79,12 @@ router.post(
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
       imageURL: req.body.imageURL,
       type: req.body.type,
+      imageURL: req.body.imageURL,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
 ); //end post
+
 
 //update venue
 router.patch(

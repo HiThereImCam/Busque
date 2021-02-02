@@ -10,15 +10,16 @@ const VenueSchema = new Schema({
     type: Array,
     required: true,
   },
-
+  imageURL: {
+    type: String,
+    required: false,
+    default: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
+  },
   type: {
     type: String,
     required: true,
   },
-  // available: {
-  //   type: Boolean,
-  //   default: true,
-  // }, 
+
   comments: [
     {
       type: Schema.Types.ObjectId,
@@ -26,15 +27,12 @@ const VenueSchema = new Schema({
     },
   ],
 
-  ratings: [    
+  ratings: [
     {
       type: Schema.Types.ObjectId,
       ref: "ratings",
     },
   ],
-  // currentUser: [{ type: Schema.Types.ObjectId, ref: "users", required: false }],
 });
-
-//  VenueSchema.pre("findOne", Populate("comments"));
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
