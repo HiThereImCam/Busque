@@ -60,6 +60,7 @@ class MapBox extends Component {
   }
 
   componentWillUnmount() {
+    // return null
     this.setState = (state, callback) => {
       return;
     };
@@ -77,30 +78,36 @@ class MapBox extends Component {
     return (
       <Fragment>
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
-        <div className="menu-container">
-          <div>
-            <GiHamburgerMenu
-              size={17}
-              onClick={() => {
-                openNavModal();
-              }}
-              className="menu-icon"
-            />
-          </div>
-        </div>
-        {venues.length > 0
-          ? venues.map((venue) => (
-              <Pin
-                key={venue._id}
-                map={this.map}
-                venue={venue}
-                curLoggedInUser={currentUser}
-                checkIn={checkIn}
-                isAuthenticated={isAuthenticated}
-                users={users}
-              />
-            ))
-          : ""}
+        {this.map === undefined ? (
+          ""
+        ) : (
+          <Fragment>
+            <div className="menu-container">
+              <div>
+                <GiHamburgerMenu
+                  size={17}
+                  onClick={() => {
+                    openNavModal();
+                  }}
+                  className="menu-icon"
+                />
+              </div>
+            </div>
+            {venues.length > 0
+              ? venues.map((venue) => (
+                  <Pin
+                    key={venue._id}
+                    map={this.map}
+                    venue={venue}
+                    curLoggedInUser={currentUser}
+                    checkIn={checkIn}
+                    isAuthenticated={isAuthenticated}
+                    users={users}
+                  />
+                ))
+              : ""}
+          </Fragment>
+        )}
       </Fragment>
     );
   }

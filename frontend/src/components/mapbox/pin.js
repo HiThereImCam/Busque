@@ -41,8 +41,18 @@ class Pin extends Component {
                         </div>
                     `;
       }
+
+      this.marker
+        .setLngLat(venue.coordinate)
+        .setPopup(
+          this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
+        )
+        .addTo(map);
     } else {
-      this.marker._color = "red";
+      this.marker.remove();
+      this.marker = new mapboxgl.Marker({
+        color: "red",
+      });
       let usersArr = Object.keys(users);
       let userID = usersArr.find((userEl) => userEl === venue.currentUser);
       let user = users[userID];
@@ -56,14 +66,14 @@ class Pin extends Component {
               </div>
         </div>
       `;
-    }
 
-    this.state.marker
-      .setLngLat(venue.coordinate)
-      .setPopup(
-        this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
-      )
-      .addTo(map);
+      this.marker
+        .setLngLat(venue.coordinate)
+        .setPopup(
+          this.state.popup.setLngLat(venue.coordinate).setHTML(htmlContent)
+        )
+        .addTo(map);
+    }
   }
 
   componentDidUpdate(prevProps) {
