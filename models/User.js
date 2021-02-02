@@ -38,10 +38,12 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "comments",
   },
-  ratings: {
-    type: Schema.Types.ObjectId,
-    ref: "ratings",
-  },
+  ratings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ratings",
+    },
+  ],
   followers: [
     {
       type: Schema.Types.ObjectId,

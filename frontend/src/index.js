@@ -14,8 +14,8 @@ import { logout } from "./actions/session_actions";
 import { getVenues } from "./util/venue_api_util";
 import { fetchVenues, fetchVenueComments } from "./actions/venue_actions";
 import { getVenueComments } from './util/venue_api_util';
-// import { getUser } from "./util/user_api_util";
-// import { fetchUser, fetchUsers } from "./actions/user_actions";
+// import { getUserRatings, createRating } from "./util/user_api_util";
+import { fetchUserRating, fetchUserRatings } from "./actions/user_actions";
 import { getPhotos } from './actions/photo_actions'; 
 // import { createComment } from "./actions/venue_actions";
 // import { createComment } from "./util/venue_api_util";
@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  // window.getUser = getUser;
+  window.fetchUserRating = fetchUserRating;
+  window.fetchUserRatings = fetchUserRatings; 
   // window.fetchUser = fetchUser;
   // window.fetchUsers = fetchUsers; 
   window.fetchVenueComments = fetchVenueComments; 
