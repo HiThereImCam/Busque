@@ -12,7 +12,22 @@ class Searchbar extends Component {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.noMatches = this.noMatches.bind(this);
     this.matches = this.matches.bind(this);
+  }
+
+  noMatches() {
+    return (
+      <Fragment>
+        <div className="results-container">
+          <p className="results-container-input">{this.state.input}</p>
+          <p className="results-container-length">0 RESULTS</p>
+        </div>
+        <div className="trending-container">
+          <h3>NO RESULTS FOUND</h3>
+        </div>
+      </Fragment>
+    );
   }
 
   handleInputChange(e) {
@@ -60,16 +75,25 @@ class Searchbar extends Component {
       });
     }
     return (
-      <div>
-        <input
-          type="text"
-          name="input"
-          value={input}
-          onChange={this.handleInputChange}
-          placeholder="Search users... "
-          className="search-input"
-        />
-      </div>
+      <Fragment>
+        <div>
+          <input
+            type="text"
+            name="input"
+            value={input}
+            onChange={this.handleInputChange}
+            placeholder="Search users... "
+            className="search-input"
+          />
+        </div>
+        {results.length < 1 ? (
+          this.noMatches()
+        ) : (
+          <Fragment>
+            <ul>{results}</ul>
+          </Fragment>
+        )}
+      </Fragment>
     );
   }
 }
