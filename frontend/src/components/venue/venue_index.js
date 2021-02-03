@@ -30,6 +30,9 @@ class VenueIndex extends React.Component {
                         currentUser={this.props.currentUser}
                         createComment={this.props.createComment} 
                         fetchVenueComments={this.props.fetchVenueComments}
+                        createVenueRating={this.props.createVenueRating}
+                        fetchVenueRatings={this.props.fetchVenueRatings}
+                        ratings={this.props.ratings}
                         key={i} />
                 })}
             </div>

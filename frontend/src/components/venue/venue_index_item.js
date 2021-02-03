@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom'; 
 import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import ReactStars from 'react-rating-stars-component'; 
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
@@ -17,16 +18,18 @@ class VenueIndexItem extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.update = this.update.bind(this); 
+        this.handleRating = this.handleRating.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchVenueComments(this.props.venue._id)
+        this.props.fetchVenueRatings(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
                 user: this.props.currentUser
             })
-        }
+        }        
     }
 
     componentDidUpdate() {
@@ -43,7 +46,7 @@ class VenueIndexItem extends React.Component {
     update() {
         return e => this.setState({
             comment: e.currentTarget.value, 
-            user: this.props.currentUser
+            user: this.props.currentUser,
         })
     }
 
@@ -54,6 +57,10 @@ class VenueIndexItem extends React.Component {
             arrowUp: !this.state.arrowUp,
             arrowDown: !this.state.arrowDown 
         })
+    }
+
+    handleRating(nextValue, prevValue) { 
+        this.props.createVenueRating(this.props.venue._id, nextValue)
     }
 
     handleSubmit(e) {
@@ -76,9 +83,20 @@ class VenueIndexItem extends React.Component {
         }
 
         let showCurrentUser = () => {
-            if ((this.props.venue.available !== true) && (this.props.venue.currentUser !== undefined)) {
-                const currentUserId = this.props.venue.currentUser[0]
-                return this.props.users[currentUserId].username + " is here"
+            if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
+                const currentUserId = this.props.venue.currentUser
+                return (
+                    this.props.users.map((user) => {
+                        if (user._id === currentUserId) {
+                            return (
+                                <div className="venue-current-user-inner">
+                                    <img src={user.imageURL} alt="profile" className="venue-index-currentUser" />&nbsp;&nbsp;
+                                    <Link to={`/profile/${currentUserId}`} className="currentUser-link">{user.username}</Link>&nbsp;is here
+                                </div>
+                            )
+                        }
+                    })
+                )
             } else { 
                 return null
             }
@@ -88,7 +106,7 @@ class VenueIndexItem extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <textarea type="textarea"
                     className="review-input"
-                    cols="50" rows="5"
+                    cols="45" rows="5"
                     value={this.state.comment}
                     onChange={this.update()}
                     placeholder="What did you think of this location?"
@@ -97,7 +115,52 @@ class VenueIndexItem extends React.Component {
                 <input className="submit" type="submit" value="Submit" />
             </form>
 
-        
+        let showRatingAvg = () => {
+            const ratingNums = []
+            this.props.venue.ratings.forEach((ratingId, i) => {
+                {this.props.ratings.forEach((rating) => {
+                    if (rating._id === ratingId) {
+                        ratingNums.push(rating.rating)
+                    }
+                })}
+            })
+            if (ratingNums.length > 0) {
+                let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+                let avg = sum / ratingNums.length
+                return (
+                    <div className="venue-rating-inner">
+                        <ReactStars
+                            className = "rating-stars"
+                            value={avg}
+                            onChange={this.handleRating}
+                            count={5}
+                            size={18}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#ffd700"
+                        />
+                    </div>
+                )
+            } 
+            // else {
+            //     return (
+            //         <ReactStars
+            //             className="rating-stars"
+            //             value={0}
+            //             onChange={this.handleRating}   
+            //             count={5}
+            //             size={19}
+            //             isHalf={true}
+            //             emptyIcon={<i className="far fa-star"></i>}
+            //             halfIcon={<i className="fa fa-star-half-alt"></i>}
+            //             fullIcon={<i className="fa fa-star"></i>}
+            //             activeColor="#ffd700"
+            //         />
+            //     )
+            // }
+        }
 
         return (
             <div className="venue-list-items">
@@ -105,19 +168,26 @@ class VenueIndexItem extends React.Component {
                     {this.props.venue.name}
                 </div>
                 <div className="venue-list-info">
-                    <div className="venue-type">
-                        Type: {this.props.venue.type}
+                    <div className="venue-info-outer">
+                        <div className="venue-info">
+                            <div className="venue-rating">
+                                {showRatingAvg()}
+                            </div>
+                            <div className="venue-type">
+                                Type: {this.props.venue.type}
+                            </div>
+                            <div className="venue-availabilty">
+                                Available? {isAvailable()}
+                            </div>
+                            <div className="venue-current-user">
+                                {showCurrentUser()}
+                            </div>
+                            {userCommentInput}
+                        </div>
+                        <div className="venue-pic">
+                            <img src={this.props.venue.imageURL} alt="venue" />
+                        </div>
                     </div>
-                    <div className="venue-rating">
-                        Rating: {this.props.venue.ratings}
-                    </div>
-                    <div className="venue-availabilty">
-                        Available? {isAvailable()}
-                    </div>
-                    <div className="venue-current-user">
-                        {showCurrentUser()}
-                    </div>
-                    {userCommentInput}
                     <div className="venue-reviews">
                         <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)} >
                             Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 

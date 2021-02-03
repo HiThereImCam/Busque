@@ -89,6 +89,15 @@
     font-size: 15px;
 }
 
+.user-rating {
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+/* .review-star {
+    background: yellow;
+    padding-bottom: -5px;
+} */
+
 .bio {
     padding-bottom: 10px;
     font-size: 15px;
