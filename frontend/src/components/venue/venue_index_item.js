@@ -185,7 +185,7 @@ class VenueIndexItem extends React.Component {
                             {userCommentInput}
                         </div>
                         <div className="venue-pic">
-                            image placeholder
+                            <img src={this.props.venue.imageURL} alt="venue" />
                         </div>
                     </div>
                     <div className="venue-reviews">
