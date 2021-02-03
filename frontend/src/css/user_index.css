@@ -10,17 +10,31 @@
   display: flex;
   font-size: 25px;
   text-decoration: none;
-  width: 50%;
+  width: 61%;
 }
 
 .user-search-container {
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 50%;
 }
 
-.user-search-container input {
-  margin-left: 8%;
+.user-search {
+  display: flex;
+  width: 50%;
+  border: 1px solid black;
+}
+
+.user-search input {
+  margin-left: 12%;
+  border: none;
+  border-color: trasparent;
+  width: 100%;
+  font-size: 16px;
+}
+
+.user-search input:focus {
+  outline: none;
 }
 
 .menu-icon-other {
@@ -41,11 +55,6 @@
   flex-direction: row;
   /* flex-wrap: wrap;  */
 }
-/* .user-list-items-inner {
-    display: block; 
-    flex-basis: 50%;
-
-} */
 
 .user-list-items {
   display: flex;

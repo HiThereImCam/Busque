@@ -14,15 +14,17 @@ class UserIndex extends React.Component {
       <div>
         <div className="user-header-container">
           <div className="user-search-container">
-            <GiHamburgerMenu
-              size={25}
-              onClick={() => {
-                this.props.openNavModal();
-              }}
-              className="menu-icon-other"
-            />
+            <div className="user-search">
+              <GiHamburgerMenu
+                size={25}
+                onClick={() => {
+                  this.props.openNavModal();
+                }}
+                className="menu-icon-other"
+              />
 
-            <Searchbar users={this.props.users} />
+              <Searchbar users={this.props.users} />
+            </div>
           </div>
           <div className="user-header">
             <h1>Our Artists</h1>
