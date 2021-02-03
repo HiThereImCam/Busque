@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
               currentUser: venueSchedule ? venueSchedule.currentUser : "",
               expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
             });
-          };
+          }; 
           res.json(mergedData);
         })
         .catch((err) => {
