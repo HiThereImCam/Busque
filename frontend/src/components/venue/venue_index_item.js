@@ -9,7 +9,6 @@ class VenueIndexItem extends React.Component {
         super(props); 
         this.state = {
             comment: "", 
-            // rating: 0,
             user: "",
             showReviews: false,
             arrowUp: false,
@@ -23,7 +22,6 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        console.log("component did mount")
         this.props.fetchVenueComments(this.props.venue._id)
         this.props.fetchVenueRatings(this.props.venue._id)
 
@@ -46,11 +44,9 @@ class VenueIndexItem extends React.Component {
 
 
     update() {
-        // console.log("update")
         return e => this.setState({
             comment: e.currentTarget.value, 
             user: this.props.currentUser,
-            // rating: e.currentTarget.value
         })
     }
 
@@ -62,20 +58,9 @@ class VenueIndexItem extends React.Component {
             arrowDown: !this.state.arrowDown 
         })
     }
-    // updateRating() {
-    //     return e => this.setState({
-    //         rating: e.currentTarget.value
-    //     })
-    // }
 
     handleRating(nextValue, prevValue) { 
-        console.log("handle rating")
         this.props.createVenueRating(this.props.venue._id, nextValue)
-        // this.setState({
-        //     rating: nextValue
-        // })
-        // console.log(this.state.rating)
-        console.log(this.props.venue.ratings)
     }
 
     handleSubmit(e) {
@@ -131,9 +116,6 @@ class VenueIndexItem extends React.Component {
             </form>
 
         let showRatingAvg = () => {
-            // console.log("show rating average")
-            // console.log(this.props.venue.name)
-            // console.log(this.props.venue.ratings)
             const ratingNums = []
             this.props.venue.ratings.forEach((ratingId, i) => {
                 {this.props.ratings.forEach((rating) => {
@@ -143,24 +125,23 @@ class VenueIndexItem extends React.Component {
                 })}
             })
             if (ratingNums.length > 0) {
-                // console.log(ratingNums)
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
                 let avg = sum / ratingNums.length
-                // this.state.rating = avg
-                // return avg.toFixed(1) + "/5"
                 return (
-                    <ReactStars
-                        className = "rating-stars"
-                        value={avg}
-                        onChange={this.handleRating}
-                        count={5}
-                        size={18}
-                        isHalf={true}
-                        emptyIcon={<i className="far fa-star"></i>}
-                        halfIcon={<i className="fa fa-star-half-alt"></i>}
-                        fullIcon={<i className="fa fa-star"></i>}
-                        activeColor="#ffd700"
-                    />
+                    <div className="venue-rating-inner">
+                        <ReactStars
+                            className = "rating-stars"
+                            value={avg}
+                            onChange={this.handleRating}
+                            count={5}
+                            size={18}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#ffd700"
+                        />
+                    </div>
                 )
             } 
             // else {

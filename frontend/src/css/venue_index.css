@@ -48,8 +48,8 @@
     margin-left: -30px;
 }
 
-.rating-stars:focus {
-    outline: none;
+.react-stars:focus {
+    outline: transparent;
 }
 
 .venue-rating {
