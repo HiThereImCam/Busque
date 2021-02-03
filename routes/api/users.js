@@ -13,7 +13,7 @@ const validateLoginInput = require("../../validations/login");
 
 router.get("/", (req, res) => {
   User.find()
-    .then((user) => res.json(user))
+    .then((user) => res.json(user))  //TODO have this send objects with check in info
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
 });
 
@@ -21,13 +21,20 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({
+    res.json({  
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
+      venues: req.user.venues
     });
   }
 );
+
+router.get("/:user_id", passport.authenticate("jwt", { session: false }),
+(req, res) => { //most popular venue 
+  let popularVenue = {};
+    Schedule.find()
+})
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -156,5 +163,7 @@ router.post(`/:user_id/ratings`, (req, res) => {
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
+
+//TODO get route that displays 
 
 module.exports = router;

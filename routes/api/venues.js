@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
               currentUser: venueSchedule ? venueSchedule.currentUser : "",
               expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
             });
-          }
+          };
           res.json(mergedData);
         })
         .catch((err) => {
@@ -130,7 +130,7 @@ router.patch(
       Schedule.findByIdAndRemove(
         { venueID: req.params.id },
         (err, schedule) => {
-          if (err) {
+          if (err) { 
             console.log("Error: ", err);
           } else {
             console.log("Removed schedule: ", schedule);
