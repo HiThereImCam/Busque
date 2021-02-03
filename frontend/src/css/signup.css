@@ -133,11 +133,20 @@ button:hover {
         width: 67vw;
     }
 
+    #signup-button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        margin-bottom: 20px;
+        display: inline-block;
+        width: 69vw;
+    }
+
     .signup-form select {
-        width: 70vw;
+        width: 69.5vw;
     }
 
     #signup-profile {
-        width: 70vw;
+        width: 67vw;
     }
 }
