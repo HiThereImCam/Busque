@@ -2,8 +2,8 @@
     border-bottom: 1px solid lightgray;
     display: flex;
     flex-direction: column;
-    margin-left: 10vw;
-    margin-right: 10vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
     padding-left: 45px;
     padding-right: 25px;
     margin-top: 20px;
@@ -33,9 +33,19 @@
     /* width: 350px;  */
 }
 
-@media screen and (min-width: 1445px) {
-    .venue-pic {
-        display: none; 
+@media screen and (max-width: 900px) {
+    .venue-info-outer-alt {
+        display: block; 
+    }
+    .venue-info-alt {
+        display: inline-block; 
+        flex-basis: 100%
+    }
+    .venue-pic-alt {
+        display: flex; 
+        flex-basis: 100%; 
+        height: inherit; 
+        margin-left: -30px;
     }
 }
 

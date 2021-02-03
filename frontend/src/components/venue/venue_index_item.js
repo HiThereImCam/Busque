@@ -168,8 +168,8 @@ class VenueIndexItem extends React.Component {
                     {this.props.venue.name}
                 </div>
                 <div className="venue-list-info">
-                    <div className="venue-info-outer">
-                        <div className="venue-info">
+                    <div className="venue-info-outer venue-info-outer-alt">
+                        <div className="venue-info venue-info-alt">
                             <div className="venue-rating">
                                 {showRatingAvg()}
                             </div>
@@ -184,7 +184,7 @@ class VenueIndexItem extends React.Component {
                             </div>
                             {userCommentInput}
                         </div>
-                        <div className="venue-pic">
+                        <div className="venue-pic venue-pic-alt">
                             <img src={this.props.venue.imageURL} alt="venue" />
                         </div>
                     </div>
