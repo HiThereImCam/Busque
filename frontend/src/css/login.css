@@ -14,12 +14,6 @@
   /* font-family: Verdana; */
 }
 
-/* .header-logo {
-  font-family: 'Bebas Neue', cursive; 
-  font-weight: 900; 
-  font-size: 35px; 
-} */
-
 .login-form {
   display: flex;
   flex-direction: column;
@@ -127,9 +121,8 @@ button:hover {
   text-decoration: none;
   padding-bottom: 20px; 
   color: rgb(61, 61, 61); 
-  /* font-size: 14px; */
-
 }
+
 .footer-link {
   text-decoration: none;
   color: #4267b2;

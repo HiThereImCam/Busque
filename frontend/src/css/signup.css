@@ -10,12 +10,6 @@
     /* font-family: Verdana; */
 }
 
-/* .user-header-h1 {
-  font-family: 'Megrim', cursive; 
-  font-weight: 900; 
-  font-size: 35px; 
-} */
-
 .signup-form {
     margin-bottom: 50px;
     padding: 20px; 
@@ -26,15 +20,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* margin-top: 30px; */
 }
 
 .signup-buttons {
     display: flex;
     flex-direction: column;
-    /* padding: 10px 10px 10px 10px; */
 }
 
 .signup-title {
@@ -59,7 +49,6 @@
 }
 
 #signup-button {
-    /* margin: 5px 0px 0px 0px; */
     width: 36vw; 
     border: none; 
     color: white;
@@ -70,12 +59,9 @@
     font-size: 18px;
     font-family: Verdana;
     font-weight: 600;
-    /* margin: 0px; 
-    margin-right: 15px;  */
-    /* padding: 20px; */
 }
 
-button:hover {
+#signup-button:hover {
     cursor: pointer;
     background-color: #22458a;
 }
@@ -111,14 +97,20 @@ button:hover {
 #signup-profile {
     width: 35vw; 
     margin-right: -25px; 
-    /* border: none;  */
 }
 
 #signup-profile {
     width: 35vw;
 }
 
-@media screen and (max-width: 600px) {
+.form-footer-signup {
+  display: flex; 
+  justify-content: center;
+  text-decoration: none;
+  color: rgb(61, 61, 61);
+}
+
+@media screen and (max-width: 650px) {
     .signup-page {
         width: 80vw;
         border-style: none;
@@ -143,7 +135,7 @@ button:hover {
     }
 
     .signup-form select {
-        width: 69.5vw;
+        width: 69vw;
     }
 
     #signup-profile {

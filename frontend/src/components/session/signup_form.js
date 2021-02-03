@@ -154,7 +154,7 @@ class SignupForm extends React.Component {
               />
               <input className="signup-button" id="signup-button" type="submit" value="Sign up" />
               {this.renderErrors()}
-              <div className="form-footer">
+              <div className="form-footer-signup">
                 Have an account?&nbsp;
                 <Link className="footer-link" to="/login">
                   {" "}
