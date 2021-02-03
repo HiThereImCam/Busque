@@ -27,23 +27,27 @@ class UserIndexItem extends React.Component {
 
         let showRatingAvg = () => {
             const ratingNums = []
-            this.props.user.ratings.forEach((ratingId, i) => {
-                {this.props.ratings.forEach((rating) => {
-                    if (rating._id === ratingId) {
-                        ratingNums.push(rating.rating)
-                    }
-                })}
+            this.props.user.ratings.map((ratingId, i) => {
+                return (
+                    <div>
+                        {this.props.ratings.forEach((rating) => {
+                            if (rating._id === ratingId) {
+                                ratingNums.push(rating.rating)
+                            }
+                        })}
+                    </div>
+                )
             })
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
-                let avg = (sum / ratingNums.length || 0)  
+                let avg = (sum / ratingNums.length)  
                 return (
                     <ReactStars
                         className="rating-stars"
                         value={avg}
                         onChange={this.handleRating}
                         count={5}
-                        size={19}
+                        size={18}
                         isHalf={true}
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}

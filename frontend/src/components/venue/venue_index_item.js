@@ -154,7 +154,7 @@ class VenueIndexItem extends React.Component {
                         value={avg}
                         onChange={this.handleRating}
                         count={5}
-                        size={19}
+                        size={18}
                         isHalf={true}
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}

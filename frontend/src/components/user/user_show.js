@@ -36,23 +36,39 @@ class UserShow extends React.Component {
             }
           })}
         })
-        if (ratingNums.length > 0) {
-          let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
-          let avg = sum / ratingNums.length
-          return (
-            <ReactStars
-              className="rating-stars"
-              value={avg}
-              onChange={this.handleRating}
-              count={5}
-              size={19}
-              isHalf={true}
-              emptyIcon={<i className="far fa-star"></i>}
-              halfIcon={<i className="fa fa-star-half-alt"></i>}
-              fullIcon={<i className="fa fa-star"></i>}
-              activeColor="#ffd700"
-            />
-          )
+        if (ratingNums.length <= 0) {
+          let avg = 0
+            return (
+                <ReactStars
+                    className="rating-stars"
+                    value={avg}
+                    onChange={this.handleRating}
+                    count={5}
+                    size={18}
+                    isHalf={true}
+                    emptyIcon={<i className="far fa-star"></i>}
+                    halfIcon={<i className="fa fa-star-half-alt"></i>}
+                    fullIcon={<i className="fa fa-star"></i>}
+                    activeColor="#ffd700"
+                />
+            )
+        } else {
+            let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+            let avg = sum / ratingNums.length
+            return (
+              <ReactStars
+                className="rating-stars"
+                value={avg}
+                onChange={this.handleRating}
+                count={5}
+                size={19}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                activeColor="#ffd700"
+              />
+            )
         } 
         // else {
         //     let avg = 0
