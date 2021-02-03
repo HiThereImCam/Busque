@@ -36,9 +36,8 @@ export const getVenueRatings = (venueId) => {
   })
 }; 
 
-export const createVenueRating = (venueId, rating, user) => {
+export const createVenueRating = (venueId, rating) => {
   return axios.post(`/api/venues/${venueId}/ratings`, {
-    rating: rating, 
-    user: user
+    rating: rating,
   })
 };

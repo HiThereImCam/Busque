@@ -38,8 +38,8 @@ export const fetchUser = (userId) => (dispatch) =>
     .catch((err) => console.log(err));
 
 
-export const createUserRating = (userId, rating, user) => (dispatch) => {
-  return UserAPIUtil.createRating(userId, rating, user)
+export const createUserRating = (userId, rating) => (dispatch) => {
+  return UserAPIUtil.createRating(userId, rating)
     .then((rating) => dispatch(receiveRating(rating)))
     .catch((err) => console.log(err))
 };

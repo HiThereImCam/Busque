@@ -19,9 +19,8 @@ export const getUserRatings = (userId) => {
   });
 };
 
-export const createRating = (userId, rating, user) => {
+export const createRating = (userId, rating) => {
   return axios.post(`/api/users/${userId}/ratings`, {
     rating: rating,
-    user: user,
   });
 };

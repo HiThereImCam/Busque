@@ -68,8 +68,8 @@ export const createComment = (venueId, comment, user) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const createVenueRating = (venueId, rating, user) => (dispatch) => {
-  return VenueApiUtil.createVenueRating(venueId, rating, user)
+export const createVenueRating = (venueId, rating) => (dispatch) => {
+  return VenueApiUtil.createVenueRating(venueId, rating)
     .then((rating) => dispatch(receiveRating(rating)))
     .catch(err => console.log(err))
 };

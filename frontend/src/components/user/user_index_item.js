@@ -1,12 +1,23 @@
 import React from 'react'; 
 import { Link } from 'react-router-dom'; 
 import "../../css/user_index.css";
-// import { AiOutlineStar } from 'react-icons/ai';
+import ReactStars from 'react-rating-stars-component'; 
+
 
 class UserIndexItem extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.handleRating = this.handleRating.bind(this)
+    }
+
     componentDidMount() {
         this.props.fetchUserRatings(this.props.user._id)
+    }
+
+    handleRating(nextValue) {
+        this.props.createUserRating(this.props.user._id, nextValue)
+
     }
 
     render() {
@@ -18,7 +29,7 @@ class UserIndexItem extends React.Component {
             const ratingNums = []
             this.props.user.ratings.map((ratingId, i) => {
                 return (
-                    <div key={i}>
+                    <div>
                         {this.props.ratings.forEach((rating) => {
                             if (rating._id === ratingId) {
                                 ratingNums.push(rating.rating)
@@ -29,11 +40,39 @@ class UserIndexItem extends React.Component {
             })
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
-                let avg = sum / ratingNums.length 
-                return avg.toFixed(1) + "/5"
-            } else {
-                return "none"
-            }
+                let avg = (sum / ratingNums.length)  
+                return (
+                    <ReactStars
+                        className="rating-stars"
+                        value={avg}
+                        onChange={this.handleRating}
+                        count={5}
+                        size={18}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                    />
+                )
+            } 
+            // else {
+            //     let avg = 0
+            //     return (
+            //         <ReactStars
+            //             className="rating-stars"
+            //             value={avg}
+            //             onChange={this.handleRating}
+            //             count={5}
+            //             size={19}
+            //             isHalf={true}
+            //             emptyIcon={<i className="far fa-star"></i>}
+            //             halfIcon={<i className="fa fa-star-half-alt"></i>}
+            //             fullIcon={<i className="fa fa-star"></i>}
+            //             activeColor="#ffd700"
+            //         />
+            //     )
+            // }
         }
 
         return (
@@ -49,12 +88,12 @@ class UserIndexItem extends React.Component {
                                     {this.props.user.username}
                                 </Link>
                             </div>
+                            <div className="user-rating">
+                                {showRatingAvg()} 
+                            </div> 
                             <div className="performer-type">
                                 Performer Type: {this.props.user.performerType}
                             </div>
-                            <div className="user-rating">
-                                Rating: {showRatingAvg()} 
-                            </div> {/* <AiOutlineStar size={20} className="review-star"/> */}
                             <div className="bio">
                                 Bio: {this.props.user.bio}
                             </div>
