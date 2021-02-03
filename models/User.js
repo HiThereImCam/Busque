@@ -29,6 +29,7 @@ const UserSchema = new Schema({
   imageURL: {
     type: String,
     required: false,
+    default: 'https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg'
   },
   venues: {
     type: Schema.Types.ObjectId,
