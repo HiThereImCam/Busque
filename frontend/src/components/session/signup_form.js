@@ -100,13 +100,13 @@ class SignupForm extends React.Component {
             className="menu-icon-other"
           />
           <Link className="user-header-h1" to={"/"}>
-            <h1>Busque</h1>
+            <h1 className="header-logo">Busque</h1>
           </Link>
         </div>
         <div className="signup-page">
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
-              <div className="signup-title">Busque</div>
+              <div className="signup-title header-logo">Busque</div>
               <div className="signup-desc">Sign Up</div>
               <div className="signup-description">to continue to Busque</div>
               <input
@@ -145,13 +145,14 @@ class SignupForm extends React.Component {
                 onChange={this.update("bio")}
                 placeholder="Bio"
               />
-              <div>Upload a Profile Picture:</div>
+              <div className="pic-upload-desc">Upload a Profile Picture:</div>
               <input
+                className="input-file"
                 id="signup-profile"
                 type="file"
                 onChange={this.handleFile.bind(this)}
               />
-              <input className="signup-button" type="submit" value="Sign up" />
+              <input className="signup-button" id="signup-button" type="submit" value="Sign up" />
               {this.renderErrors()}
               <div className="form-footer">
                 Have an account?&nbsp;

@@ -113,7 +113,7 @@ class UserShow extends React.Component {
               className="menu-icon-other"
             />
             <Link className="user-header-h1" to={"/"}>
-              <h1>Busque</h1>
+              <h1 className="header-logo">Busque</h1>
             </Link>
           </div>
           <div className="user-show-info-list">

@@ -19,9 +19,15 @@
   display: flex;
   justify-content: center;
   margin-left: 10px;
-  font-size: 25px;
+  font-size: 35px;
   text-decoration: none;
   color: black;
+}
+
+.header-logo {
+  font-family: 'Megrim', cursive;
+  font-weight: 900; 
+  font-size: 30px; 
 }
 
 .nav-section {

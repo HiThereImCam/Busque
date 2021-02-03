@@ -2,11 +2,14 @@
 .user-header-h1 {
     text-decoration: none;
     color: black;
+    font-size: 35px; 
 }
 
-/* .user-header {
-    margin-bottom: 30px;
-} */
+.header-logo {
+    font-family: 'Megrim', cursive;
+    font-weight: bolder; 
+    font-size: 30px; 
+}
 
 .user-show-info-list {
     display: flex; 

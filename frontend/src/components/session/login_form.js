@@ -78,12 +78,12 @@ class LoginForm extends Component {
             className="menu-icon-other"
           />
           <Link className="user-header-h1" to={"/"}>
-            <h1>Busque</h1>
+            <h1 className="header-logo">Busque</h1>
           </Link>
         </div>
         <div className="login-page">
           <form className="login-form" onSubmit={this.handleSubmit}>
-            <div className="login-title">Busque</div>
+            <div className="login-title header-logo">Busque</div>
             <div className="login-desc">Sign In</div>
             <div className="login-description">to continue to Busque</div>
             <input

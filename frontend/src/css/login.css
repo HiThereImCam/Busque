@@ -11,8 +11,14 @@
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  font-family: Verdana;
+  /* font-family: Verdana; */
 }
+
+/* .header-logo {
+  font-family: 'Bebas Neue', cursive; 
+  font-weight: 900; 
+  font-size: 35px; 
+} */
 
 .login-form {
   display: flex;
@@ -98,7 +104,7 @@ button:hover {
   display: flex; 
   justify-content: center;
   text-decoration: none;
-  padding-bottom: 20px;
+  color: rgb(61, 61, 61); 
   /* font-size: 14px; */
 
 }
