@@ -83,7 +83,7 @@ button:hover {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: inline-block;
   width: 34vw;
   border: 1px solid lightgray; 
@@ -106,9 +106,18 @@ button:hover {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     display: inline-block;
     width: 67vw;
+  }
+
+  .login-buttons button {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    display: inline-block;
+    width: 69vw;
   }
 }
 
