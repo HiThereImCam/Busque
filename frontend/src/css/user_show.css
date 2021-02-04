@@ -1,14 +1,36 @@
+.user-show-header {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid lightgray;
+    text-decoration: none;
+}
 
 .user-header-h1 {
     text-decoration: none;
     color: black;
-    font-size: 30px; 
+    width: 65%; 
+}
+.user-search-show {
+    display: flex;
+    width: 20%;
+    border: 0.5px solid lightgray;
+    border-radius: 5px;
+    position: relative;
+}
+.user-search-show input {
+  margin-left: 15%;
+  border: none;
+  border-color: trasparent;
+  width: 100%;
+  font-size: 16px;
 }
 
 .header-logo {
+    display: flex; 
+    justify-content: center;
     font-family: 'Megrim', cursive;
     font-weight: bolder; 
-    font-size: 35px; 
+    font-size: 25px; 
 }
 
 .user-show-info-list {
@@ -21,7 +43,6 @@
 .user-show-photo-outer {
     display: block; 
     flex-basis: 50%;
-    /* border: 1px solid lightgray; */
     margin-top: 50px; 
     margin-bottom: 50px;
     margin-right: 50px;
@@ -36,11 +57,9 @@
 .user-show-info {
     display: block; 
     flex-basis: 50%;
-    /* margin: 50px;  */
     padding-left: 50px;
     padding-top: 50px;
     padding-bottom: 50px;
-    /* border-left: 1px solid lightgray; */
 }
 
 .user-show-username {

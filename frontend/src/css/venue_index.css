@@ -1,3 +1,17 @@
+.venue-header-container {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid lightgray;
+    text-decoration: none;
+}
+
+.venue-header-center {
+    text-decoration: none;
+    color: black;
+    width: 75%; 
+    font-size: 25px;
+}
+
 .venue-list-items {
     border-bottom: 1px solid lightgray;
     display: flex;
@@ -148,7 +162,6 @@
 }
 
 .venue-reviews-inner {
-    /* display: none;  */
     margin-top: 5px; 
     margin-left: -30px;
 

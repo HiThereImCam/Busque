@@ -12,15 +12,19 @@ class VenueIndex extends React.Component {
     render() {
         return (
             <div>
-                <div className="user-header">
-                    <GiHamburgerMenu
-                        size={25}
-                        onClick={() => {
-                            this.props.openNavModal();
-                        }}
-                        className="menu-icon-other"
-                    />
-                    <h1>Our Top Venues</h1>
+                <div className="venue-header-container">
+                    <div className="user-header">
+                        <GiHamburgerMenu
+                            size={25}
+                            onClick={() => {
+                                this.props.openNavModal();
+                            }}
+                            className="menu-icon-other"
+                        />
+                    </div>
+                    <div className="venue-header-center">
+                        <h1 className="venue-header-h1">Our Top Venues</h1>
+                    </div>
                 </div>
                 {this.props.venues.map((venue, i) => {
                     return <VenueIndexItem venue={venue} 
