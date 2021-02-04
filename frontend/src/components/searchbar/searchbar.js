@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
 import "../../css/searchbar.css";
 
 class Searchbar extends Component {
   constructor(props) {
     super(props);
+
+    this.openModal = this.props.openModal;
     this.state = {
       input: "",
     };
@@ -16,15 +19,9 @@ class Searchbar extends Component {
 
   noMatches() {
     return (
-      <Fragment>
-        <div className="results-container">
-          <p className="results-container-input">{this.state.input}</p>
-          <p className="results-container-length">0 RESULTS</p>
-        </div>
-        <div className="trending-container">
-          <h3>NO RESULTS FOUND</h3>
-        </div>
-      </Fragment>
+      <div className="search-results-container">
+        <div className="results-item">No results found</div>
+      </div>
     );
   }
 
@@ -43,17 +40,11 @@ class Searchbar extends Component {
       return "";
     }
 
-    console.log("matches user: ", users);
-
     Object.values(users).forEach((user) => {
       if (user.username.toLowerCase().includes(input.toLowerCase())) {
         matches.push(user);
       }
     });
-
-    if (matches.length === 0) {
-      return "No matches";
-    }
 
     return matches;
   }
@@ -77,21 +68,27 @@ class Searchbar extends Component {
     }
     return (
       <Fragment>
+        <GiHamburgerMenu
+          size={25}
+          onClick={() => {
+            this.openModal();
+          }}
+          className="menu-icon-other"
+        />
         <input
           type="text"
           name="input"
           value={input}
           onChange={this.handleInputChange}
           placeholder="Search users... "
-          className="search-input"
         />
-        {/* {results.length < 1 ? (
+        {results.length < 1 && input.length > 0 ? (
           this.noMatches()
         ) : (
-          <Fragment>
+          <div className="search-results-container">
             <ul>{results}</ul>
-          </Fragment>
-        )} */}
+          </div>
+        )}
       </Fragment>
     );
   }
