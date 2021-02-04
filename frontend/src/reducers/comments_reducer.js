@@ -13,7 +13,13 @@ const CommentsReducer = (state = {}, action) => {
             return newState;
         case RECEIVE_COMMENT:
             return Object.assign({}, newState, {[action.comment.data._id]: action.comment.data})
-        
+        case RECEIVE_USER_COMMENT:
+            return Object.assign({}, newState, {[action.comment.data._id]: action.comment.data})
+        case RECEIVE_USER_COMMENTS:
+            for (let j = 0; j< action.user.data.comments.length; j++) {
+                newState[action.user.data.comments[j]._id] = action.user.data.comments[j]
+            }
+            return newState; 
         default: 
             return state
     }
