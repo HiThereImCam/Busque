@@ -174,7 +174,6 @@ router.post(
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log(req);
-    console.log(res);
 
     const newComment = new Comment({
       //needs user
@@ -191,11 +190,37 @@ router.post(
           { $push: { comments: comment } },
           { new: true }
         )
-        .then(() => res.json(comment));
+          .then(() => res.json(comment))
+          .catch((err) => {
+            console.log("comment error:", err);
+            res.status(500).json({ comment: "we've encountered and error" });
+          });
       }
       // response to front end
     );
   }
 );
+
+router.get(
+  "/:user_id/comments",
+  (req, res) => {
+    console.log(req);
+    User.findOne({ _id: req.params.user_id })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          options: { sort: { date: -1 } },
+          select: { username: 1 },
+        },
+      })
+      .then((user) => res.json(user))
+      .catch((err) => {
+        console.log("comment error:", err);
+        res.status(500).json({ comment: "we've encountered and error" });
+      });
+  }
+);
+
 
 module.exports = router;
