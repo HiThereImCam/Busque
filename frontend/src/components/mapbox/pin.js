@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
+// import formatTime from "../../../config/formatTime";
 
 class Pin extends Component {
   constructor(props) {
@@ -56,13 +57,13 @@ class Pin extends Component {
       let usersArr = Object.keys(users);
       let userID = usersArr.find((userEl) => userEl === venue.currentUser);
       let user = users[userID];
-      //style="padding: 3px"
+
       htmlContent = `
         <div style="padding: 5px 3px 3px 3px; display: flex; justify-content: center;">
                 <h1>${venue.name}</h1>
                 <div style="display: flex; align-items: center; padding-top: 2px">
                   <img id="profile_pic" src=${user.imageURL} height=30 width=30 style="border-radius: 50%"></img>
-                  <p style="padding-left: 3px">${user.username}</p>
+                  <p style="padding-left: 3px; font-size: 14px;">${user.username}</p>
               </div>
         </div>
       `;
@@ -120,7 +121,7 @@ class Pin extends Component {
                 <h1>${venue.name}</h1>
                 <div style="display: flex; align-items: center;">
                   <img id="profile_pic" src=${user.imageURL} height=30 width=30 style="border-radius: 50%;"></img>
-                  <p style="padding-left: 3px">${user.username}</p>
+                  <p style="padding-left: 3px; font-size: 14px;">${user.username}</p>
                 </div>
         </div>
       `;
