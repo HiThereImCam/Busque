@@ -13,7 +13,7 @@ const validateLoginInput = require("../../validations/login");
 
 router.get("/", (req, res) => {
   User.find()
-    .then((user) => res.json(user))
+    .then((user) => res.json(user)) //TODO have this send objects with check in info
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
 });
 
@@ -25,9 +25,19 @@ router.get(
       id: req.user.id,
       username: req.user.username,
       email: req.user.email,
+      venues: req.user.venues,
     });
   }
 );
+
+router.get("/:user_id", (req, res) => {
+  //most popular venue
+  let popularVenue = {};
+  Schedule.find().then((schedule) => {
+    console.log(schedule);
+    res.json(schedule);
+  });
+});
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -155,6 +165,37 @@ router.post(`/:user_id/ratings`, (req, res) => {
 
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
+);
+
+//TODO get route that displays
+
+router.post(
+  "/:user_id/comments",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+    console.log(res);
+
+    const newComment = new Comment({
+      //needs user
+      user: req.params.user_id,
+      comment: req.body.comment,
+      commenter: req.body.user, //*this is the working one at the moment
+    });
+    console.log(newComment);
+    newComment.save().then(
+      (comment) => {
+        console.log("Comments: ", comment);
+        User.findByIdAndUpdate(
+          req.params.user_id,
+          { $push: { comments: comment } },
+          { new: true }
+        )
+        .then(() => res.json(comment));
+      }
+      // response to front end
+    );
+  }
 );
 
 module.exports = router;
