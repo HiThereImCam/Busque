@@ -27,7 +27,7 @@ class UserIndexItem extends React.Component {
 
         let showRatingAvg = () => {
             const ratingNums = []
-            this.props.user.ratings.map((ratingId, i) => {
+            this.props.user.ratings?.map((ratingId, i) => {
                 return (
                     <div>
                         {this.props.ratings.forEach((rating) => {

@@ -63,10 +63,10 @@
   border: none; 
   padding-left: 10px;
   margin-bottom: 15px;
-  width: 35.5vw; 
+  width: 35vw; 
 }
 
-button:hover {
+.login-buttons button:hover {
   cursor: pointer;
   background-color: #22458a;
 }
