@@ -49,7 +49,7 @@
 }
 
 #signup-button {
-    width: 36vw; 
+    width: 36.5vw; 
     border: none; 
     color: white;
     background-color:#4267B2;
@@ -95,12 +95,8 @@
 }
 
 #signup-profile {
-    width: 35vw; 
+    width: 35.3vw; 
     margin-right: -25px; 
-}
-
-#signup-profile {
-    width: 35vw;
 }
 
 .form-footer-signup {
