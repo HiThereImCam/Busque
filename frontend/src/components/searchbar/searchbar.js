@@ -59,7 +59,7 @@ class Searchbar extends Component {
       results = matches.map((result, i) => {
         return (
           <li className="search-results" key={i}>
-            <Link to={`/users/${result._id}`}>
+            <Link to={`/profile/${result._id}`}>
               <div className="results-item">{result.username}</div>
             </Link>
           </li>

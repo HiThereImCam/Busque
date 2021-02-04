@@ -108,7 +108,7 @@ class UserShow extends React.Component {
 
       return (
         <div>
-          <div className="user-header">
+          <div className="user-show-header">
             <GiHamburgerMenu
               size={25}
               onClick={() => {
@@ -116,9 +116,11 @@ class UserShow extends React.Component {
               }}
               className="menu-icon-other"
             />
-            <Searchbar />
+            <div className="user-search-show">
+              <Searchbar />
+            </div>
             <Link className="user-header-h1" to={"/"}>
-              <h1>Busque</h1>
+              <h1 className="header-logo">Busque</h1>
             </Link>
           </div>
 

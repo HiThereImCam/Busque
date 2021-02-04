@@ -69,7 +69,7 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
-        <div className="user-header">
+        <div className="user-header-login">
           <GiHamburgerMenu
             size={25}
             onClick={() => {
@@ -77,13 +77,13 @@ class LoginForm extends Component {
             }}
             className="menu-icon-other"
           />
-          <Link className="user-header-h1" to={"/"}>
-            <h1>Busque</h1>
+          <Link className="user-header-h1-login" to={"/"}>
+            <h1 className="header-logo-login">Busque</h1>
           </Link>
         </div>
         <div className="login-page">
           <form className="login-form" onSubmit={this.handleSubmit}>
-            <div className="login-title">Busque</div>
+            <div className="login-title header-logo">Busque</div>
             <div className="login-desc">Sign In</div>
             <div className="login-description">to continue to Busque</div>
             <input

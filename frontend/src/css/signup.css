@@ -7,7 +7,7 @@
     width: 40%;
     margin-left: auto;
     margin-right: auto;
-    font-family: Verdana;
+    /* font-family: Verdana; */
 }
 
 .signup-form {
@@ -20,15 +20,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    /* margin-top: 30px; */
 }
 
 .signup-buttons {
     display: flex;
     flex-direction: column;
-    padding: 10px 10px 10px 10px;
 }
 
 .signup-title {
@@ -39,31 +35,35 @@
 }
 
 .signup-desc {
+    color: rgb(61, 61, 61); 
     font-size: 18px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .signup-description {
+    color: rgb(61, 61, 61); 
     font-size: 14px;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.signup-button {
-    margin: 5px 10px 10px 10px;
+#signup-button {
+    width: 36vw; 
+    border: none; 
     color: white;
     background-color:#4267B2;
-    border-radius: 5px;
-    /* padding-top: 5px; */
-    padding-bottom: 5px;
+    border-radius: 3px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     font-size: 18px;
     font-family: Verdana;
     font-weight: 600;
 }
 
-button:hover {
+#signup-button:hover {
     cursor: pointer;
+    background-color: #22458a;
 }
 
 .signup-form input {
@@ -72,19 +72,41 @@ button:hover {
     padding-left: 10px;
     margin-bottom: 20px;
     width: 35vw;
+    border: 1px solid lightgray; 
+    border-radius: 3px;
+}
+
+.signup-form select:focus {
+    outline: none; 
 }
 
 .signup-form select {
     padding: 5px 5px 5px 5px;
     margin-bottom: 20px;
     width: 36vw;
+    border: 1px solid lightgray; 
+    border-radius: 3px;
+    color: gray; 
+}
+
+.pic-upload-desc {
+    color: rgb(61, 61, 61); 
+    padding-bottom: 5px; 
 }
 
 #signup-profile {
-    width: 36vw;
+    width: 35vw; 
+    margin-right: -25px; 
 }
 
-@media screen and (max-width: 600px) {
+.form-footer-signup {
+  display: flex; 
+  justify-content: center;
+  text-decoration: none;
+  color: rgb(61, 61, 61);
+}
+
+@media screen and (max-width: 650px) {
     .signup-page {
         width: 80vw;
         border-style: none;
@@ -99,11 +121,20 @@ button:hover {
         width: 67vw;
     }
 
+    #signup-button {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        margin-bottom: 20px;
+        display: inline-block;
+        width: 69vw;
+    }
+
     .signup-form select {
-        width: 70vw;
+        width: 69vw;
     }
 
     #signup-profile {
-        width: 70vw;
+        width: 67vw;
     }
 }
