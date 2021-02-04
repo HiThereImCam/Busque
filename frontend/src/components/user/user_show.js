@@ -116,7 +116,6 @@ class UserShow extends React.Component {
               }}
               className="menu-icon-other"
             />
-            <Searchbar />
             <Link className="user-header-h1" to={"/"}>
               <h1>Busque</h1>
             </Link>

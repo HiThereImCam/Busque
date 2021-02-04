@@ -69,7 +69,7 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
-        <div className="user-header">
+        <div className="user-header-main">
           <GiHamburgerMenu
             size={25}
             onClick={() => {

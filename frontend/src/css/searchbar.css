@@ -1,7 +1,7 @@
 .search-results-container {
   display: block;
   justify-content: center;
-  z-index: 100000000;
+  z-index: 10000;
   position: absolute;
   width: 89.2%;
   margin-left: 11%;
@@ -21,7 +21,7 @@
 }
 
 .results-item:hover {
-  background-color: lightgray;
+  background-color: rgb(216, 216, 216);
 }
 
 a:link {
