@@ -29,3 +29,15 @@ export const createComment = (venueId, comment, user) => {
     user: user
   })
 };
+
+export const getVenueRatings = (venueId) => {
+  return axios.get(`/api/venues/${venueId}/ratings`, {
+    venueId, 
+  })
+}; 
+
+export const createVenueRating = (venueId, rating) => {
+  return axios.post(`/api/venues/${venueId}/ratings`, {
+    rating: rating,
+  })
+};

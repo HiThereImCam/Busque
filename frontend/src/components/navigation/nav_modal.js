@@ -41,7 +41,7 @@ class NavModal extends Component {
 
     if (!this.props.currentUser) {
       buttons = (
-        <div className="login-buttons">
+        <Fragment>
           <Link
             to="login"
             className="nav-link nav-login"
@@ -56,7 +56,7 @@ class NavModal extends Component {
           >
             Signup
           </Link>
-        </div>
+        </Fragment>
       );
     } else {
       buttons = (
@@ -100,7 +100,7 @@ class NavModal extends Component {
                   >
                     Best Venues
                   </Link>
-                  {buttons} 
+                  {buttons}
                 </div>
               </div>
             </div>
