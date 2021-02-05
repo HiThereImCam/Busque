@@ -52,7 +52,7 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUserComment(this.props.match.params.userId, this.state.comment, this.state.commenter._id)
+    this.props.createUserComment(this.props.match.params.userId, this.state.comment, this.state.commenter.id)
 
     this.setState({
       comment: "",
@@ -69,13 +69,11 @@ class UserShow extends React.Component {
       let showRatingAvg = () => {
         const ratingNums = [];
         this.props.user.ratings.forEach((ratingId, i) => {
-          {
-            this.props.ratings.forEach((rating) => {
-              if (rating._id === ratingId) {
-                ratingNums.push(rating.rating);
-              }
-            });
-          }
+          this.props.ratings.forEach((rating) => {
+            if (rating._id === ratingId) {
+              ratingNums.push(rating.rating);
+            }
+          });
         });
         if (ratingNums.length <= 0) {
           let avg = 0;
@@ -193,11 +191,10 @@ class UserShow extends React.Component {
                   {this.props.comments.map((comment, j) => {
                     if (comment._id === commentId) {
                       return (
-                        //TODO change comment.user to comment.commenter
                         <div className="review-each-user" key={j}>
                           <div className="reviewer-name"> 
                             {comment.commenter === undefined ? "Username says:" :
-                              (comment.commenter === this.props.currentUser && comment.commenter.username === undefined) ? "From You:" :
+                              (comment.commenter === this.props.currentUser.id && comment.commenter.username === undefined) ? "From You:" :
                                 "From " + comment.commenter.username + ":"}
                           </div>
                           {comment.comment}
