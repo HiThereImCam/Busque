@@ -9,11 +9,13 @@ const usersReducer = (state = {}, action) => {
         case RECEIVE_CURRENT_USER:
             return Object.assign({}, state, { [action.currentUser.id]: action.currentUser });
         case RECEIVE_USER:
-            return Object.assign({}, state, { [action.user.data._id]: action.user.data }); 
+            return Object.assign({}, state, { [action.user.data.id]: action.user.data }); 
         case RECEIVE_USERS:
             return Object.assign({}, state, formatUsers(action.users.data)); 
         case RECEIVE_USER_COMMENT:
+            console.log(state)
             let wholeUser = state[action.comment.data.user]
+            console.log(wholeUser)
             wholeUser.comments.push(action.comment.data._id)
             return state; 
         default: 

@@ -20,8 +20,8 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserComments(this.props.match.params.userId);
+    this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
