@@ -20,8 +20,8 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUser(this.props.match.params.userId);
+    this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -52,7 +52,7 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUserComment(this.props.match.params.userId, this.state.comment, this.state.commenter)
+    this.props.createUserComment(this.props.match.params.userId, this.state.comment, this.state.commenter._id)
 
     this.setState({
       comment: "",
@@ -145,6 +145,8 @@ class UserShow extends React.Component {
           <input className="submit-user" type="submit" value="Submit" />
         </form>
 
+      const noReviews = (this.props.user.comments.length === 0) ? <div>Be the first to review!</div> : null
+
       return (
         <div className="user-show-page">
           <div className="user-show-header">
@@ -181,7 +183,10 @@ class UserShow extends React.Component {
           <div className="user-reviews">
             <h2>Reviews</h2>
             {userCommentInput}
+            <br />
+            {noReviews}
           </div>
+          
           {this.props.user.comments.slice().reverse().map((commentId, i) => {
               return (
                 <div key={i}>
@@ -191,9 +196,9 @@ class UserShow extends React.Component {
                         //TODO change comment.user to comment.commenter
                         <div className="review-each-user" key={j}>
                           <div className="reviewer-name"> 
-                            {comment.user === undefined ? "Username says:" :
-                              (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
-                                "From " + comment.user.username + ":"}
+                            {comment.commenter === undefined ? "Username says:" :
+                              (comment.commenter === this.props.currentUser && comment.commenter.username === undefined) ? "From You:" :
+                                "From " + comment.commenter.username + ":"}
                           </div>
                           {comment.comment}
                           <div className="review-date">

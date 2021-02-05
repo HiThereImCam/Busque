@@ -5,10 +5,10 @@ export const getUsers = () => {
 };
 
 export const getUser = (id) => {
-  return axios.get(`api/users/current`, {
-    params: {
+  return axios.get(`api/users/${id}`, {
+    // params: {
       userId: id,
-    },
+    // },
   });
 };
 

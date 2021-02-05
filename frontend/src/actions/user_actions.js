@@ -44,10 +44,11 @@ export const fetchUsers = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const fetchUser = (userId) => (dispatch) =>
-  UserAPIUtil.getUser(userId)
+export const fetchUser = (userId) => (dispatch) => {
+  return UserAPIUtil.getUser(userId)
     .then((user) => dispatch(receiveUser(user)))
     .catch((err) => console.log(err));
+}
 
 export const fetchUserComments = (userId) => (dispatch) => {
   UserAPIUtil.getUserComments(userId)
