@@ -20,7 +20,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   //find venue by ID
   User.findById(req.params.id)
-    .populate("ratings", "rating")
+    .populate("ratings", "rating")  
     .populate("comments",  "comment")
     .then((user) => res.json(user))
 
