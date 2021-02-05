@@ -20,9 +20,11 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   //find venue by ID
   User.findById(req.params.id)
-
+    .populate("ratings", "rating")
+    .populate("comments",  "comment")
     .then((user) => res.json(user))
-    .catch((err) => res.status(404).json({ novenue: "User not found" }));
+
+    .catch((err) => res.status(404).json({ novenue: "User  not found" }));
 });
 
 // router.get("/:user_id", (req, res) => {
@@ -46,8 +48,6 @@ router.get(
     });
   }
 );
-
-
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -184,7 +184,7 @@ router.post(
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log(req);
-    console.log(res)
+    console.log(res);
     const newComment = new Comment({
       //needs user
       user: req.params.user_id,
@@ -204,9 +204,9 @@ router.post(
             path: "Comments",
             populate: {
               path: "commenter",
-            select: { username: 1 },
+              select: { username: 1 },
             },
-          })  
+          })
           .catch((err) => {
             console.log("comment error:", err);
             res.status(500).json({ comment: "we've encountered and error" });
@@ -239,6 +239,5 @@ router.get(
       });
   }
 );
-
 
 module.exports = router;
