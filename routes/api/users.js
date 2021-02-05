@@ -199,14 +199,14 @@ router.post(
           { $push: { comments: comment } },
           { new: true }
         )
-          .then(() => res.json(comment))
-          .populate({
-            path: "Comments",
-            populate: {
-              path: "commenter",
+        .populate({
+          path: "comments",
+          populate: {
+            path: "commenter",
             select: { username: 1 },
-            },
-          })  
+          },
+        })  
+          .then(() => res.json(comment))
           .catch((err) => {
             console.log("comment error:", err);
             res.status(500).json({ comment: "we've encountered and error" });
