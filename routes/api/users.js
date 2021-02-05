@@ -17,6 +17,23 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
 });
 
+router.get("/:id", (req, res) => {
+  //find venue by ID
+  User.findById(req.params.id)
+
+    .then((user) => res.json(user))
+    .catch((err) => res.status(404).json({ novenue: "User not found" }));
+});
+
+// router.get("/:user_id", (req, res) => {
+//   //most popular venue
+//   let popularVenue = {};
+//   Schedule.find().then((schedule) => {
+//     console.log(schedule);
+//     res.json(schedule);
+//   });
+// });
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
@@ -30,14 +47,7 @@ router.get(
   }
 );
 
-router.get("/:user_id", (req, res) => {
-  //most popular venue
-  let popularVenue = {};
-  Schedule.find().then((schedule) => {
-    console.log(schedule);
-    res.json(schedule);
-  });
-});
+
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
