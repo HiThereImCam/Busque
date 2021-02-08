@@ -254,7 +254,5 @@ router.patch("/:venue_id/ratings", (req, res) => {
         }
     );
 });
-  }
-);
 
 module.exports = router;

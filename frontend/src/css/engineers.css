@@ -1,0 +1,10 @@
+.engineer-block {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.engineer {
+    display: flex;
+    flex-direction: column;
+}
