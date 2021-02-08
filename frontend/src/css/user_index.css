@@ -1,3 +1,4 @@
+/* header info  */
 .user-header-container {
   display: flex;
   padding: 20px;
@@ -52,38 +53,29 @@
   cursor: pointer;
 }
 
-.user-list-items-outer {
-  display: block;
-  flex-direction: row;
+/* user index starts */
+/* grid info */
+.user-index-container {
+  display: grid; 
+  grid-template-columns: 33% 33% 33%;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  margin-top: 20px; 
 }
 
 .user-list-items {
-  display: flex;
-  margin-left: 10vw;
-  margin-right: 10vw;
-  padding-left: 25px;
+  padding-left: 35px;
   padding-right: 25px;
   margin-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid lightgray;
 }
 
-.user-photo {
-  display: block;
-  border: 1px solid lightgray;
-  margin-right: 30px;
-  height: 150px;
-  /* width: 150px;   */
-}
-
 .user-photo img {
   height: 150px;
   width: 150px;
-}
-
-.user-info {
-  display: block;
-  flex-direction: column;
+  border: 1px solid lightgray;
+  margin-bottom: 10px;
 }
 
 .user-username {
@@ -98,20 +90,30 @@
 }
 
 .username-outer {
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 .performer-type {
-  padding-bottom: 10px;
   font-size: 15px;
 }
 
 .user-rating {
-    padding-bottom: 10px;
-    font-size: 15px;
+  padding-bottom: 5px;
 }
 
-.bio {
-  padding-bottom: 10px;
-  font-size: 15px;
+
+@media screen and (max-width: 950px) {
+  .user-index-container {
+    display: block; 
+  }
+  
+  .user-list-items {
+    display: flex;
+  }
+  
+  .user-photo {
+    margin-right: 30px;
+    height: 150px;
+  }
 }
+

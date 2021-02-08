@@ -94,9 +94,9 @@ class UserIndexItem extends React.Component {
                             <div className="performer-type">
                                 Performer Type: {this.props.user.performerType}
                             </div>
-                            <div className="bio">
+                            {/* <div className="bio">
                                 Bio: {this.props.user.bio}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
             </div>

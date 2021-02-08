@@ -24,13 +24,15 @@ class UserIndex extends React.Component {
             <h1>Our Artists</h1>
           </div>
         </div>
-        {this.props.users.map((user, i) => {
-          return <UserIndexItem user={user} 
-            createUserRating={this.props.createUserRating}
-            fetchUserRatings={this.props.fetchUserRatings}
-            ratings={this.props.ratings}
-            key={i} />;
-        })}
+        <div className="user-index-container">
+          {this.props.users.map((user, i) => {
+            return <UserIndexItem user={user} 
+              createUserRating={this.props.createUserRating}
+              fetchUserRatings={this.props.fetchUserRatings}
+              ratings={this.props.ratings}
+              key={i} />;
+          })}
+        </div>
       </div>
     );
   }
