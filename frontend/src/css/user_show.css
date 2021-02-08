@@ -53,6 +53,7 @@
 .user-show-photo img {
     /* width: 200px;  */
     height: 250px; 
+    border: 1px solid lightgray; 
 }
 
 .user-show-info {
