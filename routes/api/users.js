@@ -10,6 +10,8 @@ const keys = require("../../config/keys");
 const passport = require("passport");
 const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
+const Comment = require("../../models/Comment");
+const Like = require("../../models/Likes");
 
 router.get("/", (req, res) => {
   User.find()
@@ -20,19 +22,12 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   //find venue by ID
   User.findById(req.params.id)
-
+    .populate("ratings", "rating")
+    .populate("comments", "comment")
     .then((user) => res.json(user))
-    .catch((err) => res.status(404).json({ novenue: "User not found" }));
-});
 
-// router.get("/:user_id", (req, res) => {
-//   //most popular venue
-//   let popularVenue = {};
-//   Schedule.find().then((schedule) => {
-//     console.log(schedule);
-//     res.json(schedule);
-//   });
-// });
+    .catch((err) => res.status(404).json({ noUser: "User  not found" }));
+});
 
 router.get(
   "/current",
@@ -46,8 +41,6 @@ router.get(
     });
   }
 );
-
-
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -177,14 +170,12 @@ router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
 
-//TODO get route that displays
-
 router.post(
   "/:user_id/comments",
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log(req);
-    console.log(res)
+    console.log(res);
     const newComment = new Comment({
       //needs user
       user: req.params.user_id,
@@ -199,14 +190,14 @@ router.post(
           { $push: { comments: comment } },
           { new: true }
         )
-        .populate({
-          path: "comments",
-          populate: {
-            path: "commenter",
-            select: { username: 1 },
-          },
-        })  
           .then(() => res.json(comment))
+          .populate({
+            path: "Comments",
+            populate: {
+              path: "commenter",
+              select: { username: 1 },
+            },
+          })
           .catch((err) => {
             console.log("comment error:", err);
             res.status(500).json({ comment: "we've encountered and error" });
@@ -235,10 +226,55 @@ router.get(
       .then((user) => res.json(user.comments))
       .catch((err) => {
         console.log("comment error:", err);
-        res.status(500).json({ comment: "we've encountered and error" });
+        res.status(404).json({ comment: "we've encountered and error" });
       });
   }
 );
+
+router.get("/likes", (req, res) => {
+  Likes.find()
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.get("/:id/likes", (req, res) => {
+  Likes.findById(req.params.id)
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.post("/:id/likes", (req, res) => {
+  const newLike = new Like({
+    userId: req.params.id,
+    likerId: req.body.likerId,
+  });
+
+  newLike
+    .save()
+    .then((like) => res.json(like))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.patch('/:id/likes/edit', 
+(req, res) => {
+  mongoose.set('useFindAndModify', false);
+Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(like => res.json(like))
+  }
+)
+
+router.delete("/:id/likes/delete", (req, res) => {
+  Like.findByIdAndDelete(req.params.id)
+    .then((like) => res.json("Like successfully deleted"))
+    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+});
+
 
 
 module.exports = router;
