@@ -23,8 +23,8 @@
 .user-search {
   display: flex;
   width: 50%;
-  border: 0.5px solid lightgray;
-  border-radius: 5px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
   position: relative;
 }
 
@@ -58,24 +58,29 @@
 .user-index-container {
   display: grid; 
   grid-template-columns: 33% 33% 33%;
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
   margin-top: 20px; 
 }
 
 .user-list-items {
-  padding-left: 45px;
+  display: flex; 
+  padding-left: 35px;
   padding-right: 25px;
   margin-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid lightgray;
 }
 
+.user-info {
+  padding-left: 10px; 
+}
+
 .user-photo img {
   height: 150px;
   width: 150px;
   border: 1px solid lightgray;
-  margin-bottom: 10px;
+  border-radius: 3px;
 }
 
 .user-username {
@@ -101,6 +106,12 @@
   padding-bottom: 5px;
 }
 
+@media screen and (max-width: 1060px) and (min-width: 950px) {
+  .user-index-container {
+    display: grid; 
+    grid-template-columns: 50% 50%;
+  }
+}
 
 @media screen and (max-width: 950px) {
   .user-index-container {
