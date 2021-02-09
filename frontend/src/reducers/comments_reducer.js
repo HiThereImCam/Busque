@@ -1,4 +1,5 @@
 import { RECEIVE_COMMENT, RECEIVE_VENUE_COMMENTS } from '../actions/venue_actions'; 
+import { RECEIVE_USER_COMMENT, RECEIVE_USER_COMMENTS } from '../actions/user_actions';
 
 const CommentsReducer = (state = {}, action) => {
     Object.freeze(state); 
@@ -12,6 +13,13 @@ const CommentsReducer = (state = {}, action) => {
             return newState;
         case RECEIVE_COMMENT:
             return Object.assign({}, newState, {[action.comment.data._id]: action.comment.data})
+        case RECEIVE_USER_COMMENT:
+            return Object.assign({}, newState, {[action.comment.data._id]: action.comment.data})
+        case RECEIVE_USER_COMMENTS:
+            for (let j = 0; j < action.user.data.length; j++) {
+                newState[action.user.data[j]._id] = action.user.data[j]
+            }
+            return newState; 
         default: 
             return state
     }

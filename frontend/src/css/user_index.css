@@ -10,7 +10,7 @@
   display: flex;
   font-size: 25px;
   text-decoration: none;
-  width: 61%;
+  width: 55%;
 }
 
 .user-search-container {
@@ -28,7 +28,7 @@
 }
 
 .user-search input {
-  margin-left: 12%;
+  margin-left: 15%;
   border: none;
   border-color: trasparent;
   width: 100%;
@@ -54,10 +54,10 @@
 }
 
 .menu-icon-other {
-  margin-left: 15px;
+  margin-left: 8px;
   border-radius: 4px;
   background-color: white;
-  margin-top: 5px;
+  margin-top: 1px;
   color: light-grey;
   fill: #757575;
   position: absolute;
@@ -69,7 +69,6 @@
 .user-list-items-outer {
   display: block;
   flex-direction: row;
-  /* flex-wrap: wrap;  */
 }
 
 .user-list-items {
@@ -81,12 +80,10 @@
   margin-top: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid lightgray;
-  /* flex-basis: 50%; */
 }
 
 .user-photo {
   display: block;
-  /* flex-basis: 25%;  */
   border: 1px solid lightgray;
   margin-right: 30px;
   height: 150px;
@@ -101,7 +98,6 @@
 .user-info {
   display: block;
   flex-direction: column;
-  /* flex-basis: 75%; */
 }
 
 .user-username {
@@ -112,7 +108,6 @@
 }
 
 .user-username:hover {
-  /* text-decoration: underline; */
   color: rgb(34, 34, 175);
 }
 
@@ -129,10 +124,6 @@
   padding-bottom: 10px;
   font-size: 15px;
 }
-/* .review-star {
-    background: yellow;
-    padding-bottom: -5px;
-} */
 
 .bio {
   padding-bottom: 10px;

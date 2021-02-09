@@ -17,6 +17,23 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(404).json({ nousers: "No users found" }));
 });
 
+router.get("/:id", (req, res) => {
+  //find venue by ID
+  User.findById(req.params.id)
+
+    .then((user) => res.json(user))
+    .catch((err) => res.status(404).json({ novenue: "User not found" }));
+});
+
+// router.get("/:user_id", (req, res) => {
+//   //most popular venue
+//   let popularVenue = {};
+//   Schedule.find().then((schedule) => {
+//     console.log(schedule);
+//     res.json(schedule);
+//   });
+// });
+
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
@@ -30,14 +47,7 @@ router.get(
   }
 );
 
-router.get("/:user_id", (req, res) => {
-  //most popular venue
-  let popularVenue = {};
-  Schedule.find().then((schedule) => {
-    console.log(schedule);
-    res.json(schedule);
-  });
-});
+
 
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -174,28 +184,61 @@ router.post(
   // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     console.log(req);
-    console.log(res);
-
+    console.log(res)
     const newComment = new Comment({
       //needs user
       user: req.params.user_id,
       comment: req.body.comment,
-      commenter: req.body.user, //*this is the working one at the moment
+      commenter: req.body.commenter,
     });
     console.log(newComment);
     newComment.save().then(
       (comment) => {
-        console.log("Comments: ", comment);
         User.findByIdAndUpdate(
           req.params.user_id,
           { $push: { comments: comment } },
           { new: true }
         )
-        .then(() => res.json(comment));
+        .populate({
+          path: "comments",
+          populate: {
+            path: "commenter",
+            select: { username: 1 },
+          },
+        })  
+          .then(() => res.json(comment))
+          .catch((err) => {
+            console.log("comment error:", err);
+            res.status(500).json({ comment: "we've encountered and error" });
+          });
       }
       // response to front end
     );
   }
 );
+
+router.get(
+  "/:user_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+
+    User.findOne({ _id: req.params.user_id })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "commenter",
+          options: { sort: { date: -1 } },
+          select: { username: 1 },
+        },
+      })
+      .then((user) => res.json(user.comments))
+      .catch((err) => {
+        console.log("comment error:", err);
+        res.status(500).json({ comment: "we've encountered and error" });
+      });
+  }
+);
+
 
 module.exports = router;

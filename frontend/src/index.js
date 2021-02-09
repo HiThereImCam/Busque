@@ -11,14 +11,7 @@ import { logout } from "./actions/session_actions";
 
 //TESTING
 
-import { getVenues } from "./util/venue_api_util";
-import { fetchVenues, fetchVenueComments } from "./actions/venue_actions";
-import { getVenueComments } from './util/venue_api_util';
-// import { getUserRatings, createRating } from "./util/user_api_util";
-// import { createUserRating, fetchUserRatings } from "./actions/user_actions";
-import { getPhotos } from './actions/photo_actions'; 
-// import { createVenueRating, fetchVenueRatings } from "./actions/venue_actions";
-// import { createComment } from "./util/venue_api_util";
+
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -44,16 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  // window.createVenueRating = createVenueRating;
-  // window.fetchVenueRatings = fetchVenueRatings; 
-  // window.fetchUser = fetchUser;
-  // window.fetchUsers = fetchUsers; 
-  window.fetchVenueComments = fetchVenueComments; 
-  window.getVenueComments = getVenueComments; 
-  window.fetchVenues = fetchVenues;
-  window.getVenues = getVenues;
-  window.getPhotos = getPhotos; 
-  // window.createComment = createComment; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
