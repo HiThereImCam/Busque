@@ -1,3 +1,7 @@
+.user-show-page {
+    margin-bottom: 50px;
+}
+
 .user-show-header {
     display: flex;
     padding: 20px;
@@ -79,4 +83,47 @@
 
 .user-reviews h2 {
     font-size: larger; 
+}
+
+.review-input-user {
+    border: 1px solid lightgray; 
+    border-radius: 4px;
+    font-family: "Roboto", sans-serif;
+    padding: 8px; 
+    box-shadow: lightgray 0px 0px 5px 0px;
+    margin-left: 0px;
+    margin-top: 20px; 
+    margin-right: 10px; 
+}
+
+.submit-user {
+    padding: 8px; 
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "Roboto", sans-serif;
+    background: #4267B2; 
+    color: white; 
+    border: 1px solid #4267B2; 
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-top: 5px; 
+}
+
+.submit-user:hover {
+    cursor: pointer;
+    background: #22458a;
+}
+.submit-user:focus {
+    outline: none; 
+}
+
+.review-each-user {
+    border: 1px solid lightgray; 
+    border-radius: 4px;
+    margin: 5px; 
+    padding: 5px; 
+    padding-left: 8px;
+    margin-left: 10vw; 
+    margin-right: 10vw;
 }

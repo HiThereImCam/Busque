@@ -118,11 +118,11 @@ class VenueIndexItem extends React.Component {
         let showRatingAvg = () => {
             const ratingNums = []
             this.props.venue.ratings.forEach((ratingId, i) => {
-                {this.props.ratings.forEach((rating) => {
+                this.props.ratings.forEach((rating) => {
                     if (rating._id === ratingId) {
                         ratingNums.push(rating.rating)
                     }
-                })}
+                })
             })
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
