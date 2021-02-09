@@ -12,6 +12,8 @@ const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 const Comment = require("../../models/Comment");
 const Like = require("../../models/Likes");
+const validateLikeInput = require("../../validations/likes");
+
 
 router.get("/", (req, res) => {
   User.find()
@@ -248,6 +250,12 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
   const newLike = new Like({
     userId: req.params.id,
     likerId: req.body.likerId,
@@ -264,6 +272,12 @@ router.post("/:id/likes", (req, res) => {
 router.patch('/:id/likes/edit', 
 (req, res) => {
   mongoose.set('useFindAndModify', false);
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
 Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then(like => res.json(like))
   }

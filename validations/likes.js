@@ -13,7 +13,7 @@ module.exports = function validateLikeInput(data) {
   if (Validator.isEmpty(data.likerId)) {
     errors.likerId = "Author Id is required";
   }
-
+  
   if (Validator.isEmpty(data.recipeId)) {
     errors.recipeId = "Venue Id is required";
   }
