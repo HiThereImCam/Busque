@@ -271,33 +271,28 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-
-  //  const { errors, isValid } = validateLikeInput(req.body);
-
-  //  if (!isValid) {
-  //    return res.status(404).json(errors);
-  //  }  
-  const newLike = new Likes({
-    venueId: req.params.id,
+  const newLike = new Like({
+    venue: req.params.id,
     likerId: req.body.likerId,
   });
 
-  newLike
-    .save()
-    .then((like) => res.json(like))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
+  newLike.save().then((like) => {
+    Like.findbyIdandUpdate(
+      req.params.id,
+      { $push: { likes: like } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => {
+        res.status(404).json({ comment: "we've encountered and error" });
+      });
+  });
 });
 
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
 
-  //  const { errors, isValid } = validateLikeInput(req.body);
 
-  //  if (!isValid) {
-  //    return res.status(404).json(errors);
-  //  }
   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
   );
