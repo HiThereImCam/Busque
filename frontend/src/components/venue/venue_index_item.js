@@ -181,9 +181,7 @@ class VenueIndexItem extends React.Component {
                                 {showRatingAvg()}
                             </div>
                             <div>
-                                <form>
-                                    <button onClick={this.handleLike}>Like</button>
-                                </form>
+                                <button onClick={this.handleLike}>Like</button>
                                 {this.props.venue.likes}
                             </div>
                             <div className="venue-type">

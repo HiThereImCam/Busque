@@ -46,7 +46,7 @@ const UserSchema = new Schema({
   likes: {
     type: Number, 
     required: false, 
-    default: 0,
+    default: null,
   },
   liked: [
     {

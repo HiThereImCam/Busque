@@ -18,16 +18,16 @@ const usersReducer = (state = {}, action) => {
             let wholeUser = state[action.comment.data.user]
             wholeUser.comments.push(action.comment.data._id)
             return state; 
-        case CREATE_VENUE_LIKE:
-            let userVenueLike = state[action.like.data.likerId]
-            let likedArr = userVenueLike.liked
-            likedArr.push(action.like.data._id)
         case CREATE_USER_LIKE: 
             let userLike = state[action.like.data.likerId]
             let likedUserArr = userLike.liked
             likedUserArr.push(action.like.data._id)
             let likedUser = state[action.like.data.userId]
             likedUser.likes++
+        case CREATE_VENUE_LIKE:
+            let userVenueLike = state[action.like.data.likerId]
+            let likedArr = userVenueLike.liked
+            likedArr.push(action.like.data._id)
         default: 
             return state; 
     }

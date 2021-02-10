@@ -6,6 +6,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
+const validateLikeInput = require("../../validations/likes");
 const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
@@ -269,6 +270,12 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
   const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
@@ -284,6 +291,12 @@ router.post("/:id/likes", (req, res) => {
 
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
   Like.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
   );
