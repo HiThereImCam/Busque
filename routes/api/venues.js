@@ -273,9 +273,9 @@ router.post("/:id/likes", (req, res) => {
 
   //  const { errors, isValid } = validateLikeInput(req.body);
 
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }  
+  //  if (!isValid) {
+  //    return res.status(404).json(errors);
+  //  }  
   const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
@@ -294,9 +294,9 @@ router.patch("/:id/likes/edit", (req, res) => {
 
   //  const { errors, isValid } = validateLikeInput(req.body);
 
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }
+  //  if (!isValid) {
+  //    return res.status(404).json(errors);
+  //  }
   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
   );
