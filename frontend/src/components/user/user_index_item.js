@@ -8,16 +8,32 @@ class UserIndexItem extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            user: "",
+        }
+
         this.handleRating = this.handleRating.bind(this)
+        this.handleLike = this.handleLike.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchUserRatings(this.props.user._id)
+        this.props.fetchUserLikes(this.props.user._id)
+
+        if (this.props.currentUser !== undefined) {
+            this.setState({
+                user: this.props.currentUser
+            })
+        }  
     }
 
     handleRating(nextValue) {
         this.props.createUserRating(this.props.user._id, nextValue)
 
+    }
+    handleLike(e) {
+        e.preventDefault();
+        this.props.createUserLike(this.props.user._id, this.state.user)
     }
 
     render() {
@@ -94,8 +110,9 @@ class UserIndexItem extends React.Component {
                             <div className="performer-type">
                                 Performer Type: {this.props.user.performerType}
                             </div>
-                            <div className="bio">
-                                Bio: {this.props.user.bio}
+                            <div>
+                                <button onClick={this.handleLike}>Like</button>
+                                {this.props.user.likes}
                             </div>
                         </div>
                     </div>

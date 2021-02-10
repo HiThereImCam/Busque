@@ -100,6 +100,11 @@ class NavModal extends Component {
                   >
                     Best Venues
                   </Link>
+                  <Link className="nav-link nav-engineers"
+                    to="/engineers"
+                    onClick={() => closeNavModal()}>
+                    Meet the Engineers
+                  </Link>
                   {buttons}
                 </div>
               </div>

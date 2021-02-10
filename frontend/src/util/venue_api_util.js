@@ -41,3 +41,33 @@ export const createVenueRating = (venueId, rating) => {
     rating: rating,
   })
 };
+
+export const getAllVenueLikes = () => {
+  return axios.get('/api/venues/likes')
+};
+
+export const getVenueLikes = (venueId) => {
+  return axios.get(`/api/venues/${venueId}/likes`, {
+    venueId, 
+  })
+};
+
+export const createVenueLike = (venueId, likerId) => {
+  return axios.post(`/api/venues/${venueId}/likes`, {
+    venueId, 
+    likerId: likerId
+  })
+};
+
+export const updateVenueLike = (venueId) => {
+  return axios.patch(`/api/venues/${venueId}/edit`, {
+    venueId
+  })
+}
+
+export const deleteVenueLike = (venueId, likeId) => {
+  return axios.delete(`/api/venues/${venueId}/likes/delete`, {
+    venueId, 
+    likeId
+  })
+};

@@ -18,12 +18,14 @@ class VenueIndexItem extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.update = this.update.bind(this); 
-        this.handleRating = this.handleRating.bind(this)
+        this.handleRating = this.handleRating.bind(this); 
+        this.handleLike = this.handleLike.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchVenueComments(this.props.venue._id)
         this.props.fetchVenueRatings(this.props.venue._id)
+        this.props.fetchVenueLikes(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -61,6 +63,11 @@ class VenueIndexItem extends React.Component {
 
     handleRating(nextValue, prevValue) { 
         this.props.createVenueRating(this.props.venue._id, nextValue)
+    }
+
+    handleLike(e) {
+        e.preventDefault(); 
+        this.props.createVenueLike(this.props.venue._id, this.state.user)
     }
 
     handleSubmit(e) {
@@ -172,6 +179,10 @@ class VenueIndexItem extends React.Component {
                         <div className="venue-info venue-info-alt">
                             <div className="venue-rating">
                                 {showRatingAvg()}
+                            </div>
+                            <div>
+                                <button onClick={this.handleLike}>Like</button>
+                                {this.props.venue.likes}
                             </div>
                             <div className="venue-type">
                                 Type: {this.props.venue.type}

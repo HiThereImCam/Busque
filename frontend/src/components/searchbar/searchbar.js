@@ -7,7 +7,7 @@ class Searchbar extends Component {
   constructor(props) {
     super(props);
 
-    this.openModal = this.props.openModal;
+    // this.openModal = this.props.openModal;
     this.state = {
       input: "",
     };
@@ -71,7 +71,7 @@ class Searchbar extends Component {
         <GiHamburgerMenu
           size={25}
           onClick={() => {
-            this.openModal();
+            this.props.openModal();
           }}
           className="menu-icon-other"
         />
