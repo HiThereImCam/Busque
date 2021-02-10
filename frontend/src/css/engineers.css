@@ -1,10 +1,58 @@
+.engineer-page {
+    background-image: url("../img/busque_engineer_background.jpeg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.user-header {
+    background-color: white;
+}
+
 .engineer-block {
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 820px;
+    /* margin-left: 600px; */
+    margin-left: 15%;
+    margin-top: 30px;
 }
 
 .engineer {
     display: flex;
     flex-direction: column;
+    width: 400px;
+    margin: 5px;
+    font-size: 32px;
+    text-align: left;
+}
+
+.engineer > p {
+    color: darkslategray;
+    font-size: 20px;
+}
+
+.engineer-icons {
+    display: flex;
+    flex-direction: row;
+}
+
+.engineer-icon-linkedin {
+    color: #0077B5;
+    margin: 10px;
+    font-size: 84px;
+}
+
+.engineer-icon-github {
+    color: black;
+    margin: 10px;
+    font-size: 84px;
+}
+
+@media screen and (max-width: 600px) {
+
 }

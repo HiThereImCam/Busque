@@ -9,60 +9,68 @@ class Engineers extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='engineer-page'>
                 {/* <Link to="/">Back to Map</Link> */}
                 <div className="user-header">
-            <GiHamburgerMenu
-              size={25}
-              onClick={() => {
-                openNavModal();
-              }}
-              className="menu-icon-other"
-            />
-            <Link className="user-header-h1" to={"/"}>
-              <h1>Busque</h1>
-            </Link>
-          </div>
+                    <GiHamburgerMenu
+                    size={25}
+                    onClick={() => {
+                        openNavModal();
+                    }}
+                    className="menu-icon-other"
+                    />
+                    <Link className="user-header-h1" to={"/"}>
+                    <h1>Busque</h1>
+                    </Link>
+                </div>
                 <div className='engineer-block'>
                     <div className='engineer'>
                         <div>Cameron Tanjoco</div>
-                        <div>Project Lead</div>
-                        <a href="https://www.linkedin.com/in/cameron-tanjoco-8ba612a3/" target="_blank">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/HiThereImCam" target="_blank">
-                            <i className="fab fa-github"></i>
-                        </a>
+                        <p>Project Lead</p>
+                        <div className="engineer-icons">
+                            <a className="engineer-icon-linkedin" href="https://www.linkedin.com/in/cameron-tanjoco-8ba612a3/" target="_blank">
+                                <i className="fab fa-linkedin fa-x3"></i>
+                            </a>
+                            <a className="engineer-icon-github" href="https://github.com/HiThereImCam" target="_blank">
+                                <i className="fab fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                     <div className='engineer'>
                         <div>Alana Shannon</div>
-                        <div>Frontend Lead</div>
-                        <a href="https://www.linkedin.com/in/alana-shannon/" target="_blank">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/alanashannon" target="_blank">
-                            <i className="fab fa-github"></i>
-                        </a>
+                        <p>Frontend Lead</p>
+                        <div className="engineer-icons">
+                            <a className="engineer-icon-linkedin" href="https://www.linkedin.com/in/alana-shannon/" target="_blank">
+                                <i className="fab fa-linkedin fa-x3"></i>
+                            </a>
+                            <a className="engineer-icon-github" href="https://github.com/alanashannon" target="_blank">
+                                <i className="fab fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                     <div className='engineer'>
                         <div>David Elrod</div>
-                        <div>Backend Lead</div>
-                        <a href="https://www.linkedin.com/in/thedavidelrod/" target="_blank">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/thedavidelrod" target="_blank">
-                            <i className="fab fa-github"></i>
-                        </a>
+                        <p>Backend Lead</p>
+                        <div className="engineer-icons">
+                            <a className="engineer-icon-linkedin" href="https://www.linkedin.com/in/thedavidelrod/" target="_blank">
+                                <i className="fab fa-linkedin fa-x3"></i>
+                            </a>
+                            <a className="engineer-icon-github" href="https://github.com/thedavidelrod" target="_blank">
+                                <i className="fab fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                     <div className='engineer'>
                         <div>Maxbryan Cosmosse</div>
-                        <div>Flex Assistant</div>
-                        <a href="https://www.linkedin.com/in/maxbryan-cosmosse-94055416a/" target="_blank">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://github.com/mcosmosse" target="_blank">
-                            <i className="fab fa-github"></i>
-                        </a>
+                        <p>Flex Assistant</p>
+                        <div className="engineer-icons">
+                            <a className="engineer-icon-linkedin" href="https://www.linkedin.com/in/maxbryan-cosmosse-94055416a/" target="_blank">
+                                <i className="fab fa-linkedin fa-x3"></i>
+                            </a>
+                            <a className="engineer-icon-github" href="https://github.com/mcosmosse" target="_blank">
+                                <i className="fab fa-github"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
