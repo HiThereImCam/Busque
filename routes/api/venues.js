@@ -259,8 +259,6 @@ router.get("/likes", (req, res) => {
       res.status(404).json({ comment: "we've encountered and error" });
     });
 });
-<<<<<<< HEAD
-=======
 
 router.get("/:id/likes", (req, res) => {
   Likes.findById(req.params.id)
@@ -310,6 +308,5 @@ router.delete("/:id/likes/delete", (req, res) => {
 });
 
 
->>>>>>> 19f27ffdbf3c225a60b888ba351439108870ab73
 
 module.exports = router;
