@@ -10,6 +10,7 @@ const validateLikeInput = require("../../validations/likes");
 const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
+const Likes = require("../../models/Likes");
 
 router.get("/", (req, res) => {
   //venue index
@@ -271,11 +272,11 @@ router.get("/:id/likes", (req, res) => {
 
 router.post("/:id/likes", (req, res) => {
 
-   const { errors, isValid } = validateLikeInput(req.body);
+  //  const { errors, isValid } = validateLikeInput(req.body);
 
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }
+  //  if (!isValid) {
+  //    return res.status(404).json(errors);
+  //  }  
   const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
@@ -292,18 +293,18 @@ router.post("/:id/likes", (req, res) => {
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
 
-   const { errors, isValid } = validateLikeInput(req.body);
+  //  const { errors, isValid } = validateLikeInput(req.body);
 
    if (!isValid) {
      return res.status(404).json(errors);
    }
-  Like.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+  Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
   );
 });
 
 router.delete("/:id/likes/delete", (req, res) => {
-  Like.findByIdAndDelete(req.params.id)
+  Likes.findByIdAndDelete(req.params.id)
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
