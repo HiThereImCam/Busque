@@ -269,7 +269,7 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-  const newLike = new Like({
+  const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
   });

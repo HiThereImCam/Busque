@@ -31,7 +31,6 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-
   comments: [
     {
       type: Schema.Types.ObjectId,
@@ -42,6 +41,17 @@ const UserSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "ratings",
+    },
+  ],
+  likes: {
+    type: Number, 
+    required: false, 
+    default: 0,
+  },
+  liked: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "likes",
     },
   ],
   followers: [

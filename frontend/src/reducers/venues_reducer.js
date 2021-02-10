@@ -3,7 +3,9 @@ import {
   RECEIVE_VENUES,
   RECEIVE_COMMENT,
 } from "../actions/venue_actions";
+import { RECEIVE_ALL_VENUE_LIKES, RECEIVE_VENUE_LIKES, CREATE_VENUE_LIKE, REMOVE_VENUE_LIKE } from '../actions/venue_actions';
 import { formatVenues } from "./venue_selectors";
+
 const VenuesReducer = (state = [], action) => {
   Object.freeze(state);
   let newState = [...state];
@@ -31,6 +33,9 @@ const VenuesReducer = (state = [], action) => {
       );
       wholeVenue.comments.push(action.comment.data._id);
       return newState;
+    case CREATE_VENUE_LIKE: 
+      let likeVenue = newState.find((venue) => venue._id === action.like.data.venueId)
+      likeVenue.likes++
     default:
       return state;
   }

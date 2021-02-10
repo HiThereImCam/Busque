@@ -37,6 +37,10 @@ class VenueIndex extends React.Component {
                         createVenueRating={this.props.createVenueRating}
                         fetchVenueRatings={this.props.fetchVenueRatings}
                         ratings={this.props.ratings}
+                        likes={this.props.likes}
+                        fetchVenueLikes={this.props.fetchVenueLikes}
+                        createVenueLike={this.props.createVenueLike}
+                        removeVenueLike={this.props.removeVenueLike}
                         key={i} />
                 })}
             </div>
