@@ -6,6 +6,11 @@ export const RECEIVE_USER_COMMENTS = "RECEIVE_USER_COMMENTS";
 export const RECEIVE_USER_COMMENT = "RECEIVE_USER_COMMENT"; 
 export const RECEIVE_USER_RATING = "GET_USER_RATING";
 export const RECEIVE_USER_RATINGS = "GET_USER_RATINGS";
+export const RECEIVE_ALL_USER_LIKES = "RECEIVE_ALL_USER_LIKES";
+export const RECEIVE_USER_LIKES = "RECEIVE_USER_LIKES";
+export const CREATE_USER_LIKE = "CREATE_USER_LIKE";
+export const UPDATE_USER_LIKE = "UPDATE_USER_LIKE";
+export const REMOVE_USER_LIKE = "REMOVE_USER_LIKE"; 
 
 const receiveUsers = (users) => ({
   type: RECEIVE_USERS,
@@ -37,6 +42,28 @@ const receiveRatings = (ratings) => ({
   type: RECEIVE_USER_RATINGS,
   ratings
 });
+
+const receiveAllUserLikes = (likes) => ({
+  type: RECEIVE_ALL_USER_LIKES,
+  likes
+});
+
+const receiveUserLikes = (user, likes) => ({
+  type: RECEIVE_USER_LIKES,
+  user,
+  likes
+});
+
+const receiveUserLike = (like) => ({
+  type: CREATE_USER_LIKE,
+  like
+});
+
+//update?
+
+const deleteUserLike = (likeId) => ({
+  likeId
+})
 
 export const fetchUsers = () => (dispatch) => {
   return UserAPIUtil.getUsers()
@@ -72,4 +99,30 @@ export const fetchUserRatings = (userId) => (dispatch) => {
   return UserAPIUtil.getUserRatings(userId)
     .then((ratings) => dispatch(receiveRatings(ratings)))
     .catch((err) => console.log(err))
+};
+
+export const fetchAllUserLikes = () => (dispatch) => {
+  return UserAPIUtil.getAllUserLikes()
+    .then((likes) => dispatch(receiveAllUserLikes(likes)))
+    .catch((err) => console.log(err))
+};
+
+export const fetchUserLikes = (userId) => (dispatch) => {
+  return UserAPIUtil.getUserLikes(userId)
+    .then((user, likes) => dispatch(receiveUserLikes(user, likes)))
+    .catch((err) => console.log(err))
+};
+
+export const createUserLike = (userId, likerId) => (dispatch) => {
+  return UserAPIUtil.createUserLike(userId, likerId)
+    .then(like => dispatch(receiveUserLike(like)))
+    .catch((err) => console.log(err))
+};
+
+//update?
+
+export const removeUserLike = (userId, likeId) => (dispatch) => {
+  return UserAPIUtil.deleteUserLike(userId, likeId)
+    .then(likeId => dispatch(deleteUserLike(likeId)))
+    .catch(err => console.log(err))
 };

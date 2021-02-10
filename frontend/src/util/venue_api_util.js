@@ -66,7 +66,7 @@ export const updateVenueLike = (venueId) => {
 }
 
 export const deleteVenueLike = (venueId, likeId) => {
-  return axios.patch(`/api/venues/${venueId}/likes/delete`, {
+  return axios.delete(`/api/venues/${venueId}/likes/delete`, {
     venueId, 
     likeId
   })

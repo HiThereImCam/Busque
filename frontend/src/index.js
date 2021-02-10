@@ -12,6 +12,7 @@ import { logout } from "./actions/session_actions";
 //TESTING
 // import { getAllVenueLikes, getVenueLikes, createVenueLike, updateVenueLike, deleteVenueLike } from './util/venue_api_util'; 
 import { fetchAllVenueLikes, fetchVenueLikes, createVenueLike, removeVenueLike } from './actions/venue_actions';
+import { createUserLike } from './actions/user_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.fetchVenueLikes = fetchVenueLikes; 
   window.createVenueLike = createVenueLike; 
   window.removeVenueLike = removeVenueLike; 
+  window.createUserLike = createUserLike; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
