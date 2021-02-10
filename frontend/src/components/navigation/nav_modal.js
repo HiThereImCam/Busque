@@ -100,6 +100,7 @@ class NavModal extends Component {
                   >
                     Best Venues
                   </Link>
+                  
                   {buttons} 
                 </div>
               </div>
