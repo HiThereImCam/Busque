@@ -37,3 +37,33 @@ export const createRating = (userId, rating) => {
     rating: rating,
   });
 };
+
+export const getAllUserLikes = () => {
+  return axios.get('/api/users/likes')
+}; 
+
+export const getUserLikes = (userId) => {
+  return axios.get(`/api/users/${userId}/likes`, {
+    userId
+  })
+}; 
+
+export const createUserLike = (userId, likerId) => {
+  return axios.post(`/api/users/${userId}/likes`, {
+    userId, 
+    likerId
+  })
+}; 
+
+export const updateUserLike = (userId) => {
+  return axios.patch(`/api/users/${userId}/edit`, {
+    userId
+  })
+}; 
+
+export const deleteUserLike = (userId, likeId) => {
+  return axios.delete(`/api/users/${userId}/likes/delete`, {
+    userId, 
+    likeId
+  })
+};

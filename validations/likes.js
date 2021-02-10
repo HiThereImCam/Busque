@@ -10,13 +10,13 @@ module.exports = function validateLikeInput(data) {
 
   // CHECK IF THE DATA IS EMPTY
 
-  if (Validator.isEmpty(data.likerId)) {
-    errors.likerId = "Author Id is required";
-  }
+  // if (Validator.isEmpty(data.likerId)) {
+  //   errors.likerId = "Author Id is required";
+  // }
   
-  if (Validator.isEmpty(data.recipeId)) {
-    errors.recipeId = "Venue Id is required";
-  }
+  // if (Validator.isEmpty(data.venueId)) {
+  //   errors.recipeId = "Venue Id is required";
+  // }
 
   return {
     errors,

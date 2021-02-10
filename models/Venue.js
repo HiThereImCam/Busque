@@ -34,6 +34,11 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
+  likes: {
+    type: Number,
+    required: false,
+    default: null, 
+  },
 });
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);
