@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../../css/engineers.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { openNavModal } from "../../actions/nav_actions"
+// import { openNavModal } from "../../actions/nav_actions";
 
 class Engineers extends React.Component {
-
 
     render() {
         return (
@@ -15,7 +14,7 @@ class Engineers extends React.Component {
                     <GiHamburgerMenu
                     size={25}
                     onClick={() => {
-                        openNavModal();
+                        this.props.openNavModal();
                     }}
                     className="menu-icon-other"
                     />
