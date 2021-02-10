@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "../../css/engineers.css";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Searchbar from "../searchbar/searchbar_container";
 // import { openNavModal } from "../../actions/nav_actions";
 
 class Engineers extends React.Component {
@@ -10,7 +11,7 @@ class Engineers extends React.Component {
         return (
             <div className='engineer-page'>
                 {/* <Link to="/">Back to Map</Link> */}
-                <div className="user-header">
+                <div className="user-show-header">
                     <GiHamburgerMenu
                     size={25}
                     onClick={() => {
@@ -18,8 +19,11 @@ class Engineers extends React.Component {
                     }}
                     className="menu-icon-other"
                     />
+                    <div className="user-search-show">
+                    <Searchbar />
+                    </div>
                     <Link className="user-header-h1" to={"/"}>
-                    <h1>Busque</h1>
+                    <h1 className="header-logo">Busque</h1>
                     </Link>
                 </div>
                 <div className='engineer-block'>
