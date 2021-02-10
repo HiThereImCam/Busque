@@ -14,7 +14,6 @@ const Comment = require("../../models/Comment");
 const Like = require("../../models/Likes");
 const validateLikeInput = require("../../validations/likes");
 
-
 router.get("/", (req, res) => {
   User.find()
     .then((user) => res.json(user)) //TODO have this send objects with check in info
@@ -250,45 +249,37 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-
-   const { errors, isValid } = validateLikeInput(req.body);
-
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }
   const newLike = new Like({
     userId: req.params.id,
     likerId: req.body.likerId,
   });
 
-  newLike
-    .save()
-    .then((like) => res.json(like))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
+  newLike.save().then((like) => {
+    Like.findbyIdandUpdate(
+      req.params.id,
+      { $push: { likes: like } },
+      { new: true }
+    )
+      .then((user) => res.json(user))
+      .catch((err) => {
+        res.status(404).json({ comment: "we've encountered and error" });
+      });
+  });
 });
 
-router.patch('/:id/likes/edit', 
-(req, res) => {
-  mongoose.set('useFindAndModify', false);
+router.patch("/:id/likes/edit", (req, res) => {
+  mongoose.set("useFindAndModify", false);
 
-   const { errors, isValid } = validateLikeInput(req.body);
-
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }
-Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(like => res.json(like))
-  }
-)
+  
+  Like.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+    res.json(like)
+  );
+});
 
 router.delete("/:id/likes/delete", (req, res) => {
   Like.findByIdAndDelete(req.params.id)
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
-
-
 
 module.exports = router;
