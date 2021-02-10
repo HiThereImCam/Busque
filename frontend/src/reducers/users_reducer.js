@@ -1,11 +1,12 @@
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions'; 
 import { RECEIVE_USER, RECEIVE_USERS, RECEIVE_USER_COMMENT } from '../actions/user_actions';
 import { formatUsers } from './selectors'; 
-import { CREATE_VENUE_LIKE } from '../actions/venue_actions';
+import { CREATE_VENUE_LIKE, REMOVE_VENUE_LIKE } from '../actions/venue_actions';
 import { CREATE_USER_LIKE } from '../actions/user_actions'; 
 
 const usersReducer = (state = {}, action) => {
     Object.freeze(state); 
+    let newState = Object.assign({}, state)
 
     switch(action.type) {
         case RECEIVE_CURRENT_USER:
@@ -19,15 +20,26 @@ const usersReducer = (state = {}, action) => {
             wholeUser.comments.push(action.comment.data._id)
             return state; 
         case CREATE_USER_LIKE: 
-            let userLike = state[action.like.data.likerId]
+            let userLike = newState[action.like.data.likerId]
             let likedUserArr = userLike.liked
             likedUserArr.push(action.like.data._id)
-            let likedUser = state[action.like.data.userId]
+            let likedUser = newState[action.like.data.userId]
             likedUser.likes++
+            return newState
         case CREATE_VENUE_LIKE:
-            let userVenueLike = state[action.like.data.likerId]
+            let userVenueLike = newState[action.like.data.likerId]
             let likedArr = userVenueLike.liked
             likedArr.push(action.like.data._id)
+            return newState; 
+        case REMOVE_VENUE_LIKE:
+            console.log(newState)
+            let liker = newState[action.likeId.config.likerId]
+            for (let i = 0; i < liker.liked.length; i++) {
+                if (liker.liked[i] === action.likeId.config.likeId) {
+                    delete liker.liked[i]
+                }
+            }
+            return newState;
         default: 
             return state; 
     }

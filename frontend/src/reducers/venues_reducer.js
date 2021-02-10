@@ -36,6 +36,11 @@ const VenuesReducer = (state = [], action) => {
     case CREATE_VENUE_LIKE: 
       let likeVenue = newState.find((venue) => venue._id === action.like.data.venueId)
       likeVenue.likes++
+      return newState; 
+    case REMOVE_VENUE_LIKE: 
+      let likedVenue = newState.find((venue) => venue._id === action.likeId.config.venueId)
+      likedVenue.likes--
+      return newState
     default:
       return state;
   }

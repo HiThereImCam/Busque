@@ -65,9 +65,10 @@ export const updateVenueLike = (venueId) => {
   })
 }
 
-export const deleteVenueLike = (venueId, likeId) => {
+export const deleteVenueLike = (venueId, likeId, likerId) => {
   return axios.delete(`/api/venues/${venueId}/likes/delete`, {
     venueId, 
-    likeId
+    likeId, 
+    likerId
   })
 };

@@ -270,16 +270,16 @@ router.post("/:id/likes", (req, res) => {
 });
 
 router.patch('/:id/likes/edit', 
-(req, res) => {
-  mongoose.set('useFindAndModify', false);
+  (req, res) => {
+    mongoose.set('useFindAndModify', false);
 
-   const { errors, isValid } = validateLikeInput(req.body);
+    const { errors, isValid } = validateLikeInput(req.body);
 
-   if (!isValid) {
-     return res.status(404).json(errors);
-   }
-Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(like => res.json(like))
+    if (!isValid) {
+      return res.status(404).json(errors);
+    }
+    Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .then(like => res.json(like))
   }
 )
 

@@ -106,14 +106,14 @@
   padding-bottom: 5px;
 }
 
-@media screen and (max-width: 1060px) and (min-width: 950px) {
+@media screen and (max-width: 1060px) and (min-width: 900px) {
   .user-index-container {
     display: grid; 
     grid-template-columns: 50% 50%;
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 900px) {
   .user-index-container {
     display: block; 
   }

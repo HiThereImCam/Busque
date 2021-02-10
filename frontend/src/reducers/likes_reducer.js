@@ -1,8 +1,9 @@
-import { RECEIVE_ALL_VENUE_LIKES, RECEIVE_VENUE_LIKES, CREATE_VENUE_LIKE, REMOVE_VENUE_LIKE } from '../actions/venue_actions';
-import { CREATE_USER_LIKE } from '../actions/user_actions'; 
+import { RECEIVE_VENUE_LIKES, CREATE_VENUE_LIKE, REMOVE_VENUE_LIKE } from '../actions/venue_actions';
+import { CREATE_USER_LIKE, REMOVE_USER_LIKE } from '../actions/user_actions'; 
 
 const likesReducer = (state = {}, action) => {
     Object.freeze(state); 
+    let newState = Object.assign({}, state)
 
     switch(action.type) {
         // case RECEIVE_VENUE_LIKES:
@@ -11,6 +12,9 @@ const likesReducer = (state = {}, action) => {
             return Object.assign({}, state, { [action.like.data._id]: action.like.data})
         case CREATE_USER_LIKE:
             return Object.assign({}, state, { [action.like.data._id]: action.like.data })
+        case REMOVE_VENUE_LIKE:
+            delete newState[action.likeId.config.likeId];
+            return newState; 
         default: 
             return state;
     }

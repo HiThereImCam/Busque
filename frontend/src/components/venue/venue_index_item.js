@@ -68,6 +68,7 @@ class VenueIndexItem extends React.Component {
     handleLike(e) {
         e.preventDefault(); 
         this.props.createVenueLike(this.props.venue._id, this.state.user)
+        // this.props.fetchVenueLikes(this.props.venue._id)
     }
 
     handleSubmit(e) {
