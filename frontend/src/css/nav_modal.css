@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   margin-left: 10px;
-  font-size: 25px;
+  font-size: 30px;
   text-decoration: none;
   color: black;
 }
@@ -42,11 +42,6 @@
   width: 100%;
 }
 
-.nav-users {
-}
-
-.nav-venues {
-}
 .login-buttons {
   width: -webkit-fill-available;
   padding: 10px 0px 10px 10px
@@ -55,13 +50,13 @@
 
 .nav-login {
   padding-right: inherit;
-    padding-left: 0px
+    padding-left: 17px;
 
 }
 
 .nav-signup {
   padding-right: inherit;
-  padding-left: 0px
+  padding-left: 17px;
 }
 
 .logout-button {
@@ -71,6 +66,9 @@
   border: transparent;
   font-size: 18px;
   font-family: "Nunito Sans", sans-serif;
+}
+.logout-button:hover {
+  cursor: pointer;
 }
 
 .navback-icon {

@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
               currentUser: venueSchedule ? venueSchedule.currentUser : "",
               expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
             });
-          }
+          }; 
           res.json(mergedData);
         })
         .catch((err) => {
@@ -79,18 +79,18 @@ router.post(
       coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
       imageURL: req.body.imageURL,
       type: req.body.type,
+      imageURL: req.body.imageURL,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
 ); //end post
+
 
 //update venue
 router.patch(
   "/checkin/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    //Schedule.find({ venueID: 'req.params', function (err, docs) {});
-    // docs is the actual document returned
     Schedule.find({ venueID: req.params.id }, (err, schedule) => {
       if (err) {
         console.log("Error: ", err);
@@ -112,7 +112,7 @@ router.patch(
             });
           }
           res.json({
-            newSchedule: schedule,
+            venueSchedule: schedule,
           });
         });
       } else {
@@ -127,10 +127,16 @@ router.patch(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     try {
-      Schedule.findById(req.params.id).then((venue) => {
-        // venue.currentUser.pop();
-        // res.send(venue);
-      });
+      Schedule.findByIdAndRemove(
+        { venueID: req.params.id },
+        (err, schedule) => {
+          if (err) { 
+            console.log("Error: ", err);
+          } else {
+            console.log("Removed schedule: ", schedule);
+          }
+        }
+      );
     } catch (e) {
       console.log("error: ", e);
     }
@@ -160,15 +166,14 @@ router.post(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req)
-    console.log(res)
+    console.log(req);
+    console.log(res);
 
     const newComment = new Comment({
       //needs user
       venue: req.params.venue_id,
       comment: req.body.comment,
-       user: req.body.user, //*this is the working one at the moment
-
+      user: req.body.user, //*this is the working one at the moment
     });
     console.log(newComment);
     newComment.save().then(
@@ -194,20 +199,13 @@ router.post(
   }
 );
 
-
-// router.get("/:venue_id/comments", (req, res) => {
-//   Venue.findOne({id: req.params.comment}).then((venue) =>
-
-//   res.json(venue.comments))
-// })
-
 //pulls comments left on a venue
 
 router.get(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req)
+    console.log(req);
     Venue.findOne({ _id: req.params.venue_id })
       .populate({
         path: "comments",
@@ -222,37 +220,96 @@ router.get(
         console.log("comment error:", err);
         res.status(500).json({ comment: "we've encountered and error" });
       });
-  });
-
+  }
+);
 
 //! rating routes
 
 // get all ratings for a venue
 router.get("/:venue_id/ratings", (req, res) => {
-    console.log(req)
-    Venue.findOne({ _id: req.params.venue_id })
-        .populate("ratings", "rating") // populate looks for the name of the schema exported
-        .then((venue) => res.json(venue.ratings))
-        .catch((err) => {
-            res.status(404).json({ratings: "ratings error"});
-        })
-})
+  console.log(req);
+  Venue.findOne({ _id: req.params.venue_id })
+    .populate("ratings", "rating") // populate looks for the name of the schema exported
+    .then((venue) => res.json(venue.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "ratings error" });
+    });
+});
 
 // creates a rating, same format as new comment creation
-router.patch("/:venue_id/ratings", (req, res) => {
-    const newRating = new Rating({
-        rating: req.body.rating,
-    });
-    newRating.save().then(
-        (rating) => {
-            Venue.findByIdAndUpdate(
-                req.params.venue_id,
-                { $push: { ratings: rating } },
-                { new: true }
-              ).then((venue) => res.json(venue)
-            ).catch((err) => res.json(err))
-        }
-    );
+router.post("/:venue_id/ratings", (req, res) => {
+  const newRating = new Rating({
+    rating: req.body.rating,
+  });
+  newRating.save().then((rating) => {
+    Venue.findByIdAndUpdate(
+      req.params.venue_id,
+      { $push: { ratings: rating } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => res.json(err));
+  });
 });
+
+router.get("/likes", (req, res) => {
+  Likes.find()
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+<<<<<<< HEAD
+=======
+
+router.get("/:id/likes", (req, res) => {
+  Likes.findById(req.params.id)
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.post("/:id/likes", (req, res) => {
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
+  const newLike = new Like({
+    venueId: req.params.id,
+    likerId: req.body.likerId,
+  });
+
+  newLike
+    .save()
+    .then((like) => res.json(like))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.patch("/:id/likes/edit", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+   const { errors, isValid } = validateLikeInput(req.body);
+
+   if (!isValid) {
+     return res.status(404).json(errors);
+   }
+  Like.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+    res.json(like)
+  );
+});
+
+router.delete("/:id/likes/delete", (req, res) => {
+  Like.findByIdAndDelete(req.params.id)
+    .then((like) => res.json("Like successfully deleted"))
+    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+});
+
+
+>>>>>>> 19f27ffdbf3c225a60b888ba351439108870ab73
 
 module.exports = router;

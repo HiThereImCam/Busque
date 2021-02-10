@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "../../css/login.css";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { withRouter, Link } from "react-router-dom";
+import "../../css/login.css";
+
+import { withRouter, Link, Redirect } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -15,16 +16,16 @@ class LoginForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.demoUser = this.demoUser.bind(this);
-
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearErrors();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.signedIn === true) {
-      this.props.push("/");
+      console.log("Inside login form update");
+      <Redirect to="/" />;
     }
   }
 
@@ -68,7 +69,7 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
-        <div className="user-header">
+        <div className="user-header-login">
           <GiHamburgerMenu
             size={25}
             onClick={() => {
@@ -76,13 +77,13 @@ class LoginForm extends Component {
             }}
             className="menu-icon-other"
           />
-          <Link className="user-header-h1" to={"/"}>
-            <h1>Busque</h1>
+          <Link className="user-header-h1-login" to={"/"}>
+            <h1 className="header-logo-login">Busque</h1>
           </Link>
         </div>
         <div className="login-page">
           <form className="login-form" onSubmit={this.handleSubmit}>
-            <div className="login-title">Busque</div>
+            <div className="login-title header-logo">Busque</div>
             <div className="login-desc">Sign In</div>
             <div className="login-description">to continue to Busque</div>
             <input
@@ -106,7 +107,11 @@ class LoginForm extends Component {
             </div>
           </form>
           <div className="form-footer">
-            Need an account?&nbsp;<Link className="footer-link" to="/signup"> Sign up</Link>
+            Need an account?&nbsp;
+            <Link className="footer-link" to="/signup">
+              {" "}
+              Sign up
+            </Link>
           </div>
         </div>
       </div>

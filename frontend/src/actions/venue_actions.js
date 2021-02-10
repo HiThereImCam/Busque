@@ -4,32 +4,39 @@ export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
 export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
-export const CLEAR_COMMENTS = "CLEAR_COMMENTS";
+export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS"; 
+export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING"; 
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
   venues,
 });
 
-const checkedIn = (updatedVenue) => ({
+const checkedIn = (venueSchedule) => ({
   type: CHECK_IN,
-  updatedVenue,
+  venueSchedule,
 });
 
 const receiveVenueComments = (venue, comments) => ({
-  type: RECEIVE_VENUE_COMMENTS, 
-  venue, 
-  comments
-})
+  type: RECEIVE_VENUE_COMMENTS,
+  venue,
+  comments,
+});
 
 const receiveComment = (comment) => ({
-  type: RECEIVE_COMMENT, 
-  comment
-})
+  type: RECEIVE_COMMENT,
+  comment,
+});
 
-export const clearComments = () => ({
-  type: CLEAR_COMMENTS
-})
+const receiveRating = (rating) => ({
+  type: RECEIVE_VENUE_RATING, 
+  rating
+}); 
+
+const receiveRatings = (ratings) => ({
+  type: RECEIVE_VENUE_RATINGS, 
+  ratings
+});
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -39,21 +46,36 @@ export const fetchVenues = () => (dispatch) =>
 export const checkIn = (venueID, currentUser) => (dispatch) =>
   VenueApiUtil.checkIn(venueID, currentUser).then((updatedVenue) => {
     try {
-      // console.log("updated venue:", updatedVenue);
-      dispatch(checkedIn(updatedVenue));
+      let venueSchedule = updatedVenue.data.venueSchedule;
+      console.log("venue schedule: ", venueSchedule);
+      dispatch(checkedIn(venueSchedule));
     } catch (e) {
       console.log(`error: `, e);
     }
   });
 
-export const fetchVenueComments = (venueId) => dispatch => {
+export const fetchVenueComments = (venueId) => (dispatch) => {
   VenueApiUtil.getVenueComments(venueId)
-    .then((venueId, comments) => dispatch(receiveVenueComments(venueId, comments)))
-    .catch((err) => console.log(err))
-}
+    .then((venueId, comments) =>
+      dispatch(receiveVenueComments(venueId, comments))
+    )
+    .catch((err) => console.log(err));
+};
 
-export const createComment = (venueId, comment, user) => dispatch => {
-  VenueApiUtil.createComment(venueId, comment, user)
+export const createComment = (venueId, comment, user) => (dispatch) => {
+  return VenueApiUtil.createComment(venueId, comment, user)
     .then((comment) => dispatch(receiveComment(comment)))
+    .catch((err) => console.log(err));
+};
+
+export const createVenueRating = (venueId, rating) => (dispatch) => {
+  return VenueApiUtil.createVenueRating(venueId, rating)
+    .then((rating) => dispatch(receiveRating(rating)))
+    .catch(err => console.log(err))
+};
+
+export const fetchVenueRatings = (venueId) => (dispatch) => {
+  return VenueApiUtil.getVenueRatings(venueId) 
+    .then((ratings) => dispatch(receiveRatings(ratings)))
     .catch((err) => console.log(err))
-}
+};

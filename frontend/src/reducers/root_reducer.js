@@ -5,6 +5,7 @@ import nav from "./nav_reducer";
 import entities from "./entities_reducer";
 import venues from "./venues_reducer";
 import comments from "./comments_reducer";
+import ratings from './ratings_reducer'; 
 
 const RootReducer = combineReducers({
   session,
@@ -13,6 +14,7 @@ const RootReducer = combineReducers({
   entities,
   venues,
   comments,
+  ratings
 });
 
 export default RootReducer;

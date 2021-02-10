@@ -41,7 +41,7 @@ class NavModal extends Component {
 
     if (!this.props.currentUser) {
       buttons = (
-        <div className="login-buttons">
+        <Fragment>
           <Link
             to="login"
             className="nav-link nav-login"
@@ -56,7 +56,7 @@ class NavModal extends Component {
           >
             Signup
           </Link>
-        </div>
+        </Fragment>
       );
     } else {
       buttons = (
@@ -76,7 +76,7 @@ class NavModal extends Component {
             >
               <div className="nav-container">
                 <div className="nav-header">
-                  <Link className="h2" to="/" onClick={() => closeNavModal()}>
+                  <Link className="h2 header-logo" to="/" onClick={() => closeNavModal()}>
                     Busque
                   </Link>
                   <CgChevronDoubleLeft
@@ -100,8 +100,7 @@ class NavModal extends Component {
                   >
                     Best Venues
                   </Link>
-                  
-                  {buttons} 
+                  {buttons}
                 </div>
               </div>
             </div>

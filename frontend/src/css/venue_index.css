@@ -1,19 +1,72 @@
+.venue-header-container {
+    display: flex;
+    padding: 20px;
+    border-bottom: 1px solid lightgray;
+    text-decoration: none;
+}
+
+.venue-header-center {
+    text-decoration: none;
+    color: black;
+    width: 75%; 
+    font-size: 25px;
+}
+
 .venue-list-items {
     border-bottom: 1px solid lightgray;
     display: flex;
     flex-direction: column;
-    margin-left: 10vw;
-    margin-right: 10vw;
-    padding-left: 25px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding-left: 45px;
     padding-right: 25px;
     margin-top: 20px;
     padding-bottom: 10px; 
 }
 
+.venue-info-outer {
+    display: flex; 
+}
+
+.venue-info {
+    display: block; 
+    flex-basis: 50%;
+
+}
+
+.venue-pic {
+    display: block; 
+    flex-basis: 50%;
+    height: 250px; 
+    padding-bottom: 15px;
+}
+.venue-pic img {
+    border-radius: 4px;
+    border: 1px solid lightgray; 
+    height: 250px; 
+    /* width: 350px;  */
+}
+
+@media screen and (max-width: 900px) {
+    .venue-info-outer-alt {
+        display: block; 
+    }
+    .venue-info-alt {
+        display: inline-block; 
+        flex-basis: 100%
+    }
+    .venue-pic-alt {
+        display: flex; 
+        flex-basis: 100%; 
+        height: inherit; 
+        margin-left: -30px;
+    }
+}
+
 .venue-name {
     font-size: larger;
     font-weight: bold;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 
 }
 
@@ -23,6 +76,15 @@
 
 .venue-type {
     padding-bottom: 5px;
+}
+
+.rating-stars {
+    padding-bottom: 10px;
+    margin-left: -30px;
+}
+
+.react-stars:focus {
+    outline: transparent;
 }
 
 .venue-rating {
@@ -37,6 +99,27 @@
     padding-bottom: 5px;
 }
 
+.venue-current-user-inner {
+    display: flex; 
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.venue-index-currentUser {
+    height: 30px; 
+    width: 30px;  
+    border-radius: 50%;
+}
+.currentUser-link {
+    text-decoration: none;
+    color: black;
+}
+.currentUser-link:hover {
+    text-decoration: underline;
+    color: rgb(34, 34, 175);
+
+}
+
 .login-link {
     text-decoration: none;
     color: rgb(34, 34, 175); 
@@ -48,36 +131,37 @@
 .review-input {
     border: 1px solid lightgray; 
     border-radius: 4px;
-    font-family: "Nunito Sans", sans-serif;
-    padding: 5px; 
+    font-family: "Roboto", sans-serif;
+    padding: 8px; 
     box-shadow: lightgray 0px 0px 5px 0px;
     margin-left: -30px;
-
+    margin-top: 20px; 
+    margin-right: 10px; 
 }
 
 .submit {
-    padding: 5px; 
-    padding-left: 8px;
-    padding-right: 8px;
-    font-family: "Nunito Sans", sans-serif;
-    background: whitesmoke; 
-    border: 1px solid lightgray; 
+    padding: 8px; 
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: "Roboto", sans-serif;
+    background: #4267B2; 
+    color: white; 
+    border: 1px solid #4267B2; 
     border-radius: 4px;
     margin-bottom: 10px;
     margin-left: -30px;
-
+    margin-top: 5px; 
 }
 
 .submit:hover {
     cursor: pointer;
-    background: rgb(231, 231, 231);
+    background: #22458a;
 }
 .submit:focus {
     outline: none; 
 }
 
 .venue-reviews-inner {
-    /* display: none;  */
     margin-top: 5px; 
     margin-left: -30px;
 

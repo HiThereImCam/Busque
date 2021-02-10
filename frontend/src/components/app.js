@@ -10,6 +10,7 @@ import MapBoxContainer from "./mapbox/mapbox_container";
 import UserIndexContainer from "./user/user_index_container";
 import VenueIndexContainer from "./venue/venue_index_container";
 import Engineers from "./user/engineers";
+
 import "../css/app.css";
 
 const App = () => (
@@ -25,7 +26,7 @@ const App = () => (
         component={UserShowContainer}
       />
       <Route exact path="/venues" component={VenueIndexContainer} />
-      <Route exact path="/users" component={UserIndexContainer}/>
+      <Route exact path="/users" component={UserIndexContainer} />
       <Route exact path="/" component={MapBoxContainer} />
     </Switch>
   </div>

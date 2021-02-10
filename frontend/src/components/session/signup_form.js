@@ -4,7 +4,6 @@ import { uploadPhoto } from "../../util/photo_api_util";
 import "../../css/signup.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 
-
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ class SignupForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
     this.props.clearErrors();
   }
 
@@ -47,7 +46,7 @@ class SignupForm extends React.Component {
 
     if (this.state.photoFile) {
       const data = new FormData(e.target);
-      data.append("file", this.state.photoFile); 
+      data.append("file", this.state.photoFile);
       uploadPhoto(data).then((res) => {
         let user = {
           username: this.state.username,
@@ -56,11 +55,12 @@ class SignupForm extends React.Component {
           performerType: this.state.performerType,
           bio: this.state.bio,
           photoId: res.data.newData.photoId,
-          imageURL: res.data.newData.Location
-        }; 
-        this.props.signup(user, this.props.history)
-          .then(this.props.history.push("/login"))
-      })
+          imageURL: res.data.newData.Location,
+        };
+        this.props
+          .signup(user, this.props.history)
+          .then(this.props.history.push("/login"));
+      });
     } else {
       let user = {
         username: this.state.username,
@@ -71,8 +71,9 @@ class SignupForm extends React.Component {
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
       };
-      this.props.signup(user, this.props.history)
-        .then(this.props.history.push("/login"))
+      this.props
+        .signup(user, this.props.history)
+        .then(this.props.history.push("/login"));
     }
   }
 
@@ -90,7 +91,7 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="signup-page-container">
-        <div className="user-header">
+        <div className="user-header-login">
           <GiHamburgerMenu
             size={25}
             onClick={() => {
@@ -98,14 +99,14 @@ class SignupForm extends React.Component {
             }}
             className="menu-icon-other"
           />
-          <Link className="user-header-h1" to={"/"}>
-            <h1>Busque</h1>
+          <Link className="user-header-h1-login" to={"/"}>
+            <h1 className="header-logo-login">Busque</h1>
           </Link>
         </div>
         <div className="signup-page">
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
-              <div className="signup-title">Busque</div>
+              <div className="signup-title header-logo">Busque</div>
               <div className="signup-desc">Sign Up</div>
               <div className="signup-description">to continue to Busque</div>
               <input
@@ -144,16 +145,21 @@ class SignupForm extends React.Component {
                 onChange={this.update("bio")}
                 placeholder="Bio"
               />
-              <div>Upload a Profile Picture:</div>
+              <div className="pic-upload-desc">Upload a Profile Picture:</div>
               <input
+                className="input-file"
                 id="signup-profile"
                 type="file"
                 onChange={this.handleFile.bind(this)}
               />
-              <input className="signup-button" type="submit" value="Sign up" />
+              <input className="signup-button" id="signup-button" type="submit" value="Sign up" />
               {this.renderErrors()}
-              <div className="form-footer">
-                Have an account?&nbsp;<Link className="footer-link" to="/login"> Log in</Link>
+              <div className="form-footer-signup">
+                Have an account?&nbsp;
+                <Link className="footer-link" to="/login">
+                  {" "}
+                  Log in
+                </Link>
               </div>
             </div>
           </form>

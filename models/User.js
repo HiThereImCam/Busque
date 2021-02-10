@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// var imgPath = '/path/to/some/img.png';
-
-// mon  goose.connect('localhost', 'testing_storeImg');
-
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -29,19 +25,25 @@ const UserSchema = new Schema({
   imageURL: {
     type: String,
     required: false,
+    default: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
   },
   venues: {
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-  comments: {
-    type: Schema.Types.ObjectId,
-    ref: "comments",
-  },
-  ratings: {
-    type: Schema.Types.ObjectId,
-    ref: "ratings",
-  },
+
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
+  ratings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ratings",
+    },
+  ],
   followers: [
     {
       type: Schema.Types.ObjectId,
@@ -57,4 +59,8 @@ UserSchema.methods.toJSON = function () {
   return obj;
 };
 
+<<<<<<< HEAD
 module.exports = User = mongoose.model("User", UserSchema);
+=======
+module.exports = User = mongoose.model("User", UserSchema);
+>>>>>>> 19f27ffdbf3c225a60b888ba351439108870ab73
