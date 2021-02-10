@@ -1,7 +1,7 @@
 import React from "react";
 import UserIndexItem from "./user_index_item";
 import "../../css/user_index.css";
-import Searchbar from "../searchbar/searchbar";
+import Searchbar from "../searchbar/searchbar_container";
 
 class UserIndex extends React.Component {
   componentDidMount() {
