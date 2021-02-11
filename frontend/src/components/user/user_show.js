@@ -21,8 +21,8 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUser(this.props.match.params.userId);
+    this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -64,8 +64,7 @@ class UserShow extends React.Component {
   render() {
     if (this.props.user === undefined) {
       return null;
-    } 
-    // else {
+    } else {
       const user = this.props.user;
 
       let showRatingAvg = () => {
@@ -192,7 +191,7 @@ class UserShow extends React.Component {
                   {/* {console.log("user comments", this.props.user.comments)} */}
                   {/* {console.log("this.props.comments", this.props.comments)} */}
                   {/* {console.log("commentId:", commentId)} */}
-                  {this.props.comments?.map((comment, j) => {
+                  {this.props.comments.map((comment, j) => {
                     if (comment._id === commentId) {
                       return (
                         <div className="review-each-user" key={j}>
@@ -215,7 +214,7 @@ class UserShow extends React.Component {
           })}
         </div>
       );
-    // }
+    }
   }
 }
 
