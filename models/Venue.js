@@ -15,7 +15,7 @@ const VenueSchema = new Schema({
     required: false,
     default: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
   },
-  
+
   type: {
     type: String,
     required: true,
@@ -34,11 +34,12 @@ const VenueSchema = new Schema({
       ref: "ratings",
     },
   ],
-  likes: {
-    type: Number,
-    required: false,
-    default: null, 
-  },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Likes",
+    },
+  ],
 });
 
 module.exports = Venue = mongoose.model("Venue", VenueSchema);

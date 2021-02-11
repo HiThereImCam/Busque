@@ -233,7 +233,7 @@ router.get(
 );
 
 router.get("/likes", (req, res) => {
-  Likes.find()
+  Like.find()
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -241,7 +241,7 @@ router.get("/likes", (req, res) => {
 });
 
 router.get("/:id/likes", (req, res) => {
-  Likes.findById(req.params.id)
+  Like.findById(req.params.id)
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -249,13 +249,15 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-  const newLike = new Like({
+  console.log(req)
+  console.log(res)
+  const newLike = new Likes({
     userId: req.params.id,
     likerId: req.body.likerId,
   });
 
   newLike.save().then((like) => {
-    Like.findbyIdandUpdate(
+    User.findByIdAndUpdate(
       req.params.id,
       { $push: { likes: like } },
       { new: true }
@@ -271,7 +273,9 @@ router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
 
   
-  Like.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+  Like.findByIdAndUpdate(req.params.id, 
+    req.body, { new: true })
+    .then((like) =>
     res.json(like)
   );
 });
