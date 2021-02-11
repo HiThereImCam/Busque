@@ -43,21 +43,23 @@ const UserSchema = new Schema({
       ref: "ratings",
     },
   ],
-  likes: {
-    type: Number, 
-    required: false, 
-    default: null,
-  },
+ 
   liked: [
     {
       type: Schema.Types.ObjectId,
-      ref: "likes",
+      ref: "Likes",
     },
   ],
   followers: [
     {
       type: Schema.Types.ObjectId,
       ref: "User",
+    },
+  ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Likes",
     },
   ],
 });

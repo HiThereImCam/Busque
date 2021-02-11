@@ -21,6 +21,10 @@ const LikeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "comments",
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = Likes = mongoose.model("Likes", LikeSchema);
