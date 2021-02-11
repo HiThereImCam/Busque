@@ -188,14 +188,10 @@ class UserShow extends React.Component {
           {this.props.user.comments.slice().reverse().map((commentId, i) => {
             return (
               <div key={i}>
-                  {/* {console.log("user comments", this.props.user.comments)} */}
-                  {/* {console.log("this.props.comments", this.props.comments)} */}
-                  {/* {console.log("commentId:", commentId)} */}
                   {this.props.comments.map((comment, j) => {
-                    if (comment._id === commentId) {
+                    if (comment._id === commentId._id) {
                       return (
                         <div className="review-each-user" key={j}>
-                          {/* {console.log("comment._id", comment._id)} */}
                           <div className="reviewer-name"> 
                             {comment.commenter === undefined ? "Username says:" :
                               (comment.commenter === this.props.currentUser.id && comment.commenter.username === undefined) ? "From You:" :

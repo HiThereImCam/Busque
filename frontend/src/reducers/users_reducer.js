@@ -15,8 +15,6 @@ const usersReducer = (state = {}, action) => {
             return Object.assign({}, state, { [action.user.data._id]: action.user.data }); 
         case RECEIVE_USERS:
             return Object.assign({}, state, formatUsers(action.users.data)); 
-        // case RECEIVE_USER_COMMENTS:
-
         case RECEIVE_USER_COMMENT:
             let wholeUser = newState[action.comment.data.user]
             wholeUser.comments.push(action.comment.data._id)
