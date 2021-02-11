@@ -17,11 +17,12 @@ class UserShow extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRating = this.handleRating.bind(this);
+    this.update = this.update.bind(this); 
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserComments(this.props.match.params.userId);
+    this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -63,7 +64,8 @@ class UserShow extends React.Component {
   render() {
     if (this.props.user === undefined) {
       return null;
-    } else {
+    } 
+    // else {
       const user = this.props.user;
 
       let showRatingAvg = () => {
@@ -184,14 +186,17 @@ class UserShow extends React.Component {
             <br />
             {noReviews}
           </div>
-          
           {this.props.user.comments.slice().reverse().map((commentId, i) => {
-              return (
-                <div key={i}>
-                  {this.props.comments.map((comment, j) => {
+            return (
+              <div key={i}>
+                  {/* {console.log("user comments", this.props.user.comments)} */}
+                  {/* {console.log("this.props.comments", this.props.comments)} */}
+                  {/* {console.log("commentId:", commentId)} */}
+                  {this.props.comments?.map((comment, j) => {
                     if (comment._id === commentId) {
                       return (
                         <div className="review-each-user" key={j}>
+                          {/* {console.log("comment._id", comment._id)} */}
                           <div className="reviewer-name"> 
                             {comment.commenter === undefined ? "Username says:" :
                               (comment.commenter === this.props.currentUser.id && comment.commenter.username === undefined) ? "From You:" :
@@ -205,12 +210,12 @@ class UserShow extends React.Component {
                       );
                     }
                   })}
-                </div>
-              )
+              </div>
+            )
           })}
         </div>
       );
-    }
+    // }
   }
 }
 
