@@ -4,8 +4,10 @@ export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
 export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
 export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
-export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS"; 
-export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING"; 
+export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS";
+export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING";
+export const OPEN_VENUE_MODAL = "OPEN_VENUE_MODAL";
+export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -29,13 +31,23 @@ const receiveComment = (comment) => ({
 });
 
 const receiveRating = (rating) => ({
-  type: RECEIVE_VENUE_RATING, 
-  rating
-}); 
+  type: RECEIVE_VENUE_RATING,
+  rating,
+});
 
 const receiveRatings = (ratings) => ({
-  type: RECEIVE_VENUE_RATINGS, 
-  ratings
+  type: RECEIVE_VENUE_RATINGS,
+  ratings,
+});
+
+export const openVenueModal = (value) => ({
+  type: OPEN_VENUE_MODAL,
+  value,
+});
+
+export const closeVenueModal = (value) => ({
+  type: CLOSE_VENUE_MODAL,
+  value,
 });
 
 export const fetchVenues = () => (dispatch) =>
@@ -71,11 +83,17 @@ export const createComment = (venueId, comment, user) => (dispatch) => {
 export const createVenueRating = (venueId, rating) => (dispatch) => {
   return VenueApiUtil.createVenueRating(venueId, rating)
     .then((rating) => dispatch(receiveRating(rating)))
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err));
 };
 
 export const fetchVenueRatings = (venueId) => (dispatch) => {
-  return VenueApiUtil.getVenueRatings(venueId) 
+  return VenueApiUtil.getVenueRatings(venueId)
     .then((ratings) => dispatch(receiveRatings(ratings)))
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(err));
+};
+
+export const createVenue = (venue) => (dispatch) => {
+  return VenueApiUtil.createVenue(venue).then((venue) =>
+    console.log("This is the venue coming back: ", venue)
+  );
 };

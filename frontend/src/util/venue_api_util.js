@@ -19,25 +19,29 @@ export const checkOut = (venueID) => {
 
 export const getVenueComments = (venueId) => {
   return axios.get(`/api/venues/${venueId}/comments`, {
-    venueId
-  })
-}
+    venueId,
+  });
+};
+
+export const createVenue = (venue) => {
+  return axios.post(`/api/venues`, venue);
+};
 
 export const createComment = (venueId, comment, user) => {
   return axios.post(`/api/venues/${venueId}/comments`, {
     comment: comment,
-    user: user
-  })
+    user: user,
+  });
 };
 
 export const getVenueRatings = (venueId) => {
   return axios.get(`/api/venues/${venueId}/ratings`, {
-    venueId, 
-  })
-}; 
+    venueId,
+  });
+};
 
 export const createVenueRating = (venueId, rating) => {
   return axios.post(`/api/venues/${venueId}/ratings`, {
     rating: rating,
-  })
+  });
 };

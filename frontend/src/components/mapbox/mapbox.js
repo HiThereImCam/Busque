@@ -8,6 +8,8 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Pin from "./pin";
 import Tutorial from "./tutorial_modal";
 import checkVenues from "../../config/checkVenues";
+import { Link } from "react-router-dom";
+import VenueModal from "./venue_modal";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
@@ -27,10 +29,14 @@ class MapBox extends Component {
     };
 
     this.mapBoxRef = React.createRef();
-
-    window.isAuthenticated = this.props.isAuthenticated;
     this.createNewVenue = this.createNewVenue.bind(this);
     this.marker = new mapboxgl.Marker();
+    this.redirectLogin = this.redirectLogin.bind(this);
+    this.buttonVenueRef = React.createRef();
+
+    window.isAuthenticated = this.props.isAuthenticated;
+    window.redirectLogin = this.redirectLogin;
+    window.openVenueModal = this.props.openVenueModal;
   }
 
   componentDidMount() {
@@ -96,10 +102,20 @@ class MapBox extends Component {
   }
 
   createNewVenue() {
-    let htmlContent = `<div>
-                        <button> Create New Venue </button>
-                       </div>
+    let { isAuthenticated } = this.props;
+    let htmlContent;
+    if (isAuthenticated) {
+      htmlContent = `<div>
+                        <button onclick="openVenueModal()"> Create New Venue </button>
+                      </div>
     `;
+    } else {
+      htmlContent = `
+        <div>
+          <button onclick="redirectLogin()" ref=${this.buttonVenueRef.current}>Login to create a new venue</button>
+        </div>
+      `;
+    }
 
     this.newVenueMarker = this.marker;
     this.newVenuePopup = new mapboxgl.Popup();
@@ -114,6 +130,11 @@ class MapBox extends Component {
     this.newVenueMarker.togglePopup();
   }
 
+  redirectLogin() {
+    let goToLogin = document.getElementById("redirectToLogin");
+    goToLogin.click();
+  }
+
   render() {
     let {
       openNavModal,
@@ -122,6 +143,7 @@ class MapBox extends Component {
       checkIn,
       isAuthenticated,
       users,
+      venueModal,
     } = this.props;
     let { show } = this.state;
     return (
@@ -157,8 +179,9 @@ class MapBox extends Component {
               : ""}
           </Fragment>
         )}
-
         {show === true ? <Tutorial /> : ""}
+        {venueModal === true ? <VenueModal /> : ""}
+        <Link to="/login" id="redirectToLogin" />;
       </Fragment>
     );
   }

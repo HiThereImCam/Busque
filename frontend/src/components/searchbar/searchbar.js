@@ -23,7 +23,6 @@ class Searchbar extends Component {
 
   componentDidMount() {
     if (this.props.users) {
-      console.log("I made it here");
       this.setState({
         users: this.props.users,
       });
