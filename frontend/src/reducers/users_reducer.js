@@ -20,26 +20,22 @@ const usersReducer = (state = {}, action) => {
             wholeUser.comments.push(action.comment.data._id)
             return newState; 
         case CREATE_USER_LIKE: 
-            let userLike = newState[action.like.data.likerId]
-            let likedUserArr = userLike.liked
-            likedUserArr.push(action.like.data._id)
-            let likedUser = newState[action.like.data.userId]
-            likedUser.likes++
-            return newState
-        case CREATE_VENUE_LIKE:
-            let userVenueLike = newState[action.like.data.likerId]
-            let likedArr = userVenueLike.liked
-            likedArr.push(action.like.data._id)
+            console.log(action.like.config.data.likerId)
+            let likedUser = newState[action.like.data._id]
+            let likeId = action.like.data.likes[action.like.data.likes.length - 1]
+            likedUser.likes.push(likeId)
             return newState; 
-        case REMOVE_VENUE_LIKE:
-            console.log(newState)
-            let liker = newState[action.likeId.config.likerId]
-            for (let i = 0; i < liker.liked.length; i++) {
-                if (liker.liked[i] === action.likeId.config.likeId) {
-                    delete liker.liked[i]
-                }
-            }
-            return newState;
+        // case CREATE_VENUE_LIKE:
+            
+        // case REMOVE_VENUE_LIKE:
+        //     console.log(newState)
+        //     let liker = newState[action.likeId.config.likerId]
+        //     for (let i = 0; i < liker.liked.length; i++) {
+        //         if (liker.liked[i] === action.likeId.config.likeId) {
+        //             delete liker.liked[i]
+        //         }
+        //     }
+        //     return newState;
         default: 
             return state; 
     }

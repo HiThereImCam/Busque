@@ -10,11 +10,14 @@ const likesReducer = (state = {}, action) => {
         //     return action.venue.data
         case CREATE_VENUE_LIKE:
             return Object.assign({}, state, { [action.like.data._id]: action.like.data})
-        case CREATE_USER_LIKE:
-            return Object.assign({}, state, { [action.like.data._id]: action.like.data })
-        case REMOVE_VENUE_LIKE:
-            delete newState[action.likeId.config.likeId];
-            return newState; 
+        // case CREATE_USER_LIKE:
+        //     console.log(newState)
+        //     let likeId = action.like.data.likes[action.like.data.likes.length - 1]
+        //     console.log(likeId)
+        //     return Object.assign({}, state, { [likeId]: action.like.data })
+        // case REMOVE_VENUE_LIKE:
+        //     delete newState[action.likeId.config.likeId];
+        //     return newState; 
         default: 
             return state;
     }

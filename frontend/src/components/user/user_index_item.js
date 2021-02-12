@@ -10,6 +10,7 @@ class UserIndexItem extends React.Component {
         super(props)
         this.state = {
             user: "",
+            redHeart: false, 
         }
 
         this.handleRating = this.handleRating.bind(this)
@@ -34,6 +35,9 @@ class UserIndexItem extends React.Component {
     handleLike(e) {
         e.preventDefault();
         this.props.createUserLike(this.props.user._id, this.state.user)
+        this.setState({
+            redHeart: !this.state.redHeart
+        })
     }
 
     render() {
@@ -91,6 +95,13 @@ class UserIndexItem extends React.Component {
             // }
         }
 
+        const changeColor = this.state.redHeart ? "red" : "gray"
+        const likeBtn = (this.props.currentUser === undefined) ? null : 
+            <div className="likes">
+                <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: changeColor }}></i></button>
+                {this.props.user.likes.length}
+            </div>
+
         return (
             <div className="user-list-items-outer">
                     <div className="user-list-items">
@@ -110,10 +121,7 @@ class UserIndexItem extends React.Component {
                             <div className="performer-type">
                                 Performer Type: {this.props.user.performerType}
                             </div>
-                            <div>
-                                <button onClick={this.handleLike}>Like</button>
-                                {this.props.user.likes}
-                            </div>
+                            {likeBtn}
                         </div>
                     </div>
             </div>

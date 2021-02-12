@@ -62,6 +62,7 @@ const receiveUserLike = (like) => ({
 //update?
 
 const deleteUserLike = (likeId) => ({
+  type: REMOVE_USER_LIKE, 
   likeId
 })
 
