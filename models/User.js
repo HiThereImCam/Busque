@@ -43,11 +43,11 @@ const UserSchema = new Schema({
       ref: "ratings",
     },
   ],
-  
+ 
   liked: [
     {
       type: Schema.Types.ObjectId,
-      ref: "likes",
+      ref: "Likes",
     },
   ],
   followers: [

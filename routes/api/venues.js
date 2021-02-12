@@ -257,7 +257,7 @@ router.post("/:venue_id/ratings", (req, res) => {
 });
 
 router.get("/likes", (req, res) => {
-  Likes.find()
+  Venue.find()
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -265,7 +265,7 @@ router.get("/likes", (req, res) => {
 });
 
 router.get("/:id/likes", (req, res) => {
-  Likes.findById(req.params.id)
+  Venue.findById(req.params.id)
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -276,7 +276,7 @@ router.post("/:id/likes", (req, res) => {
   const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
-  });
+  }); 
 
   newLike.save().then((like) => {
     Venue.findByIdAndUpdate(
@@ -290,6 +290,7 @@ router.post("/:id/likes", (req, res) => {
       });
   });
 });
+
 
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
