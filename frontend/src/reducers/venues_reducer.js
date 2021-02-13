@@ -2,8 +2,9 @@ import {
   CHECK_IN,
   RECEIVE_VENUES,
   RECEIVE_COMMENT,
+  ADD_VENUE_TO_VENUES,
 } from "../actions/venue_actions";
-import { formatVenues } from "./venue_selectors";
+
 const VenuesReducer = (state = [], action) => {
   Object.freeze(state);
   let newState = [...state];
@@ -24,6 +25,10 @@ const VenuesReducer = (state = [], action) => {
           newState[i].expiresAt = action.venueSchedule.expiresAt;
         }
       }
+      return newState;
+    case ADD_VENUE_TO_VENUES:
+      newState.push(action.venue);
+
       return newState;
     case RECEIVE_COMMENT:
       let wholeVenue = newState.find(

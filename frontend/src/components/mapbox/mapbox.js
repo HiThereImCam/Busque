@@ -78,6 +78,7 @@ class MapBox extends Component {
       let checkCoordinates = checkVenues(this.props.venues, coordinatesArray);
 
       if (checkCoordinates === false) {
+        this.props.setCoordinate(coordinatesArray);
         this.createNewVenue();
       } else {
         console.log("This is checkCoordinates: ", checkCoordinates);

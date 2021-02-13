@@ -8,6 +8,9 @@ export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS";
 export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING";
 export const OPEN_VENUE_MODAL = "OPEN_VENUE_MODAL";
 export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
+export const SET_VENUE_COORDINATES = "SET_VENUE_COORDINATES";
+export const RECEIVE_VENUE_ERRORS = "RECEIVE_VENUE_ERRORS";
+export const ADD_VENUE_TO_VENUES = "ADD_VENUE_TO_VENUES";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -50,6 +53,21 @@ export const closeVenueModal = (value) => ({
   value,
 });
 
+export const setCoordinate = (venueCoordinates) => ({
+  type: SET_VENUE_COORDINATES,
+  venueCoordinates,
+});
+
+export const getVenueErrors = (errors) => ({
+  type: RECEIVE_VENUE_ERRORS,
+  errors,
+});
+
+export const addVenue = (venue) => ({
+  type: ADD_VENUE_TO_VENUES,
+  venue,
+});
+
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
     dispatch(receiveVenues(venues.data));
@@ -59,10 +77,9 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
   VenueApiUtil.checkIn(venueID, currentUser).then((updatedVenue) => {
     try {
       let venueSchedule = updatedVenue.data.venueSchedule;
-      console.log("venue schedule: ", venueSchedule);
       dispatch(checkedIn(venueSchedule));
     } catch (e) {
-      console.log(`error: `, e);
+      dispatch(getVenueErrors(e));
     }
   });
 
@@ -71,29 +88,41 @@ export const fetchVenueComments = (venueId) => (dispatch) => {
     .then((venueId, comments) =>
       dispatch(receiveVenueComments(venueId, comments))
     )
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch(getVenueErrors(err)));
 };
 
 export const createComment = (venueId, comment, user) => (dispatch) => {
   return VenueApiUtil.createComment(venueId, comment, user)
     .then((comment) => dispatch(receiveComment(comment)))
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch(getVenueErrors(err)));
 };
 
 export const createVenueRating = (venueId, rating) => (dispatch) => {
   return VenueApiUtil.createVenueRating(venueId, rating)
     .then((rating) => dispatch(receiveRating(rating)))
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch(getVenueErrors(err)));
 };
 
 export const fetchVenueRatings = (venueId) => (dispatch) => {
   return VenueApiUtil.getVenueRatings(venueId)
     .then((ratings) => dispatch(receiveRatings(ratings)))
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch(getVenueErrors(err)));
 };
 
-export const createVenue = (venue) => (dispatch) => {
-  return VenueApiUtil.createVenue(venue).then((venue) =>
-    console.log("This is the venue coming back: ", venue)
-  );
+export const createVenue = (venue, currentUser) => (dispatch) => {
+  return VenueApiUtil.createVenue(venue)
+    .then((venue) => {
+      dispatch(addVenue(venue));
+      VenueApiUtil.checkIn(venue._id, currentUser).then((updatedVenue) => {
+        try {
+          let venueSchedule = updatedVenue.data.venueSchedule;
+          dispatch(checkedIn(venueSchedule));
+        } catch (e) {
+          dispatch(getVenueErrors(e));
+        }
+      });
+    })
+    .catch((error) => {
+      dispatch(getVenueErrors(error));
+    });
 };

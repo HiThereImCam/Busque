@@ -5,9 +5,9 @@ import "../../css/signup.css";
 class VenueModal extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       venueName: "",
+      venueType: "",
       photoId: "",
       photoFile: null,
       imageURL: "",
@@ -46,14 +46,14 @@ class VenueModal extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-
+    console.log("Handle submit props: ", this.props);
     if (this.state.photoFile) {
       const data = new FormData(e.target);
       data.append("file", this.state.photoFile);
       uploadPhoto(data).then((res) => {
         let venue = {
           name: this.state.venueName,
-          performerType: this.state.performerType,
+          type: this.state.venueType,
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
@@ -62,11 +62,11 @@ class VenueModal extends Component {
     } else {
       let venue = {
         name: this.state.venueName,
-        performerType: this.state.performerType,
-        photoId: this.state.photoId,
-        imageURL: this.state.Location,
+        type: this.state.venueType,
+        coordinate: this.props.setVenueCoordinates,
+        imageURL: this.state.imageURL,
       };
-      this.props.createVenue(venue);
+      this.props.createVenue(venue, this.state.currentUser);
     }
   }
 
@@ -120,8 +120,8 @@ class VenueModal extends Component {
                         placeholder="Venue name"
                       />
                       <select
-                        value={this.state.performerType}
-                        onChange={this.update("performerType")}
+                        value={this.state.venueType}
+                        onChange={this.update("venueType")}
                       >
                         <option value="" disabled>
                           Performer Type

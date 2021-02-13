@@ -1,6 +1,6 @@
 import { OPEN_VENUE_MODAL, CLOSE_VENUE_MODAL } from "../actions/venue_actions";
 
-const CreateVenueReducer = (initialState = false, action) => {
+const VenueModalReducer = (initialState = false, action) => {
   Object.freeze(initialState);
 
   switch (action.type) {
@@ -13,4 +13,4 @@ const CreateVenueReducer = (initialState = false, action) => {
   }
 };
 
-export default CreateVenueReducer;
+export default VenueModalReducer;

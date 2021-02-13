@@ -5,11 +5,14 @@ import VenueModal from "../mapbox/venue_modal";
 
 const mapStateToProps = (state) => ({
   venueModal: state.venueModal,
+  setVenueCoordinates: state.setVenueCoordinates,
   errors: state.errors.session,
+  currentUser: state.session.user.id,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createVenue: (venue) => dispatch(createVenue(venue)),
+  createVenue: (venue, currentUser) =>
+    dispatch(createVenue(venue, currentUser)),
   closeVenueModal: () => dispatch(closeVenueModal(false)),
   // clearErrors: () => dispatch(clearErrors()),
 });
