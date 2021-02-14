@@ -7,13 +7,13 @@ import venues from "./venues_reducer";
 import comments from "./comments_reducer";
 import ratings from "./ratings_reducer";
 import venueModal from "./venue_modal_reducer";
-import setVenueCoordinates from "./set_coordinates_reducer";
+import setVenueNameAndCoordinates from "./set_ven_name_and_coordinates_reducer";
 
 const RootReducer = combineReducers({
   session,
   nav,
   venueModal,
-  setVenueCoordinates,
+  setVenueNameAndCoordinates,
   errors,
   entities,
   venues,

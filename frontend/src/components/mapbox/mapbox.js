@@ -70,6 +70,12 @@ class MapBox extends Component {
     geocoder.on("result", (e) => {
       console.log("e: ", e);
       let resultCoordinates = e.result.geometry.coordinates;
+      let resultVenueName = e.result.text;
+      let venNameAndCoord = {
+        coordinates: resultCoordinates,
+        venueName: resultVenueName,
+      };
+
       let coordinatesArray = [resultCoordinates[0], resultCoordinates[1]];
       this.setState({
         resultCoordinate: coordinatesArray,
@@ -78,7 +84,7 @@ class MapBox extends Component {
       let checkCoordinates = checkVenues(this.props.venues, coordinatesArray);
 
       if (checkCoordinates === false) {
-        this.props.setCoordinate(coordinatesArray);
+        this.props.setVenNameAndCoordinate(venNameAndCoord);
         this.createNewVenue();
       } else {
         console.log("This is checkCoordinates: ", checkCoordinates);

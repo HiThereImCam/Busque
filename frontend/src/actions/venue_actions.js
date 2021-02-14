@@ -8,7 +8,7 @@ export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS";
 export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING";
 export const OPEN_VENUE_MODAL = "OPEN_VENUE_MODAL";
 export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
-export const SET_VENUE_COORDINATES = "SET_VENUE_COORDINATES";
+export const SET_VENUENAME_AND_COORDINATES = "SET_VENUENAME_AND_COORDINATES";
 export const RECEIVE_VENUE_ERRORS = "RECEIVE_VENUE_ERRORS";
 export const ADD_VENUE_TO_VENUES = "ADD_VENUE_TO_VENUES";
 
@@ -53,9 +53,9 @@ export const closeVenueModal = (value) => ({
   value,
 });
 
-export const setCoordinate = (venueCoordinates) => ({
-  type: SET_VENUE_COORDINATES,
-  venueCoordinates,
+export const setVenNameAndCoord = (venNameAndCoord) => ({
+  type: SET_VENUENAME_AND_COORDINATES,
+  venNameAndCoord,
 });
 
 export const getVenueErrors = (errors) => ({

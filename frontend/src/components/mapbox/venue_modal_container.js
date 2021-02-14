@@ -5,7 +5,8 @@ import VenueModal from "../mapbox/venue_modal";
 
 const mapStateToProps = (state) => ({
   venueModal: state.venueModal,
-  setVenueCoordinates: state.setVenueCoordinates,
+  coordinates: state.setVenueNameAndCoordinates.coordinates,
+  venueName: state.setVenueNameAndCoordinates.venueName,
   errors: state.errors.session,
   currentUser: state.session.user.id,
 });

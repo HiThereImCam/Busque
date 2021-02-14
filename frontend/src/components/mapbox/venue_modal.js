@@ -1,6 +1,6 @@
 import React, { Component, createRef, Fragment } from "react";
 import { uploadPhoto } from "../../util/photo_api_util";
-import "../../css/signup.css";
+import "../../css/venue_modal.css";
 
 class VenueModal extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class VenueModal extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    console.log("Handle submit props: ", this.props);
+
     if (this.state.photoFile) {
       const data = new FormData(e.target);
       data.append("file", this.state.photoFile);
@@ -61,9 +61,9 @@ class VenueModal extends Component {
       });
     } else {
       let venue = {
-        name: this.state.venueName,
+        name: this.prop.venueName,
         type: this.state.venueType,
-        coordinate: this.props.setVenueCoordinates,
+        coordinate: this.props.coordinates,
         imageURL: this.state.imageURL,
       };
       this.props.createVenue(venue, this.state.currentUser);
@@ -98,27 +98,30 @@ class VenueModal extends Component {
   // }
 
   render() {
-    let { venueModal } = this.props;
+    let { venueModal, venueName } = this.props;
+
     return (
       <Fragment>
         {venueModal ? (
           <div className="modal-background modal-container">
             <div
-              className="modal-child"
+              className="venue-modal-child"
               ref={this.modalChild}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="signup-page-container">
-                <div className="signup-page">
+                <div className="venue-create-page">
                   <form onSubmit={this.handleSubmit}>
-                    <div className="signup-form">
-                      <div className="signup-desc">Create a new Venue</div>
-                      <input
+                    <div className="venue-create-form">
+                      <div className="venue-desc">
+                        New Venue Name: {`${venueName}`}
+                      </div>
+                      {/* <input
                         type="text"
                         value={this.state.venueName}
                         onChange={this.update("venueName")}
                         placeholder="Venue name"
-                      />
+                      /> */}
                       <select
                         value={this.state.venueType}
                         onChange={this.update("venueType")}
@@ -136,18 +139,18 @@ class VenueModal extends Component {
                         </option>
                         <option value="Other">Other</option>
                       </select>
-                      <div className="pic-upload-desc">
+                      <div className="venue-pic-upload-desc">
                         Upload a Venue Picture:
                       </div>
                       <input
                         className="input-file"
-                        id="signup-profile"
+                        id="venue-create-profile"
                         type="file"
                         onChange={this.handleFile.bind(this)}
                       />
                       <input
-                        className="signup-button"
-                        id="signup-button"
+                        className="venue-create-button"
+                        id="venue-create-button"
                         type="submit"
                         value="Create Venue"
                       />

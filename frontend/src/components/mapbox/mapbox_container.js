@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {
   fetchVenues,
   checkIn,
-  setCoordinate,
+  setVenNameAndCoord,
 } from "../../actions/venue_actions";
 import { openNavModal } from "../../actions/nav_actions";
 import { fetchUsers } from "../../actions/user_actions";
@@ -25,8 +25,11 @@ const mapDispatchToProps = (dispatch) => ({
   openVenueModal: () => dispatch(openVenueModal(true)),
   fetchUsers: () => dispatch(fetchUsers()),
   checkIn: (venueID, currentUser) => dispatch(checkIn(venueID, currentUser)),
-  setCoordinate: (venueCoordinates) =>
-    dispatch(setCoordinate(venueCoordinates)),
+  // setVenNameAndCoordinate: (venNameAndCoord) => {
+  //   console.log(venNameAndCoord);
+  // },
+  setVenNameAndCoordinate: (venNameAndCoord) =>
+    dispatch(setVenNameAndCoord(venNameAndCoord)),
   // checkOut: () => dispatch(checkOut()),
 });
 
