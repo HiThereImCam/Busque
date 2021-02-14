@@ -26,17 +26,21 @@ class UserIndex extends React.Component {
         </div>
         <div className="user-index-container">
           {this.props.users.map((user, i) => {
-            return <UserIndexItem user={user} 
-              isAuthenticated={this.props.isAuthenticated}
-              currentUser={this.props.currentUser}
-              createUserRating={this.props.createUserRating}
-              fetchUserRatings={this.props.fetchUserRatings}
-              ratings={this.props.ratings}
-              likes={this.props.likes}
-              fetchUserLikes={this.props.fetchUserLikes}
-              createUserLike={this.props.createUserLike}
-              removeUserLike={this.props.removeUserLike}
-              key={i} />;
+            return (
+              <UserIndexItem
+                user={user}
+                // isAuthenticated={this.props.isAuthenticated}
+                currentUser={this.props.currentUser}
+                createUserRating={this.props.createUserRating}
+                fetchUserRatings={this.props.fetchUserRatings}
+                ratings={this.props.ratings}
+                likes={this.props.likes}
+                fetchUserLikes={this.props.fetchUserLikes}
+                createUserLike={this.props.createUserLike}
+                removeUserLike={this.props.removeUserLike}
+                key={i}
+              />
+            );
           })}
         </div>
       </div>

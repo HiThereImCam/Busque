@@ -10,10 +10,10 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: "", 
-      commenter: "", 
-      newComment: false 
-    }
+      comment: "",
+      commenter: "",
+      newComment: false,
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRating = this.handleRating.bind(this);
@@ -26,24 +26,25 @@ class UserShow extends React.Component {
 
     if (this.props.currentUser !== undefined) {
       this.setState({
-        commenter: this.props.currentUser
-      })
-    }  
+        commenter: this.props.currentUser,
+      });
+    }
   }
 
   componentDidUpdate() {
     if (this.state.newComment === true) {
       this.setState({
         newComment: false,
-      })
+      });
     }
   }
 
   update() {
-    return e => this.setState({
-      comment: e.currentTarget.value,
-      commenter: this.props.currentUser,
-    })
+    return (e) =>
+      this.setState({
+        comment: e.currentTarget.value,
+        commenter: this.props.currentUser,
+      });
   }
 
   handleRating(nextValue) {
@@ -52,12 +53,16 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUserComment(this.props.match.params.userId, this.state.comment, this.state.commenter.id)
+    this.props.createUserComment(
+      this.props.match.params.userId,
+      this.state.comment,
+      this.state.commenter.id
+    );
 
     this.setState({
       comment: "",
-      newComment: true
-    })
+      newComment: true,
+    });
   }
 
   render() {
@@ -130,20 +135,34 @@ class UserShow extends React.Component {
         // }
       };
 
-      const userCommentInput = (this.props.currentUser === undefined) ? <div><Link className="login-link" to="/login">Log in</Link> to leave a review</div> :
-        <form onSubmit={this.handleSubmit}>
-          <textarea type="textarea"
-            className="review-input-user"
-            cols="45" rows="5"
-            value={this.state.comment}
-            onChange={this.update()}
-            placeholder="What did you think of their performance?"
-          />
-          <br />
-          <input className="submit-user" type="submit" value="Submit" />
-        </form>
+      const userCommentInput =
+        this.props.currentUser === undefined ? (
+          <div>
+            <Link className="login-link" to="/login">
+              Log in
+            </Link>{" "}
+            to leave a review
+          </div>
+        ) : (
+          <form onSubmit={this.handleSubmit}>
+            <textarea
+              type="textarea"
+              className="review-input-user"
+              cols="45"
+              rows="5"
+              value={this.state.comment}
+              onChange={this.update()}
+              placeholder="What did you think of their performance?"
+            />
+            <br />
+            <input className="submit-user" type="submit" value="Submit" />
+          </form>
+        );
 
-      const noReviews = (this.props.user.comments.length === 0) ? <div>Be the first to review!</div> : null
+      const noReviews =
+        this.props.user.comments.length === 0 ? (
+          <div>Be the first to review!</div>
+        ) : null;
 
       return (
         <div className="user-show-page">
@@ -155,9 +174,6 @@ class UserShow extends React.Component {
               }}
               className="menu-icon-other"
             />
-            <div className="user-search-show">
-              <Searchbar />
-            </div>
             <Link className="user-header-h1" to={"/"}>
               <h1 className="header-logo">Busque</h1>
             </Link>
@@ -184,30 +200,35 @@ class UserShow extends React.Component {
             <br />
             {noReviews}
           </div>
-          
-          {this.props.user.comments.slice().reverse().map((commentId, i) => {
+
+          {this.props.user.comments
+            .slice()
+            .reverse()
+            .map((commentId, i) => {
               return (
                 <div key={i}>
                   {this.props.comments.map((comment, j) => {
                     if (comment._id === commentId) {
                       return (
                         <div className="review-each-user" key={j}>
-                          <div className="reviewer-name"> 
-                            {comment.commenter === undefined ? "Username says:" :
-                              (comment.commenter === this.props.currentUser.id && comment.commenter.username === undefined) ? "From You:" :
-                                "From " + comment.commenter.username + ":"}
+                          <div className="reviewer-name">
+                            {comment.commenter === undefined
+                              ? "Username says:"
+                              : comment.commenter ===
+                                  this.props.currentUser.id &&
+                                comment.commenter.username === undefined
+                              ? "From You:"
+                              : "From " + comment.commenter.username + ":"}
                           </div>
                           {comment.comment}
-                          <div className="review-date">
-                            {comment.date}
-                          </div>
+                          <div className="review-date">{comment.date}</div>
                         </div>
                       );
                     }
                   })}
                 </div>
-              )
-          })}
+              );
+            })}
         </div>
       );
     }

@@ -5,7 +5,7 @@ import mapboxgl from "mapbox-gl";
 class Pin extends Component {
   constructor(props) {
     super(props);
-    let { venue, map, curLoggedInUser, checkIn, isAuthenticated } = this.props;
+    let { venue } = this.props;
     this.marker = new mapboxgl.Marker({
       color: "#4CBB17",
     });
