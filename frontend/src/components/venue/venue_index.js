@@ -18,7 +18,7 @@ class VenueIndex extends React.Component {
               onClick={() => {
                 this.props.openNavModal();
               }}
-              className="menu-icon-other"
+              className="engineer-menu-icon-other"
             />
           </div>
           <div className="venue-header-center">
