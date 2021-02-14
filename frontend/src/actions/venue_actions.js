@@ -11,6 +11,11 @@ export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
 export const SET_VENUENAME_AND_COORDINATES = "SET_VENUENAME_AND_COORDINATES";
 export const RECEIVE_VENUE_ERRORS = "RECEIVE_VENUE_ERRORS";
 export const ADD_VENUE_TO_VENUES = "ADD_VENUE_TO_VENUES";
+export const RECEIVE_ALL_VENUE_LIKES = "RECEIVE_ALL_VENUE_LIKES";
+export const RECEIVE_VENUE_LIKES = "RECEIVE_VENUE_LIKES";
+export const CREATE_VENUE_LIKE = "CREATE_VENUE_LIKE";
+export const UPDATE_VENUE_LIKE = "UPDATE_VENUE_LIKE";
+export const REMOVE_VENUE_LIKE = "REMOVE_VENUE_LIKE";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -66,6 +71,28 @@ export const getVenueErrors = (errors) => ({
 export const addVenue = (venue) => ({
   type: ADD_VENUE_TO_VENUES,
   venue,
+});
+
+const receiveAllVenueLikes = (likes) => ({
+  type: RECEIVE_ALL_VENUE_LIKES,
+  likes,
+});
+
+const receiveVenueLikes = (venue, likes) => ({
+  type: RECEIVE_VENUE_LIKES,
+  venue,
+  likes,
+});
+
+const receiveVenueLike = (like) => ({
+  type: CREATE_VENUE_LIKE,
+  like,
+});
+
+//update?
+
+const deleteVenueLike = (likeId) => ({
+  likeId,
 });
 
 export const fetchVenues = () => (dispatch) =>
@@ -125,4 +152,30 @@ export const createVenue = (venue, currentUser) => (dispatch) => {
     .catch((error) => {
       dispatch(getVenueErrors(error));
     });
+};
+
+export const fetchAllVenueLikes = () => (dispatch) => {
+  return VenueApiUtil.getAllVenueLikes()
+    .then((likes) => dispatch(receiveAllVenueLikes(likes)))
+    .catch((err) => console.log(err));
+};
+
+export const fetchVenueLikes = (venueId) => (dispatch) => {
+  return VenueApiUtil.getVenueLikes(venueId)
+    .then((venue, likes) => dispatch(receiveVenueLikes(venue, likes)))
+    .catch((err) => console.log(err));
+};
+
+export const createVenueLike = (venueId, likerId) => (dispatch) => {
+  return VenueApiUtil.createVenueLike(venueId, likerId)
+    .then((like) => dispatch(receiveVenueLike(like)))
+    .catch((err) => console.log(err));
+};
+
+//update?
+
+export const removeVenueLike = (venueId, likeId) => (dispatch) => {
+  return VenueApiUtil.deleteVenueLike(venueId, likeId)
+    .then((likeId) => dispatch(deleteVenueLike(likeId)))
+    .catch((err) => console.log(err));
 };

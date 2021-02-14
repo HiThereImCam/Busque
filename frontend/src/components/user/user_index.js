@@ -1,7 +1,7 @@
 import React from "react";
 import UserIndexItem from "./user_index_item";
 import "../../css/user_index.css";
-import Searchbar from "../searchbar/searchbar";
+import Searchbar from "../searchbar/searchbar_container";
 
 class UserIndex extends React.Component {
   componentDidMount() {
@@ -24,13 +24,25 @@ class UserIndex extends React.Component {
             <h1>Our Artists</h1>
           </div>
         </div>
-        {this.props.users.map((user, i) => {
-          return <UserIndexItem user={user} 
-            createUserRating={this.props.createUserRating}
-            fetchUserRatings={this.props.fetchUserRatings}
-            ratings={this.props.ratings}
-            key={i} />;
-        })}
+        <div className="user-index-container">
+          {this.props.users.map((user, i) => {
+            return (
+              <UserIndexItem
+                user={user}
+                // isAuthenticated={this.props.isAuthenticated}
+                currentUser={this.props.currentUser}
+                createUserRating={this.props.createUserRating}
+                fetchUserRatings={this.props.fetchUserRatings}
+                ratings={this.props.ratings}
+                likes={this.props.likes}
+                fetchUserLikes={this.props.fetchUserLikes}
+                createUserLike={this.props.createUserLike}
+                removeUserLike={this.props.removeUserLike}
+                key={i}
+              />
+            );
+          })}
+        </div>
       </div>
     );
   }

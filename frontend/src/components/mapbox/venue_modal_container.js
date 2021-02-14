@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
   createVenue: (venue, currentUser) =>
     dispatch(createVenue(venue, currentUser)),
   closeVenueModal: () => dispatch(closeVenueModal(false)),
-  // clearErrors: () => dispatch(clearErrors()),
+  clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueModal);

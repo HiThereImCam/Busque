@@ -6,10 +6,8 @@ import "../../css/searchbar.css";
 class Searchbar extends Component {
   constructor(props) {
     super(props);
-
     this.openModal = this.props.openModal;
 
-    console.log("These are the props: ", this.props);
     this.state = {
       input: "",
       venues: "",
@@ -73,7 +71,7 @@ class Searchbar extends Component {
   }
 
   render() {
-    let { input, users, venues } = this.state;
+    let { input, users } = this.state;
     let results;
     let matches = this.matches();
     if (matches.length === 0) {
@@ -104,27 +102,17 @@ class Searchbar extends Component {
         <GiHamburgerMenu
           size={25}
           onClick={() => {
-            this.openModal();
+            this.props.openModal();
           }}
           className="menu-icon-other"
         />
-        {users.length > 0 ? (
-          <input
-            type="text"
-            name="input"
-            value={input}
-            onChange={this.handleInputChange}
-            placeholder="Search users... "
-          />
-        ) : (
-          <input
-            type="text"
-            name="input"
-            value={input}
-            onChange={this.handleInputChange}
-            placeholder="Search venues... "
-          />
-        )}
+        <input
+          type="text"
+          name="input"
+          value={input}
+          onChange={this.handleInputChange}
+          placeholder="Search users... "
+        />
 
         {results.length < 1 && input.length > 0 ? (
           this.noMatches()

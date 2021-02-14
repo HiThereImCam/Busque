@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import Searchbar from "../searchbar/searchbar";
+import Searchbar from "../searchbar/searchbar_container";
 import ReactStars from "react-rating-stars-component";
 import "../../css/user_show.css";
 

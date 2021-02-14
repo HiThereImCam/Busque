@@ -6,9 +6,11 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
+const validateLikeInput = require("../../validations/likes");
 const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
+const Likes = require("../../models/Likes");
 
 router.get("/", (req, res) => {
   //venue index
@@ -249,5 +251,58 @@ router.post("/:venue_id/ratings", (req, res) => {
       .catch((err) => res.json(err));
   });
 });
+
+router.get("/likes", (req, res) => {
+  Venue.find()
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.get("/:id/likes", (req, res) => {
+  Venue.findById(req.params.id)
+    .then((likes) => res.json(likes))
+    .catch((err) => {
+      res.status(404).json({ comment: "we've encountered and error" });
+    });
+});
+
+router.post("/:id/likes", (req, res) => {
+  const newLike = new Like({
+    venue: req.params.id,
+    likerId: req.body.likerId,
+  }); 
+
+  newLike.save().then((like) => {
+    Venue.findByIdAndUpdate(
+      req.params.id,
+      { $push: { likes: like } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => {
+        res.status(404).json({ comment: "we've encountered and error" });
+      });
+  });
+});
+
+
+router.patch("/:id/likes/edit", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+
+  Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+    res.json(like)
+  );
+});
+
+router.delete("/:id/likes/delete", (req, res) => {
+  Likes.findByIdAndDelete(req.params.id)
+    .then((like) => res.json("Like successfully deleted"))
+    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+});
+
+
 
 module.exports = router;

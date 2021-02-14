@@ -15,7 +15,7 @@ const VenueSchema = new Schema({
     required: false,
     default: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
   },
-  
+
   type: {
     type: String,
     required: true,
@@ -32,6 +32,12 @@ const VenueSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "ratings",
+    },
+  ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Likes",
     },
   ],
 });

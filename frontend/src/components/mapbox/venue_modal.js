@@ -86,16 +86,16 @@ class VenueModal extends Component {
     this.props.closeVenueModal();
   }
 
-  // renderErrors() {
-  //   let { errors } = this.props;
-  //   return (
-  //     <ul>
-  //       {Object.keys(errors).map((error, i) => (
-  //         <li key={`error-${i}`}>{errors[error]}</li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
+  renderErrors() {
+    let { errors } = this.props;
+    return (
+      <ul>
+        {Object.keys(errors).map((error, i) => (
+          <li key={`error-${i}`}>{errors[error]}</li>
+        ))}
+      </ul>
+    );
+  }
 
   render() {
     let { venueModal, venueName } = this.props;

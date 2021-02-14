@@ -11,6 +11,7 @@ import UserIndexContainer from "./user/user_index_container";
 import VenueIndexContainer from "./venue/venue_index_container";
 import VenueModalContainer from "./mapbox/venue_modal_container";
 
+import EngineersContainer from "./user/engineers_container";
 import "../css/app.css";
 
 const App = () => (
@@ -18,6 +19,7 @@ const App = () => (
     <NavModalContainer />
     <VenueModalContainer />
     <Switch>
+      <Route exact path="/engineers" component={EngineersContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
       <ProtectedRoute

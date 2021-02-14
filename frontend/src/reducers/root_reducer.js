@@ -8,6 +8,7 @@ import comments from "./comments_reducer";
 import ratings from "./ratings_reducer";
 import venueModal from "./venue_modal_reducer";
 import setVenueNameAndCoordinates from "./set_ven_name_and_coordinates_reducer";
+import likes from "./likes_reducer";
 
 const RootReducer = combineReducers({
   session,
@@ -19,6 +20,7 @@ const RootReducer = combineReducers({
   venues,
   comments,
   ratings,
+  likes,
 });
 
 export default RootReducer;
