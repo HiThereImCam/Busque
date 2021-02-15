@@ -281,7 +281,7 @@ router.post("/:id/likes", (req, res) => {
   newLike.save().then((like) => {
     Venue.findByIdAndUpdate(
       req.params.id,
-      { $push: { likes: like } },
+      { $push: { likes: req.body.likerId } },
       { new: true }
     )
       .then((venue) => res.json(venue))

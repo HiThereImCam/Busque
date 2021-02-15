@@ -74,8 +74,9 @@ class VenueIndexItem extends React.Component {
             redHeart: true
         })
     }
-    handleUnlike() {
-        // this.props.removeVenueLike(this.props.venue._id) //! figure out likeId situation
+    handleUnlike(e) {
+        e.preventDefault(); 
+        this.props.removeVenueLike(this.props.venue._id, this.state.user) 
         this.setState({
             redHeart: false
         })
@@ -182,13 +183,13 @@ class VenueIndexItem extends React.Component {
 
         const changeColor = this.state.redHeart ? "red" : "gray"
         const likeBtn = (this.props.currentUser === undefined) ? null :
-            (this.state.redHeart === false) ?
+            (!this.props.venue.likes.includes(this.props.currentUser)) ?
                 <div className="likes">
-                    <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: changeColor }}></i></button>
+                    <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
                     {this.props.venue.likes.length}
                 </div> :
                 <div className="likes">
-                    <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: changeColor }}></i></button>
+                    <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
                     {this.props.venue.likes.length}
                 </div>
 
