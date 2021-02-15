@@ -38,7 +38,7 @@ class Pin extends Component {
         htmlContent = `
                         <div style="padding: 5px 3px 3px 3px;">
                           <h1>${venue.name}</h1>
-                          <p>Please log in </>
+                          <button onclick="redirectLogin()">Sign In</button>
                         </div>
                     `;
       }
@@ -96,7 +96,7 @@ class Pin extends Component {
         htmlContent = `
                         <div style="padding: 5px 3px 3px 3px;">
                           <h1>${venue.name}</h1>
-                          <p>Please log in</>
+                          <button onclick="redirectLogin()">Sign In</button>
                         </div>
                     `;
       }
@@ -142,6 +142,11 @@ class Pin extends Component {
 
     checkIn(venueID, curLoggedInUser);
   }
+
+  // redirectLogin() {
+  //   let goToLogin = document.getElementById("redirectToLogin");
+  //   goToLogin.click();
+  // }
 
   render() {
     return <></>;
