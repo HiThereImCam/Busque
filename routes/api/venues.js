@@ -299,8 +299,10 @@ router.patch("/:id/likes/edit", (req, res) => {
   );
 });
 
-router.delete("/:id/likes/delete", (req, res) => {
-  Likes.findByIdAndDelete(req.params.id)
+router.delete("/:id/likes/", (req, res) => {
+  console.log(req);
+  console.log(res);
+  Like.findByIdAndDelete(req.body._id)
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
