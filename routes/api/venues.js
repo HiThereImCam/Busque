@@ -223,6 +223,14 @@ router.get(
   }
 );
 
+router.patch("/:id/comments/", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+  Comment.findByIdAndUpdate(req.body._id, req.body, {
+    new: true,
+  }).then((comment) => res.json(comment));
+});
+
 //! rating routes
 
 // get all ratings for a venue
