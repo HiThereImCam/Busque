@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.createVenueLike = createVenueLike; 
   window.removeVenueLike = removeVenueLike; 
   window.createUserLike = createUserLike; 
+  window.removeUserLike = removeUserLike; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);

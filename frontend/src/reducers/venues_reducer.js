@@ -34,13 +34,14 @@ const VenuesReducer = (state = [], action) => {
       wholeVenue.comments.push(action.comment.data._id);
       return newState;
     case CREATE_VENUE_LIKE: 
-      let likeVenue = newState.find((venue) => venue._id === action.like.data.venueId)
-      likeVenue.likes++
+      let likedVenue = newState.find((venue) => venue._id === action.like.data._id)
+      let likeId = action.like.data.likes[action.like.data.likes.length - 1]
+      likedVenue.likes.push(likeId)
       return newState; 
-    case REMOVE_VENUE_LIKE: 
-      let likedVenue = newState.find((venue) => venue._id === action.likeId.config.venueId)
-      likedVenue.likes--
-      return newState
+    // case REMOVE_VENUE_LIKE: 
+    //   let likedVenue = newState.find((venue) => venue._id === action.likeId.config.venueId)
+    //   likedVenue.likes--
+    //   return newState
     default:
       return state;
   }

@@ -259,7 +259,7 @@ router.post("/:id/likes", (req, res) => {
   newLike.save().then((like) => {
     User.findByIdAndUpdate(
       req.params.id,
-      { $push: { likes: like } },
+      { $push: { likes: req.body.likerId } },
       { new: true }
     )
       .then((user) => res.json(user))
@@ -281,9 +281,16 @@ router.patch("/:id/likes/edit", (req, res) => {
 });
 
 router.delete("/:id/likes/delete", (req, res) => {
-  Like.findByIdAndDelete(req.params.id)
-    .then((like) => res.json("Like successfully deleted"))
-    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+  // Like.findByIdAndDelete(req.params.id)
+  Like.findByIdAndDelete(req.params.id).then((like) => {
+    User.findByIdAndUpdate(
+      req.params.id,
+      { $pop: { likes: req.body.likerId } },
+      { new: true }
+    )
+  })
+  .then((like) => res.json("Like successfully deleted"))
+  .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 
 module.exports = router;

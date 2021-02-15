@@ -117,6 +117,10 @@
 .like-button:focus {
   outline: none;
 }
+.like-button:hover {
+  cursor: pointer;
+  color: red;
+}
 
 @media screen and (max-width: 1060px) and (min-width: 900px) {
   .user-index-container {

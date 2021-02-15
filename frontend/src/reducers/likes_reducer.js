@@ -8,8 +8,8 @@ const likesReducer = (state = {}, action) => {
     switch(action.type) {
         // case RECEIVE_VENUE_LIKES:
         //     return action.venue.data
-        case CREATE_VENUE_LIKE:
-            return Object.assign({}, state, { [action.like.data._id]: action.like.data})
+        // case CREATE_VENUE_LIKE:
+        //     return Object.assign({}, state, { [action.like.data._id]: action.like.data})
         // case CREATE_USER_LIKE:
         //     console.log(newState)
         //     let likeId = action.like.data.likes[action.like.data.likes.length - 1]
