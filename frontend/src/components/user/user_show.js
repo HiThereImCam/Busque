@@ -57,17 +57,15 @@ class UserShow extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    this.props.createUserLike(this.props.user._id, this.state.user)
+    this.props.createUserLike(this.props.match.params.userId, this.props.currentUser.id)
     this.setState({
       redHeart: true
     })
   }
 
-  handleUnlike() {
-    // e.preventDefault(); 
-    // console.log(this.props.user)
-    // console.log(likeId)
-    // this.props.removeUserLike(this.props.user._id) //! figure out likeId situation
+  handleUnlike(e) {
+    e.preventDefault(); 
+    this.props.removeUserLike(this.props.match.params.userId, this.props.currentUser.id) //! figure out likeId situation
     this.setState({
       redHeart: false
     })
@@ -170,13 +168,13 @@ class UserShow extends React.Component {
 
       const changeColor = this.state.redHeart ? "red" : "gray"
       const likeBtn = (this.props.currentUser === undefined) ? null :
-        (this.state.redHeart === false) ?
+        (!this.props.user.likes.includes(this.props.currentUser.id)) ?
           <div className="likes">
-            <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: changeColor }}></i></button>
+            <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
             {this.props.user.likes.length}
           </div> :
           <div className="likes">
-            <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: changeColor }}></i></button>
+            <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
             {this.props.user.likes.length}
           </div>
 
