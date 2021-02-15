@@ -1,7 +1,6 @@
 const express = require("express");
 const fs = require("fs");
 const http = require("http");
-const aws = require("aws-sdk");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../../models/User");
@@ -241,7 +240,8 @@ router.get("/likes", (req, res) => {
 });
 
 router.get("/:id/likes", (req, res) => {
-  Like.findById(req.params.id)
+  User.findById(req.params.id)
+  .populate('likes')
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -273,15 +273,17 @@ router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
 
   
-  Like.findByIdAndUpdate(req.params.id, 
+  User.findByIdAndUpdate(req.params.id, 
     req.body, { new: true })
     .then((like) =>
     res.json(like)
   );
 });
 
-router.delete("/:id/likes/delete", (req, res) => {
-  Like.findByIdAndDelete(req.params.id)
+router.delete("/:id/likes/", (req, res) => {
+  console.log(req)
+  console.log(res)
+  Like.findByIdAndDelete(req.body._id) 
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
