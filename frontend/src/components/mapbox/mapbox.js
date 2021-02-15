@@ -151,6 +151,8 @@ class MapBox extends Component {
       isAuthenticated,
       users,
       venueModal,
+      userCheckedIn,
+      checkUserIn,
     } = this.props;
     let { show } = this.state;
     return (
@@ -181,6 +183,8 @@ class MapBox extends Component {
                     checkIn={checkIn}
                     isAuthenticated={isAuthenticated}
                     users={users}
+                    userCheckedIn={userCheckedIn}
+                    checkUserIn={checkUserIn}
                   />
                 ))
               : ""}

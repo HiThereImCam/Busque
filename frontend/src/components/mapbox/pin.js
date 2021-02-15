@@ -38,7 +38,7 @@ class Pin extends Component {
         htmlContent = `
                         <div style="padding: 5px 3px 3px 3px;">
                           <h1>${venue.name}</h1>
-                          <p>Please log in </>
+                          <button onclick="redirectLogin()">Sign In</button>
                         </div>
                     `;
       }
@@ -78,12 +78,13 @@ class Pin extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    let { venue, map, isAuthenticated, users } = this.props;
+    let { venue, map, isAuthenticated, users, userCheckedIn } = this.props;
 
     let htmlContent;
     if (venue.available) {
       if (isAuthenticated) {
-        htmlContent = `
+        if (userCheckedIn === false) {
+          htmlContent = `
                     <div style="padding: 5px 3px 3px 3px;">
                       <h1>${venue.name}</h1>
                       <button id = "${venue._id}"
@@ -91,12 +92,20 @@ class Pin extends Component {
                               ref=${this.buttonRef.current}>Check in</button>
                     </div> 
                   `;
+        } else {
+          htmlContent = `
+                    <div style="padding: 5px 3px 3px 3px;">
+                      <h1>${venue.name}</h1>
+                      <p>Venue Available</p>
+                    </div> 
+                  `;
+        }
       } else {
         //style="padding: 5px 3px 3px 3px;
         htmlContent = `
                         <div style="padding: 5px 3px 3px 3px;">
                           <h1>${venue.name}</h1>
-                          <p>Please log in</>
+                          <button onclick="redirectLogin()">Sign In</button>
                         </div>
                     `;
       }
@@ -138,9 +147,10 @@ class Pin extends Component {
   }
 
   handleCheckIn(venueID) {
-    let { curLoggedInUser, checkIn } = this.props;
+    let { curLoggedInUser, checkIn, checkUserIn } = this.props;
 
     checkIn(venueID, curLoggedInUser);
+    checkUserIn();
   }
 
   render() {

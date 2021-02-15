@@ -4,9 +4,12 @@ import {
   RECEIVE_USER_SIGN_IN,
 } from "../actions/session_actions";
 
+import { CHECK_USER_IN } from "../actions/user_actions";
+
 const initialState = {
   isAuthenticated: false,
   user: {},
+  userCheckedIn: false,
 };
 
 let sessionReducer = (state = initialState, action) => {
@@ -17,6 +20,12 @@ let sessionReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: !!action.currentUser,
         user: action.currentUser,
+        userCheckedIn: action.userCheckedIn,
+      };
+    case CHECK_USER_IN:
+      return {
+        ...state,
+        userCheckedIn: action.value,
       };
     case RECEIVE_USER_LOGOUT:
       return initialState;
