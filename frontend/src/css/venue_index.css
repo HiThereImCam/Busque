@@ -1,209 +1,257 @@
+.user-header-container {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.user-header {
+  display: flex;
+  font-size: 25px;
+  text-decoration: none;
+  width: 61%;
+}
+
+.user-search-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+}
+
+.user-search {
+  display: flex;
+  width: 50%;
+  border: 0.5px solid lightgray;
+  border-radius: 5px;
+  position: relative;
+}
+
+.user-search input {
+  margin-left: 12%;
+  border: none;
+  border-color: trasparent;
+  width: 100%;
+  font-size: 16px;
+}
+
+.user-search input:focus {
+  outline: none;
+}
+.venue-list-items {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding-left: 45px;
+  padding-right: 25px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
 .venue-header-container {
-    display: flex;
-    padding: 20px;
-    border-bottom: 1px solid lightgray;
-    text-decoration: none;
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+  text-decoration: none;
 }
 
 .venue-header-center {
-    text-decoration: none;
-    color: black;
-    width: 75%; 
-    font-size: 25px;
+  text-decoration: none;
+  color: black;
+  width: 75%;
+  font-size: 25px;
 }
 
 .venue-list-items {
-    border-bottom: 1px solid lightgray;
-    display: flex;
-    flex-direction: column;
-    margin-left: 5vw;
-    margin-right: 5vw;
-    padding-left: 45px;
-    padding-right: 25px;
-    margin-top: 20px;
-    padding-bottom: 10px; 
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  padding-left: 45px;
+  padding-right: 25px;
+  margin-top: 20px;
+  padding-bottom: 10px;
 }
 
 .venue-info-outer {
-    display: flex; 
+  display: flex;
 }
 
 .venue-info {
-    display: block; 
-    flex-basis: 50%;
-
+  display: block;
+  flex-basis: 50%;
 }
 
 .venue-pic {
-    display: block; 
-    flex-basis: 50%;
-    height: 250px; 
-    padding-bottom: 15px;
+  display: block;
+  flex-basis: 50%;
+  height: 250px;
+  padding-bottom: 15px;
 }
 .venue-pic img {
-    border-radius: 4px;
-    border: 1px solid lightgray; 
-    height: 250px; 
-    /* width: 350px;  */
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  height: 250px;
+  /* width: 350px;  */
 }
 
 @media screen and (max-width: 900px) {
-    .venue-info-outer-alt {
-        display: block; 
-    }
-    .venue-info-alt {
-        display: inline-block; 
-        flex-basis: 100%
-    }
-    .venue-pic-alt {
-        display: flex; 
-        flex-basis: 100%; 
-        height: inherit; 
-        margin-left: -30px;
-    }
+  .venue-info-outer-alt {
+    display: block;
+  }
+  .venue-info-alt {
+    display: inline-block;
+    flex-basis: 100%;
+  }
+  .venue-pic-alt {
+    display: flex;
+    flex-basis: 100%;
+    height: inherit;
+    margin-left: -30px;
+  }
 }
 
 .venue-name {
-    font-size: larger;
-    font-weight: bold;
-    padding-bottom: 5px;
-
+  font-size: larger;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 .venue-list-info {
-    padding-left: 30px; 
+  padding-left: 30px;
 }
 
 .venue-type {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .rating-stars {
-    padding-bottom: 10px;
-    margin-left: -30px;
+  padding-bottom: 10px;
+  margin-left: -30px;
 }
 
 .react-stars:focus {
-    outline: transparent;
+  outline: transparent;
 }
 
 .venue-rating {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .venue-availabilty {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .venue-current-user {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 
 .venue-current-user-inner {
-    display: flex; 
-    align-items: center;
-    padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
 }
 
 .venue-index-currentUser {
-    height: 30px; 
-    width: 30px;  
-    border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
 }
 .currentUser-link {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 .currentUser-link:hover {
-    text-decoration: underline;
-    color: rgb(34, 34, 175);
-
+  text-decoration: underline;
+  color: rgb(34, 34, 175);
 }
 
 .login-link {
-    text-decoration: none;
-    color: rgb(34, 34, 175); 
+  text-decoration: none;
+  color: rgb(34, 34, 175);
 }
 .login-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .review-input {
-    border: 1px solid lightgray; 
-    border-radius: 4px;
-    font-family: "Roboto", sans-serif;
-    padding: 8px; 
-    box-shadow: lightgray 0px 0px 5px 0px;
-    margin-left: -30px;
-    margin-top: 20px; 
-    margin-right: 10px; 
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  font-family: "Roboto", sans-serif;
+  padding: 8px;
+  box-shadow: lightgray 0px 0px 5px 0px;
+  margin-left: -30px;
+  margin-top: 20px;
+  margin-right: 10px;
 }
 
 .submit {
-    padding: 8px; 
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: "Roboto", sans-serif;
-    background: #4267B2; 
-    color: white; 
-    border: 1px solid #4267B2; 
-    border-radius: 4px;
-    margin-bottom: 10px;
-    margin-left: -30px;
-    margin-top: 5px; 
+  padding: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Roboto", sans-serif;
+  background: #4267b2;
+  color: white;
+  border: 1px solid #4267b2;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-left: -30px;
+  margin-top: 5px;
 }
 
 .submit:hover {
-    cursor: pointer;
-    background: #22458a;
+  cursor: pointer;
+  background: #22458a;
 }
 .submit:focus {
-    outline: none; 
+  outline: none;
 }
 
 .venue-reviews-inner {
-    margin-top: 5px; 
-    margin-left: -30px;
-
+  margin-top: 5px;
+  margin-left: -30px;
 }
 
 .review-each {
-    border: 1px solid lightgray; 
-    border-radius: 4px;
-    margin: 5px; 
-    padding: 5px; 
-    padding-left: 8px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 5px;
+  padding-left: 8px;
 }
 
 .reviews-dropdown {
-    display: block; 
-    margin-left: -50px;
-    padding-left: 20px;
-    padding-top: 10px; 
-    padding-bottom: 10px; 
-    margin-right: -20px;
-    font-size: large;
+  display: block;
+  margin-left: -50px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-right: -20px;
+  font-size: large;
 }
 
 .review-arrow-up {
-    display: inline-block; 
+  display: inline-block;
 }
 
 .review-arrow-down {
-    display: inline-block; 
+  display: inline-block;
 }
 
 .reviews-dropdown:hover {
-    cursor: pointer;
-    background-color: rgb(231, 231, 231);
+  cursor: pointer;
+  background-color: rgb(231, 231, 231);
 }
 
 .reviewer-name {
-    font-size: small; 
-    color: gray; 
+  font-size: small;
+  color: gray;
 }
 
 .review-date {
-    font-size: small; 
-    color: gray;
+  font-size: small;
+  color: gray;
 }

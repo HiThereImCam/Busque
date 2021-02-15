@@ -1,11 +1,9 @@
-import React from 'react'; 
-import { Link } from 'react-router-dom'; 
+import React from "react";
+import { Link } from "react-router-dom";
 import "../../css/user_index.css";
-import ReactStars from 'react-rating-stars-component'; 
-
+import ReactStars from "react-rating-stars-component";
 
 class UserIndexItem extends React.Component {
-
     constructor(props) {
         super(props)
         this.state = {
@@ -20,20 +18,20 @@ class UserIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUserRatings(this.props.user._id)
-        this.props.fetchUserLikes(this.props.user._id)
+        this.props.fetchUserRatings(this.props.user._id);
+        this.props.fetchUserLikes(this.props.user._id);
 
         if (this.props.currentUser !== undefined) {
             this.setState({
-                user: this.props.currentUser
-            })
-        }  
+                user: this.props.currentUser,
+            });
+        }
     }
 
     handleRating(nextValue) {
-        this.props.createUserRating(this.props.user._id, nextValue)
-
+        this.props.createUserRating(this.props.user._id, nextValue);
     }
+
     handleLike(e) {
         e.preventDefault();
         this.props.createUserLike(this.props.user._id, this.state.user)
@@ -120,28 +118,36 @@ class UserIndexItem extends React.Component {
 
         return (
             <div className="user-list-items-outer">
-                    <div className="user-list-items">
-                        <Link className="user-photo" to={`/profile/${this.props.user._id}`}>
-                            <img src={this.props.user.imageURL} alt="profile" />
-                        </Link>
-                        <br/>
-                        <div className="user-info">
-                            <div className="username-outer">
-                                <Link className="user-username" to={`/profile/${this.props.user._id}`}>
-                                    {this.props.user.username}
-                                </Link>
-                            </div>
-                            <div className="user-rating">
-                                {showRatingAvg()}
-                            </div> 
-                            {likeBtn}
-                            <div className="performer-type">
-                                Performer Type: {this.props.user.performerType}
-                            </div>
+                <div className="user-list-items">
+                    <Link className="user-photo" to={`/profile/${this.props.user._id}`}>
+                        <img src={this.props.user.imageURL} alt="profile" />
+                    </Link>
+                    <br/>
+                    <div className="user-info">
+                        <div className="username-outer">
+                            <Link className="user-username" to={`/profile/${this.props.user._id}`}>
+                                {this.props.user.username}
+                            </Link>
+                        </div>
+                        <div className="user-rating">
+                            {showRatingAvg()}
+                        </div> 
+                        {likeBtn}
+                        <div className="performer-type">
+                            Performer Type: {this.props.user.performerType}
                         </div>
                     </div>
+                </div>
+                <div className="user-rating">{showRatingAvg()}</div>
+                <div className="performer-type">
+                    Performer Type: {this.props.user.performerType}
+                </div>
+                <div>
+                    <button onClick={this.handleLike}>Like</button>
+                    {this.props.user.likes}
+                </div>
             </div>
-        )
+        );
     }
 }
 

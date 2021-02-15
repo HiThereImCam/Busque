@@ -1,4 +1,8 @@
-.signup-page {
+.venue-modal-child {
+  margin: auto;
+}
+
+.venue-create-page {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -10,7 +14,7 @@
   /* font-family: Verdana; */
 }
 
-.signup-form {
+.venue-create-form {
   margin-bottom: 50px;
   padding: 20px;
   border-style: solid;
@@ -28,28 +32,14 @@
   flex-direction: column;
 }
 
-.signup-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.signup-desc {
+.venue-desc {
   color: rgb(61, 61, 61);
   font-size: 18px;
   text-align: center;
   margin-bottom: 10px;
 }
 
-.signup-description {
-  color: rgb(61, 61, 61);
-  font-size: 14px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#signup-button {
+#venue-create-button {
   width: 36vw;
   border: none;
   color: white;
@@ -62,12 +52,12 @@
   font-weight: 600;
 }
 
-#signup-button:hover {
+#venue-create-button:hover {
   cursor: pointer;
   background-color: #22458a;
 }
 
-.signup-form input {
+.venue-create-form input {
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
@@ -77,11 +67,11 @@
   border-radius: 3px;
 }
 
-.signup-form select:focus {
+.venue-create-form select:focus {
   outline: none;
 }
 
-.signup-form select {
+.venue-create-form select {
   padding: 5px 5px 5px 5px;
   margin-bottom: 20px;
   width: 36vw;
@@ -90,7 +80,7 @@
   color: gray;
 }
 
-.pic-upload-desc {
+.venue-pic-upload-desc {
   color: rgb(61, 61, 61);
   padding-bottom: 5px;
 }
@@ -108,12 +98,12 @@
 }
 
 @media screen and (max-width: 650px) {
-  .signup-page {
+  .venue-create-page {
     width: 80vw;
     border-style: none;
   }
 
-  .signup-form input {
+  .venue-create-form input {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -122,7 +112,7 @@
     width: 67vw;
   }
 
-  #signup-button {
+  #venue-create-button {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
@@ -131,11 +121,11 @@
     width: 69vw;
   }
 
-  .signup-form select {
+  .venue-create-form select {
     width: 69vw;
   }
 
-  #signup-profile {
+  #venue-create-profile {
     width: 67vw;
   }
 }

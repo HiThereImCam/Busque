@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
               currentUser: venueSchedule ? venueSchedule.currentUser : "",
               expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
             });
-          }; 
+          }
           res.json(mergedData);
         })
         .catch((err) => {
@@ -80,15 +80,13 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: JSON.parse(req.body.coordinate), //!fuck yeah it works!
+      coordinate: req.body.coordinate, //!fuck yeah it works!
       imageURL: req.body.imageURL,
       type: req.body.type,
-      imageURL: req.body.imageURL,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
 ); //end post
-
 
 //update venue
 router.patch(
@@ -134,7 +132,7 @@ router.patch(
       Schedule.findByIdAndRemove(
         { venueID: req.params.id },
         (err, schedule) => {
-          if (err) { 
+          if (err) {
             console.log("Error: ", err);
           } else {
             console.log("Removed schedule: ", schedule);
@@ -301,8 +299,10 @@ router.patch("/:id/likes/edit", (req, res) => {
   );
 });
 
-router.delete("/:id/likes/delete", (req, res) => {
-  Likes.findByIdAndDelete(req.params.id)
+router.delete("/:id/likes/", (req, res) => {
+  console.log(req);
+  console.log(res);
+  Like.findByIdAndDelete(req.body._id)
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
