@@ -242,11 +242,14 @@ router.patch("/:id/comments/", (req, res) => {
 
 
 router.delete("/:id/comments/", (req, res) => {
-  console.log(req);
-  console.log(res);
-  Like.findByIdAndDelete(req.body._id)
-    .then((like) => res.json("Like successfully deleted"))
-    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+    .populate("comments")
+    .then((comment) => res.json(comment))
+    .catch((err) => res.status(400).json("Comment was not successfully deleted"));
 });
 
 router.get("/likes", (req, res) => {
@@ -296,16 +299,11 @@ router.patch("/:id/likes/edit", (req, res) => {
     { new: true }
   )
   
-  // User.findByIdAndUpdate(req.params.id, 
-  //   req.body, { new: true })
    .then((like) => res.json(like));
 });
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log("delete route req body", req)
-  // console.log(res)
-  // Like.findByIdAndDelete(req.body._id)//.then((like) => {
-  // }) 
+
   User.findByIdAndUpdate(
     req.params.id,
     { $pull: { likes: req.body._id } }, 
