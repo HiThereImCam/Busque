@@ -241,7 +241,7 @@ router.get("/likes", (req, res) => {
 
 router.get("/:id/likes", (req, res) => {
   User.findById(req.params.id)
-  .populate('likes')
+    .populate("likes")
     .then((likes) => res.json(likes))
     .catch((err) => {
       res.status(404).json({ comment: "we've encountered and error" });
@@ -249,8 +249,8 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-  console.log(req)
-  console.log(res)
+  console.log(req);
+  console.log(res);
   const newLike = new Likes({
     userId: req.params.id,
     likerId: req.body.likerId,
@@ -272,18 +272,15 @@ router.post("/:id/likes", (req, res) => {
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
 
-  
-  User.findByIdAndUpdate(req.params.id, 
-    req.body, { new: true })
-    .then((like) =>
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
   );
 });
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log(req)
-  console.log(res)
-  Like.findByIdAndDelete(req.body._id) 
+  console.log("Delete request req: ", req);
+
+  Like.findByIdAndDelete(req.body._id)
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
