@@ -59,7 +59,7 @@ export const getVenueLikes = (venueId) => {
 export const createVenueLike = (venueId, likerId) => {
   return axios.post(`/api/venues/${venueId}/likes`, {
     venueId, 
-    likerId: likerId
+    likerId
   })
 };
 
@@ -69,9 +69,9 @@ export const updateVenueLike = (venueId) => {
   })
 }
 
-export const deleteVenueLike = (venueId, likeId) => {
+export const deleteVenueLike = (venueId, likerId) => {
   return axios.delete(`/api/venues/${venueId}/likes/delete`, {
     venueId, 
-    likeId
+    likerId
   })
 };
