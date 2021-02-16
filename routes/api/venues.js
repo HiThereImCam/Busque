@@ -1,4 +1,3 @@
-//! Would suggest placeholders for front end update/delete components
 
 const express = require("express");
 const router = express.Router();
@@ -6,7 +5,6 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
-const validateLikeInput = require("../../validations/likes");
 const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
@@ -168,11 +166,9 @@ router.post(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req);
-    console.log(res);
+    
 
     const newComment = new Comment({
-      //needs user
       venue: req.params.venue_id,
       comment: req.body.comment,
       user: req.body.user, //*this is the working one at the moment
@@ -246,6 +242,20 @@ router.get("/:venue_id/ratings", (req, res) => {
     });
 });
 
+router.delete("/:id/comments/", (req, res) => {
+  Venue.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+    .populate("comments")
+    .then((comment) => res.json(comment))
+    .catch((err) =>
+      res.status(400).json("Comment was not successfully deleted")
+    );
+});
+
+
 // creates a rating, same format as new comment creation
 router.post("/:venue_id/ratings", (req, res) => {
   const newRating = new Rating({
@@ -308,10 +318,13 @@ router.patch("/:id/likes/edit", (req, res) => {
 });
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log(req);
-  console.log(res);
-  Like.findByIdAndDelete(req.body._id)
-    .then((like) => res.json("Like successfully deleted"))
+  Venue.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+    .populate("likes")
+    .then((like) => res.json(like))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 
