@@ -10,19 +10,24 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: "",
-      commenter: "",
-      newComment: false,
-    };
+      comment: "", 
+      commenter: "", 
+      newComment: false, 
+      redHeart: false 
+    }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRating = this.handleRating.bind(this);
+    this.update = this.update.bind(this); 
+    this.handleLike = this.handleLike.bind(this);
+    this.handleUnlike = this.handleUnlike.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
+    this.props.fetchUserLikes(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
       this.setState({
@@ -49,6 +54,22 @@ class UserShow extends React.Component {
 
   handleRating(nextValue) {
     this.props.createUserRating(this.props.match.params.userId, nextValue);
+  }
+
+  handleLike(e) {
+    e.preventDefault();
+    this.props.createUserLike(this.props.match.params.userId, this.props.currentUser.id)
+    this.setState({
+      redHeart: true
+    })
+  }
+
+  handleUnlike(e) {
+    e.preventDefault(); 
+    this.props.removeUserLike(this.props.match.params.userId, this.props.currentUser.id) //! figure out likeId situation
+    this.setState({
+      redHeart: false
+    })
   }
 
   handleSubmit(e) {
@@ -164,6 +185,18 @@ class UserShow extends React.Component {
           <div>Be the first to review!</div>
         ) : null;
 
+      const changeColor = this.state.redHeart ? "red" : "gray"
+      const likeBtn = (this.props.currentUser === undefined) ? null :
+        (!this.props.user.likes.includes(this.props.currentUser.id)) ?
+          <div className="likes">
+            <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
+            {this.props.user.likes.length}
+          </div> :
+          <div className="likes">
+            <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
+            {this.props.user.likes.length}
+          </div>
+
       return (
         <div className="user-show-page">
           <div className="user-show-header">
@@ -188,6 +221,7 @@ class UserShow extends React.Component {
             <div className="user-show-info">
               <div className="user-show-username">{user.username}</div>
               <div className="user-rating">{showRatingAvg()}</div>
+              {likeBtn}
               <div className="user-show-performer-type">
                 Performer Type: {user.performerType}
               </div>
@@ -200,15 +234,11 @@ class UserShow extends React.Component {
             <br />
             {noReviews}
           </div>
-
-          {this.props.user.comments
-            .slice()
-            .reverse()
-            .map((commentId, i) => {
-              return (
-                <div key={i}>
+          {this.props.user.comments.slice().reverse().map((commentId, i) => {
+            return (
+              <div key={i}>
                   {this.props.comments.map((comment, j) => {
-                    if (comment._id === commentId) {
+                    if (comment._id === commentId._id) {
                       return (
                         <div className="review-each-user" key={j}>
                           <div className="reviewer-name">
@@ -226,9 +256,9 @@ class UserShow extends React.Component {
                       );
                     }
                   })}
-                </div>
-              );
-            })}
+              </div>
+            )
+          })}
         </div>
       );
     }

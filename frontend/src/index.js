@@ -12,7 +12,8 @@ import { logout } from "./actions/session_actions";
 //TESTING
 // import { getAllVenueLikes, getVenueLikes, createVenueLike, updateVenueLike, deleteVenueLike } from './util/venue_api_util'; 
 import { fetchAllVenueLikes, fetchVenueLikes, createVenueLike, removeVenueLike } from './actions/venue_actions';
-import { createUserLike } from './actions/user_actions';
+import { createUserLike, fetchUserLikes, removeUserLike } from './actions/user_actions';
+import { fetchUserComments } from './actions/user_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -38,11 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.fetchUserComments = fetchUserComments;
   window.fetchAllVenueLikes = fetchAllVenueLikes; 
   window.fetchVenueLikes = fetchVenueLikes; 
   window.createVenueLike = createVenueLike; 
   window.removeVenueLike = removeVenueLike; 
   window.createUserLike = createUserLike; 
+  window.removeUserLike = removeUserLike; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);

@@ -277,9 +277,10 @@ router.post("/:id/likes", (req, res) => {
   newLike.save().then((like) => {
     User.findByIdAndUpdate(
       req.params.id,
-      { $push: { likes: like } },
+      { $push: { likes: req.body.likerId } },
       { new: true }
     )
+      // .populate('likes')
       .then((user) => res.json(user))
       .catch((err) => {
         res.status(404).json({ comment: "we've encountered and error" });
@@ -287,12 +288,31 @@ router.post("/:id/likes", (req, res) => {
   });
 });
 
+router.patch("/:id/likes/edit", (req, res) => {
+
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+  
+  // User.findByIdAndUpdate(req.params.id, 
+  //   req.body, { new: true })
+   .then((like) => res.json(like));
+});
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log(req)
-  console.log(res)
-  Like.findByIdAndDelete(req.body._id) 
-    .then((like) => res.json("Like successfully deleted"))
+  console.log("delete route req body", req)
+  // console.log(res)
+  // Like.findByIdAndDelete(req.body._id)//.then((like) => {
+  // }) 
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } }, 
+    { new: true } 
+  )
+    .populate('likes')
+    .then((like) => res.json(like))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 

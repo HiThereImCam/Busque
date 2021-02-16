@@ -91,9 +91,10 @@ const receiveVenueLike = (like) => ({
 
 //update?
 
-const deleteVenueLike = (likeId) => ({
-  likeId,
-});
+const deleteVenueLike = (like) => ({
+  type: REMOVE_VENUE_LIKE,
+  like
+})
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -174,8 +175,8 @@ export const createVenueLike = (venueId, likerId) => (dispatch) => {
 
 //update?
 
-export const removeVenueLike = (venueId, likeId) => (dispatch) => {
-  return VenueApiUtil.deleteVenueLike(venueId, likeId)
-    .then((likeId) => dispatch(deleteVenueLike(likeId)))
-    .catch((err) => console.log(err));
+export const removeVenueLike = (venueId, likerId) => (dispatch) => {
+  return VenueApiUtil.deleteVenueLike(venueId, likerId)
+    .then(like => dispatch(deleteVenueLike(like)))
+    .catch(err => console.log(err))
 };
