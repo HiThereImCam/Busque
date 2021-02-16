@@ -19,9 +19,6 @@ const usersReducer = (state = {}, action) => {
             let wholeUser = newState[action.comment.data.user]
             wholeUser.comments.push(action.comment.data._id)
             return newState; 
-        // case RECEIVE_USER_LIKES: 
-        //     console.log(newState)
-            //return Object.assign({}, newState, { [action.user.data]})
         case CREATE_USER_LIKE: 
             let likedUser = newState[action.like.data._id]
             let likerId = action.like.data.likes[action.like.data.likes.length - 1]
@@ -29,15 +26,11 @@ const usersReducer = (state = {}, action) => {
             return newState; 
         case REMOVE_USER_LIKE:
             let userLiked = newState[action.like.config.userId]
-            console.log(userLiked)
             for (let i = 0; i < userLiked.likes.length; i++) {
-                console.log(userLiked.likes[i])
-                console.log(action.like.config.likerId)
                 if (userLiked.likes[i] === action.like.config.likerId) {
                     userLiked.likes.splice(i, 1)
                 }
             }
-            console.log(newState)
             return newState; 
         default: 
             return state; 

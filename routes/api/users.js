@@ -285,8 +285,8 @@ router.patch("/:id/likes/edit", (req, res) => {
 });
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log("delete route req body", req)
-  // console.log(res)
+  console.log(req)
+  console.log(res)
   Like.findByIdAndDelete(req.body._id)//.then((like) => {
   // }) 
   // User.findByIdAndUpdate(
@@ -294,8 +294,12 @@ router.delete("/:id/likes/", (req, res) => {
   //   { $pull: { likes: req.body.likerId } }, 
   //   { new: true }
   // )
-    // .populate('likes')
-    .then((like) => res.json("Like successfully deleted"))
+    .populate('likes')
+    
+    .then((like) => {
+      console.log("this is the like",like)
+      res.json("Like successfully deleted")
+    })
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 

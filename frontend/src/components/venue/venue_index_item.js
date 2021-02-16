@@ -230,8 +230,6 @@ class VenueIndexItem extends React.Component {
                                 this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>
-                                            {/* {console.log("venue comments", this.props.venue.comments)}
-                                            {console.log("this.props.comments", this.props.comments)} */}
                                             {this.props.comments.map((comment, j) => {
                                                 if (comment._id === commentId) {
                                                     return (

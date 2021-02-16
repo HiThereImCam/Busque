@@ -127,9 +127,9 @@ export const createUserLike = (userId, likerId) => (dispatch) => {
 };
 
 //update?
-
-export const removeUserLike = (userId, likerId) => (dispatch) => {
-  return UserAPIUtil.deleteUserLike(userId, likerId)
+//! likeId instead
+export const removeUserLike = (userId, likeId) => (dispatch) => {
+  return UserAPIUtil.deleteUserLike(userId, likeId)
     .then(like => dispatch(deleteUserLike(like)))
     .catch(err => console.log(err))
 };
