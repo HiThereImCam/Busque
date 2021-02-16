@@ -21,7 +21,7 @@ const mDTP = (dispatch) => ({
   createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
   fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
   createUserLike: (userId, likerId) => dispatch(createUserLike(userId, likerId)),
-  removeUserLike: (userId, likeId) => dispatch(removeUserLike(userId, likeId))
+  removeUserLike: (userId, likerId) => dispatch(removeUserLike(userId, likerId))
 });
 
 export default connect(mSTP, mDTP)(UserShow);

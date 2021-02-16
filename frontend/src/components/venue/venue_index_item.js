@@ -13,13 +13,15 @@ class VenueIndexItem extends React.Component {
             showReviews: false,
             arrowUp: false,
             arrowDown: true,
-            newComment: false
+            newComment: false, 
+            redHeart: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.update = this.update.bind(this); 
         this.handleRating = this.handleRating.bind(this); 
         this.handleLike = this.handleLike.bind(this);
+        this.handleUnlike = this.handleUnlike.bind(this);
     }
 
     componentDidMount() {
@@ -68,6 +70,16 @@ class VenueIndexItem extends React.Component {
     handleLike(e) {
         e.preventDefault(); 
         this.props.createVenueLike(this.props.venue._id, this.state.user)
+        this.setState({
+            redHeart: true
+        })
+    }
+    handleUnlike(e) {
+        e.preventDefault(); 
+        this.props.removeVenueLike(this.props.venue._id, this.state.user) 
+        this.setState({
+            redHeart: false
+        })
     }
 
     handleSubmit(e) {
@@ -169,6 +181,19 @@ class VenueIndexItem extends React.Component {
             // }
         }
 
+        const changeColor = this.state.redHeart ? "red" : "gray"
+        const likeBtn = (this.props.currentUser === undefined) ? null :
+            (!this.props.venue.likes.includes(this.props.currentUser)) ?
+                <div className="likes">
+                    <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
+                    {this.props.venue.likes.length}
+                </div> :
+                <div className="likes">
+                    <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
+                    {this.props.venue.likes.length}
+                </div>
+
+        // debugger
         return (
             <div className="venue-list-items">
                 <div className="venue-name">
@@ -180,10 +205,7 @@ class VenueIndexItem extends React.Component {
                             <div className="venue-rating">
                                 {showRatingAvg()}
                             </div>
-                            <div>
-                                <button onClick={this.handleLike}>Like</button>
-                                {this.props.venue.likes}
-                            </div>
+                            {likeBtn}
                             <div className="venue-type">
                                 Type: {this.props.venue.type}
                             </div>
@@ -208,6 +230,8 @@ class VenueIndexItem extends React.Component {
                                 this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>
+                                            {/* {console.log("venue comments", this.props.venue.comments)}
+                                            {console.log("this.props.comments", this.props.comments)} */}
                                             {this.props.comments.map((comment, j) => {
                                                 if (comment._id === commentId) {
                                                     return (

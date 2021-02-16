@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
     createVenueRating: (venueId, rating, user) => dispatch(createVenueRating(venueId, rating, user)), 
     fetchVenueLikes: (venueId) => dispatch(fetchVenueLikes(venueId)),
     createVenueLike: (venueId, likerId) => dispatch(createVenueLike(venueId, likerId)), 
-    removeVenueLike: (venueId, likeId) => dispatch(removeVenueLike(venueId, likeId))
+    removeVenueLike: (venueId, likerId) => dispatch(removeVenueLike(venueId, likerId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueIndex); 

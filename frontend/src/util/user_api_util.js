@@ -61,11 +61,11 @@ export const updateUserLike = (userId) => {
   });
 };
 
-export const deleteUserLike = (userId, likeId) => {
-  return axios.delete(`/api/users/${userId}/likes/delete`, {
+export const deleteUserLike = (userId, likerId) => {
+  return axios.delete(`/api/users/${userId}/likes/`, {
     data: {
       userId: userId,
-      likeId: likeId,
+      likerId: likerId,
     },
   });
 };

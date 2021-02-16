@@ -60,8 +60,11 @@ const receiveUserLike = (like) => ({
   like,
 });
 
-const deleteUserLike = (likeId) => ({
-  likeId,
+//update?
+
+const deleteUserLike = (like) => ({
+  type: REMOVE_USER_LIKE,
+  like,
 });
 
 export const checkUserIn = (value) => ({
@@ -125,8 +128,11 @@ export const createUserLike = (userId, likerId) => (dispatch) => {
 
 //update?
 
-export const removeUserLike = (userId, likeId) => (dispatch) => {
-  return UserAPIUtil.deleteUserLike(userId, likeId)
-    .then((likeId) => dispatch(deleteUserLike(likeId)))
+export const removeUserLike = (userId, likerId) => (dispatch) => {
+  return UserAPIUtil.deleteUserLike(userId, likerId)
+    .then((like) => {
+      like.config.data = JSON.parse(like.config.data);
+      dispatch(deleteUserLike(like));
+    })
     .catch((err) => console.log(err));
 };

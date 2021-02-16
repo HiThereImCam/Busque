@@ -281,7 +281,11 @@ router.delete("/:id/likes/", (req, res) => {
   console.log("Delete request req: ", req);
 
   Like.findByIdAndDelete(req.body._id)
-    .then((like) => res.json("Like successfully deleted"))
+    .populate("likes")
+    .then((like) => {
+      console.log("this is like: ", like);
+      res.json("Like successfully deleted");
+    })
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 

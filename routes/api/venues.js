@@ -11,6 +11,8 @@ const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
 const Likes = require("../../models/Likes");
+const User = require("../../models/User");
+
 
 router.get("/", (req, res) => {
   //venue index
@@ -269,15 +271,15 @@ router.get("/:id/likes", (req, res) => {
 });
 
 router.post("/:id/likes", (req, res) => {
-  const newLike = new Like({
-    venue: req.params.id,
+  const newLike = new Likes({
+    venueId: req.params.id,
     likerId: req.body.likerId,
   }); 
 
   newLike.save().then((like) => {
     Venue.findByIdAndUpdate(
       req.params.id,
-      { $push: { likes: like } },
+      { $push: { likes: req.body.likerId } },
       { new: true }
     )
       .then((venue) => res.json(venue))
