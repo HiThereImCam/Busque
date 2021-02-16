@@ -62,7 +62,9 @@ export const updateUserLike = (userId) => {
 }; 
 
 export const deleteUserLike = (userId, likerId) => {
-  return axios.delete(`/api/users/${userId}/likes/delete`, {
+  console.log("delete req userId", userId)
+  console.log("delete req likerId", likerId)
+  return axios.delete(`/api/users/${userId}/likes/`, {
     userId, 
     likerId
   })

@@ -14,7 +14,6 @@ class UserIndexItem extends React.Component {
         this.handleRating = this.handleRating.bind(this)
         this.handleLike = this.handleLike.bind(this);
         this.handleUnlike = this.handleUnlike.bind(this);
-
     }
 
     componentDidMount() {
@@ -34,6 +33,7 @@ class UserIndexItem extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
+        console.log(this.state.user)
         this.props.createUserLike(this.props.user._id, this.state.user)
         this.setState({
             redHeart: true
@@ -43,7 +43,7 @@ class UserIndexItem extends React.Component {
     handleUnlike(e) {
         e.preventDefault(); 
         this.props.removeUserLike(this.props.user._id, this.state.user) 
-
+        this.props.fetchUserLikes(this.props.user._id)
         this.setState({
             redHeart: false
         })
@@ -115,7 +115,7 @@ class UserIndexItem extends React.Component {
                     <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
                     {this.props.user.likes.length}
                 </div>
-
+        // debugger
         return (
             <div className="user-list-items-outer">
                 <div className="user-list-items">
@@ -137,14 +137,6 @@ class UserIndexItem extends React.Component {
                             Performer Type: {this.props.user.performerType}
                         </div>
                     </div>
-                </div>
-                <div className="user-rating">{showRatingAvg()}</div>
-                <div className="performer-type">
-                    Performer Type: {this.props.user.performerType}
-                </div>
-                <div>
-                    <button onClick={this.handleLike}>Like</button>
-                    {this.props.user.likes}
                 </div>
             </div>
         );

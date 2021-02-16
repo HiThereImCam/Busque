@@ -193,6 +193,7 @@ class VenueIndexItem extends React.Component {
                     {this.props.venue.likes.length}
                 </div>
 
+        // debugger
         return (
             <div className="venue-list-items">
                 <div className="venue-name">
