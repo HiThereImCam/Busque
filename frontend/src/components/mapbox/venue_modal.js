@@ -52,7 +52,7 @@ class VenueModal extends Component {
       data.append("file", this.state.photoFile);
       uploadPhoto(data).then((res) => {
         let venue = {
-          name: this.prop.venueName,
+          name: this.state.venueName,
           type: this.state.venueType,
           coordinate: this.props.coordinates,
           photoId: res.data.newData.photoId,
@@ -62,7 +62,7 @@ class VenueModal extends Component {
       });
     } else {
       let venue = {
-        name: this.prop.venueName,
+        name: this.state.venueName,
         type: this.state.venueType,
         coordinate: this.props.coordinates,
         imageURL: this.state.imageURL,
