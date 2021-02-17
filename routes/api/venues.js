@@ -99,20 +99,18 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    // const { errors, isValid } = validateVenueInput(req.body);
+    const { errors, isValid } = validateVenueInput(req.body);
 
-    // if (!isValid) {
-    //   return res.status(400).json(errors); //union square long-122.4045 lat37.78616 long should be first
-    // }
-
-    console.log("This is the req body: ", req.body);
+    if (!isValid) {
+      console.log("These are the errors: ", errors);
+      return res.status(400).json(errors); //union square long-122.4045 lat37.78616 long should be first
+    }
 
     const newVenue = new Venue({
       name: req.body.name,
       coordinate: req.body.coordinate, //!fuck yeah it works!
       imageURL: req.body.imageURL,
       type: req.body.type,
-      available: req.body.available,
     });
     newVenue.save().then((venue) => res.json(venue));
   }

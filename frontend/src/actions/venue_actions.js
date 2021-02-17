@@ -142,18 +142,22 @@ export const createVenue = (venue, currentUser) => (dispatch) => {
   return VenueApiUtil.createVenue(venue)
     .then((venue) => {
       let venueData = venue.data;
+      dispatch(closeVenueModal(false));
       VenueApiUtil.checkIn(venueData._id, currentUser).then((updatedVenue) => {
         try {
           VenueApiUtil.getVenues().then((venue) =>
             dispatch(receiveVenues(venue.data))
           );
         } catch (e) {
-          dispatch(getVenueErrors(e));
+          console.log("This is the error object inside checkin: ", e);
+
+          // dispatch(getVenueErrors(e));
         }
       });
     })
     .catch((error) => {
-      dispatch(getVenueErrors(error));
+      let errorData = error.response.data;
+      dispatch(getVenueErrors(errorData));
     });
 };
 
