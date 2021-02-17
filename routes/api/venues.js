@@ -1,12 +1,9 @@
-//! Would suggest placeholders for front end update/delete components
-
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
-const validateLikeInput = require("../../validations/likes");
 const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
@@ -108,7 +105,7 @@ router.post(
 
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: req.body.coordinate, //!fuck yeah it works!
+      coordinate: req.body.coordinate,
       imageURL: req.body.imageURL,
       type: req.body.type,
     });
@@ -196,11 +193,7 @@ router.post(
   "/:venue_id/comments",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req);
-    console.log(res);
-
     const newComment = new Comment({
-      //needs user
       venue: req.params.venue_id,
       comment: req.body.comment,
       user: req.body.user, //*this is the working one at the moment
@@ -253,6 +246,14 @@ router.get(
   }
 );
 
+router.patch("/:id/comments/", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+  Comment.findByIdAndUpdate(req.body._id, req.body, {
+    new: true,
+  }).then((comment) => res.json(comment));
+});
+
 //! rating routes
 
 // get all ratings for a venue
@@ -264,6 +265,19 @@ router.get("/:venue_id/ratings", (req, res) => {
     .catch((err) => {
       res.status(404).json({ ratings: "ratings error" });
     });
+});
+
+router.delete("/:id/comments/", (req, res) => {
+  Venue.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+    .populate("comments")
+    .then((comment) => res.json(comment))
+    .catch((err) =>
+      res.status(400).json("Comment was not successfully deleted")
+    );
 });
 
 // creates a rating, same format as new comment creation
@@ -282,55 +296,58 @@ router.post("/:venue_id/ratings", (req, res) => {
   });
 });
 
-router.get("/likes", (req, res) => {
-  Venue.find()
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/likes", (req, res) => {
+//   Venue.find()
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.get("/:id/likes", (req, res) => {
-  Venue.findById(req.params.id)
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/:id/likes", (req, res) => {
+//   Venue.findById(req.params.id)
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.post("/:id/likes", (req, res) => {
-  const newLike = new Likes({
-    venueId: req.params.id,
-    likerId: req.body.likerId,
-  });
+// router.post("/:id/likes", (req, res) => {
+//   const newLike = new Likes({
+//     venueId: req.params.id,
+//     likerId: req.body.likerId,
+//   });
 
-  newLike.save().then((like) => {
-    Venue.findByIdAndUpdate(
-      req.params.id,
-      { $push: { likes: req.body.likerId } },
-      { new: true }
-    )
-      .then((venue) => res.json(venue))
-      .catch((err) => {
-        res.status(404).json({ comment: "we've encountered and error" });
-      });
-  });
-});
+//   newLike.save().then((like) => {
+//     Venue.findByIdAndUpdate(
+//       req.params.id,
+//       { $push: { likes: req.body.likerId } },
+//       { new: true }
+//     )
+//       .then((venue) => res.json(venue))
+//       .catch((err) => {
+//         res.status(404).json({ comment: "we've encountered and error" });
+//       });
+//   });
+// });
 
-router.patch("/:id/likes/edit", (req, res) => {
-  mongoose.set("useFindAndModify", false);
+// router.patch("/:id/likes/edit", (req, res) => {
+//   mongoose.set("useFindAndModify", false);
 
-  Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
-    res.json(like)
-  );
-});
+//   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+//     res.json(like)
+//   );
+// });
 
-router.delete("/:id/likes/", (req, res) => {
-  console.log(req);
-  console.log(res);
-  Like.findByIdAndDelete(req.body._id)
-    .then((like) => res.json("Like successfully deleted"))
-    .catch((err) => res.status(400).json("Like was not successfully deleted"));
-});
+// router.delete("/:id/likes/", (req, res) => {
+//   Venue.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
+//     .populate("likes")
+//     .then((like) => res.json(like))
+//     .catch((err) => res.status(400).json("Like was not successfully deleted"));
+// });
 
 module.exports = router;

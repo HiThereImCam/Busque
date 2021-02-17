@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
 const venues = require("./routes/api/venues");
 const upload = require("./routes/api/upload");
+const likes = require("./routes/api/likes");
 require("./config/passport")(passport);
 
 if (process.env.NODE_ENV === "production") {
@@ -63,6 +64,7 @@ app.get("/", (req, res) => res.send("Busque"));
 app.use("/api/users", users);
 app.use("/api/venues", venues);
 app.use("/api/upload", upload);
+app.use("/api/likes", likes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
