@@ -31,31 +31,31 @@ const removeLike = (likeId) => ({
     likeId
 }); 
 
-export const fetchAllLikes = () => {
+export const fetchAllLikes = () => (dispatch) => {
     return LikeAPIUtil.getLikes()
-        .then(likes => dispatchEvent(receiveAllLikes(likes)))
+        .then(likes => dispatch(receiveAllLikes(likes)))
         .catch((err) => console.log(err))
 }; 
 
-export const fetchUserLikes = (userId) => {
+export const fetchUserLikes = (userId) => (dispatch) => {
     return LikeAPIUtil.getUserLikes(userId)
-        .then(likes => dispatchEvent(receiveUserLikes(likes)))
+        .then(likes => dispatch(receiveUserLikes(likes)))
         .catch((err) => console.log(err))
 }; 
 
-export const fetchVenueLikes = (venueId) => {
+export const fetchVenueLikes = (venueId) => (dispatch) => {
     return LikeAPIUtil.getVenueLikes(venueId)
         .then(likes => dispatch(receiveVenueLikes(likes)))
         .catch((err) => console.log(err))
 }; 
 
-export const createLike = (like) => {
+export const createLike = (like) => (dispatch) => {
     return LikeAPIUtil.createLike(like)
         .then(like => dispatch(receiveLike(like)))
         .catch((err) => console.log(err))
 }; 
 
-export const deleteLike = (likeId) => {
+export const deleteLike = (likeId) => (dispatch) => {
     return LikeAPIUtil.deleteLike(likeId)
         .then(() => dispatch(removeLike(likeId)))
         .catch((err) => console.log(err))

@@ -38,35 +38,35 @@ export const createRating = (userId, rating) => {
   });
 };
 
-export const getAllUserLikes = () => {
-  return axios.get('/api/users/likes')
-}; 
+// export const getAllUserLikes = () => {
+//   return axios.get('/api/users/likes')
+// }; 
 
-export const getUserLikes = (userId) => {
-  return axios.get(`/api/users/${userId}/likes`, {
-    userId
-  })
-}; 
+// export const getUserLikes = (userId) => {
+//   return axios.get(`/api/users/${userId}/likes`, {
+//     userId
+//   })
+// }; 
 
-export const createUserLike = (userId, likerId) => {
-  return axios.post(`/api/users/${userId}/likes`, {
-    userId, 
-    likerId
-  })
-}; 
+// export const createUserLike = (userId, likerId) => {
+//   return axios.post(`/api/users/${userId}/likes`, {
+//     userId, 
+//     likerId
+//   })
+// }; 
 
-export const updateUserLike = (userId, likeId) => {
-  return axios.patch(`/api/users/${userId}/likes/edit`, {
-    userId, 
-    likeId
-  })
-}; 
-//! use likeId instead
-export const deleteUserLike = (userId, likeId) => {
-  return axios.delete(`/api/users/${userId}/likes/`, {
-    // data: {
-      userId, 
-      likeId
-    // }
-  })
-}; //add likerId back?
+// export const updateUserLike = (userId, likeId) => {
+//   return axios.patch(`/api/users/${userId}/likes/edit`, {
+//     userId, 
+//     likeId
+//   })
+// }; 
+// //! use likeId instead
+// export const deleteUserLike = (userId, likeId) => {
+//   return axios.delete(`/api/users/${userId}/likes/`, {
+//     // data: {
+//       userId, 
+//       likeId
+//     // }
+//   })
+// }; //add likerId back?

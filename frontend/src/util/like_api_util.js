@@ -5,15 +5,19 @@ export const getLikes = () => {
 }
 
 export const getUserLikes = (userId) => {
-    return axios.get(`/api/likes/user/${userId}`)
+    return axios.get(`/api/likes/users/${userId}`, {
+        userId
+    })
 }
 
 export const getVenueLikes = (venueId) => {
-    return axios.get(`/api/likes/venue/${venueId}`)
+    return axios.get(`/api/likes/venues/${venueId}`)
 }
 
 export const createLike = like => {
-    return axios.post(`/api/likes/new`, like)
+    return axios.post(`/api/likes/new`, {
+        like
+    })
 }
 
 export const deleteLike = likeId => {

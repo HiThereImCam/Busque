@@ -33,7 +33,7 @@ class UserIndexItem extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        this.props.createUserLike(this.props.user._id, this.state.user)
+        this.props.createLike({"userId": this.props.user._id, "likerId": this.state.user})
         this.setState({
             redHeart: true
         })
@@ -43,12 +43,10 @@ class UserIndexItem extends React.Component {
         e.preventDefault(); 
         console.log(this.props.likes)
         console.log(this.props.user.likes)
-        this.props.user.likes.forEach((likeId) => {
-            if ((this.props.likes[likeId] !== undefined) && (this.props.likes[likeId].likerId === this.props.currentUser)){
-                this.props.removeUserLike(this.props.user._id, likeId) 
-                // this.props.editUserLike(this.props.user._id, likeId) 
-            }
-        })
+
+        // this.props.removeUserLike(likeId) 
+        // this.props.editUserLike(this.props.user._id, likeId) 
+      
         
         this.setState({
             redHeart: false
