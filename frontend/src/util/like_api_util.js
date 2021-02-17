@@ -15,9 +15,7 @@ export const getVenueLikes = (venueId) => {
 }
 
 export const createLike = like => {
-    return axios.post(`/api/likes/new`, {
-        like
-    })
+    return axios.post(`/api/likes/new`, like)
 }
 
 export const deleteLike = likeId => {

@@ -12,23 +12,21 @@ const likesReducer = (state = {}, action) => {
                 newState[action.likes.data[i]._id] = action.likes.data[i]
             }
             return newState; 
-        // case RECEIVE_USER_LIKES:
-        //     for (let i = 0; i < action.user.data.likes.length; i++) {
-        //         newState[action.user.data.likes[i]._id] = action.user.data.likes[i]
-        //     }
-        //     return newState; 
-        // case RECEIVE_VENUE_LIKES:
-        //     return action.venue.data
-        // case CREATE_VENUE_LIKE:
-        //     return Object.assign({}, state, { [action.like.data._id]: action.like.data})
-        // case CREATE_USER_LIKE:
-        //     console.log(newState)
-        //     let likeId = action.like.data.likes[action.like.data.likes.length - 1]
-        //     let newData = JSON.parse(action.like.config.data)
-        //     return Object.assign({}, newState, { [likeId]: newData })
-        // case REMOVE_USER_LIKE:
-        //     delete newState[action.like.config.likeId];
-        //     return newState; 
+        case RECEIVE_USER_LIKES:
+            for (let j = 0; j < action.likes.data.length; j++) {
+                newState[action.likes.data[j]._id] = action.likes.data[j]
+            }
+            return newState; 
+        case RECEIVE_VENUE_LIKES:
+            for (let k = 0; k < action.likes.data.length; k++) {
+                newState[action.likes.data[k]._id] = action.likes.data[k]
+            }
+            return newState; 
+        case CREATE_LIKE:
+            return Object.assign({}, newState, { [action.like.data._id]: action.like.data})
+        case REMOVE_LIKE:
+            delete newState[action.likeId];
+            return newState; 
         default: 
             return state;
     }

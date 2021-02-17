@@ -34,6 +34,7 @@ class UserIndexItem extends React.Component {
     handleLike(e) {
         e.preventDefault();
         this.props.createLike({"userId": this.props.user._id, "likerId": this.state.user})
+
         this.setState({
             redHeart: true
         })
@@ -41,12 +42,13 @@ class UserIndexItem extends React.Component {
 
     handleUnlike(e) {
         e.preventDefault(); 
-        console.log(this.props.likes)
-        console.log(this.props.user.likes)
 
-        // this.props.removeUserLike(likeId) 
-        // this.props.editUserLike(this.props.user._id, likeId) 
-      
+        const likes = Object.values(this.props.likes) //whole like objects
+        for (let i = 0; i < likes.length; i++) {
+            if ((likes[i].userId === this.props.user._id) && (likes[i].likerId === this.props.currentUser)) {
+                this.props.deleteLike(likes[i]._id)
+            }
+        }
         
         this.setState({
             redHeart: false
@@ -107,44 +109,31 @@ class UserIndexItem extends React.Component {
             // }
         }
 
-        // const changeColor = this.state.redHeart ? "red" : "gray"
-        // const likeBtn = (this.props.currentUser === undefined) ? null : 
-        //     (!this.props.user.likes.includes(this.props.currentUser)) ? 
-        //         <div className="likes">
-        //             <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-        //             {this.props.user.likes.length}
-        //         </div> :
-        //         <div className="likes">
-        //             <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-        //             {this.props.user.likes.length}
-        //         </div>
+        const likes = Object.values(this.props.likes) //whole like objects
+        let peopleLiked = []; 
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i].userId === this.props.user._id) {
+                peopleLiked.push(likes[i].likerId)
+            }
+        }
         
         const likeButton = () => {
             if (this.props.currentUser === undefined) {
                 return null
             } 
-            let wholeLikes = () => {
-                let userLikes = []
-                this.props.user.likes.forEach(likeId => {
-                    if (this.props.likes[likeId] !== undefined) {
-                        userLikes.push(this.props.likes[likeId])
-                    }
-                })
-                return userLikes
-            }
-            let liked = (wholeLikes().some(like => like.likerId === this.props.currentUser))
-            if (liked) {
+            
+            if (peopleLiked.includes(this.props.currentUser)) {
                 return (
                     <div className="likes">
                         <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-                        {this.props.user.likes.length}
+                        {peopleLiked.length}
                     </div>
                 )
             } else {
                 return (
                     <div className="likes">
                         <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-                        {this.props.user.likes.length}
+                        {peopleLiked.length}
                     </div>
                 )
             }

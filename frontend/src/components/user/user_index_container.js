@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
     currentUser: state.session.user.id, 
     users: Object.values(state.entities.users), 
     ratings: Object.values(state.ratings), 
-    likes: (state.likes)
+    likes: state.likes //object
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => ({
     fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
     createLike: (like) => dispatch(createLike(like)),
     deleteLike: (likeId) => dispatch(deleteLike(likeId)),
-    // editUserLike: (userId, likeId) => dispatch(editUserLike(userId, likeId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserIndex);
