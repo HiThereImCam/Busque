@@ -69,7 +69,7 @@ router.get("/schedule/collection", (req, res) => {
 router.post(
   //create venue
   "/",
-  passport.authenticate("jwt", { session: false }),
+   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateVenueInput(req.body);
 
@@ -253,7 +253,7 @@ router.delete("/:id/comments/", (req, res) => {
     .catch((err) =>
       res.status(400).json("Comment was not successfully deleted")
     );
-});
+}); 
 
 
 // creates a rating, same format as new comment creation
@@ -272,61 +272,61 @@ router.post("/:venue_id/ratings", (req, res) => {
   });
 });
 
-router.get("/likes", (req, res) => {
-  Venue.find()
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/likes", (req, res) => {
+//   Venue.find()
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.get("/:id/likes", (req, res) => {
-  Venue.findById(req.params.id)
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/:id/likes", (req, res) => {
+//   Venue.findById(req.params.id)
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.post("/:id/likes", (req, res) => {
-  const newLike = new Likes({
-    venueId: req.params.id,
-    likerId: req.body.likerId,
-  }); 
+// router.post("/:id/likes", (req, res) => {
+//   const newLike = new Likes({
+//     venueId: req.params.id,
+//     likerId: req.body.likerId,
+//   }); 
 
-  newLike.save().then((like) => {
-    Venue.findByIdAndUpdate(
-      req.params.id,
-      { $push: { likes: req.body.likerId } },
-      { new: true }
-    )
-      .then((venue) => res.json(venue))
-      .catch((err) => {
-        res.status(404).json({ comment: "we've encountered and error" });
-      });
-  });
-});
-
-
-router.patch("/:id/likes/edit", (req, res) => {
-  mongoose.set("useFindAndModify", false);
+//   newLike.save().then((like) => {
+//     Venue.findByIdAndUpdate(
+//       req.params.id,
+//       { $push: { likes: req.body.likerId } },
+//       { new: true }
+//     )
+//       .then((venue) => res.json(venue))
+//       .catch((err) => {
+//         res.status(404).json({ comment: "we've encountered and error" });
+//       });
+//   });
+// });
 
 
-  Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
-    res.json(like)
-  );
-});
+// router.patch("/:id/likes/edit", (req, res) => {
+//   mongoose.set("useFindAndModify", false);
 
-router.delete("/:id/likes/", (req, res) => {
-  Venue.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.body._id } },
-    { new: true }
-  )
-    .populate("likes")
-    .then((like) => res.json(like))
-    .catch((err) => res.status(400).json("Like was not successfully deleted"));
-});
+
+//   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+//     res.json(like)
+//   );
+// });
+
+// router.delete("/:id/likes/", (req, res) => {
+//   Venue.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
+//     .populate("likes")
+//     .then((like) => res.json(like))
+//     .catch((err) => res.status(400).json("Like was not successfully deleted"));
+// });
 
 
 

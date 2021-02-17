@@ -252,66 +252,66 @@ router.delete("/:id/comments/", (req, res) => {
     .catch((err) => res.status(400).json("Comment was not successfully deleted"));
 });
 
-router.get("/likes", (req, res) => {
-  Like.find()
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/likes", (req, res) => {
+//   Like.find()
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.get("/:id/likes", (req, res) => {
-  User.findById(req.params.id)
-  .populate('likes')
-    .then((likes) => res.json(likes))
-    .catch((err) => {
-      res.status(404).json({ comment: "we've encountered and error" });
-    });
-});
+// router.get("/:id/likes", (req, res) => {
+//   User.findById(req.params.id)
+//   .populate('likes')
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
 
-router.post("/:id/likes", (req, res) => {
-  console.log(req)
-  console.log(res)
-  const newLike = new Likes({
-    userId: req.params.id,
-    likerId: req.body.likerId,
-  });
+// router.post("/:id/likes", (req, res) => {
+//   console.log(req)
+//   console.log(res)
+//   const newLike = new Likes({
+//     userId: req.params.id,
+//     likerId: req.body.likerId,
+//   });
 
-  newLike.save().then((like) => {
-    User.findByIdAndUpdate(
-      req.params.id,
-      { $push: { likes: req.body.likerId } },
-      { new: true }
-    )
-      // .populate('likes')
-      .then((user) => res.json(user))
-      .catch((err) => {
-        res.status(404).json({ comment: "we've encountered and error" });
-      });
-  });
-});
+//   newLike.save().then((like) => {
+//     User.findByIdAndUpdate(
+//       req.params.id,
+//       { $push: { likes: req.body.likerId } },
+//       { new: true }
+//     )
+//       // .populate('likes')
+//       .then((user) => res.json(user))
+//       .catch((err) => {
+//         res.status(404).json({ comment: "we've encountered and error" });
+//       });
+//   });
+// });
 
-router.patch("/:id/likes/edit", (req, res) => {
+// router.patch("/:id/likes/edit", (req, res) => {
 
-  User.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.body._id } },
-    { new: true }
-  )
+//   User.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
   
-   .then((like) => res.json(like));
-});
+//    .then((like) => res.json(like));
+// });
 
-router.delete("/:id/likes/", (req, res) => {
+// router.delete("/:id/likes/", (req, res) => {
 
-  User.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.body._id } }, 
-    { new: true } 
-  )
-    .populate('likes')
-    .then((like) => res.json(like))
-    .catch((err) => res.status(400).json("Like was not successfully deleted"));
-});
+//   User.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } }, 
+//     { new: true } 
+//   )
+//     .populate('likes')
+//     .then((like) => res.json(like))
+//     .catch((err) => res.status(400).json("Like was not successfully deleted"));
+// });
 
 module.exports = router;
