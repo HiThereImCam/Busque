@@ -143,22 +143,21 @@ class UserShow extends React.Component {
             />
           );
         }
-        // else {
-        //     let avg = 0
-        //     return (
-        //         <ReactStars
-        //             className="rating-stars"
-        //             value={avg}
-        //             onChange={this.handleRating}
-        //             count={5}
-        //             size={19}
-        //             isHalf={true}
-        //             emptyIcon={<i className="far fa-star"></i>}
-        //             halfIcon={<i className="fa fa-star-half-alt"></i>}
-        //             fullIcon={<i className="fa fa-star"></i>}
-        //             activeColor="#ffd700"
-        //         />
-        //     )
+        // if (ratingNums.length === 0) {
+        //   return (
+        //     <ReactStars
+        //       className="rating-stars"
+        //       value={0}
+        //       onChange={this.handleRating}
+        //       count={5}
+        //       size={19}
+        //       isHalf={true}
+        //       emptyIcon={<i className="far fa-star"></i>}
+        //       halfIcon={<i className="fa fa-star-half-alt"></i>}
+        //       fullIcon={<i className="fa fa-star"></i>}
+        //       activeColor="#ffd700"
+        //     />
+        //   )
         // }
       };
 

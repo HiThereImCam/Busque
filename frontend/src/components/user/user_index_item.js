@@ -91,12 +91,11 @@ class UserIndexItem extends React.Component {
                     />
                 )
             } 
-            // else {
-            //     let avg = 0
+            // if (ratingNums.length === 0) {
             //     return (
             //         <ReactStars
             //             className="rating-stars"
-            //             value={avg}
+            //             value={0}
             //             onChange={this.handleRating}
             //             count={5}
             //             size={19}
