@@ -11,13 +11,12 @@ export const setAuthToken = (token) => {
 
 export const signup = (userData) => {
   return axios.post("/api/users/signup", userData);
-  //   try {
-  //     axios.post("/api/users/signup", userData);
-  //   } catch (e) {
-  //     console.log(`Error: ${e}`);
-  //   }
 };
 
 export const login = (userData) => {
   return axios.post("/api/users/login", userData);
 };
+
+export const logout = (userData) => {
+  return axios.delete('api/users/logout', userData)
+}

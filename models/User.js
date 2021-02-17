@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -25,20 +25,50 @@ const UserSchema = new Schema({
   imageURL: {
     type: String,
     required: false,
+    default: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
   },
   venues: {
     type: Schema.Types.ObjectId,
     ref: "venues",
   },
-  comments: {
-    type: Schema.Types.ObjectId,
-    ref: "comments",
-  },
-  ratings: {
-    type: Schema.Types.ObjectId,
-    ref: "ratings",
-  }
-  
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
+  ratings: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "ratings",
+    },
+  ],
+ 
+  liked: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Likes",
+    },
+  ],
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Likes",
+    },
+  ],
 });
 
-module.exports = User = mongoose.model("User", UserSchema); 
+UserSchema.methods.toJSON = function () {
+  var obj = this.toObject();
+  delete obj.password;
+  delete obj.email;
+  return obj;
+};
+
+module.exports = User = mongoose.model("User", UserSchema);

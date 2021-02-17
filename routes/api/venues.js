@@ -1,4 +1,3 @@
-//! Would suggest placeholders for front end update/delete components
 
 const express = require("express");
 const router = express.Router();
@@ -7,10 +6,45 @@ const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
 const Comment = require("../../models/Comment");
+const Rating = require("../../models/Rating");
+const Schedule = require("../../models/Schedule");
+const Likes = require("../../models/Likes");
+const User = require("../../models/User");
 
-router.get("/test", (req, res) =>
-  res.json({ msg: "This is the venue route ya bish" })
-);
+
+router.get("/", (req, res) => {
+  //venue index
+  Venue.find()
+    .then((venue) => {
+      //res.json(venue)
+      Schedule.find()
+        .then((schedule) => {
+          // traverse through each venue and check if its in the schedule
+          // if it is add the schedule data into the venue data
+          // if not then current user == empty && availibility == true
+          let mergedData = [];
+
+          for (let i = 0; i < venue.length; i++) {
+            let venueSchedule = schedule.find((el) => {
+              return el.venueID.toString() === venue[i]._id.toString();
+            });
+
+            mergedData.push({
+              ...venue[i]._doc,
+              available: venueSchedule ? false : true,
+              currentUser: venueSchedule ? venueSchedule.currentUser : "",
+              expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
+            });
+          }
+          res.json(mergedData);
+        })
+        .catch((err) => {
+          console.log("schedule error:", err);
+          res.status(404).json({ err: err });
+        });
+    })
+    .catch((err) => res.status(404).json({ novenues: "No venues found" }));
+});
 
 router.get("/:id", (req, res) => {
   //find venue by ID
@@ -20,10 +54,22 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(404).json({ novenue: "Venue not found" }));
 });
 
+router.get("/schedule/collection", (req, res) => {
+  //schedule index
+  Schedule.find()
+    .then((schedule) => {
+      res.json(schedule);
+    })
+    .catch((err) => {
+      console.log("schedule error:", err);
+      res.status(404).json({ schedule: "No schedules found" });
+    });
+});
+
 router.post(
   //create venue
   "/",
-  passport.authenticate("jwt", { session: false }),
+   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { errors, isValid } = validateVenueInput(req.body);
 
@@ -32,49 +78,70 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: JSON.parse(req.body.coordinate),  //!fuck yeah it works!
-
+      coordinate: req.body.coordinate, 
+      imageURL: req.body.imageURL,
       type: req.body.type,
-      available: req.body.available,
-      user: req.user.id,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
 ); //end post
 
 //update venue
-router.put(
-  "/:id",
+router.patch(
+  "/checkin/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateVenueInput(req.body);
-
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
-    Venue.findByIdAndUpdate(
-      req.params.id,
-      {
-        name: req.body.name,
-        coordinate: JSON.parse(req.body.coordinate),
-        type: req.body.type,
-        available: req.body.available,
-      },
-      { new: true },
-      //error handling
-      function (err, response) {
-        if (err) {
-          console.log("we hit an error" + err);
-          res.json({
-            message: "Database Update Failure",
-          });
-        }
-        console.log("This is the Response: " + response);
-        return res.send(response);
+    Schedule.find({ venueID: req.params.id }, (err, schedule) => {
+      if (err) {
+        console.log("Error: ", err);
+        res.json({
+          message: err,
+        });
       }
-    );
+
+      if (schedule.length === 0) {
+        const newSchedule = new Schedule({
+          venueID: req.params.id,
+          currentUser: req.body.currentUser,
+        });
+        newSchedule.save().then((schedule, err) => {
+          if (err) {
+            console.log("err: ", err);
+            res.json({
+              message: err,
+            });
+          }
+          res.json({
+            venueSchedule: schedule,
+          });
+        });
+      } else {
+        res.json({ schedule: schedule });
+      }
+    });
   }
-); //end update
+);
+
+router.patch(
+  "/checkout/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    try {
+      Schedule.findByIdAndRemove(
+        { venueID: req.params.id },
+        (err, schedule) => {
+          if (err) {
+            console.log("Error: ", err);
+          } else {
+            console.log("Removed schedule: ", schedule);
+          }
+        }
+      );
+    } catch (e) {
+      console.log("error: ", e);
+    }
+  }
+);
 
 router.delete(
   "/:id",
@@ -93,20 +160,174 @@ router.delete(
   }
 ); //end delete
 
-router.post("/:venue_id/comments", (req, res) => {
-  const newComment = new Comment({
-    comment: req.body.comment,
-  });
+// maybe post route?
 
-  newComment.save().then(
-    (comment) =>
-      Venue.findByIdAndUpdate(
-        req.params.venue_id,
-        { comments: comment },
-        { new: true }
-      ).then((venue) => res.json(venue)) // response to front end
-  );
+router.post(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    
+
+    const newComment = new Comment({
+      venue: req.params.venue_id,
+      comment: req.body.comment,
+      user: req.body.user, //*this is the working one at the moment
+    });
+    console.log(newComment);
+    newComment.save().then(
+      (comment) => {
+        console.log("Comments: ", comment);
+        Venue.findByIdAndUpdate(
+          req.params.venue_id,
+          { $push: { comments: comment } },
+          { new: true }
+        )
+          .populate({
+            path: "comments",
+            populate: {
+              path: "user",
+              options: { sort: { date: -1 } },
+              select: { username: 1 },
+            },
+          })
+          .then(() => res.json(comment));
+      }
+      // response to front end
+    );
+  }
+);
+
+//pulls comments left on a venue
+
+router.get(
+  "/:venue_id/comments",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    console.log(req);
+    Venue.findOne({ _id: req.params.venue_id })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          options: { sort: { date: -1 } },
+          select: { username: 1 },
+        },
+      })
+      .then((venue) => res.json(venue.comments))
+      .catch((err) => {
+        console.log("comment error:", err);
+        res.status(500).json({ comment: "we've encountered and error" });
+      });
+  }
+);
+
+router.patch("/:id/comments/", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+  Comment.findByIdAndUpdate(req.body._id, req.body, {
+    new: true,
+  }).then((comment) => res.json(comment));
 });
 
+//! rating routes
+
+// get all ratings for a venue
+router.get("/:venue_id/ratings", (req, res) => {
+  console.log(req);
+  Venue.findOne({ _id: req.params.venue_id })
+    .populate("ratings", "rating") // populate looks for the name of the schema exported
+    .then((venue) => res.json(venue.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "ratings error" });
+    });
+});
+
+router.delete("/:id/comments/", (req, res) => {
+  Venue.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
+    .populate("comments")
+    .then((comment) => res.json(comment))
+    .catch((err) =>
+      res.status(400).json("Comment was not successfully deleted")
+    );
+}); 
+
+
+// creates a rating, same format as new comment creation
+router.post("/:venue_id/ratings", (req, res) => {
+  const newRating = new Rating({
+    rating: req.body.rating,
+  });
+  newRating.save().then((rating) => {
+    Venue.findByIdAndUpdate(
+      req.params.venue_id,
+      { $push: { ratings: rating } },
+      { new: true }
+    )
+      .then((venue) => res.json(venue))
+      .catch((err) => res.json(err));
+  });
+});
+
+// router.get("/likes", (req, res) => {
+//   Venue.find()
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
+
+// router.get("/:id/likes", (req, res) => {
+//   Venue.findById(req.params.id)
+//     .then((likes) => res.json(likes))
+//     .catch((err) => {
+//       res.status(404).json({ comment: "we've encountered and error" });
+//     });
+// });
+
+// router.post("/:id/likes", (req, res) => {
+//   const newLike = new Likes({
+//     venueId: req.params.id,
+//     likerId: req.body.likerId,
+//   }); 
+
+//   newLike.save().then((like) => {
+//     Venue.findByIdAndUpdate(
+//       req.params.id,
+//       { $push: { likes: req.body.likerId } },
+//       { new: true }
+//     )
+//       .then((venue) => res.json(venue))
+//       .catch((err) => {
+//         res.status(404).json({ comment: "we've encountered and error" });
+//       });
+//   });
+// });
+
+
+// router.patch("/:id/likes/edit", (req, res) => {
+//   mongoose.set("useFindAndModify", false);
+
+
+//   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
+//     res.json(like)
+//   );
+// });
+
+// router.delete("/:id/likes/", (req, res) => {
+//   Venue.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
+//     .populate("likes")
+//     .then((like) => res.json(like))
+//     .catch((err) => res.status(400).json("Like was not successfully deleted"));
+// });
+
+
+
 module.exports = router;
-//.then((comment) => res.json(comment));

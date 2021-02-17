@@ -37,6 +37,34 @@ class NavModal extends Component {
 
   render() {
     let { openNavModal, closeNavModal } = this.props;
+    let buttons;
+
+    if (!this.props.currentUser) {
+      buttons = (
+        <Fragment>
+          <Link
+            to="login"
+            className="nav-link nav-login"
+            onClick={() => closeNavModal()}
+          >
+            Login
+          </Link>
+          <Link
+            to="/signup"
+            className="nav-link nav-signup"
+            onClick={() => closeNavModal()}
+          >
+            Signup
+          </Link>
+        </Fragment>
+      );
+    } else {
+      buttons = (
+        <button className="logout-button" onClick={() => this.props.logout()}>
+          Logout
+        </button>
+      );
+    }
     return (
       <Fragment>
         {openNavModal ? (
@@ -48,7 +76,13 @@ class NavModal extends Component {
             >
               <div className="nav-container">
                 <div className="nav-header">
-                  <h2>Busque</h2>
+                  <Link
+                    className="h2 header-logo"
+                    to="/"
+                    onClick={() => closeNavModal()}
+                  >
+                    Busque
+                  </Link>
                   <CgChevronDoubleLeft
                     className="navback-icon"
                     onClick={() => closeNavModal()}
@@ -57,25 +91,27 @@ class NavModal extends Component {
                 </div>
                 <div className="nav-section">
                   <Link
-                    to="/artists"
                     className="nav-link nav-users"
                     to="/users"
+                    onClick={() => closeNavModal()}
                   >
                     Meet our Artists
                   </Link>
                   <Link
                     to="/venues"
                     className="nav-link nav-venues"
-                    to="/venues"
+                    onClick={() => closeNavModal()}
                   >
                     Best Venues
                   </Link>
-                  <Link to="login" className="nav-link nav-login">
-                    Login
+                  <Link
+                    className="nav-link nav-engineers"
+                    to="/engineers"
+                    onClick={() => closeNavModal()}
+                  >
+                    Meet the Engineers
                   </Link>
-                  <Link to="/signup" className="nav-link nav-signup">
-                    Signup
-                  </Link>
+                  {buttons}
                 </div>
               </div>
             </div>

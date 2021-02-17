@@ -1,0 +1,29 @@
+.search-results-container {
+  display: block;
+  justify-content: center;
+  z-index: 10000;
+  position: absolute;
+  width: 89.2%;
+  margin-left: 11%;
+  margin-top: 8%;
+  background-color: white;
+}
+
+.search-results {
+  list-style: none;
+}
+
+.results-item {
+  border: 0.5px solid lightgray;
+  border-top: none;
+  padding: 2%;
+  color: black;
+}
+
+.results-item:hover {
+  background-color: rgb(216, 216, 216);
+}
+
+a:link {
+  text-decoration: none;
+}

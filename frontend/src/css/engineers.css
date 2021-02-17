@@ -1,0 +1,85 @@
+.engineer-page {
+  background-image: url("../img/busque_engineer_background.jpeg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+}
+
+.user-show-header {
+  background-color: white;
+}
+
+.engineer-header-h1 {
+  text-decoration: none;
+  color: black;
+  width: 95%;
+}
+
+.engineer-menu-icon-other {
+  margin-left: 22px;
+  border-radius: 4px;
+  background-color: white;
+  margin-top: 1px;
+  color: light-grey;
+  fill: #757575;
+  position: absolute;
+}
+
+.engineer-menu-icon-other:hover {
+  cursor: pointer;
+}
+
+.engineer-block {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 820px;
+  /* margin-left: 600px; */
+  margin-left: 8%;
+  margin-top: 8%;
+}
+
+.engineer-header-logo {
+  display: flex;
+  justify-content: center;
+  font-family: "Megrim", cursive;
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.engineer {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: 5px;
+  font-size: 32px;
+  text-align: left;
+}
+
+.engineer > p {
+  color: darkslategray;
+  font-size: 20px;
+}
+
+.engineer-icons {
+  display: flex;
+  flex-direction: row;
+}
+
+.engineer-icon-linkedin {
+  color: #0077b5;
+  margin: 10px;
+  font-size: 84px;
+}
+
+.engineer-icon-github {
+  color: black;
+  margin: 10px;
+  font-size: 84px;
+}
+
+@media screen and (max-width: 600px) {
+}
