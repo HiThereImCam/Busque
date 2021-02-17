@@ -93,8 +93,8 @@ const receiveVenueLike = (like) => ({
 
 const deleteVenueLike = (like) => ({
   type: REMOVE_VENUE_LIKE,
-  like
-})
+  like,
+});
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -138,13 +138,17 @@ export const fetchVenueRatings = (venueId) => (dispatch) => {
 };
 
 export const createVenue = (venue, currentUser) => (dispatch) => {
+  console.log("This is the created Venue: ", venue);
   return VenueApiUtil.createVenue(venue)
     .then((venue) => {
-      dispatch(addVenue(venue));
-      VenueApiUtil.checkIn(venue._id, currentUser).then((updatedVenue) => {
+      let venueData = venue.data;
+      VenueApiUtil.checkIn(venueData._id, currentUser).then((updatedVenue) => {
         try {
           let venueSchedule = updatedVenue.data.venueSchedule;
-          dispatch(checkedIn(venueSchedule));
+
+          VenueApiUtil.getVenues().then((venue) =>
+            dispatch(receiveVenues(venue.data))
+          );
         } catch (e) {
           dispatch(getVenueErrors(e));
         }
@@ -177,6 +181,6 @@ export const createVenueLike = (venueId, likerId) => (dispatch) => {
 
 export const removeVenueLike = (venueId, likerId) => (dispatch) => {
   return VenueApiUtil.deleteVenueLike(venueId, likerId)
-    .then(like => dispatch(deleteVenueLike(like)))
-    .catch(err => console.log(err))
+    .then((like) => dispatch(deleteVenueLike(like)))
+    .catch((err) => console.log(err));
 };

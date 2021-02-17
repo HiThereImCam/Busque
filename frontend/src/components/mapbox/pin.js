@@ -50,6 +50,7 @@ class Pin extends Component {
         )
         .addTo(map);
     } else {
+      this.marker.togglePopup();
       this.marker.remove();
       this.marker = new mapboxgl.Marker({
         color: "red",

@@ -13,7 +13,6 @@ const Schedule = require("../../models/Schedule");
 const Likes = require("../../models/Likes");
 const User = require("../../models/User");
 
-
 router.get("/", (req, res) => {
   //venue index
   Venue.find()
@@ -52,7 +51,25 @@ router.get("/:id", (req, res) => {
   //find venue by ID
   Venue.findById(req.params.id)
 
-    .then((venue) => res.json(venue))
+    .then((venue) => {
+      Schedule.find().then((schedule) => {
+        let mergedData = [];
+        for (let i = 0; i < venue.length; i++) {
+          let venueSchedule = schedule.find((el) => {
+            return el.venueID.toString() === venue[i]._id.toString();
+          });
+
+          mergedData.push({
+            ...venue[i]._doc,
+            available: venueSchedule ? false : true,
+            currentUser: venueSchedule ? venueSchedule.currentUser : "",
+            expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
+          });
+        }
+
+        res.json(mergedData);
+      });
+    })
     .catch((err) => res.status(404).json({ novenue: "Venue not found" }));
 });
 
@@ -73,16 +90,20 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const { errors, isValid } = validateVenueInput(req.body);
+    // const { errors, isValid } = validateVenueInput(req.body);
 
-    if (!isValid) {
-      return res.status(400).json(errors); //union square long-122.4045 lat37.78616 long should be first
-    }
+    // if (!isValid) {
+    //   return res.status(400).json(errors); //union square long-122.4045 lat37.78616 long should be first
+    // }
+
+    console.log("This is the req body: ", req.body);
+
     const newVenue = new Venue({
       name: req.body.name,
       coordinate: req.body.coordinate, //!fuck yeah it works!
       imageURL: req.body.imageURL,
       type: req.body.type,
+      available: req.body.available,
     });
     newVenue.save().then((venue) => res.json(venue));
   }
@@ -101,7 +122,7 @@ router.patch(
         });
       }
 
-      if (schedule.length === 0) {
+      if (schedule.length === 0 || schedule.length === undefined) {
         const newSchedule = new Schedule({
           venueID: req.params.id,
           currentUser: req.body.currentUser,
@@ -274,7 +295,7 @@ router.post("/:id/likes", (req, res) => {
   const newLike = new Likes({
     venueId: req.params.id,
     likerId: req.body.likerId,
-  }); 
+  });
 
   newLike.save().then((like) => {
     Venue.findByIdAndUpdate(
@@ -289,10 +310,8 @@ router.post("/:id/likes", (req, res) => {
   });
 });
 
-
 router.patch("/:id/likes/edit", (req, res) => {
   mongoose.set("useFindAndModify", false);
-
 
   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
     res.json(like)
@@ -306,7 +325,5 @@ router.delete("/:id/likes/", (req, res) => {
     .then((like) => res.json("Like successfully deleted"))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
-
-
 
 module.exports = router;

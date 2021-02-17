@@ -62,12 +62,14 @@ class VenueModal extends Component {
       });
     } else {
       let venue = {
-        name: this.state.venueName,
+        name: this.props.venueName,
         type: this.state.venueType,
         coordinate: this.props.coordinates,
         imageURL: this.state.imageURL,
+        available: true,
       };
-      this.props.createVenue(venue, this.state.currentUser);
+      this.props.createVenue(venue, this.props.currentUser);
+      this.props.closeVenueModal();
     }
   }
 

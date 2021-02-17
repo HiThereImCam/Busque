@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 class Tutorial extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class Tutorial extends Component {
   render() {
     return (
       <div>
-        <FaArrowAltCircleLeft />
-        <FaArrowAltCircleRight />
+        <FaArrowAltCircleLeft className="left-arrow" />
+        <FaArrowAltCircleLeft className="right-arrow" />
         <button type="checkbox" onClick={this.handleClick}>
           Don't show again
         </button>
