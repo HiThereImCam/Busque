@@ -7,19 +7,22 @@ const likesReducer = (state = {}, action) => {
 
     switch(action.type) {
         case RECEIVE_USER_LIKES:
-            return action.user.data.likes
+            for (let i = 0; i < action.user.data.likes.length; i++) {
+                newState[action.user.data.likes[i]._id] = action.user.data.likes[i]
+            }
+            return newState; 
         // case RECEIVE_VENUE_LIKES:
         //     return action.venue.data
         // case CREATE_VENUE_LIKE:
         //     return Object.assign({}, state, { [action.like.data._id]: action.like.data})
-        // case CREATE_USER_LIKE:
-        //     console.log(newState)
-            // let likeId = action.like.data.likes[action.like.data.likes.length - 1]
-            // console.log(likeId)
-            // return Object.assign({}, state, { [likeId]: action.like.data })
-        // case REMOVE_VENUE_LIKE:
-        //     delete newState[action.likeId.config.likeId];
-        //     return newState; 
+        case CREATE_USER_LIKE:
+            console.log(newState)
+            let likeId = action.like.data.likes[action.like.data.likes.length - 1]
+            let newData = JSON.parse(action.like.config.data)
+            return Object.assign({}, newState, { [likeId]: newData })
+        case REMOVE_USER_LIKE:
+            delete newState[action.like.config.likeId];
+            return newState; 
         default: 
             return state;
     }

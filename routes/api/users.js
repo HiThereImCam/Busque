@@ -231,6 +231,24 @@ router.get(
   }
 );
 
+router.patch("/:id/comments/", (req, res) => {
+    mongoose.set("useFindAndModify", false);
+
+  Comment.findByIdAndUpdate(req.body._id, req.body, {new: true})
+  .then((comment) => res.json(comment))
+    
+})
+
+
+
+router.delete("/:id/comments/", (req, res) => {
+  console.log(req);
+  console.log(res);
+  Like.findByIdAndDelete(req.body._id)
+    .then((like) => res.json("Like successfully deleted"))
+    .catch((err) => res.status(400).json("Like was not successfully deleted"));
+});
+
 router.get("/likes", (req, res) => {
   Like.find()
     .then((likes) => res.json(likes))
@@ -259,7 +277,7 @@ router.post("/:id/likes", (req, res) => {
   newLike.save().then((like) => {
     User.findByIdAndUpdate(
       req.params.id,
-      { $push: { likes: req.body.likerId } },
+      { $push: { likes: like} },
       { new: true }
     )
       // .populate('likes')
@@ -271,35 +289,29 @@ router.post("/:id/likes", (req, res) => {
 });
 
 router.patch("/:id/likes/edit", (req, res) => {
-  mongoose.set("useFindAndModify", false);
 
-  // User.findByIdAndUpdate(
-  //   req.params.id,
-  //   { $pull: { likes: req.body.likerId } },
-  //   { new: true }
-  // )
+  User.findByIdAndUpdate(
+    req.params.id,
+    { $pull: { likes: req.body._id } },
+    { new: true }
+  )
   
-  User.findByIdAndUpdate(req.params.id, 
-    req.body, { new: true })
-    .then((like) => res.json(like));
+  // User.findByIdAndUpdate(req.params.id, 
+  //   req.body, { new: true })
+   .then((like) => res.json(like));
 });
 
 router.delete("/:id/likes/", (req, res) => {
-  console.log(req)
-  console.log(res)
-  Like.findByIdAndDelete(req.body._id)//.then((like) => {
-  // }) 
-  // User.findByIdAndUpdate(
-  //   req.params.id,
-  //   { $pull: { likes: req.body.likerId } }, 
-  //   { new: true }
-  // )
+  console.log("delete route req body", req)
+  // console.log(res)
+  User.findByIdAndUpdate(
+    req.params.userId,
+    { $pull: { likes: req.body.likeId } }, 
+    { new: true } 
+  )
+  Like.findByIdAndDelete(req.body.likeId)
     .populate('likes')
-    
-    .then((like) => {
-      console.log("this is the like",like)
-      res.json("Like successfully deleted")
-    })
+    .then((like) => res.json(like))
     .catch((err) => res.status(400).json("Like was not successfully deleted"));
 });
 

@@ -80,7 +80,7 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: req.body.coordinate, //!fuck yeah it works!
+      coordinate: req.body.coordinate, 
       imageURL: req.body.imageURL,
       type: req.body.type,
     });
@@ -224,6 +224,14 @@ router.get(
       });
   }
 );
+
+router.patch("/:id/comments/", (req, res) => {
+  mongoose.set("useFindAndModify", false);
+
+  Comment.findByIdAndUpdate(req.body._id, req.body, {
+    new: true,
+  }).then((comment) => res.json(comment));
+});
 
 //! rating routes
 

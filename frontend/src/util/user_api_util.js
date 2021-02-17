@@ -55,15 +55,18 @@ export const createUserLike = (userId, likerId) => {
   })
 }; 
 
-export const updateUserLike = (userId) => {
-  return axios.patch(`/api/users/${userId}/edit`, {
-    userId
+export const updateUserLike = (userId, likeId) => {
+  return axios.patch(`/api/users/${userId}/likes/edit`, {
+    userId, 
+    likeId
   })
 }; 
 //! use likeId instead
 export const deleteUserLike = (userId, likeId) => {
   return axios.delete(`/api/users/${userId}/likes/`, {
-    userId, 
-    likeId
+    // data: {
+      userId, 
+      likeId
+    // }
   })
 }; //add likerId back?

@@ -9,7 +9,7 @@ const mSTP = (state, ownProps) => ({
   ratings: Object.values(state.ratings), 
   isAuthenticated: state.session.isAuthenticated,
   comments: Object.values(state.comments), 
-  likes: Object.values(state.likes)
+  likes: state.likes
 });
 
 const mDTP = (dispatch) => ({
@@ -21,7 +21,7 @@ const mDTP = (dispatch) => ({
   createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
   fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
   createUserLike: (userId, likerId) => dispatch(createUserLike(userId, likerId)),
-  removeUserLike: (userId, likerId) => dispatch(removeUserLike(userId, likerId))
+  removeUserLike: (userId, likeId) => dispatch(removeUserLike(userId, likeId))
 });
 
 export default connect(mSTP, mDTP)(UserShow);

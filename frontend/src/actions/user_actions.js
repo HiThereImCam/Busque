@@ -61,6 +61,10 @@ const receiveUserLike = (like) => ({
 });
 
 //update?
+const updateUserLike = (like) => ({
+  type: UPDATE_USER_LIKE, 
+  like
+})
 
 const deleteUserLike = (like) => ({
   type: REMOVE_USER_LIKE, 
@@ -127,6 +131,12 @@ export const createUserLike = (userId, likerId) => (dispatch) => {
 };
 
 //update?
+export const editUserLike = (userId, likeId) => (dispatch) => {
+  return UserAPIUtil.updateUserLike(userId, likeId)
+    .then((like) => dispatch(updateUserLike(like)))
+    .catch((err) => console.log(err))
+}
+
 //! likeId instead
 export const removeUserLike = (userId, likeId) => (dispatch) => {
   return UserAPIUtil.deleteUserLike(userId, likeId)

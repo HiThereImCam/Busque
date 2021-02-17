@@ -38,6 +38,7 @@ class UserIndex extends React.Component {
                 fetchUserLikes={this.props.fetchUserLikes}
                 createUserLike={this.props.createUserLike}
                 removeUserLike={this.props.removeUserLike}
+                editUserLike={this.props.editUserLike}
                 key={i}
               />
             );
