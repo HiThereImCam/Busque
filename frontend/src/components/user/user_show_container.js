@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { fetchUser, fetchUserRatings, createUserRating, fetchUserComments, createUserComment, fetchUserLikes, createUserLike, removeUserLike } from "../../actions/user_actions";
+import { fetchUser, fetchUserRatings, createUserRating, fetchUserComments, createUserComment } from "../../actions/user_actions";
+import { fetchAllLikes, fetchUserLikes, createLike, deleteLike } from '../../actions/like_actions'; 
 import UserShow from "./user_show";
 import { openNavModal } from "../../actions/nav_actions";
 
@@ -9,7 +10,7 @@ const mSTP = (state, ownProps) => ({
   ratings: Object.values(state.ratings), 
   isAuthenticated: state.session.isAuthenticated,
   comments: Object.values(state.comments), 
-  likes: Object.values(state.likes)
+  likes: state.likes
 });
 
 const mDTP = (dispatch) => ({
@@ -19,9 +20,10 @@ const mDTP = (dispatch) => ({
   createUserComment: (userId, comment, commenter) => dispatch(createUserComment(userId, comment, commenter)),
   fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
   createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
+  fetchAllLikes: () => dispatch(fetchAllLikes()),
   fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
-  createUserLike: (userId, likerId) => dispatch(createUserLike(userId, likerId)),
-  removeUserLike: (userId, likerId) => dispatch(removeUserLike(userId, likerId))
+  createLike: (like) => dispatch(createLike(like)),
+  deleteLike: (likeId) => dispatch(deleteLike(likeId)),
 });
 
 export default connect(mSTP, mDTP)(UserShow);

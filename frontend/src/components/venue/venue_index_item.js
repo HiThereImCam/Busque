@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import ReactStars from 'react-rating-stars-component'; 
+import moment from 'moment';
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
@@ -163,22 +164,22 @@ class VenueIndexItem extends React.Component {
                     </div>
                 )
             } 
-            // else {
-            //     return (
-            //         <ReactStars
-            //             className="rating-stars"
-            //             value={0}
-            //             onChange={this.handleRating}   
-            //             count={5}
-            //             size={19}
-            //             isHalf={true}
-            //             emptyIcon={<i className="far fa-star"></i>}
-            //             halfIcon={<i className="fa fa-star-half-alt"></i>}
-            //             fullIcon={<i className="fa fa-star"></i>}
-            //             activeColor="#ffd700"
-            //         />
-            //     )
-            // }
+            if (ratingNums.length === 0) {
+                return (
+                    <ReactStars
+                        className="rating-stars"
+                        value={0}
+                        onChange={this.handleRating}   
+                        count={5}
+                        size={19}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                    />
+                )
+            }
         }
 
         const changeColor = this.state.redHeart ? "red" : "gray"
@@ -230,8 +231,6 @@ class VenueIndexItem extends React.Component {
                                 this.props.venue.comments.slice().reverse().map((commentId, i) => {
                                     return (
                                         <div key={i}>
-                                            {/* {console.log("venue comments", this.props.venue.comments)}
-                                            {console.log("this.props.comments", this.props.comments)} */}
                                             {this.props.comments.map((comment, j) => {
                                                 if (comment._id === commentId) {
                                                     return (
@@ -243,7 +242,7 @@ class VenueIndexItem extends React.Component {
                                                             </div>
                                                             {comment.comment}
                                                             <div className="review-date">
-                                                                {comment.date}
+                                                                {moment(comment.date).format('LL')}
                                                             </div>
                                                         </div>
                                                     );

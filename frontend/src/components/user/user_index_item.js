@@ -33,8 +33,8 @@ class UserIndexItem extends React.Component {
 
     handleLike(e) {
         e.preventDefault();
-        console.log(this.state.user)
-        this.props.createUserLike(this.props.user._id, this.state.user)
+        this.props.createLike({"userId": this.props.user._id, "likerId": this.state.user})
+
         this.setState({
             redHeart: true
         })
@@ -42,8 +42,14 @@ class UserIndexItem extends React.Component {
 
     handleUnlike(e) {
         e.preventDefault(); 
-        this.props.removeUserLike(this.props.user._id, this.state.user) 
-        this.props.fetchUserLikes(this.props.user._id)
+
+        const likes = Object.values(this.props.likes) //whole like objects
+        for (let i = 0; i < likes.length; i++) {
+            if ((likes[i].userId === this.props.user._id) && (likes[i].likerId === this.props.currentUser)) {
+                this.props.deleteLike(likes[i]._id)
+            }
+        }
+        
         this.setState({
             redHeart: false
         })
@@ -85,12 +91,11 @@ class UserIndexItem extends React.Component {
                     />
                 )
             } 
-            // else {
-            //     let avg = 0
+            // if (ratingNums.length === 0) {
             //     return (
             //         <ReactStars
             //             className="rating-stars"
-            //             value={avg}
+            //             value={0}
             //             onChange={this.handleRating}
             //             count={5}
             //             size={19}
@@ -104,18 +109,36 @@ class UserIndexItem extends React.Component {
             // }
         }
 
-        const changeColor = this.state.redHeart ? "red" : "gray"
-        const likeBtn = (this.props.currentUser === undefined) ? null : 
-            (!this.props.user.likes.includes(this.props.currentUser)) ? 
-                <div className="likes">
-                    <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-                    {this.props.user.likes.length}
-                </div> :
-                <div className="likes">
-                    <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-                    {this.props.user.likes.length}
-                </div>
-        // debugger
+        const likes = Object.values(this.props.likes) //whole like objects
+        let peopleLiked = []; 
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i].userId === this.props.user._id) {
+                peopleLiked.push(likes[i].likerId)
+            }
+        }
+        
+        const likeButton = () => {
+            if (this.props.currentUser === undefined) {
+                return null
+            } 
+            
+            if (peopleLiked.includes(this.props.currentUser)) {
+                return (
+                    <div className="likes">
+                        <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
+                        {peopleLiked.length}
+                    </div>
+                )
+            } else {
+                return (
+                    <div className="likes">
+                        <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
+                        {peopleLiked.length}
+                    </div>
+                )
+            }
+        }        
+
         return (
             <div className="user-list-items-outer">
                 <div className="user-list-items">
@@ -132,7 +155,9 @@ class UserIndexItem extends React.Component {
                         <div className="user-rating">
                             {showRatingAvg()}
                         </div> 
-                        {likeBtn}
+                        <div>
+                            {likeButton()}
+                        </div>
                         <div className="performer-type">
                             Performer Type: {this.props.user.performerType}
                         </div>
