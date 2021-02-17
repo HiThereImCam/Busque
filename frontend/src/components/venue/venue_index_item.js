@@ -64,20 +64,27 @@ class VenueIndexItem extends React.Component {
         })
     }
 
-    handleRating(nextValue, prevValue) { 
+    handleRating(nextValue) { 
         this.props.createVenueRating(this.props.venue._id, nextValue)
     }
 
     handleLike(e) {
         e.preventDefault(); 
-        this.props.createVenueLike(this.props.venue._id, this.state.user)
+        this.props.createLike({"venueId": this.props.venue._id, "likerId": this.state.user})
         this.setState({
             redHeart: true
         })
     }
     handleUnlike(e) {
         e.preventDefault(); 
-        this.props.removeVenueLike(this.props.venue._id, this.state.user) 
+
+        const likes = Object.values(this.props.likes) //whole like objects
+        for (let i = 0; i < likes.length; i++) {
+            if ((likes[i].venueId === this.props.venue._id) && (likes[i].likerId === this.props.currentUser)) {
+                this.props.deleteLike(likes[i]._id)
+            }
+        }
+
         this.setState({
             redHeart: false
         })
@@ -182,17 +189,35 @@ class VenueIndexItem extends React.Component {
             }
         }
 
-        const changeColor = this.state.redHeart ? "red" : "gray"
-        const likeBtn = (this.props.currentUser === undefined) ? null :
-            (!this.props.venue.likes.includes(this.props.currentUser)) ?
-                <div className="likes">
-                    <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-                    {this.props.venue.likes.length}
-                </div> :
-                <div className="likes">
-                    <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-                    {this.props.venue.likes.length}
-                </div>
+        const likes = Object.values(this.props.likes) //whole like objects
+        let peopleLiked = [];
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i].venueId === this.props.venue._id) {
+                peopleLiked.push(likes[i].likerId)
+            }
+        }
+
+        const likeButton = () => {
+            if (this.props.currentUser === undefined) {
+                return null
+            }
+
+            if (peopleLiked.includes(this.props.currentUser)) {
+                return (
+                    <div className="likes">
+                        <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
+                        {peopleLiked.length}
+                    </div>
+                )
+            } else {
+                return (
+                    <div className="likes">
+                        <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
+                        {peopleLiked.length}
+                    </div>
+                )
+            }
+        } 
 
         // debugger
         return (
@@ -206,7 +231,7 @@ class VenueIndexItem extends React.Component {
                             <div className="venue-rating">
                                 {showRatingAvg()}
                             </div>
-                            {likeBtn}
+                            {likeButton()}
                             <div className="venue-type">
                                 Type: {this.props.venue.type}
                             </div>
