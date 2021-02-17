@@ -144,8 +144,6 @@ export const createVenue = (venue, currentUser) => (dispatch) => {
       let venueData = venue.data;
       VenueApiUtil.checkIn(venueData._id, currentUser).then((updatedVenue) => {
         try {
-          let venueSchedule = updatedVenue.data.venueSchedule;
-
           VenueApiUtil.getVenues().then((venue) =>
             dispatch(receiveVenues(venue.data))
           );

@@ -47,29 +47,38 @@ router.get("/", (req, res) => {
     .catch((err) => res.status(404).json({ novenues: "No venues found" }));
 });
 
+// this is what id should be
+// router.get("/:id", (req, res) => {
+//   //find venue by ID
+//   Venue.findById(req.params.id)
+
+//     .then((venue) => {
+//       Schedule.find().then((schedule) => {
+//         let mergedData = [];
+//         for (let i = 0; i < venue.length; i++) {
+//           let venueSchedule = schedule.find((el) => {
+//             return el.venueID.toString() === venue[i]._id.toString();
+//           });
+
+//           mergedData.push({
+//             ...venue[i]._doc,
+//             available: venueSchedule ? false : true,
+//             currentUser: venueSchedule ? venueSchedule.currentUser : "",
+//             expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
+//           });
+//         }
+
+//         res.json(mergedData);
+//       });
+//     })
+//     .catch((err) => res.status(404).json({ novenue: "Venue not found" }));
+// });
+
 router.get("/:id", (req, res) => {
   //find venue by ID
   Venue.findById(req.params.id)
 
-    .then((venue) => {
-      Schedule.find().then((schedule) => {
-        let mergedData = [];
-        for (let i = 0; i < venue.length; i++) {
-          let venueSchedule = schedule.find((el) => {
-            return el.venueID.toString() === venue[i]._id.toString();
-          });
-
-          mergedData.push({
-            ...venue[i]._doc,
-            available: venueSchedule ? false : true,
-            currentUser: venueSchedule ? venueSchedule.currentUser : "",
-            expiresAt: venueSchedule ? venueSchedule.expiresAt : "",
-          });
-        }
-
-        res.json(mergedData);
-      });
-    })
+    .then((venue) => res.json(venue))
     .catch((err) => res.status(404).json({ novenue: "Venue not found" }));
 });
 
