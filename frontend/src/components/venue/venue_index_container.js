@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import VenueIndex from './venue_index'; 
 import { openNavModal } from '../../actions/nav_actions'; 
-import { fetchVenues, createComment, fetchVenueComments, fetchVenueRatings, createVenueRating, fetchVenueLikes, createVenueLike, removeVenueLike } from '../../actions/venue_actions';
+import { fetchVenues, createComment, fetchVenueComments, fetchVenueRatings, createVenueRating } from '../../actions/venue_actions';
+import { fetchAllLikes, fetchVenueLikes, createLike, deleteLike } from '../../actions/like_actions'; 
+
 import { fetchUsers } from '../../actions/user_actions'; 
 
 const mapStateToProps = (state) => ({
@@ -11,7 +13,7 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.session.isAuthenticated,
     currentUser: state.session.user.id, 
     ratings: Object.values(state.ratings), 
-    likes: Object.values(state.likes) 
+    likes: state.likes
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -22,9 +24,10 @@ const mapDispatchToProps = (dispatch) => ({
     createComment: (venueId, comment, user) => dispatch(createComment(venueId, comment, user)),
     fetchVenueRatings: (venueId) => dispatch(fetchVenueRatings(venueId)), 
     createVenueRating: (venueId, rating, user) => dispatch(createVenueRating(venueId, rating, user)), 
+    fetchAllLikes: () => dispatch(fetchAllLikes()),
     fetchVenueLikes: (venueId) => dispatch(fetchVenueLikes(venueId)),
-    createVenueLike: (venueId, likerId) => dispatch(createVenueLike(venueId, likerId)), 
-    removeVenueLike: (venueId, likerId) => dispatch(removeVenueLike(venueId, likerId))
+    createLike: (like) => dispatch(createLike(like)), 
+    deleteLike: (likeId) => dispatch(deleteLike(likeId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueIndex); 
