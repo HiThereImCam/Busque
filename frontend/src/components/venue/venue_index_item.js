@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import ReactStars from 'react-rating-stars-component'; 
+import moment from 'moment';
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
@@ -241,7 +242,7 @@ class VenueIndexItem extends React.Component {
                                                             </div>
                                                             {comment.comment}
                                                             <div className="review-date">
-                                                                {comment.date}
+                                                                {moment(comment.date).format('LL')}
                                                             </div>
                                                         </div>
                                                     );

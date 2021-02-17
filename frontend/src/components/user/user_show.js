@@ -5,6 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Searchbar from "../searchbar/searchbar_container";
 import ReactStars from "react-rating-stars-component";
 import "../../css/user_show.css";
+import moment from 'moment';
+
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -287,7 +289,7 @@ class UserShow extends React.Component {
                               : "From " + comment.commenter.username + ":"}
                           </div>
                           {comment.comment}
-                          <div className="review-date">{comment.date}</div>
+                          <div className="review-date">{moment(comment.date).format('LL')}</div>
                         </div>
                       );
                     }
