@@ -1,12 +1,7 @@
 import {
   CHECK_IN,
   RECEIVE_VENUES,
-  RECEIVE_COMMENT,
   ADD_VENUE_TO_VENUES,
-  RECEIVE_ALL_VENUE_LIKES,
-  RECEIVE_VENUE_LIKES,
-  CREATE_VENUE_LIKE,
-  REMOVE_VENUE_LIKE,
 } from "../actions/venue_actions";
 
 //import { formatVenues } from "./venue_selectors";

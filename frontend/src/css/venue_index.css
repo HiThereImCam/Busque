@@ -84,6 +84,7 @@
   border: 1px solid lightgray;
   height: 250px;
   /* width: 350px;  */
+  /* margin-top: -20px;  */
 }
 
 @media screen and (max-width: 975px) {
