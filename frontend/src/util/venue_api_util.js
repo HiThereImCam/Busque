@@ -17,22 +17,22 @@ export const checkOut = (venueID) => {
   });
 };
 
-export const getVenueComments = (venueId) => {
-  return axios.get(`/api/venues/${venueId}/comments`, {
-    venueId,
-  });
-};
+// export const getVenueComments = (venueId) => {
+//   return axios.get(`/api/venues/${venueId}/comments`, {
+//     venueId,
+//   });
+// };
 
 export const createVenue = (venue) => {
   return axios.post(`/api/venues`, venue);
 };
 
-export const createComment = (venueId, comment, user) => {
-  return axios.post(`/api/venues/${venueId}/comments`, {
-    comment: comment,
-    user: user,
-  });
-};
+// export const createComment = (venueId, comment, user) => {
+//   return axios.post(`/api/venues/${venueId}/comments`, {
+//     comment: comment,
+//     user: user,
+//   });
+// };
 
 export const getVenueRatings = (venueId) => {
   return axios.get(`/api/venues/${venueId}/ratings`, {
@@ -46,32 +46,32 @@ export const createVenueRating = (venueId, rating) => {
   });
 };
 
-export const getAllVenueLikes = () => {
-  return axios.get('/api/venues/likes')
-};
+// export const getAllVenueLikes = () => {
+//   return axios.get('/api/venues/likes')
+// };
 
-export const getVenueLikes = (venueId) => {
-  return axios.get(`/api/venues/${venueId}/likes`, {
-    venueId, 
-  })
-};
+// export const getVenueLikes = (venueId) => {
+//   return axios.get(`/api/venues/${venueId}/likes`, {
+//     venueId, 
+//   })
+// };
 
-export const createVenueLike = (venueId, likerId) => {
-  return axios.post(`/api/venues/${venueId}/likes`, {
-    venueId, 
-    likerId
-  })
-};
+// export const createVenueLike = (venueId, likerId) => {
+//   return axios.post(`/api/venues/${venueId}/likes`, {
+//     venueId, 
+//     likerId
+//   })
+// };
 
-export const updateVenueLike = (venueId) => {
-  return axios.patch(`/api/venues/${venueId}/edit`, {
-    venueId
-  })
-}
+// export const updateVenueLike = (venueId) => {
+//   return axios.patch(`/api/venues/${venueId}/edit`, {
+//     venueId
+//   })
+// }
 
-export const deleteVenueLike = (venueId, likerId) => {
-  return axios.delete(`/api/venues/${venueId}/likes/delete`, {
-    venueId, 
-    likerId
-  })
-};
+// export const deleteVenueLike = (venueId, likerId) => {
+//   return axios.delete(`/api/venues/${venueId}/likes/delete`, {
+//     venueId, 
+//     likerId
+//   })
+// };

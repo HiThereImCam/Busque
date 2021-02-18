@@ -230,15 +230,15 @@ router.delete(
 // //! rating routes
 
 // // get all ratings for a venue
-// router.get("/:venue_id/ratings", (req, res) => {
-//   console.log(req);
-//   Venue.findOne({ _id: req.params.venue_id })
-//     .populate("ratings", "rating") // populate looks for the name of the schema exported
-//     .then((venue) => res.json(venue.ratings))
-//     .catch((err) => {
-//       res.status(404).json({ ratings: "ratings error" });
-//     });
-// });
+router.get("/:venue_id/ratings", (req, res) => {
+  console.log(req);
+  Venue.findOne({ _id: req.params.venue_id })
+    .populate("ratings", "rating") // populate looks for the name of the schema exported
+    .then((venue) => res.json(venue.ratings))
+    .catch((err) => {
+      res.status(404).json({ ratings: "ratings error" });
+    });
+});
 
 // router.delete("/:id/comments/", (req, res) => {
 //   Venue.findByIdAndUpdate(

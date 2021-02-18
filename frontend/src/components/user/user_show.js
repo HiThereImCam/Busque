@@ -264,7 +264,6 @@ class UserShow extends React.Component {
               if (comment.user === this.props.match.params.userId ) {
                 return (
                   <div className="review-each-user" key={i}>
-                    {/* {console.log(comment)} */}
                     <div className="reviewer-name">
                       {comment.commenter === undefined ? "Username says:" : "From " + this.props.users[comment.commenter].username + ":"}
                       

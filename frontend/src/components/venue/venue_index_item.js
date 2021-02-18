@@ -26,8 +26,7 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.fetchVenueComments(this.props.venue._id)
-        // this.props.fetchVenueRatings(this.props.venue._id)
+        this.props.fetchVenueRatings(this.props.venue._id)
         this.props.fetchVenueLikes(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
@@ -228,9 +227,9 @@ class VenueIndexItem extends React.Component {
                 <div className="venue-list-info">
                     <div className="venue-info-outer venue-info-outer-alt">
                         <div className="venue-info venue-info-alt">
-                            {/* <div className="venue-rating">
+                            <div className="venue-rating">
                                 {showRatingAvg()}
-                            </div> */}
+                            </div>
                             {likeButton()}
                             <div className="venue-type">
                                 Type: {this.props.venue.type}
