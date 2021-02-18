@@ -7,6 +7,7 @@ class VenueIndex extends React.Component {
     this.props.fetchUsers();
     this.props.fetchVenues();
     this.props.fetchAllComments(); 
+    this.props.fetchAllLikes(); 
   }
 
   render() {

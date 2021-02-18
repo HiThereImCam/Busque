@@ -23,11 +23,11 @@ class VenueIndexItem extends React.Component {
         this.handleRating = this.handleRating.bind(this); 
         this.handleLike = this.handleLike.bind(this);
         this.handleUnlike = this.handleUnlike.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     componentDidMount() {
         this.props.fetchVenueRatings(this.props.venue._id)
-        this.props.fetchVenueLikes(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -98,6 +98,10 @@ class VenueIndexItem extends React.Component {
             comment: "",
             newComment: true
         })
+    }
+
+    handleDelete(id) {
+        this.props.deleteComment(id); 
     }
 
     render() {
@@ -264,6 +268,13 @@ class VenueIndexItem extends React.Component {
                                                 {comment.comment}
                                                 <div className="review-date">
                                                     {moment(comment.date).format('LL')}
+                                                </div>
+                                                <div className="comment-delete">
+                                                    {(comment.user === undefined && comment.commenter === undefined) ? null 
+                                                    : (comment.commenter === undefined && comment.user === this.props.currentUser) ? 
+                                                    <button onClick={() => this.handleDelete(comment._id)}>Delete</button> 
+                                                    : (comment.commenter === this.props.currentUser && comment.user === undefined) ? 
+                                                    <button onClick={() => this.handleDelete(comment._id)}>Delete</button> : null}
                                                 </div>
                                             </div>
                                         )

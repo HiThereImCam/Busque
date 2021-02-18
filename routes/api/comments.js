@@ -26,7 +26,7 @@ router.post("/new", (req, res) => {
         
 router.delete("/:id", (req, res) => {
   Comment.findByIdAndDelete(req.params.id)
-    .then((comment) => res.json(`Comment successfully deleted`))
+    .then((comment) => res.json(comment))
     .catch((err) =>
       res.status(404).json("Comment was not successfully deleted")
     );

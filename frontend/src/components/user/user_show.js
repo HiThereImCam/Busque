@@ -23,6 +23,7 @@ class UserShow extends React.Component {
     this.update = this.update.bind(this); 
     this.handleLike = this.handleLike.bind(this);
     this.handleUnlike = this.handleUnlike.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -90,6 +91,10 @@ class UserShow extends React.Component {
       comment: "",
       newComment: true,
     });
+  }
+
+  handleDelete(id) {
+    this.props.deleteComment(id);
   }
 
   render() {
@@ -220,7 +225,6 @@ class UserShow extends React.Component {
           )
         }
       }  
-      console.log(this.props.users)
 
       return (
         <div className="user-show-page">
@@ -271,6 +275,11 @@ class UserShow extends React.Component {
                     {comment.comment}
                     <div className="review-date">
                       {moment(comment.date).format('LL')}
+                    </div>
+                    <div className="comment-delete">
+                      {(comment.commenter === undefined) ? null
+                        : (comment.commenter === this.props.currentUser.id) ?
+                        <button onClick={() => this.handleDelete(comment._id)}>Delete</button> : null}
                     </div>
                   </div>
                 )
