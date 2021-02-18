@@ -13,6 +13,7 @@ const venues = require("./routes/api/venues");
 const upload = require("./routes/api/upload");
 const likes = require("./routes/api/likes");
 const comments = require('./routes/api/comments')
+const ratings = require("./routes/api/ratings")
 require("./config/passport")(passport);
 
 if (process.env.NODE_ENV === "production") {
@@ -67,7 +68,7 @@ app.use("/api/venues", venues);
 app.use("/api/upload", upload);
 app.use("/api/likes", likes);
 app.use("/api/comments", comments);
-
+app.use("/api/ratings", ratings);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
