@@ -52,12 +52,12 @@ class VenueModal extends Component {
       data.append("file", this.state.photoFile);
       uploadPhoto(data).then((res) => {
         let venue = {
-          name: this.state.venueName,
+          name: this.props.venueName,
           type: this.state.venueType,
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
-        this.props.createVenue(venue);
+        this.props.createVenue(venue, this.state.currentUser);
       });
     } else {
       let venue = {
