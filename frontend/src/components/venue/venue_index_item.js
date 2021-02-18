@@ -93,7 +93,7 @@ class VenueIndexItem extends React.Component {
     handleSubmit(e) {
         e.preventDefault(); 
         console.log(this.props.venue._id)
-        this.props.createComment({"venue": this.props.venue._id, "comment": this.state.comment, "commenter": this.state.user})
+        this.props.createComment({"venueId": this.props.venue._id, "comment": this.state.comment, "commenter": this.state.user})
 
         this.setState({
             comment: "",
@@ -220,7 +220,6 @@ class VenueIndexItem extends React.Component {
             }
         } 
 
-        // debugger
         return (
             <div className="venue-list-items">
                 <div className="venue-name">
@@ -254,14 +253,14 @@ class VenueIndexItem extends React.Component {
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
-                                this.props.comments.map((comment, i) => {
+                                this.props.comments.slice().reverse().map((comment, i) => {
                                     if (comment.venue === this.props.venue._id) {
                                         return (
                                             <div className="review-each" key={i}>
                                                 <div className="reviewer-name">
-                                                   {comment.user === undefined ? "Username says:" :
-                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
-                                                    "From " + comment.user.username + ":" }
+                                                    {(comment.user === undefined && comment.commenter === undefined) ? "Username says:" 
+                                                    : (comment.commenter === undefined) ? "From " + this.props.users[comment.user].username + ":" 
+                                                    : "From " + this.props.users[comment.commenter].username}
                                                 </div>
                                                 {comment.comment}
                                                 <div className="review-date">

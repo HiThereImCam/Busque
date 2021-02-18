@@ -27,7 +27,8 @@ class UserShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
-    // this.props.fetchUserComments(this.props.match.params.userId);
+    this.props.fetchUsers(); 
+    this.props.fetchAllComments();
     this.props.fetchUserRatings(this.props.match.params.userId);
     this.props.fetchUserLikes(this.props.match.params.userId);
 
@@ -83,11 +84,7 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // this.props.createUserComment(
-    //   this.props.match.params.userId,
-    //   this.state.comment,
-    //   this.state.commenter.id
-    // );
+    this.props.createComment({"user": this.props.match.params.userId, "comment": this.state.comment, "commenter": this.state.commenter.id})
 
     this.setState({
       comment: "",
@@ -223,6 +220,7 @@ class UserShow extends React.Component {
           )
         }
       }  
+      console.log(this.props.users)
 
       return (
         <div className="user-show-page">
@@ -261,31 +259,25 @@ class UserShow extends React.Component {
             <br />
             {noReviews}
           </div>
-          {this.props.user.comments.slice().reverse().map((commentId, i) => {
-            return (
-              <div key={i}>
-                  {this.props.comments.map((comment, j) => {
-                    if (comment._id === commentId._id) {
-                      return (
-                        <div className="review-each-user" key={j}>
-                          <div className="reviewer-name">
-                            {comment.commenter === undefined
-                              ? "Username says:"
-                              : comment.commenter ===
-                                  this.props.currentUser.id &&
-                                comment.commenter.username === undefined
-                              ? "From You:"
-                              : "From " + comment.commenter.username + ":"}
-                          </div>
-                          {comment.comment}
-                          <div className="review-date">{moment(comment.date).format('LL')}</div>
-                        </div>
-                      );
-                    }
-                  })}
-              </div>
-            )
-          })}
+          <div>
+            {this.props.comments.slice().reverse().map((comment, i) => {
+              if (comment.user === this.props.match.params.userId ) {
+                return (
+                  <div className="review-each-user" key={i}>
+                    {/* {console.log(comment)} */}
+                    <div className="reviewer-name">
+                      {comment.commenter === undefined ? "Username says:" : "From " + this.props.users[comment.commenter].username + ":"}
+                      
+                    </div>
+                    {comment.comment}
+                    <div className="review-date">
+                      {moment(comment.date).format('LL')}
+                    </div>
+                  </div>
+                )
+              }
+            })}
+          </div>
         </div>
       );
     }
