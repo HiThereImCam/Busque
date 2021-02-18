@@ -6,6 +6,7 @@ import Searchbar from "../searchbar/searchbar_container";
 class UserIndex extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();
+    this.props.fetchAllLikes(); 
   }
 
   render() {

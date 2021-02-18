@@ -27,7 +27,7 @@ class UserShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
-    this.props.fetchUserComments(this.props.match.params.userId);
+    // this.props.fetchUserComments(this.props.match.params.userId);
     this.props.fetchUserRatings(this.props.match.params.userId);
     this.props.fetchUserLikes(this.props.match.params.userId);
 
@@ -83,11 +83,11 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUserComment(
-      this.props.match.params.userId,
-      this.state.comment,
-      this.state.commenter.id
-    );
+    // this.props.createUserComment(
+    //   this.props.match.params.userId,
+    //   this.state.comment,
+    //   this.state.commenter.id
+    // );
 
     this.setState({
       comment: "",

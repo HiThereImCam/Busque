@@ -11,9 +11,10 @@ import { logout } from "./actions/session_actions";
 
 //TESTING
 // import { getAllVenueLikes, getVenueLikes, createVenueLike, updateVenueLike, deleteVenueLike } from './util/venue_api_util'; 
-import { fetchAllVenueLikes, fetchVenueLikes, createVenueLike, removeVenueLike } from './actions/venue_actions';
+// import { fetchAllVenueLikes, fetchVenueLikes, createVenueLike, removeVenueLike } from './actions/venue_actions';
 import { fetchAllLikes, createLike, fetchUserLikes, deleteLike } from './actions/like_actions';
-import { fetchUserComments } from './actions/user_actions';
+// import { fetchUserComments } from './actions/user_actions';
+import { fetchAllComments, fetchUserComments, fetchVenueComments, createComment, updateComment, deleteComment } from './actions/comment_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
@@ -39,9 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
+  window.fetchAllComments = fetchAllComments; 
+  window.createComment = createComment; 
+  window.updateComment = updateComment; 
+  window.deleteComment = deleteComment; 
   window.fetchUserComments = fetchUserComments;
+  window.fetchVenueComments = fetchVenueComments;
   window.fetchAllLikes = fetchAllLikes; 
-  window.fetchVenueLikes = fetchVenueLikes; 
+  // window.fetchVenueLikes = fetchVenueLikes; 
   window.createLike = createLike; 
   window.deleteLike = deleteLike; 
   window.fetchUserLikes = fetchUserLikes; 

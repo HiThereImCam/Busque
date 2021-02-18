@@ -16,8 +16,8 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch) => ({
   fetchUser: (userId) => dispatch(fetchUser(userId)),
   openNavModal: () => dispatch(openNavModal(true)),
-  fetchUserComments: (userId) => dispatch(fetchUserComments(userId)),
-  createUserComment: (userId, comment, commenter) => dispatch(createUserComment(userId, comment, commenter)),
+  // fetchUserComments: (userId) => dispatch(fetchUserComments(userId)),
+  // createUserComment: (userId, comment, commenter) => dispatch(createUserComment(userId, comment, commenter)),
   fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
   createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
   fetchAllLikes: () => dispatch(fetchAllLikes()),

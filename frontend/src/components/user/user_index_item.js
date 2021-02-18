@@ -18,7 +18,6 @@ class UserIndexItem extends React.Component {
 
     componentDidMount() {
         this.props.fetchUserRatings(this.props.user._id);
-        this.props.fetchUserLikes(this.props.user._id);
 
         if (this.props.currentUser !== undefined) {
             this.setState({

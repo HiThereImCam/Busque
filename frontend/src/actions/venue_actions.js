@@ -2,8 +2,8 @@ import * as VenueApiUtil from "../util/venue_api_util";
 
 export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
-export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
-export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
+// export const RECEIVE_VENUE_COMMENTS = "RECEIVE_VENUE_COMMENTS";
+// export const RECEIVE_COMMENT = "RECEIVE_COMMENT";
 export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS";
 export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING";
 export const OPEN_VENUE_MODAL = "OPEN_VENUE_MODAL";
@@ -11,11 +11,11 @@ export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
 export const SET_VENUENAME_AND_COORDINATES = "SET_VENUENAME_AND_COORDINATES";
 export const RECEIVE_VENUE_ERRORS = "RECEIVE_VENUE_ERRORS";
 export const ADD_VENUE_TO_VENUES = "ADD_VENUE_TO_VENUES";
-export const RECEIVE_ALL_VENUE_LIKES = "RECEIVE_ALL_VENUE_LIKES";
-export const RECEIVE_VENUE_LIKES = "RECEIVE_VENUE_LIKES";
-export const CREATE_VENUE_LIKE = "CREATE_VENUE_LIKE";
-export const UPDATE_VENUE_LIKE = "UPDATE_VENUE_LIKE";
-export const REMOVE_VENUE_LIKE = "REMOVE_VENUE_LIKE";
+// export const RECEIVE_ALL_VENUE_LIKES = "RECEIVE_ALL_VENUE_LIKES";
+// export const RECEIVE_VENUE_LIKES = "RECEIVE_VENUE_LIKES";
+// export const CREATE_VENUE_LIKE = "CREATE_VENUE_LIKE";
+// export const UPDATE_VENUE_LIKE = "UPDATE_VENUE_LIKE";
+// export const REMOVE_VENUE_LIKE = "REMOVE_VENUE_LIKE";
 
 const receiveVenues = (venues) => ({
   type: RECEIVE_VENUES,
@@ -27,16 +27,16 @@ const checkedIn = (venueSchedule) => ({
   venueSchedule,
 });
 
-const receiveVenueComments = (venue, comments) => ({
-  type: RECEIVE_VENUE_COMMENTS,
-  venue,
-  comments,
-});
+// const receiveVenueComments = (venue, comments) => ({
+//   type: RECEIVE_VENUE_COMMENTS,
+//   venue,
+//   comments,
+// });
 
-const receiveComment = (comment) => ({
-  type: RECEIVE_COMMENT,
-  comment,
-});
+// const receiveComment = (comment) => ({
+//   type: RECEIVE_COMMENT,
+//   comment,
+// });
 
 const receiveRating = (rating) => ({
   type: RECEIVE_VENUE_RATING,
@@ -73,28 +73,28 @@ export const addVenue = (venue) => ({
   venue,
 });
 
-const receiveAllVenueLikes = (likes) => ({
-  type: RECEIVE_ALL_VENUE_LIKES,
-  likes,
-});
+// const receiveAllVenueLikes = (likes) => ({
+//   type: RECEIVE_ALL_VENUE_LIKES,
+//   likes,
+// });
 
-const receiveVenueLikes = (venue, likes) => ({
-  type: RECEIVE_VENUE_LIKES,
-  venue,
-  likes,
-});
+// const receiveVenueLikes = (venue, likes) => ({
+//   type: RECEIVE_VENUE_LIKES,
+//   venue,
+//   likes,
+// });
 
-const receiveVenueLike = (like) => ({
-  type: CREATE_VENUE_LIKE,
-  like,
-});
+// const receiveVenueLike = (like) => ({
+//   type: CREATE_VENUE_LIKE,
+//   like,
+// });
 
-//update?
+// //update?
 
-const deleteVenueLike = (like) => ({
-  type: REMOVE_VENUE_LIKE,
-  like
-})
+// const deleteVenueLike = (like) => ({
+//   type: REMOVE_VENUE_LIKE,
+//   like
+// })
 
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
@@ -111,19 +111,19 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
     }
   });
 
-export const fetchVenueComments = (venueId) => (dispatch) => {
-  VenueApiUtil.getVenueComments(venueId)
-    .then((venueId, comments) =>
-      dispatch(receiveVenueComments(venueId, comments))
-    )
-    .catch((err) => dispatch(getVenueErrors(err)));
-};
+// export const fetchVenueComments = (venueId) => (dispatch) => {
+//   VenueApiUtil.getVenueComments(venueId)
+//     .then((venueId, comments) =>
+//       dispatch(receiveVenueComments(venueId, comments))
+//     )
+//     .catch((err) => dispatch(getVenueErrors(err)));
+// };
 
-export const createComment = (venueId, comment, user) => (dispatch) => {
-  return VenueApiUtil.createComment(venueId, comment, user)
-    .then((comment) => dispatch(receiveComment(comment)))
-    .catch((err) => dispatch(getVenueErrors(err)));
-};
+// export const createComment = (venueId, comment, user) => (dispatch) => {
+//   return VenueApiUtil.createComment(venueId, comment, user)
+//     .then((comment) => dispatch(receiveComment(comment)))
+//     .catch((err) => dispatch(getVenueErrors(err)));
+// };
 
 export const createVenueRating = (venueId, rating) => (dispatch) => {
   return VenueApiUtil.createVenueRating(venueId, rating)
@@ -155,28 +155,28 @@ export const createVenue = (venue, currentUser) => (dispatch) => {
     });
 };
 
-export const fetchAllVenueLikes = () => (dispatch) => {
-  return VenueApiUtil.getAllVenueLikes()
-    .then((likes) => dispatch(receiveAllVenueLikes(likes)))
-    .catch((err) => console.log(err));
-};
+// export const fetchAllVenueLikes = () => (dispatch) => {
+//   return VenueApiUtil.getAllVenueLikes()
+//     .then((likes) => dispatch(receiveAllVenueLikes(likes)))
+//     .catch((err) => console.log(err));
+// };
 
-export const fetchVenueLikes = (venueId) => (dispatch) => {
-  return VenueApiUtil.getVenueLikes(venueId)
-    .then((venue, likes) => dispatch(receiveVenueLikes(venue, likes)))
-    .catch((err) => console.log(err));
-};
+// export const fetchVenueLikes = (venueId) => (dispatch) => {
+//   return VenueApiUtil.getVenueLikes(venueId)
+//     .then((venue, likes) => dispatch(receiveVenueLikes(venue, likes)))
+//     .catch((err) => console.log(err));
+// };
 
-export const createVenueLike = (venueId, likerId) => (dispatch) => {
-  return VenueApiUtil.createVenueLike(venueId, likerId)
-    .then((like) => dispatch(receiveVenueLike(like)))
-    .catch((err) => console.log(err));
-};
+// export const createVenueLike = (venueId, likerId) => (dispatch) => {
+//   return VenueApiUtil.createVenueLike(venueId, likerId)
+//     .then((like) => dispatch(receiveVenueLike(like)))
+//     .catch((err) => console.log(err));
+// };
 
-//update?
+// //update?
 
-export const removeVenueLike = (venueId, likerId) => (dispatch) => {
-  return VenueApiUtil.deleteVenueLike(venueId, likerId)
-    .then(like => dispatch(deleteVenueLike(like)))
-    .catch(err => console.log(err))
-};
+// export const removeVenueLike = (venueId, likerId) => (dispatch) => {
+//   return VenueApiUtil.deleteVenueLike(venueId, likerId)
+//     .then(like => dispatch(deleteVenueLike(like)))
+//     .catch(err => console.log(err))
+// };

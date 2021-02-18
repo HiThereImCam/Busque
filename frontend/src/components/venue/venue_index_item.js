@@ -26,8 +26,8 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchVenueComments(this.props.venue._id)
-        this.props.fetchVenueRatings(this.props.venue._id)
+        // this.props.fetchVenueComments(this.props.venue._id)
+        // this.props.fetchVenueRatings(this.props.venue._id)
         this.props.fetchVenueLikes(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
@@ -92,7 +92,8 @@ class VenueIndexItem extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault(); 
-        this.props.createComment(this.props.venue._id, this.state.comment, this.state.user)
+        console.log(this.props.venue._id)
+        this.props.createComment({"venue": this.props.venue._id, "comment": this.state.comment, "commenter": this.state.user})
 
         this.setState({
             comment: "",
@@ -228,9 +229,9 @@ class VenueIndexItem extends React.Component {
                 <div className="venue-list-info">
                     <div className="venue-info-outer venue-info-outer-alt">
                         <div className="venue-info venue-info-alt">
-                            <div className="venue-rating">
+                            {/* <div className="venue-rating">
                                 {showRatingAvg()}
-                            </div>
+                            </div> */}
                             {likeButton()}
                             <div className="venue-type">
                                 Type: {this.props.venue.type}
@@ -253,28 +254,23 @@ class VenueIndexItem extends React.Component {
                         </div>
                         <div className="venue-reviews-inner">
                             {this.state.showReviews &&
-                                this.props.venue.comments.slice().reverse().map((commentId, i) => {
-                                    return (
-                                        <div key={i}>
-                                            {this.props.comments.map((comment, j) => {
-                                                if (comment._id === commentId) {
-                                                    return (
-                                                        <div className="review-each" key={j}>
-                                                            <div className="reviewer-name">
-                                                                {comment.user === undefined ? "Username says:" : 
-                                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
-                                                                    "From " + comment.user.username + ":" }
-                                                            </div>
-                                                            {comment.comment}
-                                                            <div className="review-date">
-                                                                {moment(comment.date).format('LL')}
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                }
-                                            })}
-                                        </div>
-                                    )
+                                this.props.comments.map((comment, i) => {
+                                    if (comment.venue === this.props.venue._id) {
+                                        return (
+                                            <div className="review-each" key={i}>
+                                                <div className="reviewer-name">
+                                                   {comment.user === undefined ? "Username says:" :
+                                                    (comment.user === this.props.currentUser && comment.user.username === undefined) ? "From You:" :
+                                                    "From " + comment.user.username + ":" }
+                                                </div>
+                                                {comment.comment}
+                                                <div className="review-date">
+                                                    {moment(comment.date).format('LL')}
+                                                </div>
+                                            </div>
+                                        )
+
+                                    }
                                 })
                             }
                         </div>
