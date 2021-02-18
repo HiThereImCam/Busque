@@ -19,21 +19,6 @@ const usersReducer = (state = {}, action) => {
             let wholeUser = newState[action.comment.data.user]
             wholeUser.comments.push(action.comment.data._id)
             return newState; 
-        // case CREATE_USER_LIKE: 
-        //     let likedUser = newState[action.like.data._id]
-        //     let likerId = action.like.data.likes[action.like.data.likes.length - 1]
-        //     likedUser.likes.push(likerId)
-        //     return newState; 
-        // case REMOVE_USER_LIKE:
-        //     let userLiked = newState[action.like.config.userId]
-        //     for (let i = 0; i < userLiked.likes.length; i++) {
-        //         if (userLiked.likes[i] === action.like.config.likeId) {
-        //             userLiked.likes.splice(i, 1)
-        //         }
-        //     }
-        //     return newState; 
-        // case UPDATE_USER_LIKE: 
-            
         default: 
             return state; 
     }

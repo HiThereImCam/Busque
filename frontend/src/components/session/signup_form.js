@@ -16,7 +16,7 @@ class SignupForm extends React.Component {
       bio: "",
       photoId: "",
       photoFile: null,
-      imageURL: "",
+      imageURL: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
       errors: {},
     };
 
