@@ -134,10 +134,21 @@
     display: block; 
     flex-basis: 5%;
     align-self: center;
+    justify-self: center;
+    /* padding-left: 5px;  */
+    padding-right: 8px; 
 }
-.commenter-img img {
+/* .commenter-img img {
     display: flex; 
     align-items: center;
+    justify-content: center;
+} */
+.comment-profile {
+    display: flex; 
+    justify-self: center;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
 }
 
 .comment-info {
@@ -154,12 +165,20 @@
 .comment-delete {
     display: block; 
     flex-basis: 5%;
-    justify-content: flex-end;
+    justify-content: center;
     align-self: center;
 }
 
 .comment-delete-button {
+    display: flex; 
+    justify-content: flex-end;
     background-color: transparent;
     border: none; 
     padding: 0px; 
+}
+.comment-delete-button:focus {
+    outline: none;
+}
+.comment-delete-button:hover {
+    cursor: pointer;
 }

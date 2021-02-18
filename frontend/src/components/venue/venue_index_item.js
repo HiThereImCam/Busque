@@ -194,6 +194,22 @@ class VenueIndexItem extends React.Component {
             }
         }
 
+        const noReviews = () => {
+            let venueComments = []
+            for (let j = 0; j < this.props.comments.length; j++) {
+                if (this.props.comments[j].venue === this.props.venue._id) {
+                    venueComments.push(this.props.comments[j])
+                }
+            }
+            if (venueComments.length === 0) {
+                return (
+                    <div className="no-reviews">Be the first to review!</div>
+                )
+            } else {
+                return null
+            }
+        }
+
         const likes = Object.values(this.props.likes) //whole like objects
         let peopleLiked = [];
         for (let i = 0; i < likes.length; i++) {
@@ -256,15 +272,15 @@ class VenueIndexItem extends React.Component {
                             Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 
                         </div>
                         <div className="venue-reviews-inner">
-                            {this.state.showReviews &&
+                            {this.state.showReviews && 
                                 this.props.comments.slice().reverse().map((comment, i) => {
                                     if (comment.venue === this.props.venue._id) {
                                         return (
                                             <div className="review-each" key={i}>
                                                 <div className="commenter-img">
                                                     {(comment.user === undefined && comment.commenter === undefined) ? null 
-                                                    : (comment.user === undefined) ? <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="venue-index-currentUser" />
-                                                    : (comment.commenter === undefined) ? <img src={this.props.users[comment.user].imageURL} alt="profile" className="venue-index-currentUser" />
+                                                    : (comment.user === undefined) ? <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="comment-profile" />
+                                                    : (comment.commenter === undefined) ? <img src={this.props.users[comment.user].imageURL} alt="profile" className="comment-profile" />
                                                     : null}
                                                 </div>
                                                 <div className="comment-info">
@@ -289,10 +305,10 @@ class VenueIndexItem extends React.Component {
                                                 </div>
                                             </div>
                                         )
-
-                                    }
-                                })
+                                    } 
+                                }) 
                             }
+                            {this.state.showReviews && noReviews()}
                         </div>
                     </div>
                 </div>

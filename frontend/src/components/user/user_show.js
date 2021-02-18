@@ -191,10 +191,21 @@ class UserShow extends React.Component {
           </form>
         );
 
-      const noReviews =
-        this.props.user.comments.length === 0 ? (
-          <div>Be the first to review!</div>
-        ) : null;
+      const noReviews = () => {
+        let userComments = []
+        for (let j = 0; j < this.props.comments.length; j++) {
+          if (this.props.comments[j].user === this.props.match.params.userId) {
+            userComments.push(this.props.comments[j])
+          }
+        }
+        if (userComments.length === 0) {
+          return (
+            <div>Be the first to review!</div>
+          )
+        } else {
+          return null
+        } 
+      }
 
       
       const likes = Object.values(this.props.likes) //whole like objects
@@ -262,7 +273,7 @@ class UserShow extends React.Component {
             <h2>Reviews</h2>
             {userCommentInput}
             <br />
-            {noReviews}
+            {noReviews()}
           </div>
           <div>
             {this.props.comments.slice().reverse().map((comment, i) => {
@@ -270,7 +281,7 @@ class UserShow extends React.Component {
                 return (
                   <div className="review-each-user" key={i}>
                     <div className="commenter-img">
-                      {(comment.commenter === undefined) ? null : <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="venue-index-currentUser"/>}
+                      {(comment.commenter === undefined) ? null : <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="comment-profile"/>}
                     </div>
                     <div className="comment-info">
                       <div className="reviewer-name">
