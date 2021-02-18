@@ -5,11 +5,9 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const Venue = require("../../models/Venue");
 const validateVenueInput = require("../../validations/venue");
-const Comment = require("../../models/Comment");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
-const Likes = require("../../models/Likes");
-const User = require("../../models/User");
+
 
 
 router.get("/", (req, res) => {
@@ -162,98 +160,98 @@ router.delete(
 
 // maybe post route?
 
-router.post(
-  "/:venue_id/comments",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+// router.post(
+//   "/:venue_id/comments",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
     
 
-    const newComment = new Comment({
-      venue: req.params.venue_id,
-      comment: req.body.comment,
-      user: req.body.user, //*this is the working one at the moment
-    });
-    console.log(newComment);
-    newComment.save().then(
-      (comment) => {
-        console.log("Comments: ", comment);
-        Venue.findByIdAndUpdate(
-          req.params.venue_id,
-          { $push: { comments: comment } },
-          { new: true }
-        )
-          .populate({
-            path: "comments",
-            populate: {
-              path: "user",
-              options: { sort: { date: -1 } },
-              select: { username: 1 },
-            },
-          })
-          .then(() => res.json(comment));
-      }
-      // response to front end
-    );
-  }
-);
+//     const newComment = new Comment({
+//       venue: req.params.venue_id,
+//       comment: req.body.comment,
+//       user: req.body.user, //*this is the working one at the moment
+//     });
+//     console.log(newComment);
+//     newComment.save().then(
+//       (comment) => {
+//         console.log("Comments: ", comment);
+//         Venue.findByIdAndUpdate(
+//           req.params.venue_id,
+//           { $push: { comments: comment } },
+//           { new: true }
+//         )
+//           .populate({
+//             path: "comments",
+//             populate: {
+//               path: "user",
+//               options: { sort: { date: -1 } },
+//               select: { username: 1 },
+//             },
+//           })
+//           .then(() => res.json(comment));
+//       }
+//       // response to front end
+//     );
+//   }
+// );
 
-//pulls comments left on a venue
+// //pulls comments left on a venue
 
-router.get(
-  "/:venue_id/comments",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    console.log(req);
-    Venue.findOne({ _id: req.params.venue_id })
-      .populate({
-        path: "comments",
-        populate: {
-          path: "user",
-          options: { sort: { date: -1 } },
-          select: { username: 1 },
-        },
-      })
-      .then((venue) => res.json(venue.comments))
-      .catch((err) => {
-        console.log("comment error:", err);
-        res.status(500).json({ comment: "we've encountered and error" });
-      });
-  }
-);
+// router.get(
+//   "/:venue_id/comments",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     console.log(req);
+//     Venue.findOne({ _id: req.params.venue_id })
+//       .populate({
+//         path: "comments",
+//         populate: {
+//           path: "user",
+//           options: { sort: { date: -1 } },
+//           select: { username: 1 },
+//         },
+//       })
+//       .then((venue) => res.json(venue.comments))
+//       .catch((err) => {
+//         console.log("comment error:", err);
+//         res.status(500).json({ comment: "we've encountered and error" });
+//       });
+//   }
+// );
 
-router.patch("/:id/comments/", (req, res) => {
-  mongoose.set("useFindAndModify", false);
+// router.patch("/:id/comments/", (req, res) => {
+//   mongoose.set("useFindAndModify", false);
 
-  Comment.findByIdAndUpdate(req.body._id, req.body, {
-    new: true,
-  }).then((comment) => res.json(comment));
-});
+//   Comment.findByIdAndUpdate(req.body._id, req.body, {
+//     new: true,
+//   }).then((comment) => res.json(comment));
+// });
 
-//! rating routes
+// //! rating routes
 
-// get all ratings for a venue
-router.get("/:venue_id/ratings", (req, res) => {
-  console.log(req);
-  Venue.findOne({ _id: req.params.venue_id })
-    .populate("ratings", "rating") // populate looks for the name of the schema exported
-    .then((venue) => res.json(venue.ratings))
-    .catch((err) => {
-      res.status(404).json({ ratings: "ratings error" });
-    });
-});
+// // get all ratings for a venue
+// router.get("/:venue_id/ratings", (req, res) => {
+//   console.log(req);
+//   Venue.findOne({ _id: req.params.venue_id })
+//     .populate("ratings", "rating") // populate looks for the name of the schema exported
+//     .then((venue) => res.json(venue.ratings))
+//     .catch((err) => {
+//       res.status(404).json({ ratings: "ratings error" });
+//     });
+// });
 
-router.delete("/:id/comments/", (req, res) => {
-  Venue.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.body._id } },
-    { new: true }
-  )
-    .populate("comments")
-    .then((comment) => res.json(comment))
-    .catch((err) =>
-      res.status(400).json("Comment was not successfully deleted")
-    );
-}); 
+// router.delete("/:id/comments/", (req, res) => {
+//   Venue.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
+//     .populate("comments")
+//     .then((comment) => res.json(comment))
+//     .catch((err) =>
+//       res.status(400).json("Comment was not successfully deleted")
+//     );
+// }); 
 
 
 // creates a rating, same format as new comment creation
