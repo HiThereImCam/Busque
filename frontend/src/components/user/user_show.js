@@ -6,6 +6,7 @@ import Searchbar from "../searchbar/searchbar_container";
 import ReactStars from "react-rating-stars-component";
 import "../../css/user_show.css";
 import moment from 'moment';
+import { GoTrashcan } from "react-icons/go";
 
 
 class UserShow extends React.Component {
@@ -268,18 +269,25 @@ class UserShow extends React.Component {
               if (comment.user === this.props.match.params.userId ) {
                 return (
                   <div className="review-each-user" key={i}>
-                    <div className="reviewer-name">
-                      {comment.commenter === undefined ? "Username says:" : "From " + this.props.users[comment.commenter].username + ":"}
-                      
+                    <div className="commenter-img">
+                      {(comment.commenter === undefined) ? null : <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="venue-index-currentUser"/>}
                     </div>
-                    {comment.comment}
-                    <div className="review-date">
-                      {moment(comment.date).format('LL')}
+                    <div className="comment-info">
+                      <div className="reviewer-name">
+                        {comment.commenter === undefined ? "Username says:" : "From " + this.props.users[comment.commenter].username + ":"}
+                      </div>
+                      <div className="comment">
+                        {comment.comment}
+                      </div>
+                      <div className="review-date">
+                        {moment(comment.date).format('LL')}
+                      </div>
                     </div>
                     <div className="comment-delete">
                       {(comment.commenter === undefined) ? null
                         : (comment.commenter === this.props.currentUser.id) ?
-                        <button onClick={() => this.handleDelete(comment._id)}>Delete</button> : null}
+                          <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> 
+                        : null}
                     </div>
                   </div>
                 )

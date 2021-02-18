@@ -221,6 +221,7 @@
   margin: 5px;
   padding: 5px;
   padding-left: 8px;
+  display: flex; 
 }
 
 .reviews-dropdown {

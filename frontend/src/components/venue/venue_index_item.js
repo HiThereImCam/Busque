@@ -4,6 +4,7 @@ import "../../css/venue_index.css";
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import ReactStars from 'react-rating-stars-component'; 
 import moment from 'moment';
+import { GoTrashcan } from "react-icons/go";
 
 class VenueIndexItem extends React.Component {
     constructor(props) {
@@ -260,21 +261,31 @@ class VenueIndexItem extends React.Component {
                                     if (comment.venue === this.props.venue._id) {
                                         return (
                                             <div className="review-each" key={i}>
-                                                <div className="reviewer-name">
-                                                    {(comment.user === undefined && comment.commenter === undefined) ? "Username says:" 
-                                                    : (comment.commenter === undefined) ? "From " + this.props.users[comment.user].username + ":" 
-                                                    : "From " + this.props.users[comment.commenter].username}
+                                                <div className="commenter-img">
+                                                    {(comment.user === undefined && comment.commenter === undefined) ? null 
+                                                    : (comment.user === undefined) ? <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="venue-index-currentUser" />
+                                                    : (comment.commenter === undefined) ? <img src={this.props.users[comment.user].imageURL} alt="profile" className="venue-index-currentUser" />
+                                                    : null}
                                                 </div>
-                                                {comment.comment}
-                                                <div className="review-date">
-                                                    {moment(comment.date).format('LL')}
+                                                <div className="comment-info">
+                                                    <div className="reviewer-name">
+                                                        {(comment.user === undefined && comment.commenter === undefined) ? "Username says:" 
+                                                        : (comment.commenter === undefined) ? "From " + this.props.users[comment.user].username + ":" 
+                                                        : "From " + this.props.users[comment.commenter].username}
+                                                    </div>
+                                                    <div className="comment">
+                                                        {comment.comment}
+                                                    </div>
+                                                    <div className="review-date">
+                                                        {moment(comment.date).format('LL')}
+                                                    </div>
                                                 </div>
                                                 <div className="comment-delete">
                                                     {(comment.user === undefined && comment.commenter === undefined) ? null 
                                                     : (comment.commenter === undefined && comment.user === this.props.currentUser) ? 
-                                                    <button onClick={() => this.handleDelete(comment._id)}>Delete</button> 
+                                                    <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> 
                                                     : (comment.commenter === this.props.currentUser && comment.user === undefined) ? 
-                                                    <button onClick={() => this.handleDelete(comment._id)}>Delete</button> : null}
+                                                    <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> : null}
                                                 </div>
                                             </div>
                                         )
