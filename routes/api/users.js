@@ -170,87 +170,87 @@ router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
 
-router.post(
-  "/:user_id/comments",
-  // passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    console.log(req);
-    console.log(res);
-    const newComment = new Comment({
-      //needs user
-      user: req.params.user_id,
-      comment: req.body.comment,
-      commenter: req.body.commenter,
-    });
-    console.log(newComment);
-    newComment.save().then(
-      (comment) => {
-        User.findByIdAndUpdate(
-          req.params.user_id,
-          { $push: { comments: comment } },
-          { new: true }
-        )
-          .then(() => res.json(comment))
-          .populate({
-            path: "Comments",
-            populate: {
-              path: "commenter",
-              select: { username: 1 },
-            },
-          })
-          .catch((err) => {
-            console.log("comment error:", err);
-            res.status(500).json({ comment: "we've encountered and error" });
-          });
-      }
-      // response to front end
-    );
-  }
-);
+// router.post(
+//   "/:user_id/comments",
+//   // passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     console.log(req);
+//     console.log(res);
+//     const newComment = new Comment({
+//       //needs user
+//       user: req.params.user_id,
+//       comment: req.body.comment,
+//       commenter: req.body.commenter,
+//     });
+//     console.log(newComment);
+//     newComment.save().then(
+//       (comment) => {
+//         User.findByIdAndUpdate(
+//           req.params.user_id,
+//           { $push: { comments: comment } },
+//           { new: true }
+//         )
+//           .then(() => res.json(comment))
+//           .populate({
+//             path: "Comments",
+//             populate: {
+//               path: "commenter",
+//               select: { username: 1 },
+//             },
+//           })
+//           .catch((err) => {
+//             console.log("comment error:", err);
+//             res.status(500).json({ comment: "we've encountered and error" });
+//           });
+//       }
+//       // response to front end
+//     );
+//   }
+// );
 
-router.get(
-  "/:user_id/comments",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    console.log(req);
+// router.get(
+//   "/:user_id/comments",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     console.log(req);
 
-    User.findOne({ _id: req.params.user_id })
-      .populate({
-        path: "comments",
-        populate: {
-          path: "commenter",
-          options: { sort: { date: -1 } },
-          select: { username: 1 },
-        },
-      })
-      .then((user) => res.json(user.comments))
-      .catch((err) => {
-        console.log("comment error:", err);
-        res.status(404).json({ comment: "we've encountered and error" });
-      });
-  }
-);
+//     User.findOne({ _id: req.params.user_id })
+//       .populate({
+//         path: "comments",
+//         populate: {
+//           path: "commenter",
+//           options: { sort: { date: -1 } },
+//           select: { username: 1 },
+//         },
+//       })
+//       .then((user) => res.json(user.comments))
+//       .catch((err) => {
+//         console.log("comment error:", err);
+//         res.status(404).json({ comment: "we've encountered and error" });
+//       });
+//   }
+// );
 
-router.patch("/:id/comments/", (req, res) => {
-    mongoose.set("useFindAndModify", false);
+// router.patch("/:id/comments/", (req, res) => {
+//     mongoose.set("useFindAndModify", false);
 
-  Comment.findByIdAndUpdate(req.body._id, req.body, {new: true})
-  .then((comment) => res.json(comment))
+//   Comment.findByIdAndUpdate(req.body._id, req.body, {new: true})
+//   .then((comment) => res.json(comment))
     
-})
+// })
 
 
 
-router.delete("/:id/comments/", (req, res) => {
-  User.findByIdAndUpdate(
-    req.params.id,
-    { $pull: { likes: req.body._id } },
-    { new: true }
-  )
-    .populate("comments")
-    .then((comment) => res.json(comment))
-    .catch((err) => res.status(400).json("Comment was not successfully deleted"));
-});
+// router.delete("/:id/comments/", (req, res) => {
+//   User.findByIdAndUpdate(
+//     req.params.id,
+//     { $pull: { likes: req.body._id } },
+//     { new: true }
+//   )
+//     .populate("comments")
+//     .then((comment) => res.json(comment))
+//     .catch((err) => res.status(400).json("Comment was not successfully deleted"));
+// });
 
 // router.get("/likes", (req, res) => {
 //   Like.find()
