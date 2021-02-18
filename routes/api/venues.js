@@ -185,47 +185,8 @@ router.delete(
 //             populate: {
 //               path: "user",
 //               options: { sort: { date: -1 } },
-//               select: { username: 1 },
-//             },
-//           })
-//           .then(() => res.json(comment));
-//       }
-//       // response to front end
-//     );
-//   }
-// );
 
-// //pulls comments left on a venue
 
-// router.get(
-//   "/:venue_id/comments",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     console.log(req);
-//     Venue.findOne({ _id: req.params.venue_id })
-//       .populate({
-//         path: "comments",
-//         populate: {
-//           path: "user",
-//           options: { sort: { date: -1 } },
-//           select: { username: 1 },
-//         },
-//       })
-//       .then((venue) => res.json(venue.comments))
-//       .catch((err) => {
-//         console.log("comment error:", err);
-//         res.status(500).json({ comment: "we've encountered and error" });
-//       });
-//   }
-// );
-
-// router.patch("/:id/comments/", (req, res) => {
-//   mongoose.set("useFindAndModify", false);
-
-//   Comment.findByIdAndUpdate(req.body._id, req.body, {
-//     new: true,
-//   }).then((comment) => res.json(comment));
-// });
 
 // //! rating routes
 
@@ -240,18 +201,6 @@ router.delete(
 //     });
 // });
 
-// router.delete("/:id/comments/", (req, res) => {
-//   Venue.findByIdAndUpdate(
-//     req.params.id,
-//     { $pull: { likes: req.body._id } },
-//     { new: true }
-//   )
-//     .populate("comments")
-//     .then((comment) => res.json(comment))
-//     .catch((err) =>
-//       res.status(400).json("Comment was not successfully deleted")
-//     );
-// }); 
 
 
 // creates a rating, same format as new comment creation
@@ -270,62 +219,8 @@ router.post("/:venue_id/ratings", (req, res) => {
   });
 });
 
-// router.get("/likes", (req, res) => {
-//   Venue.find()
-//     .then((likes) => res.json(likes))
-//     .catch((err) => {
-//       res.status(404).json({ comment: "we've encountered and error" });
-//     });
-// });
-
-// router.get("/:id/likes", (req, res) => {
-//   Venue.findById(req.params.id)
-//     .then((likes) => res.json(likes))
-//     .catch((err) => {
-//       res.status(404).json({ comment: "we've encountered and error" });
-//     });
-// });
-
-// router.post("/:id/likes", (req, res) => {
-//   const newLike = new Likes({
-//     venueId: req.params.id,
-//     likerId: req.body.likerId,
-//   }); 
-
-//   newLike.save().then((like) => {
-//     Venue.findByIdAndUpdate(
-//       req.params.id,
-//       { $push: { likes: req.body.likerId } },
-//       { new: true }
-//     )
-//       .then((venue) => res.json(venue))
-//       .catch((err) => {
-//         res.status(404).json({ comment: "we've encountered and error" });
-//       });
-//   });
-// });
-
-
-// router.patch("/:id/likes/edit", (req, res) => {
-//   mongoose.set("useFindAndModify", false);
-
-
-//   Likes.findByIdAndUpdate(req.params.id, req.body, { new: true }).then((like) =>
-//     res.json(like)
-//   );
-// });
-
-// router.delete("/:id/likes/", (req, res) => {
-//   Venue.findByIdAndUpdate(
-//     req.params.id,
-//     { $pull: { likes: req.body._id } },
-//     { new: true }
-//   )
-//     .populate("likes")
-//     .then((like) => res.json(like))
-//     .catch((err) => res.status(400).json("Like was not successfully deleted"));
-// });
 
 
 
 module.exports = router;
+    
