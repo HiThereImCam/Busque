@@ -6,7 +6,6 @@ import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Pin from "./pin";
-import Tutorial from "./tutorial_modal";
 import checkVenues from "../../config/checkVenues";
 import { Link } from "react-router-dom";
 import VenueModal from "./venue_modal";
@@ -24,7 +23,6 @@ class MapBox extends Component {
       lat: 37.7461108,
       zoom: 12,
       isCheckedIn: false,
-      show: true,
       resultCoordinate: "",
     };
 
@@ -190,7 +188,6 @@ class MapBox extends Component {
               : ""}
           </Fragment>
         )}
-        {show === true ? <Tutorial /> : ""}
         {venueModal === true ? <VenueModal /> : ""}
         <Link to="/login" id="redirectToLogin" />;
       </Fragment>
