@@ -50,6 +50,7 @@ class Pin extends Component {
         )
         .addTo(map);
     } else {
+      this.marker.togglePopup();
       this.marker.remove();
       this.marker = new mapboxgl.Marker({
         color: "red",
@@ -117,6 +118,7 @@ class Pin extends Component {
         )
         .addTo(map);
     } else {
+      this.marker.togglePopup();
       this.marker.remove();
       this.marker = new mapboxgl.Marker({
         color: "red",
@@ -133,7 +135,7 @@ class Pin extends Component {
                   <p style="padding-left: 3px; font-size: 14px;">${user.username}</p>
                 </div>
         </div>
-      `;
+    `;
 
       this.marker
         .setLngLat(venue.coordinate)
