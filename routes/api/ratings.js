@@ -21,6 +21,8 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   const newRating = new Rating({
     rating: req.body.rating,
+    user: req.body.user,
+    venue: req.body.venue
   });
 
   newRating

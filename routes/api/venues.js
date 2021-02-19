@@ -158,69 +158,6 @@ router.delete(
   }
 ); //end delete
 
-// maybe post route?
-
-// router.post(
-//   "/:venue_id/comments",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-    
-
-//     const newComment = new Comment({
-//       venue: req.params.venue_id,
-//       comment: req.body.comment,
-//       user: req.body.user, //*this is the working one at the moment
-//     });
-//     console.log(newComment);
-//     newComment.save().then(
-//       (comment) => {
-//         console.log("Comments: ", comment);
-//         Venue.findByIdAndUpdate(
-//           req.params.venue_id,
-//           { $push: { comments: comment } },
-//           { new: true }
-//         )
-//           .populate({
-//             path: "comments",
-//             populate: {
-//               path: "user",
-//               options: { sort: { date: -1 } },
-
-
-
-// //! rating routes
-
-// // get all ratings for a venue
-// router.get("/:venue_id/ratings", (req, res) => {
-//   console.log(req);
-//   Venue.findOne({ _id: req.params.venue_id })
-//     .populate("ratings", "rating") // populate looks for the name of the schema exported
-//     .then((venue) => res.json(venue.ratings))
-//     .catch((err) => {
-//       res.status(404).json({ ratings: "ratings error" });
-//     });
-// });
-
-
-
-// creates a rating, same format as new comment creation
-router.post("/:venue_id/ratings", (req, res) => {
-  const newRating = new Rating({
-    rating: req.body.rating,
-  });
-  newRating.save().then((rating) => {
-    Venue.findByIdAndUpdate(
-      req.params.venue_id,
-      { $push: { ratings: rating } },
-      { new: true }
-    )
-      .then((venue) => res.json(venue))
-      .catch((err) => res.json(err));
-  });
-});
-
-
-
 
 module.exports = router;
     

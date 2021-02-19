@@ -142,30 +142,6 @@ router.put(
   }
 ); //end update
 
-router.get(`/:user_id/ratings`, (req, res) => {
-  User.findOne({ _id: req.params.user_id })
-    .populate("ratings", "rating")
-    .then((user) => res.json(user.ratings))
-    .catch((err) => {
-      res.status(404).json({ ratings: "can't get ratings." });
-    });
-});
-
-router.post(`/:user_id/ratings`, (req, res) => {
-  const newRating = new Rating({
-    rating: req.body.rating,
-  });
-  newRating.save().then((rating) => {
-    User.findByIdAndUpdate(
-      req.params.user_id,
-      { $push: { ratings: rating } },
-      { new: true }
-    )
-      .then((user) => res.json(user))
-      .catch((err) => res.json(err));
-  });
-});
-
 router.get("/test", (req, res) =>
   res.json({ msg: "This is the users route ya bish" })
 );
