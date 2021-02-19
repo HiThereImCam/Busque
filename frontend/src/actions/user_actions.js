@@ -14,6 +14,27 @@ const receiveUser = (user) => ({
   user,
 });
 
+const receiveUserComments = (user, comments) => ({
+  type: RECEIVE_USER_COMMENTS,
+  user,
+  comments,
+});
+
+const receiveUserComment = (comment) => ({
+  type: RECEIVE_USER_COMMENT,
+  comment,
+});
+
+const receiveRating = (rating) => ({
+  type: RECEIVE_USER_RATING,
+  rating,
+});
+
+const receiveRatings = (ratings) => ({
+  type: RECEIVE_USER_RATINGS,
+  ratings,
+});
+
 export const checkUserIn = (value) => ({
   type: CHECK_USER_IN,
   value,
@@ -30,7 +51,3 @@ export const fetchUser = (userId) => (dispatch) => {
     .then((user) => dispatch(receiveUser(user)))
     .catch((err) => console.log(err));
 };
-
-
-
-

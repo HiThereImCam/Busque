@@ -24,7 +24,6 @@ class LoginForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.signedIn === true) {
-      console.log("Inside login form update");
       <Redirect to="/" />;
     }
   }

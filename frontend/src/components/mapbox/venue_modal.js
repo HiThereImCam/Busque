@@ -20,6 +20,7 @@ class VenueModal extends Component {
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.handleFile = this.handleFile.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
   }
 
   componentDidMount() {
@@ -54,6 +55,7 @@ class VenueModal extends Component {
         let venue = {
           name: this.props.venueName,
           type: this.state.venueType,
+          coordinate: this.props.coordinates,
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
@@ -61,12 +63,13 @@ class VenueModal extends Component {
       });
     } else {
       let venue = {
-        name: this.prop.venueName,
+        name: this.props.venueName,
         type: this.state.venueType,
         coordinate: this.props.coordinates,
         imageURL: this.state.imageURL,
+        available: true,
       };
-      this.props.createVenue(venue, this.state.currentUser);
+      this.props.createVenue(venue, this.props.currentUser);
     }
   }
 
@@ -89,9 +92,11 @@ class VenueModal extends Component {
   renderErrors() {
     let { errors } = this.props;
     return (
-      <ul>
+      <ul className="HeroPane-session-errors">
         {Object.keys(errors).map((error, i) => (
-          <li key={`error-${i}`}>{errors[error]}</li>
+          <li key={`error-${i}`} className="session-errors">
+            {errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -127,7 +132,7 @@ class VenueModal extends Component {
                         onChange={this.update("venueType")}
                       >
                         <option value="" disabled>
-                          Performer Type
+                          Venue Type
                         </option>
                         <option value="Tourist Attraction">
                           Tourist Attraction
@@ -154,7 +159,7 @@ class VenueModal extends Component {
                         type="submit"
                         value="Create Venue"
                       />
-                      {/* {this.renderErrors()}  */}
+                      {this.renderErrors()}
                     </div>
                   </form>
                 </div>

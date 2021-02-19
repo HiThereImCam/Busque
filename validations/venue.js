@@ -31,7 +31,7 @@ module.exports = function validateVenueInput(data) {
   }
 
   if (Validator.isEmpty(data.type)) {
-    errors.type = "Text field is required";
+    errors.type = "Venue Type is required";
   }
 
   // if (!Validator.isBoolean(data.available)) {

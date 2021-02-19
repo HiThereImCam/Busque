@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { createVenue, closeVenueModal } from "../../actions/venue_actions";
+import {
+  createVenue,
+  closeVenueModal,
+  openVenueModal,
+} from "../../actions/venue_actions";
 import { clearErrors } from "../../actions/session_actions";
 import VenueModal from "../mapbox/venue_modal";
 
@@ -15,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
   createVenue: (venue, currentUser) =>
     dispatch(createVenue(venue, currentUser)),
   closeVenueModal: () => dispatch(closeVenueModal(false)),
+  openVenueModal: () => dispatch(openVenueModal(true)),
   clearErrors: () => dispatch(clearErrors()),
 });
 

@@ -44,6 +44,30 @@ export const addVenue = (venue) => ({
 });
 
 
+const receiveAllVenueLikes = (likes) => ({
+  type: RECEIVE_ALL_VENUE_LIKES,
+  likes,
+});
+
+const receiveVenueLikes = (venue, likes) => ({
+  type: RECEIVE_VENUE_LIKES,
+  venue,
+  likes,
+});
+
+const receiveVenueLike = (like) => ({
+  type: CREATE_VENUE_LIKE,
+  like,
+});
+
+//update?
+
+const deleteVenueLike = (like) => ({
+  type: REMOVE_VENUE_LIKE,
+  like,
+});
+
+
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
     dispatch(receiveVenues(venues.data));
@@ -60,21 +84,25 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
   });
 
 export const createVenue = (venue, currentUser) => (dispatch) => {
+  console.log("This is the created Venue: ", venue);
   return VenueApiUtil.createVenue(venue)
     .then((venue) => {
-      dispatch(addVenue(venue));
-      VenueApiUtil.checkIn(venue._id, currentUser).then((updatedVenue) => {
+      let venueData = venue.data;
+      dispatch(closeVenueModal(false));
+      VenueApiUtil.checkIn(venueData._id, currentUser).then((updatedVenue) => {
         try {
-          let venueSchedule = updatedVenue.data.venueSchedule;
-          dispatch(checkedIn(venueSchedule));
+          VenueApiUtil.getVenues().then((venue) =>
+            dispatch(receiveVenues(venue.data))
+          );
         } catch (e) {
-          dispatch(getVenueErrors(e));
+          console.log("This is the error object inside checkin: ", e);
+
+          // dispatch(getVenueErrors(e));
         }
       });
     })
     .catch((error) => {
-      dispatch(getVenueErrors(error));
+      let errorData = error.response.data;
+      dispatch(getVenueErrors(errorData));
     });
 };
-
-
