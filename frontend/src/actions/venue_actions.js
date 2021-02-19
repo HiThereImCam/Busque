@@ -179,8 +179,6 @@ export const createVenueLike = (venueId, likerId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-//update?
-
 export const removeVenueLike = (venueId, likerId) => (dispatch) => {
   return VenueApiUtil.deleteVenueLike(venueId, likerId)
     .then((like) => dispatch(deleteVenueLike(like)))
