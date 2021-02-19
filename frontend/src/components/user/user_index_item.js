@@ -17,7 +17,7 @@ class UserIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchUserRatings(this.props.user._id);
+        // this.props.fetchUserRatings(this.props.user._id);
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -27,7 +27,7 @@ class UserIndexItem extends React.Component {
     }
 
     handleRating(nextValue) {
-        this.props.createUserRating(this.props.user._id, nextValue);
+        // this.props.createUserRating(this.props.user._id, nextValue);
     }
 
     handleLike(e) {

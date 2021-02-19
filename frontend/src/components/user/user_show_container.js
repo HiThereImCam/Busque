@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchUser, fetchUsers, fetchUserRatings, createUserRating} from "../../actions/user_actions";
+import { fetchUser, fetchUsers } from "../../actions/user_actions";
 import { fetchAllLikes, fetchUserLikes, createLike, deleteLike } from '../../actions/like_actions'; 
 import { fetchAllComments, fetchUserComments, createComment, deleteComment, updateComment } from '../../actions/comment_actions';
 
@@ -25,8 +25,8 @@ const mDTP = (dispatch) => ({
   createComment: (comment) => dispatch(createComment(comment)),
   deleteComment: (commentId) => dispatch(deleteComment(commentId)),
   updateComment: (comment) => dispatch(updateComment(comment)),
-  fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
-  createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
+  // fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
+  // createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
   fetchAllLikes: () => dispatch(fetchAllLikes()),
   fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
   createLike: (like) => dispatch(createLike(like)),

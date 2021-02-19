@@ -34,17 +34,17 @@ export const createVenue = (venue) => {
 //   });
 // };
 
-export const getVenueRatings = (venueId) => {
-  return axios.get(`/api/venues/${venueId}/ratings`, {
-    venueId,
-  });
-};
+// export const getVenueRatings = (venueId) => {
+//   return axios.get(`/api/venues/${venueId}/ratings`, {
+//     venueId,
+//   });
+// };
 
-export const createVenueRating = (venueId, rating) => {
-  return axios.post(`/api/venues/${venueId}/ratings`, {
-    rating: rating,
-  });
-};
+// export const createVenueRating = (venueId, rating) => {
+//   return axios.post(`/api/venues/${venueId}/ratings`, {
+//     rating: rating,
+//   });
+// };
 
 // export const getAllVenueLikes = () => {
 //   return axios.get('/api/venues/likes')

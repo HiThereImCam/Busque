@@ -25,16 +25,16 @@ export const getUser = (id) => {
 //   })
 // };
 
-export const getUserRatings = (userId) => {
-  // debugger
-  return axios.get(`/api/users/${userId}/ratings`, {
-    userId,
-  });
-};
+// export const getUserRatings = (userId) => {
+//   // debugger
+//   return axios.get(`/api/users/${userId}/ratings`, {
+//     userId,
+//   });
+// };
 
-export const createRating = (userId, rating) => {
-  return axios.post(`/api/users/${userId}/ratings`, {
-    rating: rating,
-  });
-};
+// export const createRating = (userId, rating) => {
+//   return axios.post(`/api/users/${userId}/ratings`, {
+//     rating: rating,
+//   });
+// };
 

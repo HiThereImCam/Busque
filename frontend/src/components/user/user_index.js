@@ -32,8 +32,8 @@ class UserIndex extends React.Component {
                 user={user}
                 // isAuthenticated={this.props.isAuthenticated}
                 currentUser={this.props.currentUser}
-                createUserRating={this.props.createUserRating}
-                fetchUserRatings={this.props.fetchUserRatings}
+                // createUserRating={this.props.createUserRating}
+                // fetchUserRatings={this.props.fetchUserRatings}
                 ratings={this.props.ratings}
                 likes={this.props.likes}
                 fetchAllLikes={this.props.fetchAllLikes}

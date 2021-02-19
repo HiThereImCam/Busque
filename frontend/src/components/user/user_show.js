@@ -31,7 +31,7 @@ class UserShow extends React.Component {
     this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUsers(); 
     this.props.fetchAllComments();
-    this.props.fetchUserRatings(this.props.match.params.userId);
+    // this.props.fetchUserRatings(this.props.match.params.userId);
     this.props.fetchUserLikes(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -58,7 +58,7 @@ class UserShow extends React.Component {
   }
 
   handleRating(nextValue) {
-    this.props.createUserRating(this.props.match.params.userId, nextValue);
+    // this.props.createUserRating(this.props.match.params.userId, nextValue);
   }
 
   handleLike(e) {

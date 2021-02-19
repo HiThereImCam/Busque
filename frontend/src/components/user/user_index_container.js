@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchUsers, fetchUserRatings, createUserRating } from '../../actions/user_actions';
+import { fetchUsers } from '../../actions/user_actions';
 import { fetchAllLikes, fetchUserLikes, createLike, deleteLike } from '../../actions/like_actions'; 
 import UserIndex from './user_index';
 import { openNavModal } from "../../actions/nav_actions";
@@ -16,8 +16,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchUsers: () => (dispatch(fetchUsers())),
     openNavModal: () => dispatch(openNavModal(true)),
-    fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
-    createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
+    // fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
+    // createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
     fetchAllLikes: () => dispatch(fetchAllLikes()),
     fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
     createLike: (like) => dispatch(createLike(like)),

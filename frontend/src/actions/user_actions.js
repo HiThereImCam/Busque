@@ -4,8 +4,8 @@ export const RECEIVE_USERS = "RECEIVE_USERS";
 export const RECEIVE_USER = "RECEIVE_USER";
 // export const RECEIVE_USER_COMMENTS = "RECEIVE_USER_COMMENTS";
 // export const RECEIVE_USER_COMMENT = "RECEIVE_USER_COMMENT";
-export const RECEIVE_USER_RATING = "GET_USER_RATING";
-export const RECEIVE_USER_RATINGS = "GET_USER_RATINGS";
+// export const RECEIVE_USER_RATING = "GET_USER_RATING";
+// export const RECEIVE_USER_RATINGS = "GET_USER_RATINGS";
 // export const RECEIVE_ALL_USER_LIKES = "RECEIVE_ALL_USER_LIKES";
 // export const RECEIVE_USER_LIKES = "RECEIVE_USER_LIKES";
 // export const CREATE_USER_LIKE = "CREATE_USER_LIKE";
@@ -34,15 +34,15 @@ const receiveUser = (user) => ({
 //   comment,
 // });
 
-const receiveRating = (rating) => ({
-  type: RECEIVE_USER_RATING,
-  rating,
-});
+// const receiveRating = (rating) => ({
+//   type: RECEIVE_USER_RATING,
+//   rating,
+// });
 
-const receiveRatings = (ratings) => ({
-  type: RECEIVE_USER_RATINGS,
-  ratings,
-});
+// const receiveRatings = (ratings) => ({
+//   type: RECEIVE_USER_RATINGS,
+//   ratings,
+// });
 
 // const receiveAllUserLikes = (likes) => ({
 //   type: RECEIVE_ALL_USER_LIKES,
@@ -100,16 +100,16 @@ export const fetchUser = (userId) => (dispatch) => {
 //     .catch((err) => console.log(err));
 // };
 
-export const createUserRating = (userId, rating) => (dispatch) => {
-  return UserAPIUtil.createRating(userId, rating)
-    .then((rating) => dispatch(receiveRating(rating)))
-    .catch((err) => console.log(err));
-};
+// export const createUserRating = (userId, rating) => (dispatch) => {
+//   return UserAPIUtil.createRating(userId, rating)
+//     .then((rating) => dispatch(receiveRating(rating)))
+//     .catch((err) => console.log(err));
+// };
 
-export const fetchUserRatings = (userId) => (dispatch) => {
-  return UserAPIUtil.getUserRatings(userId)
-    .then((ratings) => dispatch(receiveRatings(ratings)))
-    .catch((err) => console.log(err));
-};
+// export const fetchUserRatings = (userId) => (dispatch) => {
+//   return UserAPIUtil.getUserRatings(userId)
+//     .then((ratings) => dispatch(receiveRatings(ratings)))
+//     .catch((err) => console.log(err));
+// };
 
 

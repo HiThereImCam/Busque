@@ -28,7 +28,7 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchVenueRatings(this.props.venue._id)
+        // this.props.fetchVenueRatings(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -65,7 +65,7 @@ class VenueIndexItem extends React.Component {
     }
 
     handleRating(nextValue) { 
-        this.props.createVenueRating(this.props.venue._id, nextValue)
+        // this.props.createVenueRating(this.props.venue._id, nextValue)
     }
 
     handleLike(e) {
