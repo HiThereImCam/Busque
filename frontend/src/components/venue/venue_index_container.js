@@ -4,6 +4,7 @@ import { openNavModal } from '../../actions/nav_actions';
 import { fetchVenues } from '../../actions/venue_actions';
 import { fetchAllLikes, fetchVenueLikes, createLike, deleteLike } from '../../actions/like_actions'; 
 import { fetchAllComments, fetchVenueComments, createComment, deleteComment, updateComment } from '../../actions/comment_actions';
+import { fetchAllRatings, createRating } from '../../actions/rating_actions';
 import { fetchUsers } from '../../actions/user_actions'; 
 
 const mapStateToProps = (state) => ({
@@ -25,8 +26,8 @@ const mapDispatchToProps = (dispatch) => ({
     createComment: (comment) => dispatch(createComment(comment)),
     deleteComment: (commentId) => dispatch(deleteComment(commentId)),
     updateComment: (comment) => dispatch(updateComment(comment)),
-    // fetchVenueRatings: (venueId) => dispatch(fetchVenueRatings(venueId)), 
-    // createVenueRating: (venueId, rating, user) => dispatch(createVenueRating(venueId, rating, user)), 
+    fetchAllRatings: () => dispatch(fetchAllRatings()), 
+    createRating: (rating) => dispatch(createRating(rating)), 
     fetchAllLikes: () => dispatch(fetchAllLikes()),
     fetchVenueLikes: (venueId) => dispatch(fetchVenueLikes(venueId)),
     createLike: (like) => dispatch(createLike(like)), 

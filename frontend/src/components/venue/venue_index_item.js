@@ -28,7 +28,6 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.fetchVenueRatings(this.props.venue._id)
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -65,7 +64,7 @@ class VenueIndexItem extends React.Component {
     }
 
     handleRating(nextValue) { 
-        // this.props.createVenueRating(this.props.venue._id, nextValue)
+        this.props.createRating({"venue": this.props.venue._id, "rating": nextValue})
     }
 
     handleLike(e) {
@@ -149,12 +148,10 @@ class VenueIndexItem extends React.Component {
 
         let showRatingAvg = () => {
             const ratingNums = []
-            this.props.venue.ratings.forEach((ratingId, i) => {
-                this.props.ratings.forEach((rating) => {
-                    if (rating._id === ratingId) {
-                        ratingNums.push(rating.rating)
-                    }
-                })
+            this.props.ratings.forEach((rating) => {
+                if (rating.venue === this.props.venue._id) {
+                    ratingNums.push(rating.rating)
+                }
             })
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)

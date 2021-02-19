@@ -8,6 +8,7 @@ class VenueIndex extends React.Component {
     this.props.fetchVenues();
     this.props.fetchAllComments(); 
     this.props.fetchAllLikes(); 
+    this.props.fetchAllRatings();
   }
 
   render() {
@@ -37,13 +38,9 @@ class VenueIndex extends React.Component {
               currentUser={this.props.currentUser}
               createComment={this.props.createComment}
               deleteComment={this.props.deleteComment} 
-              fetchVenueComments={this.props.fetchVenueComments}
-              // createVenueRating={this.props.createVenueRating}
-              // fetchVenueRatings={this.props.fetchVenueRatings}
+              createRating={this.props.createRating}
               ratings={this.props.ratings}
               likes={this.props.likes}
-              fetchAllLikes={this.props.fetchAllLikes}
-              fetchVenueLikes={this.props.fetchVenueLikes}
               createLike={this.props.createLike}
               deleteLike={this.props.deleteLike}
               key={i}

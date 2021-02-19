@@ -17,7 +17,6 @@ class UserIndexItem extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.fetchUserRatings(this.props.user._id);
 
         if (this.props.currentUser !== undefined) {
             this.setState({
@@ -27,7 +26,7 @@ class UserIndexItem extends React.Component {
     }
 
     handleRating(nextValue) {
-        // this.props.createUserRating(this.props.user._id, nextValue);
+        this.props.createRating({"user": this.props.user._id, "rating": nextValue});
     }
 
     handleLike(e) {
@@ -61,17 +60,12 @@ class UserIndexItem extends React.Component {
 
         let showRatingAvg = () => {
             const ratingNums = []
-            this.props.user.ratings?.map((ratingId, i) => {
-                return (
-                    <div>
-                        {this.props.ratings.forEach((rating) => {
-                            if (rating._id === ratingId) {
-                                ratingNums.push(rating.rating)
-                            }
-                        })}
-                    </div>
-                )
+            this.props.ratings.forEach((rating) => {
+                if (rating.user === this.props.user._id) {
+                    ratingNums.push(rating.rating)
+                }
             })
+                   
             if (ratingNums.length > 0) {
                 let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
                 let avg = (sum / ratingNums.length)  
@@ -89,8 +83,7 @@ class UserIndexItem extends React.Component {
                         activeColor="#ffd700"
                     />
                 )
-            } 
-            // if (ratingNums.length === 0) {
+            } //else if (ratingNums.length === 0) {
             //     return (
             //         <ReactStars
             //             className="rating-stars"

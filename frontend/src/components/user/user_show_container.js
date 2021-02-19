@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { fetchUser, fetchUsers } from "../../actions/user_actions";
 import { fetchAllLikes, fetchUserLikes, createLike, deleteLike } from '../../actions/like_actions'; 
 import { fetchAllComments, fetchUserComments, createComment, deleteComment, updateComment } from '../../actions/comment_actions';
-
+import { fetchAllRatings, createRating } from '../../actions/rating_actions';
 import UserShow from "./user_show";
 import { openNavModal } from "../../actions/nav_actions";
 
@@ -25,8 +25,8 @@ const mDTP = (dispatch) => ({
   createComment: (comment) => dispatch(createComment(comment)),
   deleteComment: (commentId) => dispatch(deleteComment(commentId)),
   updateComment: (comment) => dispatch(updateComment(comment)),
-  // fetchUserRatings: (userId) => (dispatch(fetchUserRatings(userId))),
-  // createUserRating: (userId, rating, user) => dispatch(createUserRating(userId, rating, user)), 
+  fetchAllRatings: () => (dispatch(fetchAllRatings())),
+  createRating: (rating) => dispatch(createRating(rating)), 
   fetchAllLikes: () => dispatch(fetchAllLikes()),
   fetchUserLikes: (userId) => dispatch(fetchUserLikes(userId)),
   createLike: (like) => dispatch(createLike(like)),

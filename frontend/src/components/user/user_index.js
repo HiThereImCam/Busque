@@ -7,6 +7,7 @@ class UserIndex extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();
     this.props.fetchAllLikes(); 
+    this.props.fetchAllRatings();
   }
 
   render() {
@@ -30,17 +31,12 @@ class UserIndex extends React.Component {
             return (
               <UserIndexItem
                 user={user}
-                // isAuthenticated={this.props.isAuthenticated}
                 currentUser={this.props.currentUser}
-                // createUserRating={this.props.createUserRating}
-                // fetchUserRatings={this.props.fetchUserRatings}
+                createRating={this.props.createRating}
                 ratings={this.props.ratings}
                 likes={this.props.likes}
-                fetchAllLikes={this.props.fetchAllLikes}
-                fetchUserLikes={this.props.fetchUserLikes}
                 createLike={this.props.createLike}
                 deleteLike={this.props.deleteLike}
-                // editUserLike={this.props.editUserLike}
                 key={i}
               />
             );

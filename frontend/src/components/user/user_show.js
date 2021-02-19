@@ -31,7 +31,7 @@ class UserShow extends React.Component {
     this.props.fetchUser(this.props.match.params.userId);
     this.props.fetchUsers(); 
     this.props.fetchAllComments();
-    // this.props.fetchUserRatings(this.props.match.params.userId);
+    this.props.fetchAllRatings();
     this.props.fetchUserLikes(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -58,7 +58,7 @@ class UserShow extends React.Component {
   }
 
   handleRating(nextValue) {
-    // this.props.createUserRating(this.props.match.params.userId, nextValue);
+    this.props.createRating({ "user": this.props.match.params.userId, "rating": nextValue});
   }
 
   handleLike(e) {
@@ -106,13 +106,12 @@ class UserShow extends React.Component {
 
       let showRatingAvg = () => {
         const ratingNums = [];
-        this.props.user.ratings.forEach((ratingId, i) => {
-          this.props.ratings.forEach((rating) => {
-            if (rating._id === ratingId) {
-              ratingNums.push(rating.rating);
-            }
-          });
-        });
+        this.props.ratings.forEach((rating) => {
+          if (rating.user === this.props.user._id) {
+            ratingNums.push(rating.rating)
+          }
+        })
+
         if (ratingNums.length <= 0) {
           let avg = 0;
           return (
