@@ -35,9 +35,11 @@ class UserIndex extends React.Component {
                 fetchUserRatings={this.props.fetchUserRatings}
                 ratings={this.props.ratings}
                 likes={this.props.likes}
+                fetchAllLikes={this.props.fetchAllLikes}
                 fetchUserLikes={this.props.fetchUserLikes}
-                createUserLike={this.props.createUserLike}
-                removeUserLike={this.props.removeUserLike}
+                createLike={this.props.createLike}
+                deleteLike={this.props.deleteLike}
+                // editUserLike={this.props.editUserLike}
                 key={i}
               />
             );

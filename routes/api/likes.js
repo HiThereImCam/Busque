@@ -19,11 +19,8 @@ router.post("/new", (req, res) => {
 router.patch("/edit/:id", (req, res) => {
   mongoose.set("useFindAndModify", false);
   
-
   Like.findByIdAndUpdate(req.params.id, req.body, { new: true })
-  .then((like) =>
-res.json(like)
-  );
+    .then((like) => res.json(like));
 });
 
 router.get('/', (req, res) => {
@@ -32,27 +29,27 @@ router.get('/', (req, res) => {
     .catch(err => res.status(404).json({ likesNotFound: "No likes found" }))
 })
 
-    router.get(`/users/:id`, (req, res) => {
+router.get(`/users/:id`, (req, res) => {
   Like.find({ "userId": req.params.id })
     .then(likes => {res.json(likes)})
     .catch(err => res.status(404).json({ noLikes: 'User has no likes' }))
 })
 
-   router.get(`/venues/:id`, (req, res) => {
-     Like.find({ "venueId": req.params.id })
-       .then((likes) => {
-         res.json(likes);
-       })
-       .catch((err) => res.status(404).json({ noLikes: "Venue has no likes" }));
-   });
+router.get(`/venues/:id`, (req, res) => {
+  Like.find({ "venueId": req.params.id })
+    .then((likes) => {
+      res.json(likes);
+    })
+    .catch((err) => res.status(404).json({ noLikes: "Venue has no likes" }));
+});
 
 
-   router.delete("/:id", (req, res) => {
-     Like.findByIdAndDelete(req.params.id)
-       .then((like) => res.json("Like successfully deleted"))
-       .catch((err) =>
-         res.status(400).json("Like was not successfully deleted")
-       );
-   });
+router.delete("/:id", (req, res) => {
+  Like.findByIdAndDelete(req.params.id)
+    .then((like) => res.json("Like successfully deleted"))
+    .catch((err) =>
+      res.status(400).json("Like was not successfully deleted")
+    );
+});
 
-   module.exports = router;
+module.exports = router;

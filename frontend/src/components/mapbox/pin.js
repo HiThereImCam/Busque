@@ -135,7 +135,7 @@ class Pin extends Component {
                   <p style="padding-left: 3px; font-size: 14px;">${user.username}</p>
                 </div>
         </div>
-      `;
+    `;
 
       this.marker
         .setLngLat(venue.coordinate)

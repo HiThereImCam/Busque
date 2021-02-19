@@ -5,6 +5,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Searchbar from "../searchbar/searchbar_container";
 import ReactStars from "react-rating-stars-component";
 import "../../css/user_show.css";
+import moment from 'moment';
+
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -58,7 +60,7 @@ class UserShow extends React.Component {
 
   handleLike(e) {
     e.preventDefault();
-    this.props.createUserLike(this.props.match.params.userId, this.props.currentUser.id)
+    this.props.createLike({"userId": this.props.match.params.userId, "likerId": this.props.currentUser.id})
     this.setState({
       redHeart: true
     })
@@ -66,7 +68,14 @@ class UserShow extends React.Component {
 
   handleUnlike(e) {
     e.preventDefault(); 
-    this.props.removeUserLike(this.props.match.params.userId, this.props.currentUser.id) //! figure out likeId situation
+
+    const likes = Object.values(this.props.likes) //whole like objects
+    for (let i = 0; i < likes.length; i++) {
+      if ((likes[i].userId === this.props.match.params.userId) && (likes[i].likerId === this.props.currentUser.id)) {
+        this.props.deleteLike(likes[i]._id)
+      }
+    }
+
     this.setState({
       redHeart: false
     })
@@ -137,22 +146,21 @@ class UserShow extends React.Component {
             />
           );
         }
-        // else {
-        //     let avg = 0
-        //     return (
-        //         <ReactStars
-        //             className="rating-stars"
-        //             value={avg}
-        //             onChange={this.handleRating}
-        //             count={5}
-        //             size={19}
-        //             isHalf={true}
-        //             emptyIcon={<i className="far fa-star"></i>}
-        //             halfIcon={<i className="fa fa-star-half-alt"></i>}
-        //             fullIcon={<i className="fa fa-star"></i>}
-        //             activeColor="#ffd700"
-        //         />
-        //     )
+        // if (ratingNums.length === 0) {
+        //   return (
+        //     <ReactStars
+        //       className="rating-stars"
+        //       value={0}
+        //       onChange={this.handleRating}
+        //       count={5}
+        //       size={19}
+        //       isHalf={true}
+        //       emptyIcon={<i className="far fa-star"></i>}
+        //       halfIcon={<i className="fa fa-star-half-alt"></i>}
+        //       fullIcon={<i className="fa fa-star"></i>}
+        //       activeColor="#ffd700"
+        //     />
+        //   )
         // }
       };
 
@@ -185,17 +193,36 @@ class UserShow extends React.Component {
           <div>Be the first to review!</div>
         ) : null;
 
-      const changeColor = this.state.redHeart ? "red" : "gray"
-      const likeBtn = (this.props.currentUser === undefined) ? null :
-        (!this.props.user.likes.includes(this.props.currentUser.id)) ?
-          <div className="likes">
-            <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-            {this.props.user.likes.length}
-          </div> :
-          <div className="likes">
-            <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-            {this.props.user.likes.length}
-          </div>
+      
+      const likes = Object.values(this.props.likes) //whole like objects
+      let peopleLiked = [];
+      for (let i = 0; i < likes.length; i++) {
+        if (likes[i].userId === this.props.user._id) {
+          peopleLiked.push(likes[i].likerId)
+        }
+      }
+
+      const likeButton = () => {
+        if (this.props.currentUser === undefined) {
+          return null
+        }
+
+        if (peopleLiked.includes(this.props.currentUser.id)) {
+          return (
+            <div className="likes">
+              <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
+              {peopleLiked.length}
+            </div>
+          )
+        } else {
+          return (
+            <div className="likes">
+              <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
+              {peopleLiked.length}
+            </div>
+          )
+        }
+      }  
 
       return (
         <div className="user-show-page">
@@ -221,7 +248,7 @@ class UserShow extends React.Component {
             <div className="user-show-info">
               <div className="user-show-username">{user.username}</div>
               <div className="user-rating">{showRatingAvg()}</div>
-              {likeBtn}
+              {likeButton()}
               <div className="user-show-performer-type">
                 Performer Type: {user.performerType}
               </div>
@@ -251,7 +278,7 @@ class UserShow extends React.Component {
                               : "From " + comment.commenter.username + ":"}
                           </div>
                           {comment.comment}
-                          <div className="review-date">{comment.date}</div>
+                          <div className="review-date">{moment(comment.date).format('LL')}</div>
                         </div>
                       );
                     }

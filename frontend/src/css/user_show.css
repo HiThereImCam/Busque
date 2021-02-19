@@ -13,6 +13,7 @@
     text-decoration: none;
     color: black;
     width: 65%; 
+    margin: auto; 
 }
 .user-search-show {
     display: flex;
@@ -47,7 +48,9 @@
 .user-show-photo-outer {
     display: block; 
     flex-basis: 50%;
-    margin: 50px; 
+    margin-left: 50px;
+    margin-top: 50px; 
+    margin-bottom: 50px;
 }
 
 .user-show-photo img {
