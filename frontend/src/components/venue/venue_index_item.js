@@ -112,14 +112,15 @@ class VenueIndexItem extends React.Component {
             }
         }
 
+        let usersArr = Object.values(this.props.users)
         let showCurrentUser = () => {
             if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser
                 return (
-                    this.props.users?.map((user) => {
+                    usersArr.map((user, i) => {
                         if (user._id === currentUserId) {
                             return (
-                                <div className="venue-current-user-inner">
+                                <div className="venue-current-user-inner" key={i}>
                                     <img src={user.imageURL} alt="profile" className="venue-index-currentUser" />&nbsp;&nbsp;
                                     <Link to={`/profile/${currentUserId}`} className="currentUser-link">{user.username}</Link>&nbsp;is here
                                 </div>
