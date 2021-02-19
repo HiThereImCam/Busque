@@ -117,7 +117,7 @@ class VenueIndexItem extends React.Component {
             if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser
                 return (
-                    this.props.users.map((user) => {
+                    this.props.users?.map((user) => {
                         if (user._id === currentUserId) {
                             return (
                                 <div className="venue-current-user-inner">
