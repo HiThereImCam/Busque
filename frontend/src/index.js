@@ -10,9 +10,9 @@ import { setAuthToken } from "./util/session_api_util";
 import { logout } from "./actions/session_actions";
 
 //TESTING
-import { fetchAllLikes, createLike, fetchUserLikes, deleteLike } from './actions/like_actions';
-import { fetchAllComments, fetchUserComments, fetchVenueComments, createComment, updateComment, deleteComment } from './actions/comment_actions';
-import { fetchAllRatings, createRating } from './actions/rating_actions';
+// import { fetchAllLikes, createLike, fetchUserLikes, deleteLike } from './actions/like_actions';
+// import { fetchAllComments, fetchUserComments, fetchVenueComments, createComment, updateComment, deleteComment } from './actions/comment_actions';
+// import { fetchAllRatings, createRating } from './actions/rating_actions';
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;

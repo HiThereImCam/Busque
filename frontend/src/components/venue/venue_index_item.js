@@ -28,7 +28,6 @@ class VenueIndexItem extends React.Component {
     }
 
     componentDidMount() {
-
         if (this.props.currentUser !== undefined) {
             this.setState({
                 user: this.props.currentUser

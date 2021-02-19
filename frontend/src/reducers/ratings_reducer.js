@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_RATINGS, RECEIVE_RATINGS, CREATE_RATING } from '../actions/rating_actions';
+import { RECEIVE_ALL_RATINGS, CREATE_RATING } from '../actions/rating_actions';
 
 const ratingsReducer = (state = {}, action) => {
     Object.freeze(state); 

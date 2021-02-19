@@ -2,8 +2,6 @@ import * as VenueApiUtil from "../util/venue_api_util";
 
 export const RECEIVE_VENUES = "RECEIVE_VENUES";
 export const CHECK_IN = "CHECK_IN";
-// export const RECEIVE_VENUE_RATINGS = "RECEIVE_VENUE_RATINGS";
-// export const RECEIVE_VENUE_RATING = "RECEIVE_VENUE_RATING";
 export const OPEN_VENUE_MODAL = "OPEN_VENUE_MODAL";
 export const CLOSE_VENUE_MODAL = "CLOSE_VENUE_MODAL";
 export const SET_VENUENAME_AND_COORDINATES = "SET_VENUENAME_AND_COORDINATES";
@@ -19,17 +17,6 @@ const checkedIn = (venueSchedule) => ({
   type: CHECK_IN,
   venueSchedule,
 });
-
-
-// const receiveRating = (rating) => ({
-//   type: RECEIVE_VENUE_RATING,
-//   rating,
-// });
-
-// const receiveRatings = (ratings) => ({
-//   type: RECEIVE_VENUE_RATINGS,
-//   ratings,
-// });
 
 export const openVenueModal = (value) => ({
   type: OPEN_VENUE_MODAL,
@@ -71,18 +58,6 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
       dispatch(getVenueErrors(e));
     }
   });
-
-// export const createVenueRating = (venueId, rating) => (dispatch) => {
-//   return VenueApiUtil.createVenueRating(venueId, rating)
-//     .then((rating) => dispatch(receiveRating(rating)))
-//     .catch((err) => dispatch(getVenueErrors(err)));
-// };
-
-// export const fetchVenueRatings = (venueId) => (dispatch) => {
-//   return VenueApiUtil.getVenueRatings(venueId)
-//     .then((ratings) => dispatch(receiveRatings(ratings)))
-//     .catch((err) => dispatch(getVenueErrors(err)));
-// };
 
 export const createVenue = (venue, currentUser) => (dispatch) => {
   return VenueApiUtil.createVenue(venue)
