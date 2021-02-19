@@ -43,31 +43,6 @@ export const addVenue = (venue) => ({
   venue,
 });
 
-
-const receiveAllVenueLikes = (likes) => ({
-  type: RECEIVE_ALL_VENUE_LIKES,
-  likes,
-});
-
-const receiveVenueLikes = (venue, likes) => ({
-  type: RECEIVE_VENUE_LIKES,
-  venue,
-  likes,
-});
-
-const receiveVenueLike = (like) => ({
-  type: CREATE_VENUE_LIKE,
-  like,
-});
-
-//update?
-
-const deleteVenueLike = (like) => ({
-  type: REMOVE_VENUE_LIKE,
-  like,
-});
-
-
 export const fetchVenues = () => (dispatch) =>
   VenueApiUtil.getVenues().then((venues) => {
     dispatch(receiveVenues(venues.data));
