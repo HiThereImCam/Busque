@@ -64,18 +64,6 @@
   font-size: 25px;
 }
 
-.venue-list-items {
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  flex-direction: column;
-  margin-left: 5vw;
-  margin-right: 5vw;
-  padding-left: 45px;
-  padding-right: 25px;
-  margin-top: 20px;
-  padding-bottom: 10px;
-}
-
 .venue-info-outer {
   display: flex;
 }
@@ -96,9 +84,10 @@
   border: 1px solid lightgray;
   height: 250px;
   /* width: 350px;  */
+  /* margin-top: -20px;  */
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 975px) {
   .venue-info-outer-alt {
     display: block;
   }
@@ -118,10 +107,12 @@
   font-size: larger;
   font-weight: bold;
   padding-bottom: 5px;
+  padding-left: 15px;
+
 }
 
 .venue-list-info {
-  padding-left: 30px;
+  padding-left: 40px;
 }
 
 .venue-type {
@@ -183,7 +174,7 @@
   font-family: "Roboto", sans-serif;
   padding: 8px;
   box-shadow: lightgray 0px 0px 5px 0px;
-  margin-left: -30px;
+  margin-left: -20px;
   margin-top: 20px;
   margin-right: 10px;
 }
@@ -198,7 +189,7 @@
   border: 1px solid #4267b2;
   border-radius: 4px;
   margin-bottom: 10px;
-  margin-left: -30px;
+  margin-left: -20px;
   margin-top: 5px;
 }
 
@@ -218,18 +209,21 @@
 .review-each {
   border: 1px solid lightgray;
   border-radius: 4px;
-  margin: 5px;
+  margin: 10px;
+  margin-right: 30px;
   padding: 5px;
   padding-left: 8px;
+  /* padding-right: 8px;  */
+  display: flex; 
 }
 
 .reviews-dropdown {
   display: block;
-  margin-left: -50px;
+  margin-left: -40px;
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-right: -20px;
+  margin-right: 10px;
   font-size: large;
 }
 
@@ -244,6 +238,12 @@
 .reviews-dropdown:hover {
   cursor: pointer;
   background-color: rgb(231, 231, 231);
+}
+
+.no-reviews {
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .reviewer-name {

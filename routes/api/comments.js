@@ -16,9 +16,9 @@ router.get("/", (req, res) => {
 router.post("/new", (req, res) => {
   const newComment = new Comment({
     commenter: req.body.commenter,
-    authorId: req.body.user,
+    user: req.body.user,
     comment: req.body.comment,
-    venueId: req.body.venueId,
+    venue: req.body.venueId,
   });
 
   newComment.save().then((comment) => res.json(comment));
@@ -26,21 +26,21 @@ router.post("/new", (req, res) => {
         
 router.delete("/:id", (req, res) => {
   Comment.findByIdAndDelete(req.params.id)
-    .then((comment) => res.json(`Comment successfully deleted`))
+    .then((comment) => res.json(comment))
     .catch((err) =>
       res.status(404).json("Comment was not successfully deleted")
     );
 });
 
-router.get("/:id", (req, res) => {
-  Comment.findById(req.params.id)
-    .populate("comments")
+// router.get("/:id", (req, res) => {
+//   Comment.findById(req.params.id)
+//     .populate("comments")
 
-    .then((comment) => res.json(comment))
-    .catch((err) =>
-      res.status(404).json({ commentNotFound: "No comment found" })
-    );
-});
+//     .then((comment) => res.json(comment))
+//     .catch((err) =>
+//       res.status(404).json({ commentNotFound: "No comment found" })
+//     );
+// });
 
 router.get("/:userId", (req, res) => {
   User.find({ userId: req.params.userId })

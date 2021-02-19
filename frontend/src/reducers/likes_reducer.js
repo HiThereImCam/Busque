@@ -1,5 +1,3 @@
-// import { RECEIVE_VENUE_LIKES, CREATE_VENUE_LIKE, REMOVE_VENUE_LIKE } from '../actions/venue_actions';
-// import { RECEIVE_USER_LIKES, CREATE_USER_LIKE, REMOVE_USER_LIKE } from '../actions/user_actions'; 
 import { RECEIVE_ALL_LIKES, RECEIVE_USER_LIKES, RECEIVE_VENUE_LIKES, CREATE_LIKE, REMOVE_LIKE } from '../actions/like_actions';
 
 const likesReducer = (state = {}, action) => {
