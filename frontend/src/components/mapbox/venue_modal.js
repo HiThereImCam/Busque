@@ -121,12 +121,6 @@ class VenueModal extends Component {
                       <div className="venue-desc">
                         New Venue Name: {`${venueName}`}
                       </div>
-                      {/* <input
-                        type="text"
-                        value={this.state.venueName}
-                        onChange={this.update("venueName")}
-                        placeholder="Venue name"
-                      /> */}
                       <select
                         value={this.state.venueType}
                         onChange={this.update("venueType")}

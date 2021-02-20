@@ -24,6 +24,8 @@ class MapBox extends Component {
       zoom: 12,
       isCheckedIn: false,
       resultCoordinate: "",
+      newestVenuePopup: "",
+      createdVenue: false,
     };
 
     this.mapBoxRef = React.createRef();
@@ -111,7 +113,7 @@ class MapBox extends Component {
     let htmlContent;
     if (isAuthenticated) {
       htmlContent = `<div>
-                        <button onclick="openVenueModal()"> Create New Venue </button>
+                        <button onclick="openVenueModal()">Create New Venue</button>
                       </div>
     `;
     } else {
@@ -124,6 +126,11 @@ class MapBox extends Component {
 
     this.newVenueMarker = this.marker;
     this.newVenuePopup = new mapboxgl.Popup();
+    this.setState({
+      newestVenuePopup: this.newVenuePopup,
+      createdVenue: true,
+    });
+
     this.newVenueMarker
       .setLngLat(this.state.resultCoordinate)
       .setPopup(
@@ -149,10 +156,8 @@ class MapBox extends Component {
       isAuthenticated,
       users,
       venueModal,
-      userCheckedIn,
       checkUserIn,
     } = this.props;
-    let { show } = this.state;
     return (
       <Fragment>
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
@@ -177,12 +182,14 @@ class MapBox extends Component {
                     key={venue._id}
                     map={this.map}
                     venue={venue}
+                    venues={venues}
                     curLoggedInUser={currentUser}
                     checkIn={checkIn}
                     isAuthenticated={isAuthenticated}
                     users={users}
-                    userCheckedIn={userCheckedIn}
                     checkUserIn={checkUserIn}
+                    newestVenuePopup={this.state.newestVenuePopup}
+                    createdVenue={this.state.createdVenue}
                   />
                 ))
               : ""}
