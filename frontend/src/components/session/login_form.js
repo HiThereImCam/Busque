@@ -24,7 +24,7 @@ class LoginForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.signedIn === true) {
-      <Redirect to="/" />;
+      <Redirect to="/map" />;
     }
   }
 

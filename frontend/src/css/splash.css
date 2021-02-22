@@ -1,0 +1,50 @@
+.splash-container {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.splash-intro {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid blue;
+  z-index: 0;
+}
+
+.splash-img {
+  position: absolute;
+  width: 100%;
+  height: 55%;
+}
+
+.background_img {
+  width: 100%;
+}
+
+.intro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1;
+  margin-top: 20%;
+  margin-right: 2%;
+  border: 1px solid red;
+}
+
+.intro-container h1 {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  font-family: "Megrim", cursive;
+}
+
+.intro-container h3 {
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  font-family: "Megrim", cursive;
+}
