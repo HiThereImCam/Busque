@@ -155,7 +155,12 @@ class SignupForm extends React.Component {
                 type="file"
                 onChange={this.handleFile.bind(this)}
               />
-              <input className="signup-button" id="signup-button" type="submit" value="Sign up" />
+              <input
+                className="signup-button"
+                id="signup-button"
+                type="submit"
+                value="Sign up"
+              />
               {this.renderErrors()}
               <div className="form-footer-signup">
                 Have an account?&nbsp;

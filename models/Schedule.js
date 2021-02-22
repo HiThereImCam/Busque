@@ -5,6 +5,8 @@ let date = new Date();
 // round time up to the nearest minute
 // 300000 = 5 min
 let expireTime = date.setTime(date.getTime() + 300000);
+console.log("date now: ", date);
+console.log("Big D Date now: ", Date.now());
 
 const ScheduleSchema = new Schema({
   venueID: {
@@ -13,10 +15,12 @@ const ScheduleSchema = new Schema({
     required: true,
   },
   currentUser: { type: Schema.Types.ObjectId, ref: "users", required: true },
-  createdAt: { type: Date, expires: "5m", default: Date.now() },
+
   expiresAt: {
     type: Date,
-    expires: "0",
+    index: {
+      expireAfterSeconds: 300000,
+    },
     default: expireTime,
   },
 });

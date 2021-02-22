@@ -6,6 +6,7 @@ import Searchbar from "../searchbar/searchbar_container";
 import ReactStars from "react-rating-stars-component";
 import "../../css/user_show.css";
 import moment from 'moment';
+import { GoTrashcan } from "react-icons/go";
 
 
 class UserShow extends React.Component {
@@ -23,12 +24,14 @@ class UserShow extends React.Component {
     this.update = this.update.bind(this); 
     this.handleLike = this.handleLike.bind(this);
     this.handleUnlike = this.handleUnlike.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
-    this.props.fetchUserComments(this.props.match.params.userId);
-    this.props.fetchUserRatings(this.props.match.params.userId);
+    this.props.fetchUsers(); 
+    this.props.fetchAllComments();
+    this.props.fetchAllRatings();
     this.props.fetchUserLikes(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
@@ -55,7 +58,7 @@ class UserShow extends React.Component {
   }
 
   handleRating(nextValue) {
-    this.props.createUserRating(this.props.match.params.userId, nextValue);
+    this.props.createRating({ "user": this.props.match.params.userId, "rating": nextValue});
   }
 
   handleLike(e) {
@@ -83,16 +86,16 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createUserComment(
-      this.props.match.params.userId,
-      this.state.comment,
-      this.state.commenter.id
-    );
+    this.props.createComment({"user": this.props.match.params.userId, "comment": this.state.comment, "commenter": this.state.commenter.id})
 
     this.setState({
       comment: "",
       newComment: true,
     });
+  }
+
+  handleDelete(id) {
+    this.props.deleteComment(id);
   }
 
   render() {
@@ -103,13 +106,12 @@ class UserShow extends React.Component {
 
       let showRatingAvg = () => {
         const ratingNums = [];
-        this.props.user.ratings.forEach((rating, i) => {
-        //   this.props.ratings.forEach((rating) => {
-            // if (rating._id === ratingId) {
-              ratingNums.push(rating.rating);
-            // }
-        //   });
-        });
+        this.props.ratings.forEach((rating) => {
+          if (rating.user === this.props.user._id) {
+            ratingNums.push(rating.rating)
+          }
+        })
+
         if (ratingNums.length <= 0) {
           let avg = 0;
           return (
@@ -188,10 +190,21 @@ class UserShow extends React.Component {
           </form>
         );
 
-      const noReviews =
-        this.props.user.comments.length === 0 ? (
-          <div>Be the first to review!</div>
-        ) : null;
+      const noReviews = () => {
+        let userComments = []
+        for (let j = 0; j < this.props.comments.length; j++) {
+          if (this.props.comments[j].user === this.props.match.params.userId) {
+            userComments.push(this.props.comments[j])
+          }
+        }
+        if (userComments.length === 0) {
+          return (
+            <div>Be the first to review!</div>
+          )
+        } else {
+          return null
+        } 
+      }
 
       
       const likes = Object.values(this.props.likes) //whole like objects
@@ -259,33 +272,38 @@ class UserShow extends React.Component {
             <h2>Reviews</h2>
             {userCommentInput}
             <br />
-            {noReviews}
+            {noReviews()}
           </div>
-          {this.props.user.comments.slice().reverse().map((commentId, i) => {
-            return (
-              <div key={i}>
-                  {this.props.comments.map((comment, j) => {
-                    if (comment._id === commentId._id) {
-                      return (
-                        <div className="review-each-user" key={j}>
-                          <div className="reviewer-name">
-                            {comment.commenter === undefined
-                              ? "Username says:"
-                              : comment.commenter ===
-                                  this.props.currentUser.id &&
-                                comment.commenter.username === undefined
-                              ? "From You:"
-                              : "From " + comment.commenter.username + ":"}
-                          </div>
-                          {comment.comment}
-                          <div className="review-date">{moment(comment.date).format('LL')}</div>
-                        </div>
-                      );
-                    }
-                  })}
-              </div>
-            )
-          })}
+          <div>
+            {this.props.comments.slice().reverse().map((comment, i) => {
+              if (comment.user === this.props.match.params.userId ) {
+                return (
+                  <div className="review-each-user" key={i}>
+                    <div className="commenter-img">
+                      {(comment.commenter === undefined) ? null : <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="comment-profile"/>}
+                    </div>
+                    <div className="comment-info">
+                      <div className="reviewer-name">
+                        {comment.commenter === undefined ? "Username says:" : "From " + this.props.users[comment.commenter].username + ":"}
+                      </div>
+                      <div className="comment">
+                        {comment.comment}
+                      </div>
+                      <div className="review-date">
+                        {moment(comment.date).format('LL')}
+                      </div>
+                    </div>
+                    <div className="comment-delete">
+                      {(comment.commenter === undefined) ? null
+                        : (comment.commenter === this.props.currentUser.id) ?
+                          <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> 
+                        : null}
+                    </div>
+                  </div>
+                )
+              }
+            })}
+          </div>
         </div>
       );
     }

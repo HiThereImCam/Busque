@@ -20,7 +20,7 @@ let sessionReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: !!action.currentUser,
         user: action.currentUser,
-        userCheckedIn: action.userCheckedIn,
+        userCheckedIn: action.venueCheckedIn,
       };
     case CHECK_USER_IN:
       return {
