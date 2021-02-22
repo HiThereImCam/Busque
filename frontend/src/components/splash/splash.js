@@ -29,10 +29,12 @@ class Splash extends Component {
 
           <div className="intro-container">
             <h2>Art is made for the streets.</h2>
-            <h2>Busk anytime and anywhere with Busque</h2>
+            <h2>Busk anytime and anywhere with Busque.</h2>
           </div>
         </div>
-        <section></section>
+        <div className="splash-checkin">
+          <img src="https://busque-dev.s3-us-west-2.amazonaws.com/CheckIn+Collage.jpg"></img>
+        </div>
         <section></section>
       </div>
     );

@@ -54,11 +54,12 @@
   color: white;
   font-family: "Megrim", cursive;
   margin-left: 3%;
-  margin-top: -8px;
+  margin-top: -10px;
 }
 
 .background_img {
   width: 100%;
+  z-index: -5;
 }
 
 .intro-container {
