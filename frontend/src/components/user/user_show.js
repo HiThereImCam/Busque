@@ -29,9 +29,9 @@ class UserShow extends React.Component {
 
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId);
-    this.props.fetchUsers(); 
+    this.props.fetchUsers()
+        .then(() => this.props.fetchAllRatings())
     this.props.fetchAllComments();
-    this.props.fetchAllRatings();
     this.props.fetchUserLikes(this.props.match.params.userId);
 
     if (this.props.currentUser !== undefined) {
