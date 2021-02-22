@@ -96,19 +96,19 @@ class UserShow extends React.Component {
   }
 
   render() {
-    if (this.props.user === undefined) {
+    if (this.props.user === undefined || this.props.ratings === undefined) {
       return null;
     } else {
       const user = this.props.user;
 
       let showRatingAvg = () => {
         const ratingNums = [];
-        this.props.user.ratings.forEach((ratingId, i) => {
-          this.props.ratings.forEach((rating) => {
-            if (rating._id === ratingId) {
+        this.props.user.ratings.forEach((rating, i) => {
+        //   this.props.ratings.forEach((rating) => {
+            // if (rating._id === ratingId) {
               ratingNums.push(rating.rating);
-            }
-          });
+            // }
+        //   });
         });
         if (ratingNums.length <= 0) {
           let avg = 0;
