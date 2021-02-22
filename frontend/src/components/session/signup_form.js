@@ -60,7 +60,8 @@ class SignupForm extends React.Component {
         };
         this.props
           .signup(user, this.props.history)
-          .then(this.props.history.push("/login"));
+          .then(this.props.login(user))
+          .then(this.props.history.push("/"));
       });
     } else {
       let user = {
@@ -74,7 +75,8 @@ class SignupForm extends React.Component {
       };
       this.props
         .signup(user, this.props.history)
-        .then(this.props.history.push("/login"));
+        .then(this.props.login(user))
+        .then(this.props.history.push("/"));
     }
   }
 
@@ -175,4 +177,4 @@ class SignupForm extends React.Component {
   }
 }
 
-export default withRouter(SignupForm);
+export default (SignupForm);

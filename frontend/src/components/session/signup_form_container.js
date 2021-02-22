@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { signup, login, clearErrors } from "../../actions/session_actions";
 import SignupForm from "./signup_form";
 import { openNavModal } from "../../actions/nav_actions";
-
+import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state) => {
   return {
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SignupForm));
