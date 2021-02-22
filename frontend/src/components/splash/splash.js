@@ -8,7 +8,16 @@ class Splash extends Component {
       <div className="splash-container">
         <div className="splash-intro">
           <div className="splash-header-container">
-            <div></div>
+            <div className="splash-header">
+              <div className="splash-h1">
+                <h1>Busque</h1>
+              </div>
+              <div className="splash-link">
+                <Link to="/login" className="splash-login">
+                  Log in
+                </Link>
+              </div>
+            </div>
           </div>
           <div className="splash-img">
             <img
@@ -19,9 +28,8 @@ class Splash extends Component {
           </div>
 
           <div className="intro-container">
-            <h1>Busque</h1>
-            <h3>Busk anytime and anywhere.</h3>
-            <Link to="/login" />
+            <h2>Art is made for the streets.</h2>
+            <h2>Busk anytime and anywhere with Busque</h2>
           </div>
         </div>
         <section></section>
