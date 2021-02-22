@@ -115,7 +115,7 @@ class VenueIndexItem extends React.Component {
         let showCurrentUser = () => {
             if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
                 const currentUserId = this.props.venue.currentUser
-                return (    
+                return (
                     usersArr.map((user, i) => {
                         if (user._id === currentUserId) {
                             return (
