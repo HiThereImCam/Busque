@@ -70,9 +70,7 @@ export const createVenue = (venue, currentUser) => (dispatch) => {
             dispatch(receiveVenues(venue.data))
           );
         } catch (e) {
-          console.log("This is the error object inside checkin: ", e);
-
-          // dispatch(getVenueErrors(e));
+          dispatch(getVenueErrors(e));
         }
       });
     })
