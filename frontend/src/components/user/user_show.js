@@ -139,7 +139,7 @@ class UserShow extends React.Component {
               value={avg}
               onChange={this.handleRating}
               count={5}
-              size={19}
+              size={18}
               isHalf={true}
               emptyIcon={<i className="far fa-star"></i>}
               halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -193,7 +193,7 @@ class UserShow extends React.Component {
       const noReviews = () => {
         let userComments = []
         for (let j = 0; j < this.props.comments.length; j++) {
-          if (this.props.comments[j].user === this.props.match.params.userId) {
+          if (this.props.comments[j].user === this.props.match.params.userId && this.props.comments[j].venue === undefined) {
             userComments.push(this.props.comments[j])
           }
         }
@@ -276,7 +276,7 @@ class UserShow extends React.Component {
           </div>
           <div>
             {this.props.comments.slice().reverse().map((comment, i) => {
-              if (comment.user === this.props.match.params.userId ) {
+              if (comment.user === this.props.match.params.userId && comment.venue === undefined) {
                 return (
                   <div className="review-each-user" key={i}>
                     <div className="commenter-img">

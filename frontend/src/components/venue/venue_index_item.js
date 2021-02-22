@@ -157,7 +157,7 @@ class VenueIndexItem extends React.Component {
 
     const userCommentInput =
       this.props.currentUser === undefined ? (
-        <div>
+        <div className="review-login">
           <Link className="login-link" to="/login">
             Log in
           </Link>{" "}
@@ -336,15 +336,11 @@ class VenueIndexItem extends React.Component {
                           </div>
                           <div className="comment-info">
                             <div className="reviewer-name">
-                              {comment.user === undefined &&
-                              comment.commenter === undefined
+                              {comment.user === undefined && comment.commenter === undefined
                                 ? "Username says:"
                                 : comment.commenter === undefined
-                                ? "From " +
-                                  this.props.users[comment.user].username +
-                                  ":"
-                                : "From " +
-                                  this.props.users[comment.commenter].username}
+                                ? "From " + this.props.users[comment.user].username + ":"
+                                : "From " + this.props.users[comment.commenter].username}
                             </div>
                             <div className="comment">{comment.comment}</div>
                             <div className="review-date">
@@ -352,10 +348,8 @@ class VenueIndexItem extends React.Component {
                             </div>
                           </div>
                           <div className="comment-delete">
-                            {comment.user === undefined &&
-                            comment.commenter ===
-                              undefined ? null : comment.commenter ===
-                                undefined &&
+                            {comment.user === undefined && comment.commenter === undefined 
+                              ? null : comment.commenter === undefined &&
                               comment.user === this.props.currentUser ? (
                               <button
                                 className="comment-delete-button"
