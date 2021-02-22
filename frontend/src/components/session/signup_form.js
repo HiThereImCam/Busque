@@ -57,11 +57,10 @@ class SignupForm extends React.Component {
           bio: this.state.bio,
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
-        };
+        }
         this.props
-          .signup(user, this.props.history)
-          .then(this.props.login(user))
-          .then(this.props.history.push("/"));
+          .signup(user)
+          .then(() => this.props.login(user));
       });
     } else {
       let user = {
@@ -72,20 +71,21 @@ class SignupForm extends React.Component {
         bio: this.state.bio,
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
-      };
+      }
       this.props
-        .signup(user, this.props.history)
-        .then(this.props.login(user))
-        .then(this.props.history.push("/"));
+        .signup(user)
+        .then(() => this.props.login(user));
     }
   }
 
   renderErrors() {
     let { errors } = this.props;
     return (
-      <ul>
+      <ul className="HeroPane-session-errors">
         {Object.keys(errors).map((error, i) => (
-          <li key={`error-${i}`}>{errors[error]}</li>
+          <li key={`error-${i}`} className="session-errors-signup">
+            {errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -155,13 +155,13 @@ class SignupForm extends React.Component {
                 type="file"
                 onChange={this.handleFile.bind(this)}
               />
+              {this.renderErrors()}
               <input
                 className="signup-button"
                 id="signup-button"
                 type="submit"
                 value="Sign up"
               />
-              {this.renderErrors()}
               <div className="form-footer-signup">
                 Have an account?&nbsp;
                 <Link className="footer-link" to="/login">

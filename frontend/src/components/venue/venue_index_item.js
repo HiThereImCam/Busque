@@ -96,7 +96,6 @@ class VenueIndexItem extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(this.props.venue._id);
     this.props.createComment({
       venueId: this.props.venue._id,
       comment: this.state.comment,
