@@ -99,7 +99,7 @@ class UserShow extends React.Component {
   }
 
   render() {
-    if (this.props.user === undefined) {
+    if (this.props.user === undefined || this.props.ratings === undefined) {
       return null;
     } else {
       const user = this.props.user;
