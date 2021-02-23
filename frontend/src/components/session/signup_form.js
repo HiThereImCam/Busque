@@ -59,9 +59,8 @@ class SignupForm extends React.Component {
           imageURL: res.data.newData.Location,
         };
         this.props
-          .signup(user, this.props.history)
-          .then(this.props.login(user))
-          .then(this.props.history.push("/"));
+          .signup(user)
+          .then(() => this.props.login(user))
       });
     } else {
       let user = {
@@ -74,9 +73,8 @@ class SignupForm extends React.Component {
         imageURL: this.state.imageURL,
       };
       this.props
-        .signup(user, this.props.history)
-        .then(this.props.login(user))
-        .then(this.props.history.push("/"));
+        .signup(user)
+        .then(() => this.props.login(user))
     }
   }
 
