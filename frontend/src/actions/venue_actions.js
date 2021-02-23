@@ -59,7 +59,6 @@ export const checkIn = (venueID, currentUser) => (dispatch) =>
   });
 
 export const createVenue = (venue, currentUser) => (dispatch) => {
-  console.log("This is the created Venue: ", venue);
   return VenueApiUtil.createVenue(venue)
     .then((venue) => {
       let venueData = venue.data;
