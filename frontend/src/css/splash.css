@@ -1,80 +1,160 @@
-.splash-container {
-  display: flex;
+img {
   width: 100%;
-  /* margin: 0 auto; */
 }
-
-.splash-intro {
-  display: flex;
-  justify-content: center;
+.splash-container {
   width: 100%;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid blue;
-  z-index: 0;
+  height: 90vh;
+  position: relative;
+  background: url("../img/Splash_Background_2.jpg") no-repeat center
+    center/cover;
   border-bottom: 8px solid #222;
 }
 
-.splash-login {
-}
-
-.splash-link {
-  width: 84px;
-  height: 29px;
-  border: 2px solid #4267b2;
-  background-color: #4267b2;
-  padding-top: 8px;
-  border-radius: 3px;
-  margin-right: 3%;
-  text-align: center;
-  color: white;
-  text-decoration: none;
-}
-
-.splash-img {
-  position: absolute;
-  width: 100%;
-  height: 55%;
-}
-
-.splash-header-container {
-  z-index: 10;
-  width: 100%;
-}
-
 .splash-header {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 20px;
+  position: relative;
+  height: 90px;
 }
 
-.splash-h1 {
+.splash-header h1 {
   font-size: 50px;
   font-weight: bold;
   color: white;
   font-family: "Megrim", cursive;
-  margin-left: 3%;
-  margin-top: -10px;
+  position: absolute;
+  top: 10%;
+  left: 3%;
 }
 
-.background_img {
-  width: 100%;
-  z-index: -5;
+.splash-header a {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
 }
 
-.intro-container {
+.splash-content {
+  position: relative;
+  margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  z-index: 1;
-  margin-top: 15%;
-  margin-right: 2%;
+  text-align: center;
+  margin-top: 12rem;
 }
 
-.intro-container h2 {
+.splash-content h2 {
   font-size: 75px;
   color: white;
-
   font-family: "Montserrat", sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  background: #4267b2;
+  color: white;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  outline: none;
+  border-radius: 2px;
+}
+
+.btn-rounded {
+  border-radius: 5px;
+}
+
+.checkIn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgb(31, 31, 31);
+  height: 50vh;
+  border-bottom: 8px solid #222;
+}
+
+.checkIn_Container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+}
+
+.checkIn_Container h2 {
+  color: white;
+  font-size: 3.125rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.checkIn_Container h4 {
+  color: white;
+  font-size: 1.625rem;
+  font-weight: 150;
+}
+
+.checkIn_img {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.img_checkin {
+  padding: 15px;
+}
+
+.create_img {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 100px;
+}
+
+.footer {
+  max-width: 75%;
+  margin: 1rem auto;
+  overflow: auto;
+}
+
+.meetus_container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+}
+
+.meetus_container h2 {
+  color: white;
+  font-size: 3.125rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.btn_2 {
+  display: inline-block;
+  background: #4267b2;
+  color: white;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  outline: none;
+  border-radius: 2px;
+  width: 50%;
+  margin-left: 18%;
+}
+
+.btn-rounded_2 {
+  border-radius: 5px;
 }
