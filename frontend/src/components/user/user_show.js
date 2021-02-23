@@ -28,11 +28,11 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.match.params.userId);
-    this.props.fetchUsers(); 
-    this.props.fetchAllComments();
-    this.props.fetchAllRatings();
-    this.props.fetchUserLikes(this.props.match.params.userId);
+    this.props.fetchUsers()
+      .then(() => this.props.fetchUser(this.props.match.params.userId)) 
+      .then(() => this.props.fetchAllComments())
+      .then(() => this.props.fetchAllRatings())
+      .then(() => this.props.fetchUserLikes(this.props.match.params.userId))
 
     if (this.props.currentUser !== undefined) {
       this.setState({
@@ -99,7 +99,7 @@ class UserShow extends React.Component {
   }
 
   render() {
-    if (this.props.user === undefined) {
+    if (this.props.user === undefined || this.props.ratings === undefined) {
       return null;
     } else {
       const user = this.props.user;
@@ -112,12 +112,33 @@ class UserShow extends React.Component {
           }
         })
 
-        if (ratingNums.length <= 0) {
-          let avg = 0;
+        if (ratingNums.length > 0) {
+          let sum = ratingNums.reduce(
+            (acc, currVal, currIdx, arr) => acc + currVal
+          );
+          let avg = sum / ratingNums.length;
+          return (
+            <div className="venue-rating-inner">
+              <ReactStars
+                className="rating-stars"
+                value={avg}
+                onChange={this.handleRating}
+                count={5}
+                size={18}
+                isHalf={true}
+                emptyIcon={<i className="far fa-star"></i>}
+                halfIcon={<i className="fa fa-star-half-alt"></i>}
+                fullIcon={<i className="fa fa-star"></i>}
+                activeColor="#ffd700"
+              />
+            </div>
+          );
+        }
+        if (ratingNums.length === 0) {
           return (
             <ReactStars
               className="rating-stars"
-              value={avg}
+              value={0}
               onChange={this.handleRating}
               count={5}
               size={18}
@@ -128,42 +149,7 @@ class UserShow extends React.Component {
               activeColor="#ffd700"
             />
           );
-        } else {
-          let sum = ratingNums.reduce(
-            (acc, currVal, currIdx, arr) => acc + currVal
-          );
-          let avg = sum / ratingNums.length;
-          return (
-            <ReactStars
-              className="rating-stars"
-              value={avg}
-              onChange={this.handleRating}
-              count={5}
-              size={19}
-              isHalf={true}
-              emptyIcon={<i className="far fa-star"></i>}
-              halfIcon={<i className="fa fa-star-half-alt"></i>}
-              fullIcon={<i className="fa fa-star"></i>}
-              activeColor="#ffd700"
-            />
-          );
         }
-        // if (ratingNums.length === 0) {
-        //   return (
-        //     <ReactStars
-        //       className="rating-stars"
-        //       value={0}
-        //       onChange={this.handleRating}
-        //       count={5}
-        //       size={19}
-        //       isHalf={true}
-        //       emptyIcon={<i className="far fa-star"></i>}
-        //       halfIcon={<i className="fa fa-star-half-alt"></i>}
-        //       fullIcon={<i className="fa fa-star"></i>}
-        //       activeColor="#ffd700"
-        //     />
-        //   )
-        // }
       };
 
       const userCommentInput =
@@ -193,7 +179,7 @@ class UserShow extends React.Component {
       const noReviews = () => {
         let userComments = []
         for (let j = 0; j < this.props.comments.length; j++) {
-          if (this.props.comments[j].user === this.props.match.params.userId) {
+          if (this.props.comments[j].user === this.props.match.params.userId && this.props.comments[j].venue === undefined) {
             userComments.push(this.props.comments[j])
           }
         }
@@ -276,7 +262,7 @@ class UserShow extends React.Component {
           </div>
           <div>
             {this.props.comments.slice().reverse().map((comment, i) => {
-              if (comment.user === this.props.match.params.userId ) {
+              if (comment.user === this.props.match.params.userId && comment.venue === undefined) {
                 return (
                   <div className="review-each-user" key={i}>
                     <div className="commenter-img">

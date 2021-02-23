@@ -10,7 +10,7 @@ class VenueModal extends Component {
       venueType: "",
       photoId: "",
       photoFile: null,
-      imageURL: "",
+      imageURL: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
       errors: {},
       closeVenueModal: false,
     };

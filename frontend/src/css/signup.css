@@ -49,6 +49,15 @@
   margin-bottom: 20px;
 }
 
+.HeroPane-session-errors {
+  padding-bottom: 10px; 
+}
+
+.session-errors-signup {
+  list-style-type: none;
+  color: red;
+}
+
 #signup-button {
   width: 36vw;
   border: none;

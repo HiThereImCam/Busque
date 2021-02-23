@@ -107,6 +107,7 @@
 .session-errors {
   list-style-type: none;
   color: red;
+  padding-left: 10px; 
 }
 
 @media screen and (max-width: 600px) {
