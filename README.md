@@ -1,6 +1,11 @@
 # Busque
 
+ ![Busque Logo](https://busque-dev.s3-us-west-2.amazonaws.com/cropped+logo.jpg "Optional title")
+
+
 [Busque Live Link](https://busque-app.herokuapp.com/)
+
+
 
 ## Overview
 
@@ -23,6 +28,8 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 * Rate and like performers and venues
 * Leave comments on performers and venues
 * Check in/out of venues. This allows other performers to know which locations are available.
+
+
 
 ## Technologies
 **Backend**
@@ -107,3 +114,8 @@ const ScheduleSchema = new Schema({
   },
 });
  ```
+ 
+ 
+ 
+ 
+
