@@ -7,8 +7,6 @@ const validateVenueInput = require("../../validations/venue");
 const Rating = require("../../models/Rating");
 const Schedule = require("../../models/Schedule");
 
-
-
 router.get("/", (req, res) => {
   //venue index
   Venue.find()
@@ -66,8 +64,9 @@ router.get("/schedule/collection", (req, res) => {
 router.post(
   //create venue
   "/",
-   passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("This is the req body: ", req.body);
     const { errors, isValid } = validateVenueInput(req.body);
 
     if (!isValid) {
@@ -75,7 +74,7 @@ router.post(
     }
     const newVenue = new Venue({
       name: req.body.name,
-      coordinate: req.body.coordinate, 
+      coordinate: req.body.coordinate,
       imageURL: req.body.imageURL,
       type: req.body.type,
     });
@@ -157,6 +156,4 @@ router.delete(
   }
 ); //end delete
 
-
 module.exports = router;
-    

@@ -22,13 +22,6 @@ class LoginForm extends Component {
     this.props.clearErrors();
   }
 
-  componentDidUpdate(prevProps) {
-    console.log("THIS IS PREV PROPS: ", prevProps);
-    if (prevProps.signedIn === true) {
-      <Redirect to="/map" />;
-    }
-  }
-
   handleInputChange(field) {
     return (e) =>
       this.setState({
@@ -40,7 +33,6 @@ class LoginForm extends Component {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.login(user);
-    <Redirect to="/map" />;
   }
 
   renderErrors() {
