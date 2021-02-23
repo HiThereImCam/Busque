@@ -34,7 +34,7 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 ## Technologies
 **Backend**
 * mongoDB
-* AWS S43
+* AWS S3
 * Express
 * Mongoose
 
