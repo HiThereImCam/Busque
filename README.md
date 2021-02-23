@@ -52,7 +52,7 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 
 2. Buskers typically stay in one location for 2 hours. We wanted to have the app automatically check people out after a certain amount of time (we did 5 minutes for testing purposes). Translating this to code proved to be difficult. 
 
-3. Setting up AWS S3 so users are able to upload a photo for their profile or recipe came to be a big obstacle. It was eventually solved by making sure S3 has the correct policies, the app having the correct config vars, and functions sending in the correct form of data.
+3. Setting up AWS S3 so users are able to upload a photo for their profile or venue came to be a big obstacle. It was eventually solved by making sure S3 has the correct policies, the app having the correct config vars, and functions sending in the correct form of data.
 
 ## Highlights
 
