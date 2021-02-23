@@ -59,7 +59,7 @@ class VenueModal extends Component {
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
-        this.props.createVenue(venue, this.state.currentUser);
+        this.props.createVenue(venue, this.props.currentUser);
       });
     } else {
       let venue = {
