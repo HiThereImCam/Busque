@@ -23,8 +23,9 @@ class LoginForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log("THIS IS PREV PROPS: ", prevProps);
     if (prevProps.signedIn === true) {
-      <Redirect to="/" />;
+      <Redirect to="/map" />;
     }
   }
 
@@ -39,6 +40,7 @@ class LoginForm extends Component {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.login(user);
+    <Redirect to="/map" />;
   }
 
   renderErrors() {

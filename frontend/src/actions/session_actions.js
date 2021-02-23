@@ -6,10 +6,9 @@ export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const RECEIVE_USER_LOGOUT = "RECEIVE_USER_LOGOUT";
 export const RECEIVE_USER_SIGN_IN = "RECEIVE_USER_SIGN_IN";
 
-export const receiveCurrentUser = (currentUser, venueCheckedIn) => ({
+export const receiveCurrentUser = (currentUser) => ({
   type: RECEIVE_CURRENT_USER,
   currentUser,
-  venueCheckedIn,
 });
 
 export const receiveUserSignIn = () => ({
@@ -38,8 +37,7 @@ export const login = (user) => (dispatch) =>
       localStorage.setItem("jwtToken", token);
       APIUtil.setAuthToken(token);
       const decoded = jwt_decode(token);
-      const venueCheckInStatus = false;
-      dispatch(receiveCurrentUser(decoded, venueCheckInStatus));
+      dispatch(receiveCurrentUser(decoded));
     })
     .catch((err) => {
       dispatch(receiveErrors(err.response.data));

@@ -1,0 +1,160 @@
+img {
+  width: 100%;
+}
+.splash-container {
+  width: 100%;
+  height: 90vh;
+  position: relative;
+  background: url("../img/Splash_Background_2.jpg") no-repeat center
+    center/cover;
+  border-bottom: 8px solid #222;
+}
+
+.splash-header {
+  position: relative;
+  height: 90px;
+}
+
+.splash-header h1 {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  font-family: "Megrim", cursive;
+  position: absolute;
+  top: 10%;
+  left: 3%;
+}
+
+.splash-header a {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+.splash-content {
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 12rem;
+}
+
+.splash-content h2 {
+  font-size: 75px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.btn {
+  display: inline-block;
+  background: #4267b2;
+  color: white;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  outline: none;
+  border-radius: 2px;
+}
+
+.btn-rounded {
+  border-radius: 5px;
+}
+
+.checkIn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: rgb(31, 31, 31);
+  height: 50vh;
+  border-bottom: 8px solid #222;
+}
+
+.checkIn_Container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+}
+
+.checkIn_Container h2 {
+  color: white;
+  font-size: 3.125rem;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.checkIn_Container h4 {
+  color: white;
+  font-size: 1.625rem;
+  font-weight: 150;
+}
+
+.checkIn_img {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.img_checkin {
+  padding: 15px;
+}
+
+.create_img {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 100px;
+}
+
+.footer {
+  max-width: 75%;
+  margin: 1rem auto;
+  overflow: auto;
+}
+
+.meetus_container {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  padding: 40px;
+}
+
+.meetus_container h2 {
+  color: white;
+  font-size: 3.125rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.btn_2 {
+  display: inline-block;
+  background: #4267b2;
+  color: white;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  outline: none;
+  border-radius: 2px;
+  width: 50%;
+  margin-left: 18%;
+}
+
+.btn-rounded_2 {
+  border-radius: 5px;
+}
