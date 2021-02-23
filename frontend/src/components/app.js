@@ -10,7 +10,7 @@ import MapBoxContainer from "./mapbox/mapbox_container";
 import UserIndexContainer from "./user/user_index_container";
 import VenueIndexContainer from "./venue/venue_index_container";
 import VenueModalContainer from "./mapbox/venue_modal_container";
-
+import SplashContainer from "./splash/splash_container";
 import EngineersContainer from "./user/engineers_container";
 import "../css/app.css";
 
@@ -19,6 +19,7 @@ const App = () => (
     <NavModalContainer />
     <VenueModalContainer />
     <Switch>
+      <Route exact path="/" component={SplashContainer} />
       <Route exact path="/engineers" component={EngineersContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
@@ -30,7 +31,7 @@ const App = () => (
       {/* <Route exact path="/venues/venue-modal" component={VenueModalContainer} /> */}
       <Route exact path="/venues" component={VenueIndexContainer} />
       <Route exact path="/users" component={UserIndexContainer} />
-      <Route exact path="/" component={MapBoxContainer} />
+      <Route exact path="/map" component={MapBoxContainer} />
     </Switch>
   </div>
 );

@@ -88,16 +88,20 @@ class VenueIndexItem extends React.Component {
         })
     }
 
-    handleSubmit(e) {
-        e.preventDefault(); 
-        console.log(this.props.venue._id)
-        this.props.createComment({"venueId": this.props.venue._id, "comment": this.state.comment, "commenter": this.state.user})
 
-        this.setState({
-            comment: "",
-            newComment: true
-        })
-    }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.createComment({
+      venueId: this.props.venue._id,
+      comment: this.state.comment,
+      commenter: this.state.user,
+    });
+
+    this.setState({
+        comment: "",
+        newComment: true
+    })
+   }
 
     handleDelete(id) {
         this.props.deleteComment(id); 
@@ -179,7 +183,7 @@ class VenueIndexItem extends React.Component {
                         value={0}
                         onChange={this.handleRating}   
                         count={5}
-                        size={19}
+                        size={18}
                         isHalf={true}
                         emptyIcon={<i className="far fa-star"></i>}
                         halfIcon={<i className="fa fa-star-half-alt"></i>}
@@ -189,6 +193,7 @@ class VenueIndexItem extends React.Component {
                 )
             }
         }
+
 
         const noReviews = () => {
             let venueComments = []
@@ -215,102 +220,135 @@ class VenueIndexItem extends React.Component {
         }
 
         const likeButton = () => {
-            if (this.props.currentUser === undefined) {
-                return null
-            }
+      if (this.props.currentUser === undefined) {
+        return null;
+      }
 
-            if (peopleLiked.includes(this.props.currentUser)) {
-                return (
-                    <div className="likes">
-                        <button className="like-button" onClick={this.handleUnlike}><i className="fas fa-heart fa-lg" style={{ color: "red" }}></i></button>
-                        {peopleLiked.length}
-                    </div>
-                )
-            } else {
-                return (
-                    <div className="likes">
-                        <button className="like-button" onClick={this.handleLike}><i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i></button>
-                        {peopleLiked.length}
-                    </div>
-                )
-            }
-        } 
-
+      if (peopleLiked.includes(this.props.currentUser)) {
         return (
-            <div className="venue-list-items">
-                <div className="venue-name">
-                    {this.props.venue.name}
-                </div>
-                <div className="venue-list-info">
-                    <div className="venue-info-outer venue-info-outer-alt">
-                        <div className="venue-info venue-info-alt">
-                            <div className="venue-rating">
-                                {showRatingAvg()}
-                            </div>
-                            {likeButton()}
-                            <div className="venue-type">
-                                Type: {this.props.venue.type}
-                            </div>
-                            <div className="venue-availabilty">
-                                Available? {isAvailable()}
-                            </div>
-                            <div className="venue-current-user">
-                                {showCurrentUser()}
-                            </div>
-                            {userCommentInput}
-                        </div>
-                        <div className="venue-pic venue-pic-alt">
-                            <img src={this.props.venue.imageURL} alt="venue" />
-                        </div>
-                    </div>
-                    <div className="venue-reviews">
-                        <div className="reviews-dropdown" onClick={this.handleReviewShow.bind(this)} >
-                            Reviews {this.state.arrowDown && <TiArrowSortedDown size={20} className="review-arrow-down" />}{this.state.arrowUp && <TiArrowSortedUp size={20} className="review-arrow-up" />} 
-                        </div>
-                        <div className="venue-reviews-inner">
-                            {this.state.showReviews && 
-                                this.props.comments.slice().reverse().map((comment, i) => {
-                                    if (comment.venue === this.props.venue._id) {
-                                        return (
-                                            <div className="review-each" key={i}>
-                                                <div className="commenter-img">
-                                                    {(comment.user === undefined && comment.commenter === undefined) ? null 
-                                                    : (comment.user === undefined) ? <img src={this.props.users[comment.commenter].imageURL} alt="profile" className="comment-profile" />
-                                                    : (comment.commenter === undefined) ? <img src={this.props.users[comment.user].imageURL} alt="profile" className="comment-profile" />
-                                                    : null}
-                                                </div>
-                                                <div className="comment-info">
-                                                    <div className="reviewer-name">
-                                                        {(comment.user === undefined && comment.commenter === undefined) ? "Username says:" 
-                                                        : (comment.commenter === undefined) ? "From " + this.props.users[comment.user].username + ":" 
-                                                        : "From " + this.props.users[comment.commenter].username}
-                                                    </div>
-                                                    <div className="comment">
-                                                        {comment.comment}
-                                                    </div>
-                                                    <div className="review-date">
-                                                        {moment(comment.date).format('LL')}
-                                                    </div>
-                                                </div>
-                                                <div className="comment-delete">
-                                                    {(comment.user === undefined && comment.commenter === undefined) ? null 
-                                                    : (comment.commenter === undefined && comment.user === this.props.currentUser) ? 
-                                                    <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> 
-                                                    : (comment.commenter === this.props.currentUser && comment.user === undefined) ? 
-                                                    <button className="comment-delete-button" onClick={() => this.handleDelete(comment._id)}><GoTrashcan size={21} /></button> : null}
-                                                </div>
-                                            </div>
-                                        )
-                                    } 
-                                }) 
-                            }
-                            {this.state.showReviews && noReviews()}
-                        </div>
-                    </div>
-                </div>
+          <div className="likes">
+            <button className="like-button" onClick={this.handleUnlike}>
+              <i className="fas fa-heart fa-lg" style={{ color: "red" }}></i>
+            </button>
+            {peopleLiked.length}
+          </div>
+        );
+      } else {
+        return (
+          <div className="likes">
+            <button className="like-button" onClick={this.handleLike}>
+              <i className="fas fa-heart fa-lg" style={{ color: "gray" }}></i>
+            </button>
+            {peopleLiked.length}
+          </div>
+        );
+      }
+    };
+
+    return (
+      <div className="venue-list-items">
+        <div className="venue-name">{this.props.venue.name}</div>
+        <div className="venue-list-info">
+          <div className="venue-info-outer venue-info-outer-alt">
+            <div className="venue-info venue-info-alt">
+              <div className="venue-rating">{showRatingAvg()}</div>
+              {likeButton()}
+              <div className="venue-type">Type: {this.props.venue.type}</div>
+              <div className="venue-availabilty">
+                Available? {isAvailable()}
+              </div>
+              <div className="venue-current-user">{showCurrentUser()}</div>
+              {userCommentInput}
             </div>
-        )
-    }
+            <div className="venue-pic venue-pic-alt">
+              <img src={this.props.venue.imageURL} alt="venue" />
+            </div>
+          </div>
+          <div className="venue-reviews">
+            <div
+              className="reviews-dropdown"
+              onClick={this.handleReviewShow.bind(this)}
+            >
+              Reviews{" "}
+              {this.state.arrowDown && (
+                <TiArrowSortedDown size={20} className="review-arrow-down" />
+              )}
+              {this.state.arrowUp && (
+                <TiArrowSortedUp size={20} className="review-arrow-up" />
+              )}
+            </div>
+            <div className="venue-reviews-inner">
+              {this.state.showReviews &&
+                this.props.comments
+                  .slice()
+                  .reverse()
+                  .map((comment, i) => {
+                    if (comment.venue === this.props.venue._id) {
+                      return (
+                        <div className="review-each" key={i}>
+                          <div className="commenter-img">
+                            {comment.user === undefined &&
+                            comment.commenter ===
+                              undefined ? null : comment.user === undefined ? (
+                              <img
+                                src={
+                                  this.props.users[comment.commenter].imageURL
+                                }
+                                alt="profile"
+                                className="comment-profile"
+                              />
+                            ) : comment.commenter === undefined ? (
+                              <img
+                                src={this.props.users[comment.user].imageURL}
+                                alt="profile"
+                                className="comment-profile"
+                              />
+                            ) : null}
+                          </div>
+                          <div className="comment-info">
+                            <div className="reviewer-name">
+                              {comment.user === undefined && comment.commenter === undefined
+                                ? "Username says:"
+                                : comment.commenter === undefined
+                                ? "From " + this.props.users[comment.user].username + ":"
+                                : "From " + this.props.users[comment.commenter].username}
+                            </div>
+                            <div className="comment">{comment.comment}</div>
+                            <div className="review-date">
+                              {moment(comment.date).format("LL")}
+                            </div>
+                          </div>
+                          <div className="comment-delete">
+                            {comment.user === undefined && comment.commenter === undefined 
+                              ? null : comment.commenter === undefined &&
+                              comment.user === this.props.currentUser ? (
+                              <button
+                                className="comment-delete-button"
+                                onClick={() => this.handleDelete(comment._id)}
+                              >
+                                <GoTrashcan size={21} />
+                              </button>
+                            ) : comment.commenter === this.props.currentUser &&
+                              comment.user === undefined ? (
+                              <button
+                                className="comment-delete-button"
+                                onClick={() => this.handleDelete(comment._id)}
+                              >
+                                <GoTrashcan size={21} />
+                              </button>
+                            ) : null}
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
+              {this.state.showReviews && noReviews()}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default withRouter(VenueIndexItem);

@@ -78,7 +78,7 @@ class NavModal extends Component {
                 <div className="nav-header">
                   <Link
                     className="h2 header-logo"
-                    to="/"
+                    to="/map"
                     onClick={() => closeNavModal()}
                   >
                     Busque

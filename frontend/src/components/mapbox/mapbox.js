@@ -6,7 +6,6 @@ import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Pin from "./pin";
-import Tutorial from "./tutorial_modal";
 import checkVenues from "../../config/checkVenues";
 import { Link } from "react-router-dom";
 import VenueModal from "./venue_modal";
@@ -24,8 +23,9 @@ class MapBox extends Component {
       lat: 37.7461108,
       zoom: 12,
       isCheckedIn: false,
-      show: true,
       resultCoordinate: "",
+      newestVenuePopup: "",
+      createdVenue: false,
     };
 
     this.mapBoxRef = React.createRef();
@@ -113,7 +113,7 @@ class MapBox extends Component {
     let htmlContent;
     if (isAuthenticated) {
       htmlContent = `<div>
-                        <button onclick="openVenueModal()"> Create New Venue </button>
+                        <button onclick="openVenueModal()">Create New Venue</button>
                       </div>
     `;
     } else {
@@ -126,6 +126,11 @@ class MapBox extends Component {
 
     this.newVenueMarker = this.marker;
     this.newVenuePopup = new mapboxgl.Popup();
+    this.setState({
+      newestVenuePopup: this.newVenuePopup,
+      createdVenue: true,
+    });
+
     this.newVenueMarker
       .setLngLat(this.state.resultCoordinate)
       .setPopup(
@@ -151,10 +156,8 @@ class MapBox extends Component {
       isAuthenticated,
       users,
       venueModal,
-      userCheckedIn,
       checkUserIn,
     } = this.props;
-    let { show } = this.state;
     return (
       <Fragment>
         <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
@@ -179,18 +182,19 @@ class MapBox extends Component {
                     key={venue._id}
                     map={this.map}
                     venue={venue}
+                    venues={venues}
                     curLoggedInUser={currentUser}
                     checkIn={checkIn}
                     isAuthenticated={isAuthenticated}
                     users={users}
-                    userCheckedIn={userCheckedIn}
                     checkUserIn={checkUserIn}
+                    newestVenuePopup={this.state.newestVenuePopup}
+                    createdVenue={this.state.createdVenue}
                   />
                 ))
               : ""}
           </Fragment>
         )}
-        {show === true ? <Tutorial /> : ""}
         {venueModal === true ? <VenueModal /> : ""}
         <Link to="/login" id="redirectToLogin" />;
       </Fragment>
