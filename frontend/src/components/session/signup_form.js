@@ -58,6 +58,7 @@ class SignupForm extends React.Component {
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
+
         this.props.signup(user).then(() => this.props.login(user));
       });
     } else {
@@ -70,6 +71,7 @@ class SignupForm extends React.Component {
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
       };
+
       this.props.signup(user).then(() => this.props.login(user));
     }
   }
@@ -172,5 +174,6 @@ class SignupForm extends React.Component {
     );
   }
 }
+
 
 export default SignupForm;

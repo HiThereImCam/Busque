@@ -13,6 +13,11 @@ const receiveUser = (user) => ({
   user,
 });
 
+export const checkUserIn = (value) => ({
+  type: CHECK_USER_IN,
+  value,
+});
+
 export const fetchUsers = () => (dispatch) => {
   return UserAPIUtil.getUsers()
     .then((users) => dispatch(receiveUsers(users)))

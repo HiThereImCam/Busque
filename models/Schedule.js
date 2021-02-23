@@ -9,12 +9,12 @@ const ScheduleSchema = new Schema({
   },
   currentUser: { type: Schema.Types.ObjectId, ref: "users", required: true },
 
-  expireAt: {
+  expiresAt: {
     type: Date,
-    default: Date.now,
     index: {
-      expires: "5m",
+      expireAfterSeconds: 300000,
     },
+    default: expireTime,
   },
 });
 
