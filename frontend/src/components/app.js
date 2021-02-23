@@ -19,7 +19,6 @@ const App = () => (
     <NavModalContainer />
     <VenueModalContainer />
     <Switch>
-      <Route exact path="/" component={SplashContainer} />
       <Route exact path="/engineers" component={EngineersContainer} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
@@ -32,6 +31,7 @@ const App = () => (
       <Route exact path="/venues" component={VenueIndexContainer} />
       <Route exact path="/users" component={UserIndexContainer} />
       <Route exact path="/map" component={MapBoxContainer} />
+      <Route exact path="/" component={SplashContainer} />
     </Switch>
   </div>
 );

@@ -1,98 +1,93 @@
-import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import React from 'react'; 
+import { Link, withRouter } from 'react-router-dom'; 
 import "../../css/venue_index.css";
-import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import ReactStars from "react-rating-stars-component";
-import moment from "moment";
+import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import ReactStars from 'react-rating-stars-component'; 
+import moment from 'moment';
 import { GoTrashcan } from "react-icons/go";
 
 class VenueIndexItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comment: "",
-      user: "",
-      showReviews: false,
-      arrowUp: false,
-      arrowDown: true,
-      newComment: false,
-      redHeart: false,
-    };
+    constructor(props) {
+        super(props); 
+        this.state = {
+            comment: "", 
+            user: "",
+            showReviews: false,
+            arrowUp: false,
+            arrowDown: true,
+            newComment: false, 
+            redHeart: false
+        }
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.update = this.update.bind(this);
-    this.handleRating = this.handleRating.bind(this);
-    this.handleLike = this.handleLike.bind(this);
-    this.handleUnlike = this.handleUnlike.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.currentUser !== undefined) {
-      this.setState({
-        user: this.props.currentUser,
-      });
-    }
-  }
-
-  componentDidUpdate() {
-    if (this.state.newComment === true) {
-      this.setState({
-        user: this.props.currentUser,
-        newComment: false,
-        showReviews: true,
-      });
-    }
-  }
-
-  update() {
-    return (e) =>
-      this.setState({
-        comment: e.currentTarget.value,
-        user: this.props.currentUser,
-      });
-  }
-
-  handleReviewShow(e) {
-    e.preventDefault();
-    this.setState({
-      showReviews: !this.state.showReviews,
-      arrowUp: !this.state.arrowUp,
-      arrowDown: !this.state.arrowDown,
-    });
-  }
-
-  handleRating(nextValue) {
-    this.props.createRating({ venue: this.props.venue._id, rating: nextValue });
-  }
-
-  handleLike(e) {
-    e.preventDefault();
-    this.props.createLike({
-      venueId: this.props.venue._id,
-      likerId: this.state.user,
-    });
-    this.setState({
-      redHeart: true,
-    });
-  }
-  handleUnlike(e) {
-    e.preventDefault();
-
-    const likes = Object.values(this.props.likes); //whole like objects
-    for (let i = 0; i < likes.length; i++) {
-      if (
-        likes[i].venueId === this.props.venue._id &&
-        likes[i].likerId === this.props.currentUser
-      ) {
-        this.props.deleteLike(likes[i]._id);
-      }
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.update = this.update.bind(this); 
+        this.handleRating = this.handleRating.bind(this); 
+        this.handleLike = this.handleLike.bind(this);
+        this.handleUnlike = this.handleUnlike.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
-    this.setState({
-      redHeart: false,
-    });
-  }
+    componentDidMount() {
+        if (this.props.currentUser !== undefined) {
+            this.setState({
+                user: this.props.currentUser
+            })
+        }        
+    }
+
+    componentDidUpdate() {
+        if (this.state.newComment === true) {
+            this.setState({
+                user: this.props.currentUser,
+                newComment: false,
+                showReviews: true, 
+            })
+        }
+    }
+
+
+    update() {
+        return e => this.setState({
+            comment: e.currentTarget.value, 
+            user: this.props.currentUser,
+        })
+    }
+
+    handleReviewShow(e) {
+        e.preventDefault(); 
+        this.setState({
+            showReviews: !this.state.showReviews, 
+            arrowUp: !this.state.arrowUp,
+            arrowDown: !this.state.arrowDown 
+        })
+    }
+
+    handleRating(nextValue) { 
+        this.props.createRating({"venue": this.props.venue._id, "rating": nextValue})
+    }
+
+    handleLike(e) {
+        e.preventDefault(); 
+        this.props.createLike({"venueId": this.props.venue._id, "likerId": this.state.user})
+        this.setState({
+            redHeart: true
+        })
+    }
+    handleUnlike(e) {
+        e.preventDefault(); 
+
+        const likes = Object.values(this.props.likes) //whole like objects
+        for (let i = 0; i < likes.length; i++) {
+            if ((likes[i].venueId === this.props.venue._id) && (likes[i].likerId === this.props.currentUser)) {
+                this.props.deleteLike(likes[i]._id)
+            }
+        }
+
+        this.setState({
+            redHeart: false
+        })
+    }
+
 
   handleSubmit(e) {
     e.preventDefault();
@@ -103,151 +98,128 @@ class VenueIndexItem extends React.Component {
     });
 
     this.setState({
-      comment: "",
-      newComment: true,
-    });
-  }
+        comment: "",
+        newComment: true
+    })
+   }
 
-  handleDelete(id) {
-    this.props.deleteComment(id);
-  }
-
-  render() {
-    let isAvailable = () => {
-      if (this.props.venue.available === true) {
-        return " Yes";
-      } else {
-        return " No";
-      }
-    };
-
-    let usersArr = Object.values(this.props.users);
-    let showCurrentUser = () => {
-      if (
-        this.props.venue.available === false &&
-        this.props.venue.currentUser !== undefined
-      ) {
-        const currentUserId = this.props.venue.currentUser;
-        return usersArr.map((user, i) => {
-          if (user._id === currentUserId) {
-            return (
-              <div className="venue-current-user-inner" key={i}>
-                <img
-                  src={user.imageURL}
-                  alt="profile"
-                  className="venue-index-currentUser"
-                />
-                &nbsp;&nbsp;
-                <Link
-                  to={`/profile/${currentUserId}`}
-                  className="currentUser-link"
-                >
-                  {user.username}
-                </Link>
-                &nbsp;is here
-              </div>
-            );
-          }
-        });
-      } else {
-        return null;
-      }
-    };
-
-    const userCommentInput =
-      this.props.currentUser === undefined ? (
-        <div className="review-login">
-          <Link className="login-link" to="/login">
-            Log in
-          </Link>{" "}
-          to leave a review
-        </div>
-      ) : (
-        <form onSubmit={this.handleSubmit}>
-          <textarea
-            type="textarea"
-            className="review-input"
-            cols="45"
-            rows="5"
-            value={this.state.comment}
-            onChange={this.update()}
-            placeholder="What did you think of this location?"
-          />
-          <br />
-          <input className="submit" type="submit" value="Submit" />
-        </form>
-      );
-
-    let showRatingAvg = () => {
-      const ratingNums = [];
-      this.props.ratings.forEach((rating) => {
-        if (rating.venue === this.props.venue._id) {
-          ratingNums.push(rating.rating);
-        }
-      });
-      if (ratingNums.length > 0) {
-        let sum = ratingNums.reduce(
-          (acc, currVal, currIdx, arr) => acc + currVal
-        );
-        let avg = sum / ratingNums.length;
-        return (
-          <div className="venue-rating-inner">
-            <ReactStars
-              className="rating-stars"
-              value={avg}
-              onChange={this.handleRating}
-              count={5}
-              size={18}
-              isHalf={true}
-              emptyIcon={<i className="far fa-star"></i>}
-              halfIcon={<i className="fa fa-star-half-alt"></i>}
-              fullIcon={<i className="fa fa-star"></i>}
-              activeColor="#ffd700"
-            />
-          </div>
-        );
-      }
-      if (ratingNums.length === 0) {
-        return (
-          <ReactStars
-            className="rating-stars"
-            value={0}
-            onChange={this.handleRating}
-            count={5}
-            size={18}
-            isHalf={true}
-            emptyIcon={<i className="far fa-star"></i>}
-            halfIcon={<i className="fa fa-star-half-alt"></i>}
-            fullIcon={<i className="fa fa-star"></i>}
-            activeColor="#ffd700"
-          />
-        );
-      }
-    };
-
-    const noReviews = () => {
-      let venueComments = [];
-      for (let j = 0; j < this.props.comments.length; j++) {
-        if (this.props.comments[j].venue === this.props.venue._id) {
-          venueComments.push(this.props.comments[j]);
-        }
-      }
-      if (venueComments.length === 0) {
-        return <div className="no-reviews">Be the first to review!</div>;
-      } else {
-        return null;
-      }
-    };
-
-    const likes = Object.values(this.props.likes); //whole like objects
-    let peopleLiked = [];
-    for (let i = 0; i < likes.length; i++) {
-      if (likes[i].venueId === this.props.venue._id) {
-        peopleLiked.push(likes[i].likerId);
-      }
+    handleDelete(id) {
+        this.props.deleteComment(id); 
     }
 
-    const likeButton = () => {
+    render() {
+        let isAvailable = () => {
+            if (this.props.venue.available === true) {
+                return " Yes"
+            } else {
+                return " No"
+            }
+        }
+        let usersArr = Object.values(this.props.users)
+        let showCurrentUser = () => {
+            if ((this.props.venue.available === false) && (this.props.venue.currentUser !== undefined)) {
+                const currentUserId = this.props.venue.currentUser
+                return (
+                    usersArr.map((user, i) => {
+                        if (user._id === currentUserId) {
+                            return (
+                                <div className="venue-current-user-inner" key={i}>
+                                    <img src={user.imageURL} alt="profile" className="venue-index-currentUser" />&nbsp;&nbsp;
+                                    <Link to={`/profile/${currentUserId}`} className="currentUser-link">{user.username}</Link>&nbsp;is here
+                                </div>
+                            )
+                        }
+                    })
+                )
+            } else { 
+                return null
+            }
+        }
+
+        const userCommentInput = (this.props.currentUser === undefined) ? <div><Link className="login-link" to="/login">Log in</Link> to leave a review</div> :
+            <form onSubmit={this.handleSubmit}>
+                <textarea type="textarea"
+                    className="review-input"
+                    cols="45" rows="5"
+                    value={this.state.comment}
+                    onChange={this.update()}
+                    placeholder="What did you think of this location?"
+                />
+                <br />
+                <input className="submit" type="submit" value="Submit" />
+            </form>
+
+        let showRatingAvg = () => {
+            const ratingNums = []
+            this.props.ratings.forEach((rating) => {
+                if (rating.venue === this.props.venue._id) {
+                    ratingNums.push(rating.rating)
+                }
+            })
+            if (ratingNums.length > 0) {
+                let sum = ratingNums.reduce((acc, currVal, currIdx, arr) => acc + currVal)
+                let avg = sum / ratingNums.length
+                return (
+                    <div className="venue-rating-inner">
+                        <ReactStars
+                            className = "rating-stars"
+                            value={avg}
+                            onChange={this.handleRating}
+                            count={5}
+                            size={18}
+                            isHalf={true}
+                            emptyIcon={<i className="far fa-star"></i>}
+                            halfIcon={<i className="fa fa-star-half-alt"></i>}
+                            fullIcon={<i className="fa fa-star"></i>}
+                            activeColor="#ffd700"
+                        />
+                    </div>
+                )
+            } 
+            if (ratingNums.length === 0) {
+                return (
+                    <ReactStars
+                        className="rating-stars"
+                        value={0}
+                        onChange={this.handleRating}   
+                        count={5}
+                        size={18}
+                        isHalf={true}
+                        emptyIcon={<i className="far fa-star"></i>}
+                        halfIcon={<i className="fa fa-star-half-alt"></i>}
+                        fullIcon={<i className="fa fa-star"></i>}
+                        activeColor="#ffd700"
+                    />
+                )
+            }
+        }
+
+
+        const noReviews = () => {
+            let venueComments = []
+            for (let j = 0; j < this.props.comments.length; j++) {
+                if (this.props.comments[j].venue === this.props.venue._id) {
+                    venueComments.push(this.props.comments[j])
+                }
+            }
+            if (venueComments.length === 0) {
+                return (
+                    <div className="no-reviews">Be the first to review!</div>
+                )
+            } else {
+                return null
+            }
+        }
+
+        const likes = Object.values(this.props.likes) //whole like objects
+        let peopleLiked = [];
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i].venueId === this.props.venue._id) {
+                peopleLiked.push(likes[i].likerId)
+            }
+        }
+
+        const likeButton = () => {
       if (this.props.currentUser === undefined) {
         return null;
       }

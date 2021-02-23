@@ -49,7 +49,6 @@ router.post("/upload", upload.single("file"), function (req, res) {
     region: keys.AWS_REGION,
   });
 
-  console.log("THIS IS THE FUCKING BUCKET: ", s3bucket);
   // where we want to store the file
 
   var params = {
@@ -62,7 +61,6 @@ router.post("/upload", upload.single("file"), function (req, res) {
 
   s3bucket.upload(params, function (err, data) {
     if (err || !file) {
-      console.log("I MADE IT HERE. HERE IS THE ERROR- ", err);
       res
         .status(500)
         .json({ error: true, Message: "we've encountered an error" });
