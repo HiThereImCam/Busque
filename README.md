@@ -20,8 +20,19 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 
 [Maxbryan Cosmosse](https://github.com/mcosmosse)
 
+**Splash Page**
 
+![Splash Page](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/splash%20page.png)
 
+**Home Page**
+ ![Home Page](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/home_linkedin.png
+ "home page")
+
+**Venue Show Page**
+![Venue Show](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/venue%20show.png)
+
+**User Show Page**
+![User Show](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/User%20show.png)
 
 ## Features
 * Search locations and create new venues 
