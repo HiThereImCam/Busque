@@ -20,8 +20,19 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 
 [Maxbryan Cosmosse](https://github.com/mcosmosse)
 
+**Splash Page**
 
+![Splash Page](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/splash%20page.png)
 
+**Home Page**
+ ![Home Page](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/home_linkedin.png
+ "home page")
+
+**Venue Show Page**
+![Venue Show](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/venue%20show.png)
+
+**User Show Page**
+![User Show](https://github.com/HiThereImCam/Busque/blob/main/frontend/public/User%20show.png)
 
 ## Features
 * Search locations and create new venues 
@@ -34,7 +45,7 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 ## Technologies
 **Backend**
 * mongoDB
-* AWS S43
+* AWS S3
 * Express
 * Mongoose
 
@@ -52,7 +63,7 @@ Busque (pronounced "Busk") is a web application designed to help outdoor perform
 
 2. Buskers typically stay in one location for 2 hours. We wanted to have the app automatically check people out after a certain amount of time (we did 5 minutes for testing purposes). Translating this to code proved to be difficult. 
 
-3. Setting up AWS S3 so users are able to upload a photo for their profile or recipe came to be a big obstacle. It was eventually solved by making sure S3 has the correct policies, the app having the correct config vars, and functions sending in the correct form of data.
+3. Setting up AWS S3 so users are able to upload a photo for their profile or venue came to be a big obstacle. It was eventually solved by making sure S3 has the correct policies, the app having the correct config vars, and functions sending in the correct form of data.
 
 ## Highlights
 
