@@ -9,17 +9,16 @@ class Engineers extends React.Component {
   render() {
     return (
       <div className="engineer-page">
-        {/* <Link to="/">Back to Map</Link> */}
         <div className="user-show-header">
           <GiHamburgerMenu
             size={25}
             onClick={() => {
               this.props.openNavModal();
             }}
-            className="engineer-menu-icon-other"
+            className="menu-icon-other"
           />
-          <Link className="engineer-header-h1" to={"/"}>
-            <h1 className="engineer-header-logo">Busque</h1>
+          <Link className="user-header-h1" to={"/"}>
+            <h1 className="header-logo">Busque</h1>
           </Link>
         </div>
         <div className="engineer-block">
