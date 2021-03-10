@@ -135,6 +135,7 @@
   font-size: 3.125rem;
   line-height: 1.5;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .btn_2 {
@@ -145,11 +146,13 @@
   font-size: 1rem;
   text-align: center;
   cursor: pointer;
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
   outline: none;
   border-radius: 2px;
   width: 50%;
-  margin-left: 18%;
+  /* margin-left: 18%; */
+  margin: auto;
+  margin-bottom: 20%;
 }
 
 .btn-rounded_2 {
