@@ -62,21 +62,11 @@ class LoginForm extends Component {
 
     return (
       <div className="login-page-container">
-        <div className="user-header-main">
-          <GiHamburgerMenu
-            size={25}
-            onClick={() => {
-              this.props.openNavModal();
-            }}
-            className="menu-icon-other"
-          />
-          <Link className="user-header-h1-login" to={"/"}>
-            <h1 className="header-logo-login">Busque</h1>
-          </Link>
-        </div>
         <div className="login-page">
           <form className="login-form" onSubmit={this.handleSubmit}>
-            <div className="login-title header-logo">Busque</div>
+            <div className="login-title header-logo">
+              <Link to="/" className="login-home-link">Busque</Link>
+            </div>
             <div className="login-desc">Sign In</div>
             <div className="login-description">to continue to Busque</div>
             <input

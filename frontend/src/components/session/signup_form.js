@@ -92,22 +92,12 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="signup-page-container">
-        <div className="user-header-login">
-          <GiHamburgerMenu
-            size={25}
-            onClick={() => {
-              this.props.openNavModal();
-            }}
-            className="menu-icon-other"
-          />
-          <Link className="user-header-h1-login" to={"/"}>
-            <h1 className="header-logo-login">Busque</h1>
-          </Link>
-        </div>
         <div className="signup-page">
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
-              <div className="signup-title header-logo">Busque</div>
+              <div className="signup-title header-logo">
+                <Link to="/" className="login-home-link">Busque</Link>
+              </div>
               <div className="signup-desc">Sign Up</div>
               <div className="signup-description">to continue to Busque</div>
               <input
