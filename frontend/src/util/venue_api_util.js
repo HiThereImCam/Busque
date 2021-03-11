@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getVenues = () => {
-  return axios.get("api/venues");
+  return axios.get("api/venues/");
 };
 
 export const checkIn = (venueID, currentUser) => {

@@ -10,7 +10,7 @@ class VenueModal extends Component {
       venueType: "",
       photoId: "",
       photoFile: null,
-      imageURL: "",
+      imageURL: "https://busque-dev.s3-us-west-2.amazonaws.com/buskerlogo.jpg",
       errors: {},
       closeVenueModal: false,
     };
@@ -59,7 +59,7 @@ class VenueModal extends Component {
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
-        this.props.createVenue(venue, this.state.currentUser);
+        this.props.createVenue(venue, this.props.currentUser);
       });
     } else {
       let venue = {
@@ -121,12 +121,6 @@ class VenueModal extends Component {
                       <div className="venue-desc">
                         New Venue Name: {`${venueName}`}
                       </div>
-                      {/* <input
-                        type="text"
-                        value={this.state.venueName}
-                        onChange={this.update("venueName")}
-                        placeholder="Venue name"
-                      /> */}
                       <select
                         value={this.state.venueType}
                         onChange={this.update("venueType")}

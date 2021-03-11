@@ -58,9 +58,8 @@ class SignupForm extends React.Component {
           photoId: res.data.newData.photoId,
           imageURL: res.data.newData.Location,
         };
-        this.props
-          .signup(user)
-          .then(() => this.props.login(user))
+
+        this.props.signup(user).then(() => this.props.login(user));
       });
     } else {
       let user = {
@@ -72,18 +71,19 @@ class SignupForm extends React.Component {
         photoId: this.state.photoId,
         imageURL: this.state.imageURL,
       };
-      this.props
-        .signup(user)
-        .then(() => this.props.login(user))
+
+      this.props.signup(user).then(() => this.props.login(user));
     }
   }
 
   renderErrors() {
     let { errors } = this.props;
     return (
-      <ul>
+      <ul className="HeroPane-session-errors">
         {Object.keys(errors).map((error, i) => (
-          <li key={`error-${i}`}>{errors[error]}</li>
+          <li key={`error-${i}`} className="session-errors-signup">
+            {errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -92,22 +92,12 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="signup-page-container">
-        <div className="user-header-login">
-          <GiHamburgerMenu
-            size={25}
-            onClick={() => {
-              this.props.openNavModal();
-            }}
-            className="menu-icon-other"
-          />
-          <Link className="user-header-h1-login" to={"/"}>
-            <h1 className="header-logo-login">Busque</h1>
-          </Link>
-        </div>
         <div className="signup-page">
           <form onSubmit={this.handleSubmit}>
             <div className="signup-form">
-              <div className="signup-title header-logo">Busque</div>
+              <div className="signup-title header-logo">
+                <Link to="/" className="login-home-link">Busque</Link>
+              </div>
               <div className="signup-desc">Sign Up</div>
               <div className="signup-description">to continue to Busque</div>
               <input
@@ -153,13 +143,13 @@ class SignupForm extends React.Component {
                 type="file"
                 onChange={this.handleFile.bind(this)}
               />
+              {this.renderErrors()}
               <input
                 className="signup-button"
                 id="signup-button"
                 type="submit"
                 value="Sign up"
               />
-              {this.renderErrors()}
               <div className="form-footer-signup">
                 Have an account?&nbsp;
                 <Link className="footer-link" to="/login">
@@ -175,4 +165,5 @@ class SignupForm extends React.Component {
   }
 }
 
-export default (SignupForm);
+
+export default SignupForm;

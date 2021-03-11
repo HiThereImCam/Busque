@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import mapboxgl from "mapbox-gl";
-// import formatTime from "../../../config/formatTime";
+import userCheckInStatus from "../../config/userCheckInStatus";
 
 class Pin extends Component {
   constructor(props) {
@@ -9,10 +9,11 @@ class Pin extends Component {
     this.marker = new mapboxgl.Marker({
       color: "#4CBB17",
     });
+    this.popup = new mapboxgl.Popup();
     this.state = {
       available: venue.available,
       marker: this.marker,
-      popup: new mapboxgl.Popup(),
+      popup: this.popup,
     };
     this.buttonRef = React.createRef();
     this.handleCheckIn = this.handleCheckIn.bind(this);
@@ -50,7 +51,10 @@ class Pin extends Component {
         )
         .addTo(map);
     } else {
-      this.marker.togglePopup();
+      if (this.props.createdVenue === true) {
+        this.props.newestVenuePopup.remove();
+      }
+
       this.marker.remove();
       this.marker = new mapboxgl.Marker({
         color: "red",
@@ -79,12 +83,20 @@ class Pin extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    let { venue, map, isAuthenticated, users, userCheckedIn } = this.props;
+    let {
+      venue,
+      map,
+      isAuthenticated,
+      users,
+      venues,
+      curLoggedInUser,
+    } = this.props;
 
     let htmlContent;
+    let userVenueCheckedInStatus = userCheckInStatus(curLoggedInUser, venues);
     if (venue.available) {
       if (isAuthenticated) {
-        if (userCheckedIn === false) {
+        if (userVenueCheckedInStatus === false) {
           htmlContent = `
                     <div style="padding: 5px 3px 3px 3px;">
                       <h1>${venue.name}</h1>
@@ -118,7 +130,9 @@ class Pin extends Component {
         )
         .addTo(map);
     } else {
-      this.marker.togglePopup();
+      if (this.props.createdVenue === true) {
+        this.props.newestVenuePopup.remove();
+      }
       this.marker.remove();
       this.marker = new mapboxgl.Marker({
         color: "red",
@@ -149,10 +163,9 @@ class Pin extends Component {
   }
 
   handleCheckIn(venueID) {
-    let { curLoggedInUser, checkIn, checkUserIn } = this.props;
+    let { curLoggedInUser, checkIn } = this.props;
 
     checkIn(venueID, curLoggedInUser);
-    checkUserIn();
   }
 
   render() {

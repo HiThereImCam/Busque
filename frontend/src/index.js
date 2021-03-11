@@ -22,7 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setAuthToken(localStorage.jwtToken);
     const decodedUser = jwt_decode(localStorage.jwtToken);
     const preloadedState = {
-      session: { isAuthenticated: true, user: decodedUser },
+      session: {
+        isAuthenticated: true,
+        user: decodedUser,
+      },
     };
     store = configureStore(preloadedState);
 
@@ -38,19 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  // window.fetchAllComments = fetchAllComments; 
-  // window.createComment = createComment; 
-  // window.updateComment = updateComment; 
-  // window.deleteComment = deleteComment; 
-  // window.fetchUserComments = fetchUserComments;
-  // window.fetchVenueComments = fetchVenueComments;
-  // window.fetchAllLikes = fetchAllLikes; 
-  // window.fetchVenueLikes = fetchVenueLikes; 
-  // window.createLike = createLike; 
-  // window.deleteLike = deleteLike; 
-  // window.fetchUserLikes = fetchUserLikes; 
-  // window.fetchAllRatings = fetchAllRatings;
-  // window.createRating = createRating; 
 
   const root = document.getElementById("root");
   ReactDOM.render(<Root store={store} />, root);
