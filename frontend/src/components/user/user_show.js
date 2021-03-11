@@ -105,11 +105,11 @@ class UserShow extends React.Component {
       const user = this.props.user;
 
       let showRatingAvg = () => {
-        const ratingNums = [];
+        const ratingNums = []
         this.props.ratings.forEach((rating) => {
-          if (rating.user === this.props.user._id) {
-            ratingNums.push(rating.rating)
-          }
+            if (rating.user === this.props.user._id) {
+                ratingNums.push(rating.rating)
+            }
         })
 
         if (ratingNums.length > 0) {
