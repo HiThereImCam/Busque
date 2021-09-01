@@ -7,7 +7,8 @@ import {
 import { openNavModal } from "../../actions/nav_actions";
 import { fetchUsers } from "../../actions/user_actions";
 import { openVenueModal } from "../../actions/venue_actions";
-import MapBox from "./mapbox";
+// import MapBox from "./mapbox";
+import Mapbox from "./mapbox_w_hooks";
 
 //checkOut
 
@@ -30,4 +31,4 @@ const mapDispatchToProps = (dispatch) => ({
   // checkOut: () => dispatch(checkOut()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapBox);
+export default connect(mapStateToProps, mapDispatchToProps)(Mapbox);
