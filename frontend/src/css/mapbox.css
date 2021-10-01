@@ -27,7 +27,7 @@
 }
 
 .menu-icon {
-  margin-left: 247px;
+  margin-left: 244px;
   border-radius: 4px;
   background-color: white;
   padding: 9px 8px 10px 8px;
@@ -35,6 +35,7 @@
   color: light-grey;
   fill: #757575;
   position: absolute;
+  z-index: 8;
 }
 
 .menu-icon:hover {

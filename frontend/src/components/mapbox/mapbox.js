@@ -108,6 +108,14 @@ class MapBox extends Component {
     };
   }
 
+  /**
+   * Shouldnt have to pass is authenticated to createVenue
+   * lift state to mapbox component
+   *
+   *
+   * this should be turned into something like addNewVenue
+   */
+
   createNewVenue() {
     let { isAuthenticated } = this.props;
     let htmlContent;
