@@ -33,8 +33,13 @@ function Mapbox(props) {
     }
   );
 
+  // const [lng, setLng] = useState(-122.4363143);
+  // const [lat, setLat] = useState(37.7461108);
+  // const [zoom, setZoom] = useState(12);
+
   const mapContainer = useRef(null);
   const map = useRef(null);
+
   const geocoder = useRef(null);
   const openNavModal = props.openNavModal;
   useEffect(() => {
@@ -47,23 +52,23 @@ function Mapbox(props) {
     });
 
     // clean up on unmount
-    return () => map.current.remove();
+    // return () => map.current.remove();
   });
 
   // storing new coordinates when the map moves
-
   useEffect(() => {
     if (!map.current) return;
-    map.current.on("", () => {
+
+    map.current.on("move", () => {
       setState({
-        lng: this.map.getCenter().lng.toFixed(4),
-        lat: this.map.getCenter().lat.toFixed(4),
-        zoom: this.map.getZoom().toFixed(2),
+        lng: map.current.getCenter().lng.toFixed(4),
+        lat: map.current.getCenter().lat.toFixed(4),
+        zoom: map.current.getZoom().toFixed(2),
       });
     });
   });
 
-  // add MapboxGeocoder
+  // // add MapboxGeocoder
 
   useEffect(() => {
     if (!map.current) return;
@@ -73,9 +78,11 @@ function Mapbox(props) {
       mapboxgl: mapboxgl,
     });
 
-    console.log("add control: ", map.current.addControl);
     map.current.addControl(geocoder.current, "top-left");
-  });
+
+    console.log("geocoder.current: ", geocoder.current);
+    // return () => geocoder.current.remove();
+  }, []);
 
   // store geocoder coordinates
 
@@ -93,12 +100,12 @@ function Mapbox(props) {
 
       setState({ resultCoordinate: resultCoordinates });
 
-      if (checkVenues(this.props.venues, resultCoordinates)) {
-        this.props.setVenueNameAndCoordinates({
-          coordinates: e.result.geometry.coordinates,
-          venueName: e.result.text,
-        });
-      }
+      // if (checkVenues(this.props.venues, resultCoordinates)) {
+      //   this.props.setVenueNameAndCoordinates({
+      //     coordinates: e.result.geometry.coordinates,
+      //     venueName: e.result.text,
+      //   });
+      // }
     });
   });
 

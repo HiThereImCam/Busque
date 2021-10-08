@@ -1,23 +1,22 @@
 /**
  * This checks the  coordinates of the current venue
- * If the the coordinate exists, it returns true
- * if the coodinate doesn't, return false meaning that the user
- * can create a new venue
+ * If the the coordinate exists, do not create a new venue (false)
+ * if the coodinate doesn't, create a new venue (true)
  */
 
 let checkVenues = (venues, coordinates) => {
-  let sameVenue = false;
+  let createNewVenue = true;
 
   venues.forEach((venue) => {
     if (
       coordinates[0].toString() === venue.coordinate[0].toString() &&
       coordinates[1].toString() === venue.coordinate[1].toString()
     ) {
-      sameVenue = true;
+      createNewVenue = false;
     }
   });
 
-  return sameVenue;
+  return createNewVenue;
 };
 
 export default checkVenues;
