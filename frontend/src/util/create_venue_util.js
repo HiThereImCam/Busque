@@ -1,7 +1,9 @@
 import mapboxgl from "mapbox-gl";
-import "../../css/mapbox.css";
+// import "../../css/mapbox.css";
 
 /**
+ * 
+ * this is a marker and button
  * 
  *     this.marker = new mapboxgl.Marker();
 
@@ -12,38 +14,41 @@ import "../../css/mapbox.css";
  * 
  */
 
-let createNewVenue = () => {
-  let { isAuthenticated } = this.props;
-  let htmlContent;
-  if (isAuthenticated) {
-    htmlContent = `<div>
-                        <button onclick="openVenueModal()">Create New Venue</button>
-                      </div>
-    `;
-  } else {
-    htmlContent = `
-        <div>
-          <button onclick="redirectLogin()" ref=${this.buttonVenueRef.current}>Login to create a new venue</button>
-        </div>
-      `;
-  }
+let createNewVenue = (props) => {
+  const { map, resultCoordinates } = props;
 
-  this.newVenueMarker = this.marker;
-  this.newVenuePopup = new mapboxgl.Popup();
-  this.setState({
-    newestVenuePopup: this.newVenuePopup,
-    createdVenue: true,
-  });
+  //   let { isAuthenticated } = this.props;
+  //   let htmlContent;
+  //   if (isAuthenticated) {
+  //     htmlContent = `<div>
+  //                         <button onclick="openVenueModal()">Create New Venue</button>
+  //                       </div>
+  //     `;
+  //   } else {
+  //     htmlContent = `
+  //         <div>
+  //           <button onclick="redirectLogin()" ref=${this.buttonVenueRef.current}>Login to create a new venue</button>
+  //         </div>
+  //       `;
+  //   }
 
-  this.newVenueMarker
-    .setLngLat(this.state.resultCoordinate)
-    .setPopup(
-      this.newVenuePopup
-        .setLngLat(this.state.resultCoordinate)
-        .setHTML(htmlContent)
-    )
-    .addTo(this.map);
-  this.newVenueMarker.togglePopup();
+  let newVenueMarker = new mapboxgl.Marker();
+  //   this.newVenuePopup = new mapboxgl.Popup();
+  //   this.setState({
+  //     newestVenuePopup: this.newVenuePopup,
+  //     createdVenue: true,
+  //   });
+
+  //   newVenueMarker
+  //     .setLngLat(resultCoordinates)
+  //     .setPopup(
+  //       this.newVenuePopup
+  //         .setLngLat(this.state.resultCoordinate)
+  //         .setHTML(htmlContent)
+  //     )
+  //     .addTo(map.current);
+  //   newVenueMarker.togglePopup();
+  console.log("create_venue_util line 47 props: ", props);
 };
 
 export default createNewVenue;

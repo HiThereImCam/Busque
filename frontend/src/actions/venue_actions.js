@@ -28,7 +28,7 @@ export const closeVenueModal = (value) => ({
   value,
 });
 
-export const setVenNameAndCoord = (venNameAndCoord) => ({
+export const setVenueNameAndCoordinates = (venNameAndCoord) => ({
   type: SET_VENUENAME_AND_COORDINATES,
   venNameAndCoord,
 });

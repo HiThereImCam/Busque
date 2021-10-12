@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useReducer,
-  useEffect,
-  useState,
-  Fragment,
-} from "react";
+import React, { useRef, useReducer, useEffect, Fragment } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 import mapboxgl from "mapbox-gl";
@@ -13,6 +7,7 @@ import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import checkVenues from "../../config/checkVenues";
+import createNewVenue from "../../util/create_venue_util";
 import mapboxButtons from "../buttons/mapboxButtons";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
@@ -20,6 +15,13 @@ const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 mapboxgl.accessToken = REACT_APP_MAPBOX_KEY;
 
 function Mapbox(props) {
+  const { setVenueNameAndCoordinates, venues } = props;
+
+  console.log(
+    "setVenueNameAndCoordinates line 20: ",
+    setVenueNameAndCoordinates
+  );
+
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -33,15 +35,13 @@ function Mapbox(props) {
     }
   );
 
-  // const [lng, setLng] = useState(-122.4363143);
-  // const [lat, setLat] = useState(37.7461108);
-  // const [zoom, setZoom] = useState(12);
-
   const mapContainer = useRef(null);
   const map = useRef(null);
 
   const geocoder = useRef(null);
   const openNavModal = props.openNavModal;
+
+  // create new instance of map
   useEffect(() => {
     if (map.current) return; // intialize map only once
     map.current = new mapboxgl.Map({
@@ -50,9 +50,6 @@ function Mapbox(props) {
       center: [state.lng, state.lat],
       zoom: state.zoom,
     });
-
-    // clean up on unmount
-    // return () => map.current.remove();
   });
 
   // storing new coordinates when the map moves
@@ -90,9 +87,6 @@ function Mapbox(props) {
     if (!map.current) return;
 
     geocoder.current.on("result", (e) => {
-      // let resultCoordinates = e.result.geometry.coordinates;
-      // let resultVenueName = e.result.text;
-
       let resultCoordinates = [
         e.result.geometry.coordinates[0],
         e.result.geometry.coordinates[1],
@@ -100,12 +94,14 @@ function Mapbox(props) {
 
       setState({ resultCoordinate: resultCoordinates });
 
-      // if (checkVenues(this.props.venues, resultCoordinates)) {
-      //   this.props.setVenueNameAndCoordinates({
-      //     coordinates: e.result.geometry.coordinates,
-      //     venueName: e.result.text,
-      //   });
-      // }
+      // if venue dne, create new venue
+      if (checkVenues(venues, resultCoordinates)) {
+        setVenueNameAndCoordinates({
+          coordinates: e.result.geometry.coordinates,
+          venueName: e.result.text,
+        });
+        createNewVenue({ map, resultCoordinates });
+      }
     });
   });
 
