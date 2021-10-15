@@ -1,17 +1,13 @@
 import mapboxgl from "mapbox-gl";
+import marker from "../components/mapbox/marker/marker";
+import popup from "../components/mapbox/popup/popup";
+
+import "../css/popup.css";
 // import "../../css/mapbox.css";
 
 /**
- * 
- * this is a marker and button
- * 
- *     this.marker = new mapboxgl.Marker();
-
- * 
- * props needed
- * 
- * this.map = current instance of map
- * 
+ *
+ *
  */
 
 let createNewVenue = (props) => {
@@ -32,23 +28,22 @@ let createNewVenue = (props) => {
   //       `;
   //   }
 
-  let newVenueMarker = new mapboxgl.Marker();
   //   this.newVenuePopup = new mapboxgl.Popup();
   //   this.setState({
   //     newestVenuePopup: this.newVenuePopup,
   //     createdVenue: true,
   //   });
 
-  //   newVenueMarker
-  //     .setLngLat(resultCoordinates)
-  //     .setPopup(
-  //       this.newVenuePopup
-  //         .setLngLat(this.state.resultCoordinate)
-  //         .setHTML(htmlContent)
-  //     )
-  //     .addTo(map.current);
-  //   newVenueMarker.togglePopup();
-  console.log("create_venue_util line 47 props: ", props);
+  let htmlContent = `<div classname="popup">
+                          <button onclick="openVenueModal()">Create New Venue</button>
+                        </div>
+      `;
+
+  marker()
+    .setLngLat(resultCoordinates)
+    .setPopup(popup().setLngLat(resultCoordinates).setHTML(htmlContent))
+    .addTo(map.current);
+  marker().togglePopup();
 };
 
 export default createNewVenue;

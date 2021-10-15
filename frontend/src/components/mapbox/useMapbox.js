@@ -63,7 +63,7 @@ function Mapbox(props) {
         zoom: map.current.getZoom().toFixed(2),
       });
     });
-  });
+  }, [state.lng, state.lat]);
 
   // // add MapboxGeocoder
 
