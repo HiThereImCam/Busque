@@ -1,6 +1,2 @@
-.popup {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: lightblue;
+.mapboxgl-popup-content {
 }

@@ -34,14 +34,13 @@ let createNewVenue = (props) => {
   //     createdVenue: true,
   //   });
 
-  let htmlContent = `<div classname="popup">
-                          <button onclick="openVenueModal()">Create New Venue</button>
-                        </div>
+  let openVenueModal = `
+      <button style="margin:3px"onclick="openVenueModal()">Create New Venue</button>                  
       `;
 
   marker()
     .setLngLat(resultCoordinates)
-    .setPopup(popup().setLngLat(resultCoordinates).setHTML(htmlContent))
+    .setPopup(popup().setLngLat(resultCoordinates).setHTML(openVenueModal))
     .addTo(map.current);
   marker().togglePopup();
 };

@@ -7,7 +7,7 @@ import mapboxgl from "mapbox-gl";
  */
 
 let popup = () => {
-  let newVenuePopup = new mapboxgl.Popup({ className: "popup" });
+  let newVenuePopup = new mapboxgl.Popup();
   return newVenuePopup;
 };
 
