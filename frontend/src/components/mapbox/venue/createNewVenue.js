@@ -1,6 +1,8 @@
-import { connect } from "react-redux";
-import { openVenueModal } from "../../actions/venue_actions";
-import MapboxButtons from "../../buttons/mapboxButtons";
+// import { useRef } from "react";
+import marker from "../marker/marker";
+import popup from "../popup/popup";
+import mapboxButtons from "../../buttons/mapboxButtons";
+import "../../../css/popup.css";
 // setDOMContent(htmlNode)
 // pass in a ref?
 
@@ -13,16 +15,21 @@ import MapboxButtons from "../../buttons/mapboxButtons";
  * @returns
  */
 
-function createNewVenue({ isAuthenticated }) {
-  return (
-    <div>
-      <MapboxButtons authentication={isAuthenticated} />
-    </div>
-  );
+function createNewVenue({
+  map,
+  resultCoordinates,
+  openVenueModal,
+  isAuthenticated,
+}) {
+  let button = mapboxButtons(openVenueModal, isAuthenticated);
+
+  marker()
+    .setLngLat(resultCoordinates)
+    .setPopup(popup().setLngLat(resultCoordinates).setDOMContent(button))
+    .addTo(map.current);
+  marker().togglePopup();
+
+  return null;
 }
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.session.isAuthenticated,
-});
-
-export default connect(mapStateToProps)(createNewVenue);
+export default createNewVenue;

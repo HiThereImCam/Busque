@@ -1,7 +1,8 @@
-import mapboxgl from "mapbox-gl";
+// import { connect } from "react-redux";
+// import { openVenueModal } from "../actions/venue_actions";
+import { useRef } from "react";
 import marker from "../components/mapbox/marker/marker";
 import popup from "../components/mapbox/popup/popup";
-
 import "../css/popup.css";
 // import "../../css/mapbox.css";
 
@@ -10,9 +11,8 @@ import "../css/popup.css";
  *
  */
 
-let createNewVenue = (props) => {
-  const { map, resultCoordinates } = props;
-
+function createNewVenue({ map, resultCoordinates, openVenueModal }) {
+  // let { map, resultCoordinates } = props;
   //   let { isAuthenticated } = this.props;
   //   let htmlContent;
   //   if (isAuthenticated) {
@@ -34,15 +34,31 @@ let createNewVenue = (props) => {
   //     createdVenue: true,
   //   });
 
-  let openVenueModal = `
-      <button style="margin:3px"onclick="openVenueModal()">Create New Venue</button>                  
-      `;
+  // let openModalRef = useRef(openVenueModal);
+
+  // let newVenueButton = `
+  //     <button style="margin:3px"onclick="${openModalRef.current}">Create New Venue</button>
+  //     `;
+  let newVenueBtn = document.createElement("div");
+  newVenueBtn.innerHTML = `<button style="margin:3px">Create New Venue</button>`;
+
+  newVenueBtn.addEventListener("click", (e) => {
+    openVenueModal();
+  });
 
   marker()
     .setLngLat(resultCoordinates)
-    .setPopup(popup().setLngLat(resultCoordinates).setHTML(openVenueModal))
+    .setPopup(popup().setLngLat(resultCoordinates).setDOMContent(newVenueBtn))
     .addTo(map.current);
   marker().togglePopup();
-};
+
+  // return <div></div>;
+}
+
+// const mapDispatchToProps = (dispatch) => ({
+//   openVenueModal: () => dispatch(openVenueModal(true)),
+// });
+
+// export default connect(mapDispatchToProps)(createNewVenue);
 
 export default createNewVenue;

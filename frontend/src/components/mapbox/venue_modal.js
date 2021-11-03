@@ -114,49 +114,45 @@ class VenueModal extends Component {
               ref={this.modalChild}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="signup-page-container">
-                <div className="venue-create-page">
-                  <form onSubmit={this.handleSubmit}>
-                    <div className="venue-create-form">
-                      <div className="venue-desc">
-                        New Venue Name: {`${venueName}`}
-                      </div>
-                      <select
-                        value={this.state.venueType}
-                        onChange={this.update("venueType")}
-                      >
-                        <option value="" disabled>
-                          Venue Type
-                        </option>
-                        <option value="Tourist Attraction">
-                          Tourist Attraction
-                        </option>
-                        <option value="Historical Site">Historical Site</option>
-                        <option value="Street Corner">Street Corner</option>
-                        <option value="Transit Station<">
-                          Transit Station
-                        </option>
-                        <option value="Other">Other</option>
-                      </select>
-                      <div className="venue-pic-upload-desc">
-                        Upload a Venue Picture:
-                      </div>
-                      <input
-                        className="input-file"
-                        id="venue-create-profile"
-                        type="file"
-                        onChange={this.handleFile.bind(this)}
-                      />
-                      <input
-                        className="venue-create-button"
-                        id="venue-create-button"
-                        type="submit"
-                        value="Create Venue"
-                      />
-                      {this.renderErrors()}
+              <div className="venue-create-page">
+                <form onSubmit={this.handleSubmit}>
+                  <div className="venue-create-form">
+                    <div className="venue-desc">
+                      New Venue Name: {`${venueName}`}
                     </div>
-                  </form>
-                </div>
+                    <select
+                      value={this.state.venueType}
+                      onChange={this.update("venueType")}
+                    >
+                      <option value="" disabled>
+                        Venue Type
+                      </option>
+                      <option value="Tourist Attraction">
+                        Tourist Attraction
+                      </option>
+                      <option value="Historical Site">Historical Site</option>
+                      <option value="Street Corner">Street Corner</option>
+                      <option value="Transit Station<">Transit Station</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div className="venue-pic-upload-desc">
+                      Upload a Venue Picture:
+                    </div>
+                    <input
+                      className="input-file"
+                      id="venue-create-profile"
+                      type="file"
+                      onChange={this.handleFile.bind(this)}
+                    />
+                    <input
+                      className="venue-create-button"
+                      id="venue-create-button"
+                      type="submit"
+                      value="Create Venue"
+                    />
+                    {this.renderErrors()}
+                  </div>
+                </form>
               </div>
             </div>
           </div>

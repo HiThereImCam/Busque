@@ -1,26 +1,23 @@
 import React, { useRef, useReducer, useEffect, Fragment } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "../../css/mapbox.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import checkVenues from "../../config/checkVenues";
-import createNewVenue from "../../util/create_venue_util";
-import mapboxButtons from "../buttons/mapboxButtons";
+import { Link } from "react-router-dom";
+// import createNewVenue from "./venue/CreateNewVenue";
+import createNewVenue from "./venue/createNewVenue";
+// import createNewVenue from "../../util/createNewVenue_util";
+// import mapboxButtons from "../buttons/mapboxButtons";
 
 const REACT_APP_MAPBOX_KEY = process.env.REACT_APP_MAPBOX_KEY;
 
 mapboxgl.accessToken = REACT_APP_MAPBOX_KEY;
 
-function Mapbox(props) {
+function useMapbox(props) {
   const { setVenueNameAndCoordinates, venues } = props;
-
-  console.log(
-    "setVenueNameAndCoordinates line 20: ",
-    setVenueNameAndCoordinates
-  );
 
   const [state, setState] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
@@ -40,6 +37,8 @@ function Mapbox(props) {
 
   const geocoder = useRef(null);
   const openNavModal = props.openNavModal;
+  const openVenueModal = props.openVenueModal;
+  const isAuthenticated = props.isAuthenticated;
 
   // create new instance of map
   useEffect(() => {
@@ -100,7 +99,27 @@ function Mapbox(props) {
           coordinates: e.result.geometry.coordinates,
           venueName: e.result.text,
         });
-        createNewVenue({ map, resultCoordinates });
+        createNewVenue({
+          map,
+          resultCoordinates,
+          openVenueModal,
+          isAuthenticated,
+        });
+        // CreateNewVenue({
+        //   map,
+        //   resultCoordinates,
+        //   openVenueModal,
+        //   isAuthenticated,
+        // });
+
+        // return (
+        //   <CreateNewVenue
+        //     map={map}
+        //     resultCoordinates={resultCoordinates}
+        //     isAuthenticated={isAuthenticated}
+        //     openVenueModal={openVenueModal}
+        //   />
+        // );
       }
     });
   });
@@ -117,8 +136,9 @@ function Mapbox(props) {
           />
         </div>
       </div>
+      <Link to="/login" id="redirectToLogin" />
     </Fragment>
   );
 }
 
-export default Mapbox;
+export default useMapbox;
